@@ -27,6 +27,21 @@ class EquipamentosTable extends Table
         $this->table('equipamentos');
         $this->displayField('id');
         $this->primaryKey('id');
+
+        $this->belongsTo('locals', [
+            'className' => 'Locals',
+            'bindingKey' => 'codLocal',
+            'foreignKey' => 'codigo',
+            'joinType' => 'INNER'
+        ]);        
+
+        $this->belongsTo('TipoEquipamentos', [
+            'className' => 'TipoEquipamentos',
+            'bindingKey' => 'tipo',
+            'foreignKey' => 'id_tipo',
+            'joinType' => 'INNER'
+        ]);
+
     }
 
     /**

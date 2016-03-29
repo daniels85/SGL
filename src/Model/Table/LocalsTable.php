@@ -27,6 +27,40 @@ class LocalsTable extends Table
         $this->table('locals');
         $this->displayField('id');
         $this->primaryKey('id');
+
+        $this->hasOne('Equipamentos', [
+            'foreignKey' => 'codLocal',
+            'bindingKey' => 'codigo',
+            'joinType' => 'INNER'
+        ]);
+
+        $this->belongsToMany('UserLocals', [
+            'className' => 'UserLocals',
+            'foreignKey' => 'local_codigo',
+            'bindingKey' => 'codigo',
+            'joinType' => 'INNER'
+        ]);
+
+        $this->belongsToMany('Users', [
+            'className' => 'Users',
+            'foreignKey' => 'matricula',
+            'joinType' => 'INNER'
+        ]);
+
+        $this->belongsToMany('UsersCordenador', [
+            'className' => 'Users',
+            'foreignKey' => 'matricula',
+            'bindingKey' => 'coordenador',
+            'joinType' => 'INNER'
+        ]);
+
+        $this->belongsToMany('UsersBolsista', [
+            'className' => 'Users',
+            'foreignKey' => 'matricula',
+            'bindingKey' => 'bolsista',
+            'joinType' => 'INNER'
+        ]);
+
     }
 
     /**
@@ -49,12 +83,6 @@ class LocalsTable extends Table
             ->requirePresence('codigo', 'create')
             ->notEmpty('codigo')
             ->add('codigo', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-
-        $validator
-            ->allowEmpty('coordenador');
-
-        $validator
-            ->allowEmpty('bolsista');
 
         $validator
             ->requirePresence('tipo', 'create')
