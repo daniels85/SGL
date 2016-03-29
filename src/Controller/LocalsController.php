@@ -20,6 +20,8 @@ class LocalsController extends AppController
     public function index()
     {
         $locals = $this->paginate($this->Locals);
+       
+
 
         $this->set(compact('locals'));
         $this->set('_serialize', ['locals']);
@@ -93,6 +95,7 @@ class LocalsController extends AppController
         $userLocalsBolsista = $userLocalsTable->newEntity();
 
         if ($this->request->is('post')) {
+
             $local = $this->Locals->patchEntity($local, $this->request->data);
 
             $userLocalsCoordenador->local_codigo = $this->request->data['codigo'];
@@ -127,6 +130,14 @@ class LocalsController extends AppController
         $local = $this->Locals->get($id, [
             'contain' => []
         ]);
+
+        $userLocalsTable = TableRegistry::get('UserLocals');
+        $userLocalsBolsistas = $userLocalsTable->find('all', [
+            'conditions' => [
+                'local_codigo' => $local->codigo
+            ]
+        ])->toArray();
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $local = $this->Locals->patchEntity($local, $this->request->data);
             if ($this->Locals->save($local)) {
@@ -136,7 +147,9 @@ class LocalsController extends AppController
                 $this->Flash->error(__('The local could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('local'));
+        $professores = $this->Locals->Users->find('all', ['conditions' => ['role' => 'Professor']]);
+        $bolsistas = $this->Locals->Users->find('all', ['conditions' => ['role' => 'Bolsista']]);
+        $this->set(compact('local', 'professores', 'bolsistas', 'userLocalsBolsistas'));
         $this->set('_serialize', ['local']);
     }
 

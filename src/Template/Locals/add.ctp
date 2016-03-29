@@ -8,14 +8,16 @@
 
 	<label>Coordenador: </label> 
 	<select name="coordenador">
-		<?php  foreach($professores as $professores) ?>
-		<option <?= ("value='$professores->matricula'") ?> > <?= ($professores->nome." - Matrícula: ".$professores->matricula) ?> </option>
+		<?php  foreach($professores as $professores): ?>
+			<option <?= ("value='$professores->matricula'") ?> > <?= ($professores->nome." - Matrícula: ".$professores->matricula) ?> </option>
+		<?php endforeach; ?>
 	</select>
 
 	<label>Bolsista: </label> 
 	<select name="bolsista">
-		<?php  foreach($bolsistas as $bolsista) ?>
-		<option <?= ("value='$bolsista->matricula'") ?> > <?= ($bolsista->nome." - Matrícula: ".$bolsista->matricula) ?> </option>
+		<?php  foreach($bolsistas as $bolsista): ?>
+			<option <?= ("value='$bolsista->matricula'") ?> > <?= ($bolsista->nome." - Matrícula: ".$bolsista->matricula) ?> </option>
+		<?php endforeach; ?>
 	</select>
 
 	<label>Tipo: </label> <input type="text" name="tipo" placeholder="Tipo" required>
