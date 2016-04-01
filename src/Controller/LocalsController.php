@@ -12,6 +12,11 @@ use Cake\ORM\TableRegistry;
 class LocalsController extends AppController
 {
 
+    public function initialize(){
+        parent::initialize();
+        $this->loadComponent('RequestHandler');
+    }
+
     /**
      * Index method
      *
@@ -72,11 +77,12 @@ class LocalsController extends AppController
                         ->all()
                         ->toArray();
 
+        
         $this->set('local', $local);
         $this->set('coordenador', $coordenador);
+       
         $this->set('bolsistas', $bolsistas);
-
-        $this->set('_serialize', ['local']);
+        $this->set('_serialize', ['bolsistas']);
 
     }
 
@@ -89,20 +95,30 @@ class LocalsController extends AppController
     {
         $local = $this->Locals->newEntity();
         $userLocalsTable = TableRegistry::get('UserLocals');
-        $userLocalsBolsista = $userLocalsTable->newEntity();
 
         if ($this->request->is('post')) {
 
-            $local = $this->Locals->patchEntity($local, $this->request->data);
+            $local = $this->Locals->patchEntity($local, $this->request->data);         
 
-            $userLocalsBolsista->local_codigo = $this->request->data['codigo'];
-            $userLocalsBolsista->user_matricula = $this->request->data['bolsista'];
+            if ($this->Locals->save($local)) {
 
-            if ($this->Locals->save($local) && $this->Locals->UserLocals->save($userLocalsBolsista)) {
-                $this->Flash->success(__('The local has been saved.'));
+                foreach (array_unique($this->request->data['bolsistas']) as $bolsista) {
+                    if($bolsista != ''){
+
+                        $userLocalsBolsista = $userLocalsTable->newEntity();
+                        $userLocalsBolsista->local_codigo = $this->request->data['codigo'];
+                        $userLocalsBolsista->user_matricula = $bolsista;
+
+                        $userLocalsTable->save($userLocalsBolsista);
+
+                    }
+                }
+
+                $this->Flash->success(__('Local salvo com sucesso.'));
                 return $this->redirect(['action' => 'index']);
+
             } else {
-                $this->Flash->error(__('The local could not be saved. Please, try again.'));
+                $this->Flash->error(__('Erro ao cadastrar local. Tente novamente.'));
             }
         }
 

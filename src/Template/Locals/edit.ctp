@@ -8,7 +8,7 @@
 
 
 	<label>Coordenador: </label> 
-	<select name="coordenador">
+	<select name="coordenador" >
 		<option value=""></option>
 		<?php  foreach($professores as $professor): ?>
 			<option 
@@ -27,8 +27,9 @@
 	</select>
 
 	<label>Bolsista: </label> 
+
 	<select name="bolsista[]">
-			<option value=""></option>
+		<option value=""></option>
 		<?php  foreach($bolsistas as $key => $bolsista): ?>
 			<option <?= ("value='$bolsista->matricula'") ?> 
 				<?php foreach($userLocalsBolsistas as $userLocalsBolsista){
@@ -44,8 +45,22 @@
 		<?php endforeach; ?>
 	</select>
 
+	<select name="bolsista[]">
+		<option value=""></option>
+		<?php  foreach($bolsistas as $key => $bolsista): ?>
+			<option <?= ("value='$bolsista->matricula'") ?> 
+				<?php foreach($userLocalsBolsistas as $userLocalsBolsista){
+						if($bolsista->matricula == $userLocalsBolsista->user_matricula){
+							echo "selected";
+							unset($bolsistas[$key]);
+						}
+					}
+			 	?> > 
 
-	<?php var_dump($bolsistas); ?>
+				<?= ($bolsista->nome." - Matrícula: ".$bolsista->matricula) ?> 
+			</option>
+		<?php endforeach; ?>
+	</select>
 
 	<label>Tipo: </label> <input type="text" name="tipo" <?= ('value="'.$local->tipo.'"') ?> required>
 	
