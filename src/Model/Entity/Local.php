@@ -10,7 +10,6 @@ use Cake\ORM\Entity;
  * @property string $nome
  * @property string $codigo
  * @property string $coordenador
- * @property string $bolsista
  * @property string $tipo
  */
 class Local extends Entity

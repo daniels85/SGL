@@ -1,6 +1,6 @@
 <?php 
 	use Cake\ORM\TableRegistry;
-	$userLocalsTable = TableRegistry::get('UserLocals');
+	
 	$usersTable = TableRegistry::get('Users');
 ?>
 <table>
@@ -24,27 +24,17 @@
 
 				<?php 
 
-					$userLocals = $userLocalsTable->find('all', [						
-						'conditions' => [
-							'local_codigo' => $local->codigo
-						]
-					])->toArray();
-
-					foreach($userLocals as $user){
-						$coordenador[] = $usersTable->find('list', [
-							'keyField' => 'role',
-							'valueField' => 'nome',
-							'conditions' => [
-								'matricula' => $user->user_matricula,
-								'role' => 'Professor'
-							]
-						])->toArray();
-					}
-
+					$coordenador = $usersTable
+		                            ->find('all')
+		                            ->select(['nome', 'matricula', 'role'])
+		                            ->where(['matricula' => $local->coordenador])->first();
 				?>
 
-				<td><?= var_dump($coordenador) ?></td>
-				<td><a <?= ('href="/Locals/view/'.$local->id.'"') ?> >Ver</a></td>
+				<td><?php if($coordenador){ echo $coordenador->nome; } ?></td>
+				<td>
+					<a <?= ('href="/Locals/view/'.$local->id.'"') ?> >Ver</a>
+					<a <?= ('href="/Locals/edit/'.$local->id.'"') ?> >&nbsp;Editar</a>
+				</td>
 
 			</tr>
 		<?php endforeach; ?>

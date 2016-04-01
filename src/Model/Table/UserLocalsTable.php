@@ -41,7 +41,7 @@ class UserLocalsTable extends Table
             'bindingKey' => 'user_matricula',
             'joinType' => 'INNER'
         ]);
-
+        
     }
 
     /**

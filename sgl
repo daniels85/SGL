@@ -1,0 +1,3 @@
+#!/bin/bash
+
+/home/ivanov/Documentos/sgl/bin/cake server -p 8080

@@ -27,9 +27,9 @@ class UsersTable extends Table
         $this->table('users');
         $this->displayField('id');
         $this->primaryKey('id');
-
+    
         $this->belongsTo('LocalsCoordenador', [
-            'className' => 'Users',
+            'className' => 'Locals',
             'bindingKey' => 'matricula',
             'joinType' => 'INNER'
         ]);
@@ -72,6 +72,9 @@ class UsersTable extends Table
             ->requirePresence('matricula', 'create')
             ->notEmpty('matricula')
             ->add('matricula', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
+            ->allowEmpty('role');
 
         $validator
             ->allowEmpty('cadastradoPor');

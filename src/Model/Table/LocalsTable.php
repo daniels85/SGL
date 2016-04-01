@@ -28,7 +28,8 @@ class LocalsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->hasOne('Equipamentos', [
+        $this->hasMany('Equipamentos', [
+            'className' => 'Equipamentos',
             'foreignKey' => 'codLocal',
             'bindingKey' => 'codigo',
             'joinType' => 'INNER'
@@ -42,12 +43,6 @@ class LocalsTable extends Table
         ]);
 
         $this->belongsToMany('Users', [
-            'className' => 'Users',
-            'foreignKey' => 'matricula',
-            'joinType' => 'INNER'
-        ]);
-
-        $this->belongsToMany('UsersCordenador', [
             'className' => 'Users',
             'foreignKey' => 'matricula',
             'bindingKey' => 'coordenador',
@@ -83,6 +78,10 @@ class LocalsTable extends Table
             ->requirePresence('codigo', 'create')
             ->notEmpty('codigo')
             ->add('codigo', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
+            ->requirePresence('coordenador', 'create')
+            ->notEmpty('coordenador');
 
         $validator
             ->requirePresence('tipo', 'create')

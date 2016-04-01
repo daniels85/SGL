@@ -20,8 +20,6 @@ class LocalsController extends AppController
     public function index()
     {
         $locals = $this->paginate($this->Locals);
-       
-
 
         $this->set(compact('locals'));
         $this->set('_serialize', ['locals']);
@@ -34,8 +32,8 @@ class LocalsController extends AppController
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
+    public function view($id = null) {
+
         $local = $this->Locals->get($id, [
             'contain' => []
         ]);
@@ -43,43 +41,43 @@ class LocalsController extends AppController
         $userLocalsTable = TableRegistry::get('UserLocals');
         $usersTable = TableRegistry::get('Users');
 
-        $usersLocal = $userLocalsTable->find('all', 
-            [
-                'conditions' => 
-                [
-                    'local_codigo' => $local->codigo 
-                ] 
-            ]
-        );
+        /** Coordenador **/
 
-        $coordenadoresQuery = [];
+        $coordenador = $usersTable
+                            ->find('all')
+                            ->select(['nome', 'matricula', 'role'])
+                            ->where(['matricula' => $local->coordenador])
+                            ->first();
 
-        foreach ($usersLocal as $user) {
-            $coordenadoresQuery[] = $usersTable->find('all', ['conditions' => ['role' => 'Professor', 'matricula' => $user->user_matricula]]);
+        
+        /** Bolsistas **/
+
+        $usersLocal = $userLocalsTable
+                            ->find()
+                            ->select(['user_matricula'])
+                            ->where(['local_codigo' => $local->codigo])
+                            ->all()
+                            ->toArray();
+
+        $matBolsistas = array('');
+
+        foreach($usersLocal as $userLocal){
+            $matBolsistas[] = $userLocal->user_matricula;
         }
 
-        foreach ($coordenadoresQuery as $query) {
-            foreach ($query as $q) {
-                $coordenadores[] = $q;
-            }
-        }
-
-        $bolsistasQuery = [];
-
-        foreach ($usersLocal as $user) {
-            $bolsistasQuery[] = $usersTable->find('all', ['conditions' => ['role' => 'Bolsista', 'matricula' => $user->user_matricula]]);
-        }
-
-        foreach ($bolsistasQuery as $query) {
-            foreach ($query as $q) {
-                $bolsistas[] = $q;
-            }
-        }
+        $bolsistas = $usersTable
+                        ->find()
+                        ->select(['nome'])
+                        ->where(['Users.matricula IN' => $matBolsistas])
+                        ->all()
+                        ->toArray();
 
         $this->set('local', $local);
-        $this->set('coordenadores', $coordenadores);
+        $this->set('coordenador', $coordenador);
         $this->set('bolsistas', $bolsistas);
-        $this->set('_serialize', ['local', 'coordenadores']);
+
+        $this->set('_serialize', ['local']);
+
     }
 
     /**
@@ -91,20 +89,16 @@ class LocalsController extends AppController
     {
         $local = $this->Locals->newEntity();
         $userLocalsTable = TableRegistry::get('UserLocals');
-        $userLocalsCoordenador = $userLocalsTable->newEntity();
         $userLocalsBolsista = $userLocalsTable->newEntity();
 
         if ($this->request->is('post')) {
 
             $local = $this->Locals->patchEntity($local, $this->request->data);
 
-            $userLocalsCoordenador->local_codigo = $this->request->data['codigo'];
-            $userLocalsCoordenador->user_matricula = $this->request->data['coordenador'];
-
             $userLocalsBolsista->local_codigo = $this->request->data['codigo'];
             $userLocalsBolsista->user_matricula = $this->request->data['bolsista'];
 
-            if ($this->Locals->save($local) && $this->Locals->UserLocals->save($userLocalsBolsista) && $this->Locals->UserLocals->save($userLocalsCoordenador)) {
+            if ($this->Locals->save($local) && $this->Locals->UserLocals->save($userLocalsBolsista)) {
                 $this->Flash->success(__('The local has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {
@@ -138,6 +132,8 @@ class LocalsController extends AppController
             ]
         ])->toArray();
 
+        //var_dump($this->request->data);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $local = $this->Locals->patchEntity($local, $this->request->data);
             if ($this->Locals->save($local)) {
@@ -147,10 +143,24 @@ class LocalsController extends AppController
                 $this->Flash->error(__('The local could not be saved. Please, try again.'));
             }
         }
-        $professores = $this->Locals->Users->find('all', ['conditions' => ['role' => 'Professor']]);
-        $bolsistas = $this->Locals->Users->find('all', ['conditions' => ['role' => 'Bolsista']]);
+
+        $professores = $this->Locals->Users
+                                        ->find()
+                                        ->select(['nome', 'matricula', 'role'])
+                                        ->where(['role' => 'Professor']);
+
+        $bolsistasQuery = $this->Locals->Users
+                                            ->find()
+                                            ->select(['nome', 'matricula', 'role'])
+                                            ->where(['role' => 'Bolsista']);
+
+    
+        $bolsistas = $bolsistasQuery->all()->toArray();
+
         $this->set(compact('local', 'professores', 'bolsistas', 'userLocalsBolsistas'));
         $this->set('_serialize', ['local']);
+
+        
     }
 
     /**

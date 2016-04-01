@@ -61,6 +61,10 @@ class EquipamentosTable extends Table
             ->notEmpty('nome');
 
         $validator
+            ->allowEmpty('tombo')
+            ->add('tombo', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
             ->allowEmpty('status');
 
         $validator
@@ -82,10 +86,6 @@ class EquipamentosTable extends Table
             ->integer('tipo')
             ->requirePresence('tipo', 'create')
             ->notEmpty('tipo');
-
-        $validator
-            ->allowEmpty('tombo')
-            ->add('tombo', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         return $validator;
     }

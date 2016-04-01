@@ -8,6 +8,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $nome
+ * @property string $tombo
  * @property string $status
  * @property string $codLocal
  * @property string $dataCompra
@@ -15,7 +16,6 @@ use Cake\ORM\Entity;
  * @property string $modelo
  * @property string $responsavel
  * @property int $tipo
- * @property string $tombo
  */
 class Equipamento extends Entity
 {
