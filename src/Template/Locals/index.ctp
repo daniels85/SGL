@@ -1,7 +1,5 @@
 <?php 
 	use Cake\ORM\TableRegistry;
-	
-	$usersTable = TableRegistry::get('Users');
 ?>
 <table>
 		
