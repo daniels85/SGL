@@ -32,3 +32,5 @@
 	</tbody>
 
 </table>
+
+<a href="/Locals/add">Adicionar Local</a>

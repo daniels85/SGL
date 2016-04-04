@@ -9,10 +9,9 @@ use Cake\ORM\TableRegistry;
  *
  * @property \App\Model\Table\LocalsTable $Locals
  */
-class LocalsController extends AppController
-{
+class LocalsController extends AppController {
 
-    public function initialize(){
+    public function initialize() {
         parent::initialize();
         $this->loadComponent('RequestHandler');
     }
@@ -48,10 +47,27 @@ class LocalsController extends AppController
         /** Bolsistas **/
         $bolsistas = $this->getBolistas($local->codigo);
         
+        /** Equipamentos **/
+        $equipamentos = $this->getEquipamentos($local->codigo);
+
+        $this->set('equipamentos', $equipamentos);
         $this->set('local', $local);
         $this->set('coordenadores', $coordenadores);       
         $this->set('bolsistas', $bolsistas);
         $this->set('_serialize', ['local']);
+    }
+
+    public function getEquipamentos($codigoLocal){
+
+        $equipamentosTable = TableRegistry::get('Equipamentos');
+        $equipamentos = $equipamentosTable
+                                    ->find()
+                                    ->select(['nome', 'status', 'tipo', 'tombo'])
+                                    ->where(['codLocal' => $codigoLocal])
+                                    ->all()
+                                    ->toArray();
+
+        return $equipamentos;
     }
 
     /**
@@ -59,7 +75,7 @@ class LocalsController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add(){
+    public function add() {
 
         $local = $this->Locals->newEntity();
         $userLocalsTable = TableRegistry::get('UserLocals');
