@@ -40,7 +40,7 @@
 				<td><?= ($equipamento->tombo) ?></td>
 				<td><?= ($equipamento->nome) ?></td>
 				<td><?= ($equipamento->status) ?></td>
-				<td><?= ($equipamento->tipo) ?></td>
+				<td><?= ($equipamento->tipo_equipamentos[0]->nome) ?></td>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>

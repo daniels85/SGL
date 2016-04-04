@@ -35,10 +35,9 @@ class EquipamentosTable extends Table
             'joinType' => 'INNER'
         ]);        
 
-        $this->belongsTo('TipoEquipamentos', [
-            'className' => 'TipoEquipamentos',
+        $this->hasMany('TipoEquipamentos', [
             'bindingKey' => 'tipo',
-            'foreignKey' => 'id_tipo',
+            'foreignKey' => 'id',
             'joinType' => 'INNER'
         ]);
 

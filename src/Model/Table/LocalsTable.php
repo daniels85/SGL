@@ -29,7 +29,6 @@ class LocalsTable extends Table
         $this->primaryKey('id');
 
         $this->hasMany('Equipamentos', [
-            'className' => 'Equipamentos',
             'foreignKey' => 'codLocal',
             'bindingKey' => 'codigo',
             'joinType' => 'INNER'
@@ -43,6 +42,11 @@ class LocalsTable extends Table
         ]);
 
         $this->belongsTo('Users', [
+            'joinType' => 'INNER'
+        ]);
+
+        $this->hasMany('TipoEquipamentos', [
+            'foreignKey' => 'id',
             'joinType' => 'INNER'
         ]);
 

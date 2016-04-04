@@ -36,7 +36,7 @@ class LocalsController extends AppController {
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null) {
-
+        $equipamentosTable = TableRegistry::get('Equipamentos');
         $local = $this->Locals->get($id, [
             'contain' => []
         ]);
@@ -60,10 +60,12 @@ class LocalsController extends AppController {
     public function getEquipamentos($codigoLocal){
 
         $equipamentosTable = TableRegistry::get('Equipamentos');
+
         $equipamentos = $equipamentosTable
                                     ->find()
-                                    ->select(['nome', 'status', 'tipo', 'tombo'])
+                                    ->select(['nome', 'status', 'tipo', 'tombo'])                                    
                                     ->where(['codLocal' => $codigoLocal])
+                                    ->contain(['TipoEquipamentos'])
                                     ->all()
                                     ->toArray();
 

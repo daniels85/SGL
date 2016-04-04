@@ -27,6 +27,13 @@ class TipoEquipamentosTable extends Table
         $this->table('tipo_equipamentos');
         $this->displayField('id');
         $this->primaryKey('id');
+
+        $this->hasMany('Equipamentos', [
+            'bindingKey' => 'id',
+            'foreignKey' => 'tipo',
+            'joinType' => 'INNER'
+        ]);
+
     }
 
     /**
