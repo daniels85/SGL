@@ -3,20 +3,49 @@
 <script type="text/javascript">
 	
 	$(document).ready(function(){
-		var campos_max = 3;
-		var x = 1;
+		
+		var campos_max_coordenador = 2;
+		var x_coordenador = 1;
 
-		var selects = $('#bolsistas').html();
+		var campos_max_bolsista = 3;
+		var x_bolsista = 1;
 
+		var selectsCoordenador = $('#coordenadores').html();
+		var selectsBolsista = $('#bolsistas').html();
+
+		// Coordenador
+		$('#coordenadores').on('click','.addCoordenador',function(e){
+			e.preventDefault();
+			
+			if(x_coordenador < campos_max_coordenador){
+				$('#coordenadores')
+					.append('<div class="coordenadores">'
+								+selectsCoordenador
+								+'&nbsp;<a id="delCoordenador"> Remover</a>'
+								+'</div>');
+				x_coordenador++;
+			}
+
+		});
+
+		$('#coordenadores').on('click', '#delCoordenador', function(e){
+			e.preventDefault();
+			$(this).parent('div').remove();
+			x_coordenador--;
+		});
+
+
+		// Bolsistas
 		$('#bolsistas').on('click','.addBolsista',function(e){
 			e.preventDefault();
 			
-			if(x < campos_max){
-				$('#bolsistas').append('<div class="bolsistas">'
-											+selects
-											+'&nbsp;<a id="delBolsista"> Remover</a>'
-											+'</div>');
-				x++;
+			if(x_bolsista < campos_max_bolsista){
+				$('#bolsistas')
+					.append('<div class="bolsistas">'
+								+selectsBolsista
+								+'&nbsp;<a id="delBolsista"> Remover</a>'
+								+'</div>');
+				x_bolsista++;
 			}
 
 		});
@@ -25,14 +54,14 @@
 			e.preventDefault();
 
 			$(this).parent('div').remove();
-			x--;
+			x_bolsista--;
 		});
 
 	});
 
 </script>
 
-<form method="POST" accept-charset="utf-8" action="/Locals/add" style="width: 40%;margin: 0 auto;margin-top: 5%;">
+<form method="POST" accept-charset="utf-8" action="/Locals/add" style="width: 30%;margin: 0 auto;margin-top: 5%;">
 	<div style="display:none;">
 		<input type="hidden" name="_method" value="POST"/>
 	</div>
@@ -41,13 +70,19 @@
 	<label>Codigo: </label> <input type="text" name="codigo" placeholder="Codigo" required>
 
 	<label>Coordenador: </label> 
-	<select name="coordenador">
-		<option value=""></option>
-		<?php  foreach($professores as $professores): ?>
-			<option <?= ("value='$professores->matricula'") ?> > <?= ($professores->nome." - Matrícula: ".$professores->matricula) ?> </option>
-		<?php endforeach; ?>
-	</select>
+	<div id="coordenadores">
 
+		<select name="coordenadores[]">
+			<option value=""></option>
+			<?php  foreach($professores as $professores): ?>
+				<option <?= ("value='$professores->matricula'") ?> > <?= ($professores->nome." - Matrícula: ".$professores->matricula) ?> </option>
+			<?php endforeach; ?>
+		</select>
+
+		<a class="addCoordenador"> Adicionar</a>
+	</div>
+
+	<br>
 	<label>Bolsista: </label> 
 	<div id="bolsistas">
 		

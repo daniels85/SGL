@@ -35,24 +35,14 @@ class LocalsTable extends Table
             'joinType' => 'INNER'
         ]);
 
-        $this->belongsToMany('UserLocals', [
+        $this->belongsTo('UserLocals', [
             'className' => 'UserLocals',
             'foreignKey' => 'local_codigo',
             'bindingKey' => 'codigo',
             'joinType' => 'INNER'
         ]);
 
-        $this->belongsToMany('Users', [
-            'className' => 'Users',
-            'foreignKey' => 'matricula',
-            'bindingKey' => 'coordenador',
-            'joinType' => 'INNER'
-        ]);
-
-        $this->belongsToMany('UsersBolsista', [
-            'className' => 'Users',
-            'foreignKey' => 'matricula',
-            'bindingKey' => 'bolsista',
+        $this->belongsTo('Users', [
             'joinType' => 'INNER'
         ]);
 
@@ -78,10 +68,6 @@ class LocalsTable extends Table
             ->requirePresence('codigo', 'create')
             ->notEmpty('codigo')
             ->add('codigo', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-
-        $validator
-            ->requirePresence('coordenador', 'create')
-            ->notEmpty('coordenador');
 
         $validator
             ->requirePresence('tipo', 'create')

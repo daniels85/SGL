@@ -9,12 +9,12 @@
 		<td><?php echo $local->codigo; ?></td>
 	</tr>
 
-	
-	<tr>
-		<td>Responsável</td>
-		<td><?php if($coordenador) echo $coordenador->nome; ?></td>
-	</tr>
-	
+	<?php foreach($coordenadores as $coordenador): ?>
+		<tr>
+			<td>Responsável</td>
+			<td><?php if($coordenador) echo $coordenador->nome; ?></td>
+		</tr>
+	<?php endforeach; ?>
 
 	<?php foreach ($bolsistas as $bolsista): ?>
 		<tr>

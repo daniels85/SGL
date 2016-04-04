@@ -10,7 +10,6 @@
 			<th>Nome</th>
 			<th>Código</th>
 			<th>Tipo</th>
-			<th>Coordenador</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
@@ -21,19 +20,13 @@
 				<td><?= ($local->nome) ?></td>
 				<td><?= ($local->codigo) ?></td>
 				<td><?= ($local->tipo) ?></td>
-
-				<?php 
-
-					$coordenador = $usersTable
-		                            ->find('all')
-		                            ->select(['nome', 'matricula', 'role'])
-		                            ->where(['matricula' => $local->coordenador])->first();
-				?>
-
-				<td><?php if($coordenador){ echo $coordenador->nome; } ?></td>
 				<td>
 					<a <?= ('href="/Locals/view/'.$local->id.'"') ?> >Ver</a>
-					<a <?= ('href="/Locals/edit/'.$local->id.'"') ?> >&nbsp;Editar</a>
+					&nbsp;
+					<a <?= ('href="/Locals/edit/'.$local->id.'"') ?> >Editar</a>
+					&nbsp;
+					<a <?= ('href="/Locals/delete/'.$local->id.'" onclick="if (confirm(&quot;Deseja deletar este local?&quot;)) { return true; } return false;"') ?> >Deletar</a>
+
 				</td>
 
 			</tr>

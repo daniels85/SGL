@@ -28,14 +28,14 @@ class UserLocalsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsToMany('Locals', [
+        $this->belongsTo('Locals', [
             'className' => 'Locals',
             'foreignKey' => 'codigo',
             'bindingKey' => 'local_codigo',
             'joinType' => 'INNER'
         ]);
 
-        $this->belongsToMany('Users', [
+        $this->belongsTo('Users', [
             'className' => 'Users',
             'foreignKey' => 'matricula',
             'bindingKey' => 'user_matricula',
