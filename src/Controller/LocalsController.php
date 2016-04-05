@@ -63,7 +63,7 @@ class LocalsController extends AppController {
 
         $equipamentos = $equipamentosTable
                                     ->find()
-                                    ->select(['nome', 'status', 'tipo', 'tombo'])                                    
+                                    ->select(['id', 'nome', 'status', 'tipo', 'tombo'])                                    
                                     ->where(['codLocal' => $codigoLocal])
                                     ->contain(['TipoEquipamentos'])
                                     ->all()
