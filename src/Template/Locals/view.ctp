@@ -1,3 +1,7 @@
+<style type="text/css">
+
+
+</style>
 <table>
 
 	<tr>
@@ -45,3 +49,11 @@
 		<?php endforeach; ?>
 	</tbody>
 </table>
+
+<button id="addEquipamento" class="ui primary button">Adicionar equipamento</button>
+
+<div class="ui modal">
+	 <i class="close icon"></i>
+	<div class="header"></div>
+	<div class="content"></div>
+</div>

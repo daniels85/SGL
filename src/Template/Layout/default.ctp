@@ -23,9 +23,13 @@
             <?= $this->fetch('title') ?>
         </title>
         <?= $this->Html->meta('icon') ?>
-
         <?= $this->Html->css('base.css') ?>
         <?= $this->Html->css('cake.css') ?>
+
+        <?= $this->Html->css('/semantic-ui/semantic.min.css') ?>    
+        <?= $this->Html->script('jquery-1.12.2.min.js') ?>
+        <?= $this->Html->script('/semantic-ui/semantic.min.js') ?>
+        <?= $this->Html->script('equipamentos.js') ?>
 
         <?= $this->fetch('meta') ?>
         <?= $this->fetch('css') ?>
