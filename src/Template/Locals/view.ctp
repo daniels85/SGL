@@ -45,16 +45,13 @@
 					<div class="image">
 						<?php 
 							if($equipamento->status == "Funcionando"){
-								echo '<img src="/img/status/functionando.jpg">';
-								echo 'funcionando';
+								echo '<img src="/img/status/Funcionando.png">';
 							}
 							if($equipamento->status == "Alerta"){
-								echo '<img src="/img/status/alerta.jpg">';
-								echo 'Alerta';
+								echo '<img src="/img/status/Alerta.png">';
 							}
 							if($equipamento->status == "Defeito"){
-								echo '<img src="/img/status/defeito.jpg">';
-								echo 'Defeito';
+								echo '<img src="/img/status/Defeito.png">';
 							}
 						?>					
 					</div>
@@ -65,9 +62,9 @@
 						</div>
 					</div>
 					<div class="extra content" <?= ('data-id="'.$equipamento->id.'"') ?> >
-						<button class="ui green button tiny btn_editar_equipamento">Editar</button>
-						<button class="ui primary button tiny">Ver</button>
-						<button class="ui orange button tiny">Alertar</button>
+						<button class="ui green button tiny btnEditarEquipamento">Editar</button>
+						<button class="ui primary button tiny btnVerEquipamento">Ver</button>
+						<button class="ui orange button tiny btnAlertarEquipamento">Alertar</button>
 					</div>
 				</div>
 			</div>
@@ -80,10 +77,11 @@
 <h4 class="ui horizontal divider header">
 </h4>
 
-<button id="addEquipamento" class="ui primary button">Adicionar equipamento</button>
+<button id="addEquipamento" class="ui primary button" data-id="<?= $local->id; ?>">Adicionar equipamento</button>
 
 <div class="ui modal">
-	 <i class="close icon"></i>
+	<i class="close icon"></i>
+	<div class="mensagem"></div>
 	<div class="header"></div>
 	<div class="content"></div>
 </div>

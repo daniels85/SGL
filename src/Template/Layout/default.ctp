@@ -19,6 +19,7 @@
     <head>
         <?= $this->Html->charset() ?>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="_csrfToken" <?= ('content='.$this->request->param('_csrfToken')) ?>>
         <title>
             <?= $this->fetch('title') ?>
         </title>
@@ -30,6 +31,7 @@
         <?= $this->Html->css('/semantic-ui/dist/semantic.min.css') ?>           
         <?= $this->Html->script('/semantic-ui/dist/semantic.min.js') ?>
         <?= $this->Html->script('equipamentos.js') ?>
+        <?= $this->Html->script('alertas.js') ?>
 
         <?= $this->fetch('meta') ?>
         <?= $this->fetch('css') ?>

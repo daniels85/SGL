@@ -49,7 +49,7 @@ class EquipamentosController extends AppController
     public function add()
     {
         $equipamento = $this->Equipamentos->newEntity();
-        if ($this->request->is('post')) {
+        if ($this->request->is('post')){
             $equipamento = $this->Equipamentos->patchEntity($equipamento, $this->request->data);
             if ($this->Equipamentos->save($equipamento)) {
                 $this->Flash->success(__('The equipamento has been saved.'));
@@ -105,4 +105,19 @@ class EquipamentosController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+    public function cadastrar(){
+
+        $equipamento = $this->Equipamentos->newEntity();
+
+        if($this->request->is('ajax')){
+            $equipamento = $this->Equipamentos->patchEntity($equipamento, $this->request->data);
+            if ($this->Equipamentos->save($equipamento)) {
+                echo 'Cadastrado';
+            } else {
+                echo 'Erro ao cadastrar';
+            }
+        }
+    }
+
 }
