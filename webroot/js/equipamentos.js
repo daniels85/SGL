@@ -1,6 +1,5 @@
 $(document).ready(function(){
 	var host = $(location).attr('host');
-	console.log(host);
 	var container = $('.container');
 	var listar_equipamentos = container.find('#listar-equipamentos');
 	var modalHeader = $('.ui.modal').find('.header');
@@ -44,7 +43,55 @@ $(document).ready(function(){
 				conteudoModal += '</form>';
 
 				modalContent.html(conteudoModal);
+ 
+				$('#btnEnviarAlerta').on('click', function(event){
+					event.preventDefault();
+					console.log('http://'+host+'/alertas/add');
+					var tomboEquipamento = equipamento['equipamento'].tombo;
+					var geradoPor = equipamento['session'];
+					var descricao = $('#descricao').val();
 
+					$.ajax({
+						url: 'http://'+host+'/alertas/add',
+						type: 'PUT',
+						data: 'descricao='+descricao+'&geradoPor='+geradoPor+'&tomboEquipamento='+tomboEquipamento,
+
+						beforeSend: function(request){
+							return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+						},
+
+						success: function(data){
+							if(data == 'Cadastrado'){
+								mensagem_sucesso =  '<div class="ui success message">';
+								mensagem_sucesso += '<div class="header">';
+								mensagem_sucesso += '<i class="checkmark icon"></i>Alerta cadastrado com sucesso.';
+								mensagem_sucesso += '</div>';
+								mensagem_sucesso += '</div>';
+
+								mensagem.html(mensagem_sucesso);
+
+								setTimeout(function(){
+									location.reload();									
+								},1000);
+							}
+							if(data == 'Erro'){
+								mensagem_erro =  '<div class="ui negative message">';
+								mensagem_erro += '<div class="header">';
+								mensagem_erro += '<i class="warning sign icon"></i>Erro ao enviar alerta.';
+								mensagem_erro += '</div>';
+								mensagem_erro += '</div>';
+
+								mensagem.html(mensagem_erro);
+							}
+						},
+
+						error: function(XMLHttpRequest, textStatus, errorThrown){
+			  			
+			  			}
+
+					});
+
+				});
 
 			}
 
@@ -122,17 +169,17 @@ $(document).ready(function(){
 
 					}
 					if(data == 'Erro ao cadastrar'){
-						mensagem_sucesso =  '<div class="ui negative message">';
-						mensagem_sucesso += '<div class="header">';
-						mensagem_sucesso += '<i class="warning sign icon"></i>Erro ao cadastrar equipamento.';
-						mensagem_sucesso += '</div>';
-						mensagem_sucesso += '<ul class="list">';
-						mensagem_sucesso += '<li>Verifique se o tombo do equipamento está correto.</li>';
-						mensagem_sucesso += '<li>Verifique se não há outro equipamento com o mesmo tombo.</li>';
-						mensagem_sucesso += '</ul>';
-						mensagem_sucesso += '</div>';
+						mensagem_erro =  '<div class="ui negative message">';
+						mensagem_erro += '<div class="header">';
+						mensagem_erro += '<i class="warning sign icon"></i>Erro ao cadastrar equipamento.';
+						mensagem_erro += '</div>';
+						mensagem_erro += '<ul class="list">';
+						mensagem_erro += '<li>Verifique se o tombo do equipamento está correto.</li>';
+						mensagem_erro += '<li>Verifique se não há outro equipamento com o mesmo tombo.</li>';
+						mensagem_erro += '</ul>';
+						mensagem_erro += '</div>';
 
-						mensagem.html(mensagem_sucesso);
+						mensagem.html(mensagem_erro);
 
 					}
 				}

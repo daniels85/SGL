@@ -66,6 +66,16 @@ Router::scope('/', function (RouteBuilder $routes) {
     );
 
     /**
+    * Cadastrar alerta
+    */
+    $routes->connect('alertas/add', [
+            'controller' => 'Alertas', 
+            'action' => 'add',
+            'method' => 'PUT'
+        ]
+    );
+
+    /**
      * Connect catchall routes for all controllers.
      *
      * Using the argument `DashedRoute`, the `fallbacks` method is a shortcut for

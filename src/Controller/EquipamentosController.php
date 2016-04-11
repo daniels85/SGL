@@ -37,8 +37,11 @@ class EquipamentosController extends AppController
             'contain' => []
         ]);
 
+        $session = $this->request->session()->read('Auth.User.nome');
+
         $this->set('equipamento', $equipamento);
-        $this->set('_serialize', ['equipamento']);
+        $this->set('session', $session);
+        $this->set('_serialize', ['equipamento', 'session']);
     }
 
     /**

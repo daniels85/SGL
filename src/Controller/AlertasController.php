@@ -49,13 +49,12 @@ class AlertasController extends AppController
     public function add()
     {
         $alerta = $this->Alertas->newEntity();
-        if ($this->request->is('post')) {
+        if ($this->request->is('ajax')) {
             $alerta = $this->Alertas->patchEntity($alerta, $this->request->data);
             if ($this->Alertas->save($alerta)) {
-                $this->Flash->success(__('The alerta has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                echo 'Cadastrado';
             } else {
-                $this->Flash->error(__('The alerta could not be saved. Please, try again.'));
+                echo 'Erro';
             }
         }
         $this->set(compact('alerta'));

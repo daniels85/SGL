@@ -29,8 +29,9 @@
         <?= $this->Html->css('cake.css') ?>
 
         <?= $this->Html->script('jquery-1.12.2.min.js') ?>
-        <?= $this->Html->css('/semantic-ui/dist/semantic.min.css') ?>           
-        <?= $this->Html->script('/semantic-ui/dist/semantic.min.js') ?>
+        <?= $this->Html->script('moment.js') ?>
+        <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css') ?>           
+        <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js') ?>
         <?= $this->Html->script('equipamentos.js') ?>
         <?= $this->Html->script('alertas.js') ?>
 
