@@ -41,6 +41,13 @@ class UsersTable extends Table
             'joinType' => 'INNER'
         ]);
 
+        $this->hasMany('Alertas', [
+            'className' => 'Alertas',
+            'foreignKey' => 'matricula_bolsista',
+            'bindingKey' => 'matricula',
+            'joinType' => 'INNER'
+        ]);
+
     }
 
     /**

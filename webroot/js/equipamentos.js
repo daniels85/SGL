@@ -1,5 +1,6 @@
+var host = $(location).attr('host');
 $(document).ready(function(){
-	var host = $(location).attr('host');
+	
 	var container = $('.container');
 	var listar_equipamentos = container.find('#listar-equipamentos');
 	var modalHeader = $('.ui.modal').find('.header');
@@ -69,7 +70,7 @@ $(document).ready(function(){
 								mensagem_sucesso += '</div>';
 
 								mensagem.html(mensagem_sucesso);
-
+								alteraStatusEquipamento(equipamento, 'Alerta');
 								setTimeout(function(){
 									location.reload();									
 								},1000);
@@ -162,7 +163,7 @@ $(document).ready(function(){
 						mensagem_sucesso += '</div>';
 
 						mensagem.html(mensagem_sucesso);
-
+						
 						setTimeout(function(){
 							location.reload();									
 						},1000);
@@ -192,3 +193,23 @@ $(document).ready(function(){
 	});
 
 });
+
+function alteraStatusEquipamento(equipamento, status){
+
+	$.ajax({
+
+		url: 'http://'+host+'/equipamentos/edit/'+equipamento['equipamento'].id,
+		type: 'PUT',
+		data: 'status='+status,
+
+		beforeSend: function(request){
+			return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+		},
+
+		success: function(data){
+			console.log('');
+		}
+
+
+	});
+}

@@ -42,9 +42,14 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
+        $alertas = $this->Users->Alertas
+                                    ->find()
+                                    ->all()
+                                    ->toArray();
 
         $this->set('user', $user);
-        $this->set('_serialize', ['user']);
+        $this->set('alertas', $alertas);
+        $this->set('_serialize', ['user', 'alertas']);
     }
 
     /**
