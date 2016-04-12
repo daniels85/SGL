@@ -43,10 +43,10 @@ class LocalsController extends AppController {
         ]);
 
         /** Coordenador **/
-        $coordenadores = $this->getCoordenadores($local->codigo);
+        $coordenadores = UsersController::getCoordenadores($local->codigo);
         
         /** Bolsistas **/
-        $bolsistas = $this->getBolistas($local->codigo);
+        $bolsistas = UsersController::getBolistas($local->codigo);
         
         /** Equipamentos **/
         $equipamentos = $this->getEquipamentos($local->codigo);
@@ -81,7 +81,6 @@ class LocalsController extends AppController {
     public function add() {
 
         $local = $this->Locals->newEntity();
-        $userLocalsTable = TableRegistry::get('UserLocals');
 
         if ($this->request->is('post')) {
 
@@ -92,7 +91,7 @@ class LocalsController extends AppController {
                 $matriculasForm = array_unique(array_merge( $this->request->data['bolsistas'], $this->request->data['coordenadores'] ) );
                 
                 foreach ($matriculasForm as $user) {
-                    $this->insereUserLocals( $local->codigo, $user);
+                    UsersController::insereUserLocals( $local->codigo, $user );
                 }
 
                 $this->Flash->success(__('Local salvo com sucesso.'));
@@ -127,18 +126,18 @@ class LocalsController extends AppController {
         $codigo = $local->codigo;
 
         /** Coordenadores e Bolsistas **/
-        $usersLocal = $this->getUsersLocals($local->codigo);
+        $usersLocal = UsersController::getUsersLocals($local->codigo);
 
         /** Matriculas **/
-        $matriculas = $this->getMatriculaUsers($local->codigo);
+        $matriculas = UsersController::getMatriculaUsers($local->codigo);
         
         if(!empty($matriculas)){
 
             /** Bolsistas **/
-            $userLocalsBolsistas = $this->getBolistas($local->codigo);
+            $userLocalsBolsistas = UsersController::getBolistas($local->codigo);
 
             /** Coordenadores **/
-            $userLocalsCoordenadores = $this->getCoordenadores($local->codigo);
+            $userLocalsCoordenadores = UsersController::getCoordenadores($local->codigo);
         }
 
         /** Salvar  **/
@@ -156,13 +155,13 @@ class LocalsController extends AppController {
                 
                 /** Insere os novos registros **/
                 foreach($matriculaInserir as $user){
-                    $this->insereUserLocals( $this->request->data['codigo'], $user);
+                    UsersController::insereUserLocals( $this->request->data['codigo'], $user);
                 }
 
                 /** Deleta do tabela os que foram removidos **/
                 foreach($usersLocal as $key => $user){
                     if(!in_array($user->user_matricula, $matriculasForm)){
-                        $this->deleteUserLocals($user->id);
+                        UsersController::deleteUserLocals($user->id);
                         unset($usersLocal[$key]);
                     }
                 }
@@ -222,142 +221,7 @@ class LocalsController extends AppController {
         return $this->redirect(['action' => 'index']);
     }
 
-    /**
-     * getUsersLocals method
-     *
-     * @param string|null $codigoLocal Local codigo.
-     * @return Array composto por user_matricula da tabela UserLocals.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function getUsersLocals($codigoLocal){
-
-        $userLocalsTable = TableRegistry::get('UserLocals');
-        $usersLocal = $userLocalsTable
-                            ->find()
-                            ->select(['id', 'user_matricula'])
-                            ->where(['local_codigo' => $codigoLocal])
-                            ->all()
-                            ->toArray();
-
-        return $usersLocal;
-    }
-
-    /**
-     * getMatriculaUsers method
-     *
-     * @param string|null $codigoLocal Local codigo.
-     * @return Array com matricula de todos os usuarios relacionados ao local
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function getMatriculaUsers($codigoLocal){
-
-        $usersLocal = $this->getUsersLocals($codigoLocal);
-
-        $matriculas = array('');
-
-        foreach($usersLocal as $userLocal){
-            $matriculas[] = $userLocal->user_matricula;
-        }
-
-        return $matriculas;
-    }
-
-    /**
-     * getCoordenadores method
-     *
-     * @param string|null $codigoLocal Local codigo.
-     * @return Array com todos os Coordenadores associados ao local.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function getCoordenadores($codigoLocal){
-
-        $usersTable = TableRegistry::get('Users');
-
-        $matriculas = $this->getMatriculaUsers($codigoLocal);
-
-        $coordenadores = $usersTable
-                            ->find()
-                            ->select(['nome', 'matricula'])
-                            ->where(['Users.matricula IN' => $matriculas, 'Users.role' => 'Professor'])
-                            ->all()
-                            ->toArray();
-
-        return $coordenadores;
-    }
-
-    /**
-     * getBolistas method
-     *
-     * @param string|null $codigoLocal Local codigo.
-     * @return Array com todos os Bolsistas associados ao local.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function getBolistas($codigoLocal){
-
-        $usersTable = TableRegistry::get('Users');
-
-        $matriculas = $this->getMatriculaUsers($codigoLocal);
-
-        $bolsistas = $usersTable
-                        ->find()
-                        ->select(['nome', 'matricula'])
-                        ->where(['Users.matricula IN' => $matriculas, 'Users.role' => 'Bolsista'])
-                        ->all()
-                        ->toArray();
-
-        return $bolsistas;
-    }
-
-    /**
-     * insereUserLocals method
-     *
-     * @param string|null $codigo Local codigo e matricula User matricula.
-     * @return True ou False.
-     */
-    public function insereUserLocals($codigo, $matricula){
-        $userLocalsTable = TableRegistry::get('UserLocals');
-        $entity = $userLocalsTable->newEntity();
-        $entity->local_codigo = $codigo;
-        $entity->user_matricula = $matricula;
-
-        if($userLocalsTable->save($entity)){
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * atualizaUserLocals method
-     *
-     * @param $id UserLocals id e $codigo Local codigo.
-     * @return True ou False.
-     */
-    public function atualizaUserLocals($id, $codigo){
-        $userLocalsTable = TableRegistry::get('UserLocals');
-        $entity = $userLocalsTable->get($id);
-        $entity->local_codigo = $codigo;
-
-        if($userLocalsTable->save($entity)){
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * deleteUserLocals method
-     *
-     * @param $id UserLocals id.
-     * @return True ou False.
-     */
-    public function deleteUserLocals($id){
-        $userLocalsTable = TableRegistry::get('UserLocals');
-        $entity = $userLocalsTable->get($id);
-
-        if($userLocalsTable->delete($entity)){
-            return true;
-        }
-        return false;
-    }
+    
 
     public function isAuthorized($user){
         return true;

@@ -44,18 +44,18 @@ $(document).ready(function(){
 				conteudoModal += '</form>';
 
 				modalContent.html(conteudoModal);
- 
+
 				$('#btnEnviarAlerta').on('click', function(event){
 					event.preventDefault();
-					console.log('http://'+host+'/alertas/add');
 					var tomboEquipamento = equipamento['equipamento'].tombo;
 					var geradoPor = equipamento['session'];
 					var descricao = $('#descricao').val();
+					var codLocal = equipamento['equipamento'].codLocal;
 
 					$.ajax({
 						url: 'http://'+host+'/alertas/add',
 						type: 'PUT',
-						data: 'descricao='+descricao+'&geradoPor='+geradoPor+'&tomboEquipamento='+tomboEquipamento,
+						data: 'descricao='+descricao+'&geradoPor='+geradoPor+'&tomboEquipamento='+tomboEquipamento+'&codLocal='+codLocal,
 
 						beforeSend: function(request){
 							return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));

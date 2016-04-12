@@ -38,6 +38,10 @@ class EquipamentosController extends AppController
         ]);
 
         $session = $this->request->session()->read('Auth.User.nome');
+        //$session = array(
+        //        'nome' => $this->request->session()->read('Auth.User.nome'), 
+        //        'matricula' => $this->request->session()->read('Auth.User.matricula')
+        //    );
 
         $this->set('equipamento', $equipamento);
         $this->set('session', $session);

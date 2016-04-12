@@ -48,11 +48,31 @@ class AlertasController extends AppController
      */
     public function add()
     {
-        $alerta = $this->Alertas->newEntity();
+        $alerta = $this->Alertas->newEntity();        
+
+        $codLocal = $this->request->data['codLocal'];
+
+        $bolsistas = UsersController::getBolistas($codLocal);
+
         if ($this->request->is('ajax')) {
+
             $alerta = $this->Alertas->patchEntity($alerta, $this->request->data);
+
             if ($this->Alertas->save($alerta)) {
-                echo 'Cadastrado';
+
+                if(!empty($bolsistas)){
+                    foreach ($bolsistas as $bolsista) {
+                        $bolsistaAlertas = $this->Alertas->BolsistasAlertas->newEntity();
+                        $bolsistaAlertas->alerta_id = $alerta->id;
+                        $bolsistaAlertas->matricula_bolsista = $bolsista->matricula;
+                        $this->Alertas->BolsistasAlertas->save($bolsistaAlertas);
+                    }
+                    echo 'Cadastrado';
+                }
+                else{
+                    echo 'Erro';
+                }                               
+                               
             } else {
                 echo 'Erro';
             }
@@ -104,6 +124,8 @@ class AlertasController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+
     
     public function isAuthorized($user){
         return true;

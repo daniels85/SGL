@@ -43,6 +43,11 @@ class UsersTable extends Table
 
         $this->hasMany('Alertas', [
             'className' => 'Alertas',
+            'joinType' => 'INNER'
+        ]);
+
+        $this->belongsTo('BolsistasAlertas', [
+            'className' => 'BolsistasAlertas',
             'foreignKey' => 'matricula_bolsista',
             'bindingKey' => 'matricula',
             'joinType' => 'INNER'

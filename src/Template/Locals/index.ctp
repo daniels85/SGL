@@ -1,6 +1,3 @@
-<?php 
-	use Cake\ORM\TableRegistry;
-?>
 <table>
 		
 	<thead>

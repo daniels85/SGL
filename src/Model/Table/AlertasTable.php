@@ -27,6 +27,13 @@ class AlertasTable extends Table
         $this->table('alertas');
         $this->displayField('id');
         $this->primaryKey('id');
+
+        $this->belongsTo('BolsistasAlertas', [
+            'foreignKey' => 'id',
+            'bindingKey' => 'alerta_id',
+            'joinType' => 'INNER'
+        ]);
+
     }
 
     /**
