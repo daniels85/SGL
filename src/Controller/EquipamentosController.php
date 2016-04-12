@@ -120,4 +120,8 @@ class EquipamentosController extends AppController
         }
     }
 
+    public function isAuthorized($user){
+        return true;
+    }   
+
 }

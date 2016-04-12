@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\Event\Event;
 
 /**
  * Locals Controller
@@ -356,6 +357,17 @@ class LocalsController extends AppController {
             return true;
         }
         return false;
+    }
+
+    public function isAuthorized($user){
+        return true;
+    } 
+
+    public function beforeFilter(Event $event) {
+        parent::beforeFilter($event);
+        if(in_array($this->request->action, ['edit', 'add', 'delete'])){
+            $this->eventManager()->off($this->Csrf);
+        }
     }
 
 }    

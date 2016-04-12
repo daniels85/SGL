@@ -1,5 +1,6 @@
 $(document).ready(function(){
-
+	var host = $(location).attr('host');
+	console.log(host);
 	var container = $('.container');
 	var listar_equipamentos = container.find('#listar-equipamentos');
 	var modalHeader = $('.ui.modal').find('.header');
@@ -24,7 +25,7 @@ $(document).ready(function(){
 
 		$.ajax({
 
-			url: 'http://localhost:8080/equipamentos/view/'+idEquipamento,
+			url: 'http://'+host+'/equipamentos/view/'+idEquipamento,
 			dataType: 'json',
 			type: 'GET',
 
@@ -97,7 +98,7 @@ $(document).ready(function(){
 
 			$.ajax({
 
-				url: 'http://localhost:8080/equipamentos/cadastrar',
+				url: 'http://'+host+'/equipamentos/cadastrar',
 				type: 'PUT',
 				data: 'nome='+nome+'&tombo='+tombo+'&dataCompra='+dataCompra+'&fornecedor='+fornecedor+'&modelo='+modelo+'&responsavel='+responsavel+'&tipo='+tipo+'&codLocal='+codLocal,
 

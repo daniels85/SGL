@@ -16,7 +16,6 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
-
 /**
  * Application Controller
  *
@@ -44,6 +43,12 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Csrf');
+        $this->loadComponent('Auth',[
+            'authorize' => 'Controller',
+            'loginAction' => ['controller' => 'Users', 'action' => 'login']
+        ]);
+        $this->loadComponent('Cookie', ['expiry' => '1 day']);
+
     }
 
     /**

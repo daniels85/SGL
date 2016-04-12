@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Users Controller
@@ -10,6 +11,11 @@ use App\Controller\AppController;
  */
 class UsersController extends AppController
 {
+
+    public function initialize() {
+        parent::initialize();
+        $this->loadComponent('Csrf');
+    }
 
     /**
      * Index method
@@ -47,7 +53,7 @@ class UsersController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
     public function add()
-    {
+    {   
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $this->request->data['dataDeCadastro'] = date('d/m/Y');
@@ -106,4 +112,27 @@ class UsersController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+    public function login(){
+        if($this->request->is('post')){
+            $user = $this->Auth->identify();
+            if($user){
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Flash->error(__('Usuário ou senha ínvalido, tente novamente.'));
+        }
+    }
+
+    public function logout(){
+        return $this->redirect($this->Auth->logout());
+    }
+
+    public function beforeFilter(Event $event) {
+        $this->eventManager()->off($this->Csrf);
+    }
+
+    public function isAuthorized($user){
+        return true;
+    }   
 }

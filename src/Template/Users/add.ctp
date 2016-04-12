@@ -1,6 +1,6 @@
 <form method="POST" accept-charset="utf-8" action="/Users/add">
 	<div style="display:none;">
-		<input type="hidden" name="_method" value="POST"/>
+		<input type="hidden" name="_method" value="POST" />
 	</div>
 
 

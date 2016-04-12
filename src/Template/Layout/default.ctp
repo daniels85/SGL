@@ -17,6 +17,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+
         <?= $this->Html->charset() ?>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="_csrfToken" <?= ('content='.$this->request->param('_csrfToken')) ?>>
@@ -46,12 +47,19 @@
             </ul>
             <div class="top-bar-section">
                 <ul class="right">
+                    <?php if (!is_null($this->request->session()->read('Auth.User.username'))): ?>   
+                        <li><a><?= $this->request->session()->read('Auth.User.nome') ?></a></li>
+                        <li><?= $this->Html->link(__('Logout'), ['controller' => 'Users', 'action' => 'logout']) ?></li>             
+                    <?php else: ?>
+                        <li><?= $this->Html->link(__('Login'), ['controller' => 'Users', 'action' => 'login']) ?></li>
+                    <?php endif; ?>
                     <li><a target="_blank" href="http://book.cakephp.org/3.0/">Documentation</a></li>
                     <li><a target="_blank" href="http://api.cakephp.org/3.0/">API</a></li>
                 </ul>
             </div>
         </nav>
         <?= $this->Flash->render() ?>
+        <?= $this->Flash->render('auth') ?>
         <div class="container clearfix">
             <?= $this->fetch('content') ?>
         </div>
