@@ -133,6 +133,10 @@ class UsersController extends AppController
         if($this->request->is('post')){
             $user = $this->Auth->identify();
             if($user){
+                $u = $this->Users->get($user['id']);
+                $u->ultimaVezAtivo = date('Y/m/d H:i:s');
+                $this->Users->save($u);
+
                 $this->Auth->setUser($user);
                 return $this->redirect($this->Auth->redirectUrl());
             }

@@ -1,3 +1,8 @@
+<?php 
+	echo date('Y/m/d H:i:s');
+	echo $this->request->session()->read('Auth.User.id');
+?>
+
 <table>
 
 	<tr>
