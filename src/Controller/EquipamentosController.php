@@ -79,8 +79,14 @@ class EquipamentosController extends AppController
     public function edit($id = null)
     {
         $equipamento = $this->Equipamentos->get($id, [
-            'contain' => []
+            'contain' => ['TipoEquipamentos']
         ]);
+        $tipoEquipamentos = $this->Equipamentos->TipoEquipamentos
+                                                            ->find()
+                                                            ->select(['id', 'nome'])
+                                                            ->all()
+                                                            ->toArray();
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $equipamento = $this->Equipamentos->patchEntity($equipamento, $this->request->data);
             if ($this->Equipamentos->save($equipamento)) {
@@ -91,7 +97,8 @@ class EquipamentosController extends AppController
             }
         }
         $this->set(compact('equipamento'));
-        $this->set('_serialize', ['equipamento']);
+        $this->set(compact('tipoEquipamentos'));
+        $this->set('_serialize', ['equipamento', 'tipoEquipamentos']);
     }
 
     /**

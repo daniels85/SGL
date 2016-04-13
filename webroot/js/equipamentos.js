@@ -13,7 +13,23 @@ $(document).ready(function(){
 
 		var idEquipamento = $(this).closest('div').attr('data-id');
 
-		console.log(idEquipamento);
+		$.ajax({
+
+			url: 'http://'+host+'/Equipamentos/edit/'+idEquipamento,
+			dataType: 'json',
+			type: 'GET',
+
+			beforeSend: function(request){
+				return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+			},
+
+			success: function(equipamento){
+				
+				$('.ui.modal').modal('show');
+
+			}
+
+		});
 
 	});
 
