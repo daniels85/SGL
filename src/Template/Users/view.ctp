@@ -43,7 +43,7 @@
 		<i class="warning sign icon"></i>
 		Alertas
 	</h4>
-	<table class="ui yellow selectable stackable table">
+	<table class="ui table yellow selectable stackable center aligned">
 		
 		<thead>
 			<tr>
@@ -52,7 +52,7 @@
 				<th>Tombo de Equipamento</th>
 				<th>Status do Alerta</th>				
 				<th>Data de Envio</th>
-				<th>Actions</th>
+				<th></th>
 			</tr>
 		</thead>
 			
@@ -65,12 +65,15 @@
 					<td><?php echo $alerta->statusAlerta; ?></td>
 					<td><?php echo date('d/m/Y g:i A', strtotime($alerta->dataAlerta)); ?></td>
 					<td>
-						<a <?= ('href="/Alertas/view/'.$alerta->id.'"') ?> >Ver</a>
-						&nbsp;
-						<a <?= ('href="/Alertas/edit/'.$alerta->id.'"') ?> >Editar</a>
-						&nbsp;
-						<a <?= ('href="/Alertas/delete/'.$alerta->id.'" onclick="if (confirm(&quot;Deseja deletar este Alerta?&quot;)) { return true; } return false;"') ?> >Deletar</a>
-
+						<div class="ui floating dropdown icon button">
+							<i class="setting icon"></i>
+						    Opções
+						    <div class="menu">
+						      <div class="item"><i class="unhide icon"></i>Ver</div>
+						      <div class="item"><i class="edit icon"></i>Editar</div>
+						      <div class="item"><i class="warning sing icon"></i>Alertar</div>
+						    </div>
+						</div>
 					</td>
 
 				</tr>

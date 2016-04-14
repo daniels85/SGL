@@ -6,10 +6,10 @@
 	<table class="ui teal stackable table center aligned">		
 		<thead>
 			<tr >
-				<th >Nome</th>
-				<th >Código</th>
-				<th >Tipo</th>
-				<th >Actions</th>
+				<th class="three wide">Nome</th>
+				<th class="three wide">Código</th>
+				<th class="four wide">Tipo</th>
+				<th class="six wide">Actions</th>
 			</tr>
 		</thead>
 			
@@ -20,14 +20,10 @@
 					<td><?= ($local->codigo) ?></td>
 					<td><?= ($local->tipo) ?></td>
 					<td>
-						<a <?= ('href="/Locals/view/'.$local->id.'"') ?> >Ver</a>
-						&nbsp;
-						<a <?= ('href="/Locals/edit/'.$local->id.'"') ?> >Editar</a>
-						&nbsp;
-						<a <?= ('href="/Locals/delete/'.$local->id.'" onclick="if (confirm(&quot;Deseja deletar este local?&quot;)) { return true; } return false;"') ?> >Deletar</a>
-
+						<a class="ui inverted button blue mini" href="/Locals/view/<?php echo $local->id; ?>"><i class="unhide icon"></i>Ver</a>
+						<a class="ui inverted button orange mini" href="/Locals/edit/<?php echo $local->id; ?>"><i class="edit icon"></i>Editar</a>
+						<a class="ui inverted button red mini" href="/Locals/delete/<?php echo $local->id; ?>"><i class="remove icon"></i>Deletar</a>
 					</td>
-
 				</tr>
 			<?php endforeach; ?>
 		</tbody>

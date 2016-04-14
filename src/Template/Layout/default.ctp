@@ -42,7 +42,7 @@
     <body>
 
         <div class="ui pointing menu">
-            <a class="item"><?php echo $this->fetch('title'); ?></a>
+            <a class="item" href="/<?php echo $this->fetch('title'); ?>"><?php echo $this->fetch('title'); ?></a>
             <div class="right menu icon">
                 <?php if (!is_null($this->request->session()->read('Auth.User.username'))): ?>   
                     <a class="item" href="/Users/view/<?php echo $this->request->session()->read('Auth.User.id');  ?>"><?php echo $this->request->session()->read('Auth.User.nome'); ?></a>
@@ -58,8 +58,9 @@
         <div class="ui container">
             <div class="ui stackable grid">         
                     <?php echo $this->fetch('content'); ?>
-            </div>
+            </div>            
         </div>
+
         <footer>
         </footer>
     </body>
