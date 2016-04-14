@@ -72,8 +72,12 @@ class UsersController extends AppController
     {   
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
-            $this->request->data['dataDeCadastro'] = date('d/m/Y');
+
+            date_default_timezone_set("America/Fortaleza");
+
             $user = $this->Users->patchEntity($user, $this->request->data);
+            $user->cadastradoPor = $this->request->session()->read('Auth.User.nome');
+            $user->dataDeCadastro = date('Y-m-d H:i:s');
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect(['action' => 'index']);
@@ -133,8 +137,11 @@ class UsersController extends AppController
         if($this->request->is('post')){
             $user = $this->Auth->identify();
             if($user){
+
+                date_default_timezone_set("America/Fortaleza");
                 $u = $this->Users->get($user['id']);
                 $u->ultimaVezAtivo = date('Y/m/d H:i:s');
+
                 $this->Users->save($u);
 
                 $this->Auth->setUser($user);

@@ -28,10 +28,10 @@ class EquipamentosTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('locals', [
-            'className' => 'Locals',
-            'bindingKey' => 'codLocal',
+        $this->hasMany('Locals', [
+            'className' => 'Locals',            
             'foreignKey' => 'codigo',
+            'bindingKey' => 'codLocal',
             'joinType' => 'INNER'
         ]);        
 

@@ -1,44 +1,49 @@
-<?php 
-	echo date('Y/m/d H:i:s');
-	echo $this->request->session()->read('Auth.User.id');
-?>
+<div class="sixten centered wide column row">
+	<h4 class="ui horizontal divider header">
+		<i class="user icon"></i>
+		Usuário
+	</h4>
+	<table class="ui teal selectable stackable table">
 
-<table>
+		<tr>
+			<td>Nome</td>
+			<td><?php echo $user->nome; ?></td>
+		</tr>
+		<tr>
+			<td>Matricula</td>
+			<td><?php echo $user->matricula; ?></td>
+		</tr>
+		<tr>
+			<td>Função</td>
+			<td><?php echo $user->role; ?></td>
+		</tr>
+		<tr>
+			<td>Cadastrado por</td>
+			<td><?php echo $user->cadastradoPor; ?></td>
+		</tr>
+		<tr>
+			<td>Data de Cadastro</td>
+			<td><?php echo date('d/m/Y H:i', strtotime($user->dataDeCadastro)); ?></td>
+		</tr>
+		<tr>
+			<td>Última ativo</td>
+			<td><?php echo date('d/m/Y H:i', strtotime($user->ultimaVezAtivo)); ?></td>
+		</tr>
 
-	<tr>
-		<td>Nome</td>
-		<td><?php echo $user->nome; ?></td>
-	</tr>
-	<tr>
-		<td>Matricula</td>
-		<td><?php echo $user->matricula; ?></td>
-	</tr>
-	<tr>
-		<td>Função</td>
-		<td><?php echo $user->role; ?></td>
-	</tr>
-	<tr>
-		<td>Cadastrado por</td>
-		<td><?php echo $user->cadastradoPor; ?></td>
-	</tr>
-	<tr>
-		<td>Data de Cadastro</td>
-		<td><?php echo date('d/m/Y g:i A', strtotime($user->dataDeCadastro)); ?></td>
-	</tr>
-	<tr>
-		<td>Última ativo</td>
-		<td><?php echo date('d/m/Y g:i A', strtotime($user->ultimaVezAtivo)); ?></td>
-	</tr>
-
-</table>
+	</table>
+</div>
 
 <?php 
 	if(!empty($alertas)):
 		$matricula = $alertas[0]->bolsistas_alerta->matricula_bolsista;
 		if($this->request->session()->read('Auth.User.matricula') == $matricula):
 ?>
-
-	<table>
+<div class="sixten centered wide column row">
+	<h4 class="ui horizontal divider header">
+		<i class="warning sign icon"></i>
+		Alertas
+	</h4>
+	<table class="ui yellow selectable stackable table">
 		
 		<thead>
 			<tr>
@@ -73,6 +78,7 @@
 		</tbody>
 
 	</table>
+</div>	
 
 <?php 
 		endif;

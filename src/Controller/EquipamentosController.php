@@ -79,7 +79,7 @@ class EquipamentosController extends AppController
     public function edit($id = null)
     {
         $equipamento = $this->Equipamentos->get($id, [
-            'contain' => ['TipoEquipamentos']
+            'contain' => []
         ]);
         $tipoEquipamentos = $this->Equipamentos->TipoEquipamentos
                                                             ->find()
@@ -87,18 +87,26 @@ class EquipamentosController extends AppController
                                                             ->all()
                                                             ->toArray();
 
+        $locals = $this->Equipamentos->Locals
+                                                            ->find()
+                                                            ->select(['nome', 'codigo'])
+                                                            ->all()
+                                                            ->toArray();
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $equipamento = $this->Equipamentos->patchEntity($equipamento, $this->request->data);
+            $equipamento->dataDeCompra = date('Y-m-d', strtotime($this->request->data['dataDeCompra']));
+
             if ($this->Equipamentos->save($equipamento)) {
-                $this->Flash->success(__('The equipamento has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                echo 'Editado';
             } else {
-                $this->Flash->error(__('The equipamento could not be saved. Please, try again.'));
+                echo 'Erro';
             }
         }
         $this->set(compact('equipamento'));
         $this->set(compact('tipoEquipamentos'));
-        $this->set('_serialize', ['equipamento', 'tipoEquipamentos']);
+        $this->set(compact('locals'));
+        $this->set('_serialize', ['equipamento', 'tipoEquipamentos', 'locals']);
     }
 
     /**
@@ -124,14 +132,25 @@ class EquipamentosController extends AppController
 
         $equipamento = $this->Equipamentos->newEntity();
 
-        if($this->request->is('ajax')){
+        $tipoEquipamentos = $this->Equipamentos->TipoEquipamentos
+                                                            ->find()
+                                                            ->select(['id', 'nome'])
+                                                            ->all()
+                                                            ->toArray();
+
+
+        if($this->request->is('put')){
             $equipamento = $this->Equipamentos->patchEntity($equipamento, $this->request->data);
+            
             if ($this->Equipamentos->save($equipamento)) {
                 echo 'Cadastrado';
             } else {
                 echo 'Erro ao cadastrar';
             }
         }
+
+        $this->set(compact('tipoEquipamentos'));
+        $this->set('_serialize', ['tipoEquipamentos']);
     }
 
     public function isAuthorized($user){

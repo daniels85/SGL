@@ -1,133 +1,85 @@
-<form method="POST" accept-charset="utf-8" <?= ('action="/Locals/edit/'.$local->id.'"') ?> style="width: 25%;margin: 0 auto;margin-top: 5%;">
-	<div style="display:none;">
-		<input type="hidden" name="_method" value="POST"/>
+<div class="two column row">
+	<div class="column centered">
+		<div class="ui teal segment">
+			<h4 class="ui horizontal divider header">
+				Modificar local
+			</h4>
+
+			<?php $this->Flash->render('auth'); ?>
+			<?php echo $this->Form->create(); ?>
+			        <?php echo $this->Form->input('nome', ['required' => true, 'value' => $local->nome]); ?>
+
+			        <?php echo $this->Form->input('Código', ['name' => 'codigo', 'required' => true, 'value' => $local->codigo]); ?>
+			        
+			        <div class="field">
+				        <label>Coordenador: </label> 
+				        <input type="hidden" name="coordenadores[]" value=""/>
+						<select name="coordenadores[]" class="ui fluid dropdown" multiple>
+							<option value=""></option>
+							<?php foreach($professores as $key => $professor): ?>
+								<option <?= ("value='$professor->matricula'") ?> 
+									<?php 
+										if(isset($userLocalsCoordenadores)){
+											foreach($userLocalsCoordenadores as $keyB => $userLocalsCoordenador){
+												if($professor->matricula == $userLocalsCoordenador->matricula){
+													echo "selected";					
+												}
+											}
+										}
+								 	?> > 
+
+									<?= ($professor->nome." - Matrícula: ".$professor->matricula) ?> 
+								</option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+
+					<div class="field">
+			        	
+						<label>Bolsista: </label> 
+						<input type="hidden" name="bolsistas[]" value=""/>
+						<select name="bolsistas[]" class="ui fluid dropdown" multiple>
+							<option value=""></option>
+							<?php foreach($bolsistas as $key => $bolsista): ?>
+								<option <?= ("value='$bolsista->matricula'") ?> 
+
+									<?php
+										if(isset($userLocalsBolsistas)){
+											foreach($userLocalsBolsistas as $keyB => $userLocalsBolsista){
+												if($bolsista->matricula == $userLocalsBolsista->matricula){
+													echo "selected";				
+												}						
+											}
+										}
+								 	?> > 
+
+									<?= ($bolsista->nome." - Matrícula: ".$bolsista->matricula) ?> 
+								</option>
+							<?php endforeach; ?>
+						</select>
+
+			        </div>
+			        <?php
+			        	$options = [
+			        				'Laboratório' => 'Laboratório', 
+									'Sala de Aula' => 'Sala de Aula',
+									'Gabinete' => 'Gabinete',
+									'Coordenação' => 'Coordenação'
+								];
+					?>
+
+			        <div class="field">
+			        	<select name="tipo">
+			        		<?php foreach($options as $option): ?>
+			        			<option value="<?php echo $option; ?>" <?php (!strcmp($option, $local->tipo))? print 'selected' : print ''; ?> ><?php echo $option; ?></option>
+			        		<?php endforeach; ?>
+			        	</select>
+			        </div>
+
+			<?php echo $this->Form->button(__('Enviar'), ['class' => 'ui button green']);; ?>
+			<?php echo $this->Form->end(); ?>
+
+
+		</div>
 	</div>
-
-	<label>Nome: </label> <input type="text" name="nome" <?= ('value="'.$local->nome.'"') ?> required>
-	<label>Codigo: </label> <input type="text" name="codigo" <?= ('value="'.$local->codigo.'"') ?> required>
-
-
-	<label>Coordenador: </label> 
-	<select name="coordenadores[]" >
-		<option value=""></option>
-		<?php if(isset($p)){unset($p);}  foreach($professores as $key => $professor): ?>
-			<option <?= ("value='$professor->matricula'") ?> 
-
-				<?php 
-					if(isset($userLocalsCoordenadores)){
-						foreach($userLocalsCoordenadores as $keyB => $userLocalsCoordenador){
-							if($professor->matricula == $userLocalsCoordenador->matricula){
-								if(isset($p))
-									break 1;
-								unset($professores[$key]);
-								echo "selected";	
-								$p = 1;						
-							}
-						}
-					}
-			 	?> > 
-
-				<?= ($professor->nome." - Matrícula: ".$professor->matricula) ?> 
-			</option>
-		<?php endforeach; ?>
-	</select>
-
-	<select name="coordenadores[]" >
-		<option value=""></option>
-		<?php if(isset($p)){unset($p);}  foreach($professores as $key => $professor): ?>
-			<option <?= ("value='$professor->matricula'") ?> 
-
-				<?php 
-					if(isset($userLocalsCoordenadores)){
-						foreach($userLocalsCoordenadores as $keyB => $userLocalsCoordenador){
-							if($professor->matricula == $userLocalsCoordenador->matricula){
-								if(isset($p))
-									break 1;
-								unset($professores[$key]);
-								echo "selected";	
-								$p = 1;						
-							}							
-						}
-					}
-			 	?> > 
-
-				<?= ($professor->nome." - Matrícula: ".$professor->matricula) ?> 
-			</option>
-		<?php endforeach; ?>
-	</select>
-
-	<label>Bolsista: </label> 
-	<select name="bolsistas[]">
-		<option value=""></option>
-		<?php if(isset($p)){unset($p);}  foreach($bolsistas as $key => $bolsista): ?>
-			<option <?= ("value='$bolsista->matricula'") ?> 
-
-				<?php
-					if(isset($userLocalsBolsistas)){
-						foreach($userLocalsBolsistas as $keyB => $userLocalsBolsista){
-							if($bolsista->matricula == $userLocalsBolsista->matricula){
-								if(isset($p))
-									break 1;
-								unset($bolsistas[$key]);
-								echo "selected";	
-								$p = 1;						
-							}						
-						}
-					}
-			 	?> > 
-
-				<?= ($bolsista->nome." - Matrícula: ".$bolsista->matricula) ?> 
-			</option>
-		<?php endforeach; ?>
-	</select>
-	<select name="bolsistas[]">
-		<option value=""></option>
-		<?php if(isset($p)){unset($p);}  foreach($bolsistas as $key => $bolsista): ?>
-			<option <?= ("value='$bolsista->matricula'") ?> 
-				<?php
-					if(isset($userLocalsBolsistas)){
-						foreach($userLocalsBolsistas as $keyB => $userLocalsBolsista){
-							if($bolsista->matricula == $userLocalsBolsista->matricula){
-								if(isset($p))
-									break 1;
-								unset($bolsistas[$key]);
-								echo "selected";	
-								$p = 1;						
-							}						
-						}
-					}
-			 	?> > 
-
-				<?= ($bolsista->nome." - Matrícula: ".$bolsista->matricula) ?> 
-			</option>
-		<?php endforeach; ?>
-	</select>
-
-	<select name="bolsistas[]">
-		<option value=""></option>
-		<?php if(isset($p)){unset($p);}  foreach($bolsistas as $key => $bolsista): ?>
-			<option <?= ("value='$bolsista->matricula'") ?> 
-				<?php
-					if(isset($userLocalsBolsistas)){
-						foreach($userLocalsBolsistas as $keyB => $userLocalsBolsista){
-							if($bolsista->matricula == $userLocalsBolsista->matricula){
-								if(isset($p))
-									break 1;
-								unset($bolsistas[$key]);
-								echo "selected";	
-								$p = 1;						
-							}						
-						}
-					}
-			 	?> > 
-
-				<?= ($bolsista->nome." - Matrícula: ".$bolsista->matricula) ?> 
-			</option>
-		<?php endforeach; ?>
-	</select>
-
-	<label>Tipo: </label> <input type="text" name="tipo" <?= ('value="'.$local->tipo.'"') ?> required>
-	
-	<button type="submit">Enviar</button>
-
-</form>
+</div>

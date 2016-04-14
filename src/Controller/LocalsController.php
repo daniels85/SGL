@@ -12,9 +12,17 @@ use Cake\Event\Event;
  */
 class LocalsController extends AppController {
 
+    public $paginate = [
+        'limit' => 5,
+        'order' => [
+            'Equipamentos.nome' => 'asc'
+        ]
+    ];
+
     public function initialize() {
         parent::initialize();
         $this->loadComponent('RequestHandler');
+        $this->loadComponent('Paginator');
     }
 
     /**
@@ -51,7 +59,12 @@ class LocalsController extends AppController {
         /** Equipamentos **/
         $equipamentos = $this->getEquipamentos($local->codigo);
 
-        $this->set('equipamentos', $equipamentos);
+        $this->set('equipamentos', $this->paginate($equipamentos2 = $this->Locals->Equipamentos
+                                                                                            ->find()
+                                                                                            ->where(['codLocal' => $local->codigo])
+                                                                                            ->contain(['TipoEquipamentos'])
+                                                                                            ));
+
         $this->set('local', $local);
         $this->set('coordenadores', $coordenadores);       
         $this->set('bolsistas', $bolsistas);
@@ -84,11 +97,11 @@ class LocalsController extends AppController {
 
         if ($this->request->is('post')) {
 
-            $local = $this->Locals->patchEntity($local, $this->request->data);         
+            $local = $this->Locals->patchEntity($local, $this->request->data);
 
-            if ($this->Locals->save($local)) {
-                
-                $matriculasForm = array_unique(array_merge( $this->request->data['bolsistas'], $this->request->data['coordenadores'] ) );
+            if ($this->Locals->save($local)) {               
+
+                $matriculasForm = array_filter(array_unique(array_merge($this->request->data['bolsistas'], $this->request->data['coordenadores'] )));
                 
                 foreach ($matriculasForm as $user) {
                     UsersController::insereUserLocals( $local->codigo, $user );
@@ -102,8 +115,24 @@ class LocalsController extends AppController {
             }
         }
 
-        $professores = $this->Locals->Users->find('all', ['conditions' => ['role' => 'Professor']]);
-        $bolsistas = $this->Locals->Users->find('all', ['conditions' => ['role' => 'Bolsista']]);
+        $professores = $this->Locals->Users
+                                        ->find('list', [
+                                            'keyField' => 'matricula',
+                                            'valueField' => 'nome',
+                                            'conditions' => ['role' => 'Professor']
+                                        ])
+                                        ->all()
+                                        ->toArray();
+
+        $bolsistas = $this->Locals->Users
+                                        ->find('list', [
+                                            'keyField' => 'matricula',
+                                            'valueField' => 'nome',
+                                            'conditions' => ['role' => 'Bolsista']
+                                        ])
+                                        ->all()
+                                        ->toArray();
+
         $this->set(compact('local', 'professores', 'bolsistas'));
         $this->set('_serialize', ['local']);
     } 
@@ -145,6 +174,8 @@ class LocalsController extends AppController {
 
             /** Trata o array de matriculas vindo do formulario **/
             $matriculasForm = array_unique(array_merge( $this->request->data['bolsistas'], $this->request->data['coordenadores'] ) );
+
+
             $matriculasForm = array_filter($matriculasForm);
             $matriculaInserir = array_diff($matriculasForm, $matriculas);
 
@@ -188,13 +219,12 @@ class LocalsController extends AppController {
                                         ->where(['role' => 'Professor'])
                                         ->all()
                                         ->toArray();
-
         $bolsistas = $this->Locals->Users
                                         ->find()
                                         ->select(['nome', 'matricula'])
                                         ->where(['role' => 'Bolsista'])
                                         ->all()
-                                        ->toArray();    
+                                        ->toArray();  
 
         $this->set(compact('local', 'professores', 'bolsistas', 'userLocalsBolsistas', 'userLocalsCoordenadores'));
         $this->set('_serialize', ['local']);

@@ -1,104 +1,40 @@
-<script   src="https://code.jquery.com/jquery-1.12.2.min.js"   integrity="sha256-lZFHibXzMHo3GGeehn1hudTAP3Sc0uKXBXAzHX1sjtk="   crossorigin="anonymous"></script>
+<div class="two column row">
+	<div class="column centered">
+		<div class="ui teal segment">
+			<h4 class="ui horizontal divider header">
+				Cadastrar local
+			</h4>
+			<?php $this->Flash->render('auth'); ?>
+			<?php echo $this->Form->create(); ?>
+			        <?php echo $this->Form->input('nome', ['required' => true]); ?>
 
-<script type="text/javascript">
-	
-	$(document).ready(function(){
-		
-		var campos_max_coordenador = 2;
-		var x_coordenador = 1;
+			        <?php echo $this->Form->input('Código', ['name' => 'codigo', 'required' => true]); ?>
+			        <div class="field">
+				        <label>Coordenador</label>
+				        <?php echo $this->Form->select('coordenadores', $professores, ['name' => 'coordenadores[]', 'multiple' => true]); ?>
+					</div>
+					<div class="field">
+			        	<label>Bolsista</label>
+			        	<?php echo $this->Form->select('bolsistas', $bolsistas, ['name' => 'bolsistas[]', 'multiple' => true]); ?>
+			        </div>
 
-		var campos_max_bolsista = 3;
-		var x_bolsista = 1;
+			        <div class="field">
+			        	<label>Tipo</label>
+			        	<?php echo $this->Form->select(
+			        								'tipo', 
+			        								[
+			        									['empty' => 'Selecione uma opção'], 
+			        									[
+			        										'Laboratório' => 'Laboratório', 
+			        										'Sala de Aula' => 'Sala de Aula',
+			        										'Gabinete' => 'Gabinete',
+			        										'Coordenação' => 'Coordenação'
+			        									]
+			        								]); ?>
+			        </div>
 
-		var selectsCoordenador = $('#coordenadores').html();
-		var selectsBolsista = $('#bolsistas').html();
-
-		// Coordenador
-		$('#coordenadores').on('click','.addCoordenador',function(e){
-			e.preventDefault();
-			
-			if(x_coordenador < campos_max_coordenador){
-				$('#coordenadores')
-					.append('<div class="coordenadores">'
-								+selectsCoordenador
-								+'&nbsp;<a id="delCoordenador"> Remover</a>'
-								+'</div>');
-				x_coordenador++;
-			}
-
-		});
-
-		$('#coordenadores').on('click', '#delCoordenador', function(e){
-			e.preventDefault();
-			$(this).parent('div').remove();
-			x_coordenador--;
-		});
-
-
-		// Bolsistas
-		$('#bolsistas').on('click','.addBolsista',function(e){
-			e.preventDefault();
-			
-			if(x_bolsista < campos_max_bolsista){
-				$('#bolsistas')
-					.append('<div class="bolsistas">'
-								+selectsBolsista
-								+'&nbsp;<a id="delBolsista"> Remover</a>'
-								+'</div>');
-				x_bolsista++;
-			}
-
-		});
-
-		$('#bolsistas').on('click', '#delBolsista', function(e){
-			e.preventDefault();
-
-			$(this).parent('div').remove();
-			x_bolsista--;
-		});
-
-	});
-
-</script>
-
-<form method="POST" accept-charset="utf-8" action="/Locals/add" style="width: 30%;margin: 0 auto;margin-top: 5%;">
-	<div style="display:none;">
-		<input type="hidden" name="_method" value="POST"/>
+			<?php echo $this->Form->button(__('Enviar'), ['class' => 'ui button green']);; ?>
+			<?php echo $this->Form->end(); ?>
+		</div>
 	</div>
-
-	<label>Nome: </label> <input type="text" name="nome" placeholder="Nome" required>
-	<label>Codigo: </label> <input type="text" name="codigo" placeholder="Codigo" required>
-
-	<label>Coordenador: </label> 
-	<div id="coordenadores">
-
-		<select name="coordenadores[]">
-			<option value=""></option>
-			<?php  foreach($professores as $professores): ?>
-				<option <?= ("value='$professores->matricula'") ?> > <?= ($professores->nome." - Matrícula: ".$professores->matricula) ?> </option>
-			<?php endforeach; ?>
-		</select>
-
-		<a class="addCoordenador"> Adicionar</a>
-	</div>
-
-	<br>
-	<label>Bolsista: </label> 
-	<div id="bolsistas">
-		
-		<select name="bolsistas[]">
-			<option value=""></option>
-			<?php  foreach($bolsistas as $bolsista): ?>
-				<option <?= ("value='$bolsista->matricula'") ?> > <?= ($bolsista->nome." - Matrícula: ".$bolsista->matricula) ?> </option>
-			<?php endforeach; ?>
-		</select>
-
-		<a class="addBolsista"> Adicionar</a>
-	</div>
-	
-	<br>
-	<label>Tipo: </label> <input type="text" name="tipo" placeholder="Tipo" required>
-	
-	<button type="submit">Enviar</button>
-
-</form>
+</div>
