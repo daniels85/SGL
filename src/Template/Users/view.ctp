@@ -70,8 +70,7 @@
 						    Opções
 						    <div class="menu">
 						      <div class="item"><i class="unhide icon"></i>Ver</div>
-						      <div class="item"><i class="edit icon"></i>Editar</div>
-						      <div class="item"><i class="warning sing icon"></i>Alertar</div>
+						      <div class="item"><i class="delete icon"></i>Excluir</div>
 						    </div>
 						</div>
 					</td>

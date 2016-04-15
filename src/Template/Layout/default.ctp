@@ -40,7 +40,6 @@
         <?php echo $this->fetch('script'); ?>
     </head>
     <body>
-
         <div class="ui pointing menu">
             <a class="item" href="/<?php echo $this->fetch('title'); ?>"><?php echo $this->fetch('title'); ?></a>
             <div class="right menu icon">
@@ -49,10 +48,9 @@
                     <a href="/users/logout" class="item"><i class="sign out icon"></i>Logout</a>            
                 <?php else: ?>
                     <a href="/users/login" class="item"><i class="sign in icon"></i>Login</a>
-                <?php endif; ?>
+                <?php endif; ?>                    
             </div>
         </div>
-
         <?php echo $this->Flash->render(); ?>
         <?php echo $this->Flash->render('auth'); ?>
         <div class="ui container">

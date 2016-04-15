@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"font",
+				"font-size"
+			],
+			[
+				"wi",
+				"width"
+			],
+			[
+				"modal",
+				"modalContent"
+			],
+			[
 				"end",
 				"endforeach"
 			],
@@ -176,10 +188,6 @@
 				"bntSalvarEquipamento"
 			],
 			[
-				"modal",
-				"modalHeader"
-			],
-			[
 				"o",
 				"option	Tag"
 			]
@@ -199,23 +207,26 @@
 			"file": "webroot/js/equipamentos.js",
 			"settings":
 			{
-				"buffer_size": 13602,
+				"buffer_size": 13705,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Template/Locals/add.ctp",
+			"file": "src/Template/Layout/default.ctp",
 			"settings":
 			{
-				"buffer_size": 1486,
+				"buffer_size": 2921,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Template/Users/index.ctp",
+			"contents": "<!DOCTYPE html>\n<html>\n	<head>\n		<title>Tteste</title>\n		<meta charset=\"utf-8\">\n		<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css\">\n		<script   src=\"https://code.jquery.com/jquery-1.12.3.min.js\"   integrity=\"sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=\"   crossorigin=\"anonymous\"></script>\n		<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js\"></script>\n		<script type=\"text/javascript\">\n			$(document).ready(function(){\n				$('.ui.dropdown').dropdown();\n				$('.launch.icon.item').click(function(event){\n					event.preventDefault();\n					$('.ui.sidebar')\n						.sidebar('setting', 'transition', 'overlay')\n						.sidebar('toggle');\n				});\n\n			});\n		</script>\n		<style type=\"text/css\">\n			.back-computer{\n				z-index: 999;\n				position: fixed;\n				top: 15%;\n				left: 5%;\n			}\n			.back-mobile{\n				z-index: 999;\n				position: fixed;\n				bottom: 10%;\n				right: 10%;\n			}\n		</style>\n		<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n	</head>\n	<body>\n\n		<div class=\"ui grid\">			\n			<div class=\"large monitor computer only row\">\n				<div class=\"column\">\n					<div class=\"ui fixed menu\">\n						<a href=\"\" class=\"item\">Home</a>\n						<div class=\"right menu\">\n							<div class=\"ui category search item\">\n								<div class=\"ui transparent icon input\">\n									<input class=\"prompt\" type=\"text\" placeholder=\"Buscar por equipamento\">\n									<i class=\"search link icon\"></i>\n								</div>\n							</div>\n							<a href=\"\" class=\"item\">Bolsistas</a>\n							<a href=\"\" class=\"item\">Usuários</a>\n							<a href=\"\" class=\"item\"><i class=\"user icon\"></i>Account</a>\n							<a href=\"\" class=\"item\"><i class=\"log out icon\"></i>Logout</a>\n						</div>						\n					</div>					\n				</div>\n				<div class=\"column\">\n					<div class=\"ui secondary pointing menu\">\n						<a class=\"item\">asd</a>						\n					</div>\n				</div>\n			</div>\n			\n			<div class=\"tablet mobile only row\">\n				<div class=\"column\">\n					<div class=\"ui fixed main menu\">\n						<a class=\"item nav\">Home</a>\n						<div class=\"right menu\">\n							<a class=\"launch icon item\">\n								<i class=\"sidebar icon\"></i>\n							</a>\n						</div>\n					</div>\n				</div>\n			</div>	\n\n			<div class=\"computer only row\">\n				<button class=\"circular ui teal icon button back-computer\"><i class=\"arrow left icon\"></i></button>\n			</div>\n			<div class=\"mobile tablet only row\">\n				<button class=\"circular ui teal icon button back-mobile\"><i class=\"arrow left icon\"></i></button>\n			</div>\n\n		</div>\n\n		<h2 class=\"ui horizontal divider header\"></h2>\n		<h2 class=\"ui horizontal divider header\"></h2>\n\n		<div class=\"ui right vertical sidebar menu\">\n			<a class=\"item\">Usuários</a>\n			<a class=\"item\">Bolsistas</a>\n			<a class=\"item\">Account</a>\n			<a class=\"item\"><i class=\"log out icon\"></i>Logout</a>\n			<div class=\"item\">\n				<div class=\"header\">Buscar por Equipamento</div>\n				<div class=\"menu\">\n					<div class=\"ui category search item\">\n						<div class=\"ui transparent icon input\">\n							<input class=\"prompt\" type=\"text\" placeholder=\"Tombo do Equipamento\">\n							<i class=\"search link icon\"></i>\n						</div>\n					</div>\n				</div>\n			</div>\n		</div>			\n		\n		<div class=\"ui container\">\n			\n            <div class=\"ui stackable grid\">    \n\n                <div class=\"sixten centered wide column row\">\n                	<h3 class=\"ui horizontal divider header\">\n						<i class=\"user icon\"></i>\n						Usuário\n					</h3>\n					<table class=\"ui teal selectable stackable table\">\n\n						<tr>\n							<td>Nome</td>\n							<td>asdasdasd</td>\n						</tr>\n						<tr>\n							<td>Matricula</td>\n							<td>asdasdasd</td>\n						</tr>\n						<tr>\n							<td>Função</td>\n							<td>asdasd</td>\n						</tr>\n						<tr>\n							<td>Cadastrado por</td>\n							<td>sadsadas</td>\n						</tr>\n						<tr>\n							<td>Data de Cadastro</td>\n							<td>sadsadas</td>\n						</tr>\n						<tr>\n							<td>Última ativo</td>\n							<td>sadsadas</td>\n						</tr>\n\n					</table>\n\n                </div>\n\n            </div>\n\n		</div>\n	</body>\n</html>",
+			"file": "/var/www/html/teste.html",
+			"file_size": 4113,
+			"file_write_time": 131051654208984054,
 			"settings":
 			{
-				"buffer_size": 1676,
+				"buffer_size": 4107,
 				"line_ending": "Unix"
 			}
 		},
@@ -223,15 +234,7 @@
 			"file": "src/Template/Users/view.ctp",
 			"settings":
 			{
-				"buffer_size": 2131,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Controller/LocalsController.php",
-			"settings":
-			{
-				"buffer_size": 9637,
+				"buffer_size": 2113,
 				"line_ending": "Unix"
 			}
 		}
@@ -271,19 +274,26 @@
 		"/home/ivanov/Documentos/sgl",
 		"/home/ivanov/Documentos/sgl/src",
 		"/home/ivanov/Documentos/sgl/src/Template",
-		"/home/ivanov/Documentos/sgl/src/Template/Element/Flash",
+		"/home/ivanov/Documentos/sgl/src/Template/Alertas",
 		"/home/ivanov/Documentos/sgl/src/Template/Equipamentos",
+		"/home/ivanov/Documentos/sgl/src/Template/Layout",
 		"/home/ivanov/Documentos/sgl/src/Template/Users",
 		"/home/ivanov/Documentos/sgl/vendor",
 		"/home/ivanov/Documentos/sgl/webroot",
-		"/home/ivanov/Documentos/sgl/webroot/js"
+		"/home/ivanov/Documentos/sgl/webroot/js",
+		"/home/ivanov/Documentos/sgl/webroot/semantic-ui",
+		"/home/ivanov/Documentos/sgl/webroot/semantic-ui/dist"
 	],
 	"file_history":
 	[
+		"/var/www/html/login.html",
+		"/home/ivanov/Documentos/sgl/src/Controller/LocalsController.php",
+		"/home/ivanov/Documentos/sgl/src/Template/Users/index.ctp",
+		"/home/ivanov/Documentos/sgl/src/Template/Locals/add.ctp",
+		"/home/ivanov/Documentos/sgl/webroot/semantic-ui/dist/semantic.min.css",
 		"/home/ivanov/Documentos/sgl/src/Template/Locals/index.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Locals/view.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/view.ctp",
-		"/home/ivanov/Documentos/sgl/src/Template/Users/index.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Locals/edit2.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Locals/edit.ctp",
 		"/home/ivanov/Documentos/sgl/webroot/js/addlocal.js",
@@ -291,11 +301,8 @@
 		"/home/ivanov/Documentos/sgl/src/Template/Element/Flash/success.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/login.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Layout/default.ctp",
-		"/home/ivanov/Documentos/sgl/src/Template/Locals/add.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/add.ctp",
-		"/var/www/html/login.html",
 		"/home/ivanov/Documentos/sgl/vendor/cakephp/cakephp/src/Form/Form.php",
-		"/home/ivanov/Documentos/sgl/src/Controller/LocalsController.php",
 		"/home/ivanov/Documentos/sgl/vendor/cakephp/cakephp/src/View/Helper/PaginatorHelper.php",
 		"/home/ivanov/Documentos/sgl/webroot/js/equipamentos.js",
 		"/home/ivanov/Documentos/sgl/src/Controller/AlertasController.php",
@@ -303,7 +310,6 @@
 		"/home/ivanov/Documentos/sgl/src/Controller/EquipamentosController.php",
 		"/home/ivanov/Documentos/sgl/src/Controller/UsersController.php",
 		"/home/ivanov/Documentos/sgl/src/Controller/AppController.php",
-		"/home/ivanov/Documentos/sgl/webroot/semantic-ui/dist/semantic.min.css",
 		"/home/ivanov/Documentos/sgl/config/routes.php",
 		"/home/ivanov/Documentos/sgl/src/Template/Locals/view2.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Equipamentos/edit.ctp",
@@ -349,6 +355,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"modalContent",
 			"centred",
 			"center",
 			"grid",
@@ -402,7 +409,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 999.0,
+						"translation.y": 102.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
@@ -414,49 +421,20 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 13602,
+						"buffer_size": 13705,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6756,
-								6756
+								11211,
+								11211
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1778.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/Template/Locals/add.ctp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1486,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								782,
-								782
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -467,29 +445,58 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "src/Template/Users/index.ctp",
+					"buffer": 2,
+					"file": "src/Template/Layout/default.ctp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1676,
+						"buffer_size": 2921,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								748,
-								748
+								2757,
+								2757
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 351.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/var/www/html/teste.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4107,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3140,
+								3140
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1027.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -501,15 +508,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2131,
+						"buffer_size": 2113,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								571,
-								571
+								754,
+								754
 							]
 						],
 						"settings":
@@ -518,37 +525,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "src/Controller/LocalsController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9637,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3401,
-								3401
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1482.0,
+						"translation.y": 351.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -634,7 +611,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 284.0,
+	"side_bar_width": 186.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

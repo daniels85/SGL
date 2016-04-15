@@ -23,9 +23,9 @@ $(document).ready(function(){
 				return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
 			},
 
-			success: function(data){
+			success: function(data){				
 
-				$('.ui.modal').modal('show');
+				modalContent.html('');
 
 				conteudoModal  = '<form class="ui form">';
 
@@ -86,9 +86,11 @@ $(document).ready(function(){
 				conteudoModal += '<button id="bntEditar" class="ui button green">Salvar</button>';
 				conteudoModal += '</form>';
 
+				modalContent.html(conteudoModal);
+
 				modalHeader.html('Editar - Equipamento: '+data['equipamento'].nome+' [ Tombo: '+data['equipamento'].tombo+' ]');
 
-				modalContent.html(conteudoModal);
+				$('.ui.modal').modal('show');
 
 				$('#bntEditar').on('click', function(event){
 					event.preventDefault();
@@ -173,7 +175,9 @@ $(document).ready(function(){
 			},
 
 			success: function(data){
-				$('.ui.modal').modal('show');
+				
+				modalContent.html('');
+
 				modalHeader.html("Enviar Alerta - Equipamento: "+data['equipamento'].nome+" [ Tombo: "+data['equipamento'].tombo+" ]");
 
 				conteudoModal  = '<form class="ui form">';
@@ -183,8 +187,10 @@ $(document).ready(function(){
 				conteudoModal += '</div>';
 				conteudoModal += '<button id="btnEnviarAlerta" class="ui button green">Enviar</button>';
 				conteudoModal += '</form>';
-
+				
 				modalContent.html(conteudoModal);
+
+				$('.ui.modal').modal('show');
 
 				$('#btnEnviarAlerta').on('click', function(event){
 					event.preventDefault();
@@ -264,9 +270,9 @@ $(document).ready(function(){
 				return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
 			},
 
-			success: function(data){
+			success: function(data){				
 
-				$('.ui.modal').modal('show');
+				modalContent.html('');
 
 				conteudoModal  = '<form class="ui form">';
 
@@ -314,7 +320,10 @@ $(document).ready(function(){
 				conteudoModal += '</form>';
 
 				modalHeader.html('Cadastrar Equipamento');
+
 				modalContent.html(conteudoModal);
+
+				$('.ui.modal').modal('show');
 
 				$('#bntSalvarEquipamento').on('click', function(event){
 
