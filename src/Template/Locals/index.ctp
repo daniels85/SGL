@@ -1,8 +1,8 @@
 <div class="sixten centered wide column row">
-	<h4 class="ui horizontal divider header">
+	<h3 class="ui horizontal divider header">
 		<i class="building outline icon"></i>
 		Laboratórios
-	</h4>
+	</h3>
 	<table class="ui teal stackable table center aligned">		
 		<thead>
 			<tr >

@@ -1,3 +1,5 @@
+<h2 class="ui horizontal divider header">
+</h2>
 <div class="two column row">
 	<div class="column centered">
 		<div class="ui teal segment">

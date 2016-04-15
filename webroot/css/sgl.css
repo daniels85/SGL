@@ -1,0 +1,12 @@
+.back-computer{
+	z-index: 999;
+	position: fixed;
+	top: 15%;
+	left: 5%;
+}
+.back-mobile{
+	z-index: 999;
+	position: fixed;
+	bottom: 15%;
+	right: 10%;
+}
