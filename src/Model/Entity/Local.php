@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use App\Controller;
 
 /**
  * Local Entity.
@@ -11,6 +12,7 @@ use Cake\ORM\Entity;
  * @property string $codigo
  * @property string $coordenador
  * @property string $tipo
+ * @property isCoordenador
  */
 class Local extends Entity
 {

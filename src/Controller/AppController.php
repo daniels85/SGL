@@ -44,11 +44,30 @@ class AppController extends Controller
         $this->loadComponent('Flash');
         $this->loadComponent('Csrf');
         $this->loadComponent('Auth',[
-            'authorize' => 'Controller',
+            'authorize' => ['Controller'],
             'loginAction' => ['controller' => 'Users', 'action' => 'login']
         ]);
         $this->loadComponent('Cookie', ['expiry' => '1 day']);
 
+    }
+
+    public function isAuthorized($user){
+        // Admin pode acessar todas as actions
+        if (isset($user['role']) && $user['role'] === 'Administrador') {
+            return true;
+        }
+
+        // Bloqueia acesso por padrão
+        return false;
+    }
+
+    public function beforeFilter(Event $event){
+        if(in_array($this->request->controller, ['Locals'])){
+            $this->Auth->allow(['index', 'logout', 'view']);
+        }else{
+            $this->Auth->allow(['logout']);
+        }
+        
     }
 
     /**

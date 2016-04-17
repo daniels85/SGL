@@ -63,8 +63,8 @@
 					<td><?php echo $alerta->statusAlerta; ?></td>
 					<td><?php echo date('d/m/Y g:i A', strtotime($alerta->dataAlerta)); ?></td>
 					<td>
-						<button class="ui positive button small btnVerAlerta"><i class="unhide icon"></i>Ler</button>
-						<button class="ui red button small btnApagarAlerta"><i class="delete icon"></i>Apagar</button>
+						<button class="ui teal button mini btnVerAlerta"><i class="unhide icon"></i>Ler</button>
+						<button class="ui red button mini btnApagarAlerta"><i class="delete icon"></i>Apagar</button>
 					</td>
 
 				</tr>

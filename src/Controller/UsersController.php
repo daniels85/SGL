@@ -31,6 +31,13 @@ class UsersController extends AppController
         $this->set('_serialize', ['users']);
     }
 
+
+    public function bolsistas(){
+        $users = $this->paginate($this->Users->find()->where(['role' => 'Bolsista']));
+        $this->set(compact('users'));
+        $this->set('_serialize', ['users']);
+    }
+
     /**
      * View method
      *
@@ -134,6 +141,11 @@ class UsersController extends AppController
     }
 
     public function login(){
+
+        if(!is_null($this->request->session()->read('Auth.User.username'))){
+            $this->redirect('/');
+        }
+
         if($this->request->is('post')){
             $user = $this->Auth->identify();
             if($user){
@@ -152,7 +164,7 @@ class UsersController extends AppController
     }
 
     public function logout(){
-        return $this->redirect($this->Auth->logout());
+        return $this->redirect($this->Auth->logout($this->redirect('/')));
     }
 
     /**
@@ -169,6 +181,36 @@ class UsersController extends AppController
                             ->find()
                             ->select(['id', 'user_matricula'])
                             ->where(['local_codigo' => $codigoLocal])
+                            ->all()
+                            ->toArray();
+
+        return $usersLocal;
+    }
+
+    /**
+     * getUsersLocals method
+     *
+     * @param string|null $codigoLocal Local codigo.
+     * @return Array composto por user_matricula da tabela UserLocals.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public static function getUsersLocalsBolsistas($codigoLocal){
+
+
+        $matriculaBolsistas = self::getMatriculaBolistas($codigoLocal);
+
+        $matriculas = array('');
+
+        foreach($matriculaBolsistas as $matricula){
+            $matriculas[] = $matricula->matricula;
+        }
+
+        $userLocalsTable = TableRegistry::get('UserLocals');
+
+        $usersLocal = $userLocalsTable
+                            ->find()
+                            ->select(['id', 'user_matricula'])
+                            ->where(['user_matricula IN' => $matriculas, 'local_codigo' => $codigoLocal])
                             ->all()
                             ->toArray();
 
@@ -242,9 +284,61 @@ class UsersController extends AppController
     }
 
     /**
+     * getMatriculaBolistas method
+     *
+     * @param string|null $codigoLocal Local codigo.
+     * @return Array com as matriculas de todos os Bolsistas associados ao local.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public static function getMatriculaBolistas($codigoLocal){
+
+        $usersTable = TableRegistry::get('Users');
+
+        $matriculas = self::getMatriculaUsers($codigoLocal);
+
+        $bolsistas = $usersTable
+                        ->find()
+                        ->select(['matricula'])
+                        ->where(['Users.matricula IN' => $matriculas, 'Users.role' => 'Bolsista'])
+                        ->all()
+                        ->toArray();
+
+        return $bolsistas;
+    }
+
+    /**
+     * isCoordenador method
+     *
+     * @param string|null $matricula Users matricula e $codLocal Locals codigo.
+     * @return True ou False.
+     */
+    public static function isCoordenador($matricula, $codigoLocal){
+        $matriculas = self::getMatriculaUsers($codigoLocal);
+        if(in_array($matricula, $matriculas)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * isBolsista method
+     *
+     * @param string|null $matricula Users matricula e $codLocal Locals codigo.
+     * @return True ou False.
+     */
+    public static function isBolsista($matricula, $codigoLocal){
+        $matriculas = self::getMatriculaUsers($codigoLocal);
+        if(in_array($matricula, $matriculas)){
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * insereUserLocals method
      *
-     * @param string|null $codigo Local codigo e matricula User matricula.
+     * @param string|null $codigo Local codigo e $matricula User matricula.
      * @return True ou False.
      */
     public function insereUserLocals($codigo, $matricula){

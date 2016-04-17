@@ -21,7 +21,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="_csrfToken" content="<?php echo $this->request->param('_csrfToken'); ?>" >
         <title>
-            <?php echo $this->fetch('title'); ?>
+            SGL - <?php echo $this->fetch('title'); ?>
         </title>
         <?php echo $this->Html->meta('icon'); ?>
 
@@ -45,7 +45,7 @@
             <div class="large monitor computer only row">
                 <div class="column">
                     <div class="ui fixed menu">
-                        <a href="/<?php echo $this->fetch('title'); ?>" class="item"><?php echo $this->fetch('title'); ?></a>
+                        <a href="/" class="item">Home</a>
                         <div class="right menu">
                             <?php if (!is_null($this->request->session()->read('Auth.User.username'))): ?>   
                             <div class="ui category search item">
@@ -55,8 +55,15 @@
                                 </div>
                             </div>
 
-                            <a href="" class="item">Bolsistas</a>
-                            <a href="/users" class="item">Usuários</a>
+                                <?php if(!strcmp($this->request->session()->read('Auth.User.role'), 'Professor')): ?>
+                                <a href="/users/bolsistas" class="item">Bolsistas</a>
+                                <?php endif; ?>
+
+                                <?php if(!strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')): ?>
+                                <a href="/users/bolsistas" class="item">Bolsistas</a>
+                                <a href="/users" class="item">Usuários</a>
+                                <?php endif; ?>
+
                             <div class="ui dropdown item">
                                 <?php echo $this->request->session()->read('Auth.User.nome'); ?><i class="user icon"></i>
                                 <div class="menu">

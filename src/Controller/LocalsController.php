@@ -13,7 +13,7 @@ use Cake\Event\Event;
 class LocalsController extends AppController {
 
     public $paginate = [
-        'limit' => 5,
+        'limit' => 10,
         'order' => [
             'Equipamentos.nome' => 'asc'
         ]
@@ -33,6 +33,8 @@ class LocalsController extends AppController {
     public function index() {
         $locals = $this->paginate($this->Locals);
 
+        
+
         $this->set(compact('locals'));
         $this->set('_serialize', ['locals']);
     }
@@ -49,6 +51,7 @@ class LocalsController extends AppController {
         $local = $this->Locals->get($id, [
             'contain' => []
         ]);
+
 
         /** Coordenador **/
         $coordenadores = UsersController::getCoordenadores($local->codigo);
@@ -150,8 +153,6 @@ class LocalsController extends AppController {
             'contain' => []
         ]);
 
-        $usersTable = TableRegistry::get('Users');
-        $userLocalsTable = TableRegistry::get('UserLocals');
         $codigo = $local->codigo;
 
         /** Coordenadores e Bolsistas **/
@@ -251,10 +252,125 @@ class LocalsController extends AppController {
         return $this->redirect(['action' => 'index']);
     }
 
-    
+    public function bolsista($id = null){
+        $local = $this->Locals->get($id, [
+            'contain' => []
+        ]);
+        
+        if(!UsersController::isCoordenador($this->request->session()->read('Auth.User.matricula'), $local->codigo)){
+            if(strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')){
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+        }
 
-    public function isAuthorized($user){
-        return true;
+        $codigo = $local->codigo;
+
+        /** Bolsistas **/
+        $usersLocal = UsersController::getUsersLocalsBolsistas($local->codigo);
+        
+        
+
+        /** Matriculas **/
+        $matriculas = UsersController::getUsersLocals($local->codigo);
+
+        if(!empty($matriculas)){
+
+            /** Bolsistas **/
+            $userLocalsBolsistas = UsersController::getBolistas($local->codigo);
+        }
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+
+            /** Trata o array de matriculas vindo do formulario **/
+            $matriculasForm = array_unique(array_merge($this->request->data['bolsistas']));
+            $matriculasForm = array_filter($matriculasForm);
+
+            $matriculaInserir = array_diff($matriculasForm, $matriculas);
+
+            $local = $this->Locals->patchEntity($local, $this->request->data);
+
+            // Salva as outras informalções do local
+            if ($this->Locals->save($local)) {    
+                
+                /** Insere os novos registros **/
+                foreach($matriculaInserir as $user){
+                    UsersController::insereUserLocals( $local->codigo, $user);
+                }
+
+                /** Deleta do tabela os que foram removidos **/
+                foreach($usersLocal as $user){
+                    if(!in_array($user->user_matricula, $matriculasForm)){
+                        UsersController::deleteUserLocals($user->id);
+                    }
+                }
+
+                $this->Flash->success(__('The local has been saved.'));
+                return $this->redirect(['action' => 'index']);
+
+            } else {
+                $this->Flash->error(__('The local could not be saved. Please, try again.'));
+            }
+        }
+
+        $bolsistas = $this->Locals->Users
+                                        ->find()
+                                        ->select(['nome', 'matricula'])
+                                        ->where(['role' => 'Bolsista'])
+                                        ->all()
+                                        ->toArray(); 
+
+        $this->set(compact('local', 'bolsistas', 'userLocalsBolsistas', 'usersLocal'));
+        $this->set('_serialize', ['local']);
+    }
+
+    /**
+     * isCoordenador method
+     *
+     * @param string|null $matricula Users matricula e $codLocal Locals codigo.
+     * @return True ou False.
+     */
+    public static function isCoordenador($matricula, $codigoLocal){
+        $matriculas = UsersController::getMatriculaUsers($codigoLocal);
+        if(in_array($matricula, $matriculas)){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * isBolsista method
+     *
+     * @param string|null $matricula Users matricula e $codLocal Locals codigo.
+     * @return True ou False.
+     */
+    public static function isBolsista($matricula, $codigoLocal){
+        $matriculas = self::getMatriculaUsers($codigoLocal);
+        if(in_array($matricula, $matriculas)){
+            return true;
+        }
+        return false;
+    }
+
+    public function isAuthorized($user){       
+        if ($this->request->action === 'view') {
+            return true;
+        }
+
+        if($this->request->action === 'edit'){
+            if (isset($user['role']) && $user['role'] === 'Administrador') {
+                return true;
+            }
+            return false;
+        }
+
+        if($this->request->action === 'bolsista'){
+            if (isset($user['role']) && $user['role'] === 'Professor' || $user['role'] === 'Administrador') {
+                return true;
+            }
+            return false;
+        }
+
+        return parent::isAuthorized($user);
     } 
 
     public function beforeFilter(Event $event) {

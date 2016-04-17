@@ -1,3 +1,6 @@
+<?php 
+	use App\Controller\UsersController;
+?>
 <div class="sixten centered wide column row">
 		<h4 class="ui horizontal divider header">
 			<i class="building outline icon"></i>

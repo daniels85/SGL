@@ -12,6 +12,7 @@
 	<select name="role">
 		<option value="Professor">Professor</option>
 		<option value="Bolsista">Bolsista</option>
+		<option value="Suporte">Suporte</option>
 	</select>
 
 	<button type="submit">Enviar</button>

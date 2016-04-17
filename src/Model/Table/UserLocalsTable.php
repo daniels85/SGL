@@ -37,8 +37,8 @@ class UserLocalsTable extends Table
 
         $this->belongsTo('Users', [
             'className' => 'Users',
-            'foreignKey' => 'matricula',
             'bindingKey' => 'user_matricula',
+            'foreignKey' => 'matricula',
             'joinType' => 'INNER'
         ]);
         

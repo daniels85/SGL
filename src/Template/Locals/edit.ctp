@@ -18,11 +18,11 @@
 				        <input type="hidden" name="coordenadores[]" value=""/>
 						<select name="coordenadores[]" class="ui fluid dropdown" multiple>
 							<option value=""></option>
-							<?php foreach($professores as $key => $professor): ?>
+							<?php foreach($professores as $professor): ?>
 								<option <?= ("value='$professor->matricula'") ?> 
 									<?php 
 										if(isset($userLocalsCoordenadores)){
-											foreach($userLocalsCoordenadores as $keyB => $userLocalsCoordenador){
+											foreach($userLocalsCoordenadores as $userLocalsCoordenador){
 												if($professor->matricula == $userLocalsCoordenador->matricula){
 													echo "selected";					
 												}
@@ -42,12 +42,12 @@
 						<input type="hidden" name="bolsistas[]" value=""/>
 						<select name="bolsistas[]" class="ui fluid dropdown" multiple>
 							<option value=""></option>
-							<?php foreach($bolsistas as $key => $bolsista): ?>
+							<?php foreach($bolsistas as $bolsista): ?>
 								<option <?= ("value='$bolsista->matricula'") ?> 
 
 									<?php
 										if(isset($userLocalsBolsistas)){
-											foreach($userLocalsBolsistas as $keyB => $userLocalsBolsista){
+											foreach($userLocalsBolsistas as $userLocalsBolsista){
 												if($bolsista->matricula == $userLocalsBolsista->matricula){
 													echo "selected";				
 												}						

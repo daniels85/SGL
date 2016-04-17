@@ -33,7 +33,7 @@ class LocalsTable extends Table
             'bindingKey' => 'codigo',
             'joinType' => 'INNER'
         ]);
-
+        
         $this->belongsTo('UserLocals', [
             'className' => 'UserLocals',
             'foreignKey' => 'local_codigo',
