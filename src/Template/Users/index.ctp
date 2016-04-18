@@ -10,9 +10,7 @@
 				<th>Username</th>
 				<th>Matrícula</th>
 				<th>Função</th>
-				<th>Cadastrado por</th>
-				<th>Última vez Ativo</th>
-				<th>Data de Cadastro</th>
+				<th>E-mail</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -24,9 +22,7 @@
 					<td><?php echo $user->username; ?></td>
 					<td><?php echo $user->matricula; ?></td>
 					<td><?php echo $user->role; ?></td>
-					<td><?php echo $user->cadastradoPor; ?></td>
-					<td><?php ($user->ultimaVezAtivo) ? print date('d/m/Y H:i', strtotime($user->ultimaVezAtivo)) : print 'Nunca ativo.'; ?></td>
-					<td><?php echo date('d/m/Y H:i', strtotime($user->dataDeCadastro)); ?></td>
+					<td><?php echo $user->email; ?></td>
 					<td >
 						<div class="ui floating dropdown icon button">
 							<i class="setting icon"></i>

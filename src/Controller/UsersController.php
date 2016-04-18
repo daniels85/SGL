@@ -180,7 +180,26 @@ class UsersController extends AppController
         }else{
             echo 'erro';
         }
-    }  
+    } 
+
+    /**
+     * alterarEmail method
+     *
+     * @param string|null $id User id.
+     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function alterarEmail($id){
+        $user = $this->Users->get($id);
+
+        $user = $this->Users->patchEntity($user, $this->request->data);
+
+        if($this->Users->save($user)){
+            echo 'sucesso';
+        }else{
+            echo 'erro';
+        }
+    } 
 
     /**
      * cadastrarBolsista method

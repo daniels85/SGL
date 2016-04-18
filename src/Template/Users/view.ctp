@@ -12,10 +12,14 @@
 		<tr>
 			<td>Matricula</td>
 			<td><?php echo $user->matricula; ?></td>
-		</tr>
+		</tr>		
 		<tr>
 			<td>Função</td>
 			<td><?php echo $user->role; ?></td>
+		</tr>
+		<tr>
+			<td>E-mail</td>
+			<td><?php echo $user->email; ?></td>
 		</tr>
 		<tr>
 			<td>Cadastrado por</td>
@@ -29,13 +33,17 @@
 			<td>Última ativo</td>
 			<td><?php echo date('d/m/Y H:i', strtotime($user->ultimaVezAtivo)); ?></td>
 		</tr>
+		
 		<?php if(!strcmp($this->request->session()->read('Auth.User.matricula'), $user->matricula)): ?>
+		<tfoot class="full-width">
 			<tr>
-				<td>Senha</td>
-				<td><button class="ui button teal mini btnMudarSenha" data-id="<?php echo $user->id; ?>"><i class="setting icon"></i>Alterar senha</button></td>
+				<th colspan="2" data-id="<?php echo $user->id; ?>">
+					<button class="ui button teal tiny right floated btnMudarSenha"><i class="setting icon"></i>Alterar senha</button>
+					<button class="ui button teal tiny right floated btnMudarEmail"><i class="setting icon"></i>Alterar E-mail</button>
+				</th>
 			</tr>
+		</tfoot>
 		<?php endif; ?>
-
 	</table>
 </div>
 

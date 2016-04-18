@@ -11,7 +11,7 @@ $(document).ready(function(){
 
 		event.preventDefault();
 
-		var idUsuario = $(this).closest('button').attr('data-id');
+		var idUsuario = $(this).closest('th').attr('data-id');
 
 		modalHeader.html('Alterar Senha');
 
@@ -240,4 +240,87 @@ $(document).ready(function(){
 		});
 
 	});
+
+
+	$('.btnMudarEmail').on('click', function(event){
+
+		event.preventDefault();
+
+		var idUsuario = $(this).closest('th').attr('data-id');
+
+		conteudo  = '<form class="ui form">';
+		conteudo += '<div class="field">';
+		conteudo += '<label>Email</label>';
+		conteudo += '<input type="email" id="email">';
+		conteudo += '</div>';
+		conteudo += '<div class="ui error message"></div>';
+		conteudo += '<button class="ui button teal">Salvar</button>';
+		conteudo += '</form>';
+
+		modalHeader.html('Alterar E-mail');
+
+		modalContent.html(conteudo);
+
+		modal.modal('show');
+
+
+		$('.ui.form').form({
+			email : {
+				identifier : 'email',
+				rules : [
+					{
+						type : 'email',
+						prompt : 'Insira um email válido.'
+					}
+				]
+			}
+		}, {
+			onSuccess: function(event){
+				event.preventDefault();
+
+				email = $('#email').val();
+
+				$.ajax({
+
+					url : 'http://'+host+'/users/alterarEmail/'+idUsuario,
+					type : 'PUT',
+					data : 'email='+email,
+
+					beforeSend: function(request){
+						return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+					},
+
+					success : function(data){
+						if(data == 'sucesso'){
+							mensagem_sucesso =  '<div class="ui success message">';
+							mensagem_sucesso += '<div class="header">';
+							mensagem_sucesso += '<i class="checkmark icon"></i>E-mail alterado com sucesso.';
+							mensagem_sucesso += '</div>';
+							mensagem_sucesso += '</div>';
+
+							modalMensagem.html(mensagem_sucesso);
+							setTimeout(function(){
+								location.reload();									
+							},1000);
+						}
+						if(data == 'erro'){
+							mensagem_erro =  '<div class="ui negative message">';
+							mensagem_erro += '<div class="header">';
+							mensagem_erro += '<i class="warning sign icon"></i>Erro ao alterar E-mail.';
+							mensagem_erro += '</div>';
+							mensagem_erro += '</div>';
+
+							modalMensagem.html(mensagem_erro);
+						}
+					}
+
+				});
+
+			}
+		});
+
+
+	});
+
+
 });
