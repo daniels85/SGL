@@ -1,0 +1,243 @@
+var host = $(location).attr('host');
+$(document).ready(function(){
+
+	container = $('.container');
+	modal = container.find('.ui.modal');
+	modalMensagem = modal.find('.mensagem');
+	modalHeader = modal.find('.header');
+	modalContent = modal.find('.content');
+
+	$('.btnMudarSenha').on('click', function(event){
+
+		event.preventDefault();
+
+		var idUsuario = $(this).closest('button').attr('data-id');
+
+		modalHeader.html('Alterar Senha');
+
+		conteudo  = '<form class="ui form">';
+		conteudo += '<div class="field">';
+		conteudo += '<label>Nova senha</label>';
+		conteudo += '<input type="password" id="password" name="password">';
+		conteudo += '</div>';
+		conteudo += '<div class="field">';
+		conteudo += '<label>Nova senha</label>';
+		conteudo += '<input type="password" id="password2" name="password2">';
+		conteudo += '</div>';
+		conteudo += '<div class="ui error message"></div>';
+		conteudo += '<button class="ui button teal">Salvar</button>';
+		conteudo += '</form>';
+
+		modalContent.html(conteudo);
+
+		modal.modal('show');
+
+		$('.ui.form').form({
+			password : {
+				identifier : 'password',
+				rules : [
+					{
+						type : 'minLength[6]',
+						prompt : 'A senha deve conter no mínimo 6 caracteres.'
+					}
+				] 
+			},
+
+			password2 : {
+				identifier : 'password2',
+				rules : [
+					{
+						type : 'match[password]',
+						prompt : 'As senhas não coincidem.'
+					}
+				]
+			}
+		}, {
+
+			onSuccess: function(event){
+				event.preventDefault();
+				
+				password = $('#password').val();
+				
+				$.ajax({
+
+					url: 'http://'+host+'/users/alterarSenha/'+idUsuario,
+					type: 'PUT',
+					data: 'password='+password,
+
+					beforeSend: function(request){
+						return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+					},
+
+					success: function(data){
+						if(data == 'sucesso'){
+							mensagem_sucesso =  '<div class="ui success message">';
+							mensagem_sucesso += '<div class="header">';
+							mensagem_sucesso += '<i class="checkmark icon"></i>Senha alterada com sucesso.';
+							mensagem_sucesso += '</div>';
+							mensagem_sucesso += '</div>';
+
+							modalMensagem.html(mensagem_sucesso);
+							setTimeout(function(){
+								location.reload();									
+							},1000);
+						}
+						if(data == 'erro'){
+							mensagem_erro =  '<div class="ui negative message">';
+							mensagem_erro += '<div class="header">';
+							mensagem_erro += '<i class="warning sign icon"></i>Erro ao alterar senha.';
+							mensagem_erro += '</div>';
+							mensagem_erro += '</div>';
+
+							modalMensagem.html(mensagem_erro);
+						}
+					}
+
+				});
+
+			}
+
+		});
+
+	});
+
+	$('.btnCadastrarBolsista').on('click', function(event){
+		event.preventDefault();
+
+		modalHeader.html('');
+		modalContent.html('');
+
+		modalHeader.html('Cadastrar Bolsista');
+		
+		conteudo  = '<form class="ui form addBolsista">';
+
+		conteudo += '<div class="field">';
+		conteudo += '<label>Nome: </label>';
+		conteudo += '<input type="text" name="nome" id="nome">';
+		conteudo += '</div>';
+
+		conteudo += '<div class="field">';
+		conteudo += '<label>Username: </label>';
+		conteudo += '<input type="text" name="username" id="username">';
+		conteudo += '</div>';
+
+		conteudo += '<div class="field">';
+		conteudo += '<label>Matrícula: </label>';
+		conteudo += '<input type="text" name="matricula" id="matricula">';
+		conteudo += '</div>';
+
+		conteudo += '<div class="field">';
+		conteudo += '<label>Email: </label>';
+		conteudo += '<input type="email" name="email" id="email">';
+		conteudo += '</div>';
+		conteudo += '<div class="ui error message"></div>';
+		conteudo += '<button class="ui button teal">Enviar</button>';
+
+		conteudo += '</form>';
+
+		
+		modalContent.html(conteudo);
+
+		modal.modal('show');
+
+		$('.ui.form.addBolsista').form({
+			
+			nome : {
+				identifier : 'nome',
+				rules : [
+					{
+						type: 'empty',
+						prompt: 'Por favor insira um nome.'
+					}
+				]
+			},
+
+			username : {
+				identifier : 'username',
+				rules : [
+					{
+						type : 'minLength[6]',
+						prompt : 'Username deve conter no mínimo 6 caracteres.'
+					}
+				]
+			},
+
+			matricula : {
+				identifier : 'matricula',
+				rules : [
+					{
+						type : 'minLength[6]',
+						prompt : 'Matrícula deve conter no mínimo 6 caracteres.'
+					}
+				]
+			},
+
+			email : {
+				identifier : 'email',
+				rules : [
+					{
+						type : 'email',
+						prompt : 'Pro favor insira um email.'
+					}
+				]
+			}
+
+		}, {
+
+			onSuccess : function(event){
+				
+				event.preventDefault();
+				
+				$('.ui.dimmer').dimmer('show');
+				
+				nome = $('#nome').val();
+				username = $('#username').val();
+				matricula = $('#matricula').val();
+				email = $('#email').val();
+				
+
+				$.ajax({
+
+					url: 	'http://'+host+'/users/cadastrarBolsista',
+					type: 	'PUT',
+					data:  	'nome='+nome
+						   +'&username='+username
+						   +'&matricula='+matricula
+						   +'&email='+email,
+
+					success: function(data){
+						
+						$('.ui.dimmer').dimmer('hide');
+						
+						if(data == 'cadastrado'){
+							mensagem_sucesso =  '<div class="ui success message">';
+							mensagem_sucesso += '<div class="header">';
+							mensagem_sucesso += '<i class="checkmark icon"></i>Bolsista cadastrado.';
+							mensagem_sucesso += '</div>';
+							mensagem_sucesso += '</div>';
+
+							modalMensagem.html(mensagem_sucesso);
+							setTimeout(function(){
+								location.reload();									
+							},1600);
+						}
+						if(data == 'erro'){
+							mensagem_erro =  '<div class="ui negative message">';
+							mensagem_erro += '<div class="header">';
+							mensagem_erro += '<i class="warning sign icon"></i>Erro ao cadastrar.';
+							mensagem_erro += '</div>';
+							mensagem_erro += '</div>';
+
+							modalMensagem.html(mensagem_erro);
+						}
+					}
+
+
+				});
+
+			}
+
+		});
+
+	});
+});

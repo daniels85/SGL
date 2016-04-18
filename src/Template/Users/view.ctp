@@ -29,6 +29,12 @@
 			<td>Última ativo</td>
 			<td><?php echo date('d/m/Y H:i', strtotime($user->ultimaVezAtivo)); ?></td>
 		</tr>
+		<?php if(!strcmp($this->request->session()->read('Auth.User.matricula'), $user->matricula)): ?>
+			<tr>
+				<td>Senha</td>
+				<td><button class="ui button teal mini btnMudarSenha" data-id="<?php echo $user->id; ?>"><i class="setting icon"></i>Alterar senha</button></td>
+			</tr>
+		<?php endif; ?>
 
 	</table>
 </div>
@@ -70,7 +76,6 @@
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
-
 	</table>
 </div>	
 
@@ -79,32 +84,3 @@
 	endif;
 
 ?>
-
-<div class="ui modal">
-	<i class="close icon"></i>
-	<div class="header">Alerta - Tombo: 367276</div>
-	<div class="content">					
-		<div class="ui raised segment">
-			<h4 class="ui header">Descrição:</h4>
-			<div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-			<h4 class="ui header">Eviado por:</h4>
-			<div class="description">
-				Alguem
-			</div>
-			<h4 class="ui header">Criado:</h4>
-			<div class="description">
-				15/04/2016	
-			</div>
-		</div>
-		
-	</div>
-	<div class="actions">
-		<div class="ui button approve positive small"><i class="checkmark icon"></i>Marcar como resolvido</div>
-		<div class="ui button negative cancel small">Criar ocorrência</div>
-	</div>
-</div>

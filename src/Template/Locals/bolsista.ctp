@@ -36,10 +36,19 @@
 
 			        </div>
 
+			        
+
 			<?php echo $this->Form->button(__('Enviar'), ['class' => 'ui button green']);; ?>
 			<?php echo $this->Form->end(); ?>
 
 
 		</div>
+	</div>
+	
+</div>
+<div class="four column row">
+	<div class="column"></div>
+	<div class="column">
+		<button class="ui button teal btnCadastrarBolsista"><i class="add icon"></i>Cadastrar Bolsista</button>
 	</div>
 </div>

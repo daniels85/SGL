@@ -174,11 +174,11 @@ $(document).ready(function(){
 				return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
 			},
 
-			success: function(data){
+			success: function(equipamento){
 				
 				modalContent.html('');
 
-				modalHeader.html("Enviar Alerta - Equipamento: "+data['equipamento'].nome+" [ Tombo: "+data['equipamento'].tombo+" ]");
+				modalHeader.html("Enviar Alerta - Equipamento: "+equipamento['equipamento'].nome+" [ Tombo: "+equipamento['equipamento'].tombo+" ]");
 
 				conteudoModal  = '<form class="ui form">';
 				conteudoModal += '<div class="field">';
@@ -194,10 +194,10 @@ $(document).ready(function(){
 
 				$('#btnEnviarAlerta').on('click', function(event){
 					event.preventDefault();
-					var tomboEquipamento = data['equipamento'].tombo;
-					var geradoPor = data['session'];
+					var tomboEquipamento = equipamento['equipamento'].tombo;
+					var geradoPor = equipamento['session'];
 					var descricao = $('#descricao').val();
-					var codLocal = data['equipamento'].codLocal;
+					var codLocal = equipamento['equipamento'].codLocal;
 
 					$.ajax({
 						url: 'http://'+host+'/alertas/add',
@@ -220,7 +220,7 @@ $(document).ready(function(){
 								mensagem_sucesso += '</div>';
 
 								mensagem.html(mensagem_sucesso);
-								alteraStatusEquipamento(data, 'Alerta');
+								alteraStatusEquipamento(equipamento, 'Alerta');
 								setTimeout(function(){
 									location.reload();									
 								},1000);

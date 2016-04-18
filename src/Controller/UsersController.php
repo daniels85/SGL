@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
+use Cake\Mailer\Email;
 
 /**
  * Users Controller
@@ -82,10 +83,15 @@ class UsersController extends AppController
 
             date_default_timezone_set("America/Fortaleza");
 
+            $password = self::gerarSenha(10);
+
+            $this->request->data['password'] = $password;
+
             $user = $this->Users->patchEntity($user, $this->request->data);
             $user->cadastradoPor = $this->request->session()->read('Auth.User.nome');
             $user->dataDeCadastro = date('Y-m-d H:i:s');
-            if ($this->Users->save($user)) {
+
+            if ($this->Users->save($user) && self::mailer($this->request->data)) {
                 $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {
@@ -95,6 +101,113 @@ class UsersController extends AppController
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
     }
+
+    /**
+    * Gerar senhas method
+    * 
+    * @author Thiago Belem <contato@thiagobelem.net>
+    *
+    * @param integer $tamanho Tamanho da senha a ser gerada
+    * @param boolean $maiusculas Se terá letras maiúscualas
+    * @param boolean $numeros Se terá números
+    * @param boolean $simboloas Se terá simbolos
+    *
+    * @return string A senha gerada
+    */
+    public function gerarSenha($tamanho = 8, $maiusculas = true, $numero = true, $simbolos = false){
+        
+        $lmin = 'abcdefghijklmnopqrstuvwxyz';
+        $lmai = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $num  = '123456789';
+        $simb = '!@#$%*-';
+        $retorno = '';
+        $caracteres = '';
+
+        $caracteres .= $lmin;
+        if($maiusculas) $caracteres .= $lmai;
+        if($numero) $caracteres .= $num;
+        if($simbolos) $caracteres .= $simb;
+
+        $len = strlen($caracteres);
+
+        for($n = 1; $n < $tamanho; $n++){
+            $rand = mt_rand(1, $len);
+            $retorno .= $caracteres[$rand-1];
+        }
+
+        return $retorno;
+
+    }
+
+    /**
+     * Edit method
+     *
+     * @param $data Dados para formar o email.
+     * @return boolean True ou False.
+     */
+    public function mailer($data){
+        $email = new Email();
+        $email->transport('mailSgl');
+        $email->emailFormat('html');
+        $email->template('cadastro');
+        $email->from('sglmailer@gmail.com', 'SGL');
+        $email->to($data['email'], $data['nome']);
+        $email->viewVars($data);
+        $email->subject('Cadastro Efetuado - SGL');
+        
+        try{
+            $email->send();
+            return true;
+        }catch(Exception $e){
+            return false;
+        }
+    }
+
+    /**
+     * alterarSenha method
+     *
+     * @param string|null $id User id.
+     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function alterarSenha($id){
+        $user = $this->Users->get($id);
+
+        $user = $this->Users->patchEntity($user, $this->request->data);
+
+        if($this->Users->save($user)){
+            echo 'sucesso';
+        }else{
+            echo 'erro';
+        }
+    }  
+
+    /**
+     * cadastrarBolsista method
+     *
+     * @return String cadastrado ou erro
+     */
+    public function cadastrarBolsista(){
+        $user = $this->Users->newEntity();
+        if ($this->request->is('put')) {
+
+            date_default_timezone_set("America/Fortaleza");
+
+            $password = self::gerarSenha(10);
+
+            $this->request->data['password'] = $password;
+            $this->request->data['role'] = 'Bolsista';
+
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            $user->cadastradoPor = $this->request->session()->read('Auth.User.nome');
+            $user->dataDeCadastro = date('Y-m-d H:i:s');
+            if ($this->Users->save($user) && self::mailer($this->request->data)) {
+                echo 'cadastrado';
+            } else {
+                echo 'erro';
+            }
+        }
+    }  
 
     /**
      * Edit method

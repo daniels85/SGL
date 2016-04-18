@@ -46,5 +46,5 @@
 </div>
 
 <div class="sixten wide column row">
-	<button class="ui button teal"><i class="add user icon"></i> Adicionar Usuário</button>
+	<a class="ui button teal" href="/users/add"><i class="add user icon"></i> Adicionar Usuário</a>
 </div>

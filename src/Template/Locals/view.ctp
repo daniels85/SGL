@@ -1,5 +1,6 @@
 <?php 
 	use App\Controller\UsersController;
+	$matricula = $this->request->session()->read('Auth.User.matricula');
 ?>
 <div class="sixten centered wide column row">
 		<h4 class="ui horizontal divider header">
@@ -62,13 +63,13 @@
 						<td><?php echo $equipamento->status; ?></td>
 						<td><?php echo $equipamento->tipo_equipamentos[0]->nome; ?></td>
 						<td >
-							<div class="ui floating dropdown icon button">
+							<div class="ui floating dropdown icon button <?php if(is_null($this->request->session()->read('Auth.User.id'))) echo 'disabled'; ?>">
 								<i class="setting icon"></i>
 							    Opções
 							    <div class="menu">
 							      <div class="item btnVerEquipamento"><i class="unhide icon"></i>Ver</div>
-							      <div class="item btnEditarEquipamento"><i class="edit icon"></i>Editar</div>
-							      <div class="item btnAlertarEquipamento"><i class="warning sing icon"></i>Alertar</div>
+							      <div class="item btnEditarEquipamento <?php if(!UsersController::isCoordenador($matricula, $local->codigo)) echo 'disabled'; ?>"><i class="edit icon"></i>Editar</div>
+							      <div class="item btnAlertarEquipamento <?php if(!strcmp($equipamento->status, 'Alerta')) echo 'disabled'; ?>"><i class="warning sing icon"></i>Alertar</div>
 							    </div>
 							</div>
 						</td>
@@ -94,11 +95,4 @@
 </div>
 <div class="sixten wide column row">
 	<button class="ui button teal" id="addEquipamento" data-id="<?php echo $local->id; ?>"><i class="add icon"></i> Adicionar Equipamento</button>
-</div>
-
-<div class="ui modal">
-	<i class="close icon"></i>
-	<div class="mensagem"></div>
-	<div class="header"></div>
-	<div class="content"></div>
 </div>

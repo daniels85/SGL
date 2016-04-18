@@ -1,19 +1,95 @@
-<form method="POST" accept-charset="utf-8" action="/Users/add">
-	<div style="display:none;">
-		<input type="hidden" name="_method" value="POST" />
+<div class="two column row">
+	<div class="column centered">
+		<div class="ui teal segment">
+			<h4 class="ui horizontal divider header">
+				Cadastrar Usuário
+			</h4>
+			<?php $this->Flash->render('auth'); ?>
+			<?php echo $this->Form->create(); ?>
+					<div class="ui error message"></div>
+			        <?php echo $this->Form->input('nome'); ?>
+
+			        <?php echo $this->Form->input('matrícula', ['name' => 'matricula']); ?>
+
+			        <?php echo $this->Form->input('username'); ?>
+
+			        <?php echo $this->Form->input('email'); ?>
+
+			        <?php 
+			        	$options = [
+			        		'' => 'Selecione um tipo',
+			        		'Professor' => 'Professor',
+			        		'Bolsista' => 'Bolsista',
+			        		'Suporte' => 'Suporte'
+			        	];
+
+			        	echo $this->Form->input('tipo', ['name' => 'role', 'options' => $options]); 
+			       	?>
+			        
+
+
+			<?php echo $this->Form->button(__('Enviar'), ['class' => 'ui button green']);; ?>
+
+			<?php echo $this->Form->end(); ?>
+		</div>
 	</div>
+</div>
 
+<script type="text/javascript">
+	
+	$(function(){
+		$('.ui.form').form({
+			nome: {
+				identifier : 'nome',
+				rules : [
+					{
+						type : 'empty',
+						prompt : 'Por favor insira um nome.'
+					}
+				]
+			},
 
-	<label>Nome: </label> <input type="text" name="nome" placeholder="Nome" required>
-	<label>Matricula: </label> <input type="text" name="matricula" placeholder="Matricula" required>
-	<label>Username: </label> <input type="text" name="username" placeholder="Username" required>
-	<label>Senha: </label> <input type="password" name="password" placeholder="Senha" required>
-	<label>Função: </label> 
-	<select name="role">
-		<option value="Professor">Professor</option>
-		<option value="Bolsista">Bolsista</option>
-		<option value="Suporte">Suporte</option>
-	</select>
+			matricula: {
+				identifier : 'matricula',
+				rules : [
+					{
+						type : 'minLength[6]',
+						prompt : 'Por favor insira uma matricula de no mínimo 6 caracteres.'
+					}
+				]
+			},
 
-	<button type="submit">Enviar</button>
-</form>
+			username: {
+				identifier : 'username',
+				rules : [
+					{
+						type: 'minLength[6]',
+						prompt : 'Username deve conter no mínimo 6 caracteres.'
+					}
+				]
+			},
+
+			email : {
+				identifier : 'email',
+				rules : [
+					{
+						type : 'email',
+						prompt : 'Por favor insira um email.'
+					}
+				]
+			},
+
+			tipo : {
+				identifier : 'role',
+				rules : [
+					{
+						type : 'empty',
+						prompt : 'Selecione um tipo.'
+					}
+				]
+			}
+
+		});
+	});
+
+</script>

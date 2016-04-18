@@ -27,7 +27,7 @@
 						<a class="ui button teal mini" href="/Locals/view/<?php echo $local->id; ?>"><i class="unhide icon"></i>Ver</a>
 
 						<?php if(!is_null($this->request->session()->read('Auth.User.id')) && !strcmp($this->request->session()->read('Auth.User.role'), 'Professor') && UsersController::isCoordenador($this->request->session()->read('Auth.User.matricula'), $local->codigo)): ?>
-						<a class="ui button orange mini" href="/Locals/bolsista/<?php echo $local->id; ?>"><i class="edit icon"></i>Modificar bolsista</a>
+						<a class="ui button orange mini" href="/Locals/bolsista/<?php echo $local->id; ?>"><i class="edit icon"></i>Alterar Bolsistas</a>
 						<?php endif; ?>
 
 						<?php if(!is_null($this->request->session()->read('Auth.User.id')) && !strcmp($this->request->session()->read('Auth.User.role'), 'Administrador') ): ?>

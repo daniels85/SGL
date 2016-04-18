@@ -31,6 +31,7 @@
         <?php //echo $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css'); ?>                 
         <?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js'); ?>
         <?php echo $this->Html->script('equipamentos.js'); ?>
+        <?php echo $this->Html->script('users.js'); ?>
         <?php echo $this->Html->script('script.js'); ?>
 
         <?php echo $this->Html->css('/semantic-ui/dist/semantic.min.css'); ?>
@@ -39,6 +40,9 @@
         <?php echo $this->fetch('meta'); ?>
         <?php echo $this->fetch('css'); ?>
         <?php echo $this->fetch('script'); ?>
+        <script type="text/javascript">
+            
+        </script>
     </head>
     <body>
         <div class="ui grid">           
@@ -140,14 +144,24 @@
             
             <div class="ui stackable grid">       
 
-                    <?php echo $this->fetch('content'); ?>
+                <?php echo $this->fetch('content'); ?>
+
+                <div class="ui modal">
+                    <i class="close icon"></i>
+                    <div class="ui dimmer">
+                        <div class="ui loader">
+                            <div class="ui text loader">Aguardando...</div>
+                        </div>
+                    </div>  
+                    <div class="header"></div>
+                    <div class="mensagem"></div>
+                    <div class="content"></div> 
+                </div>
 
             </div>  
 
         </div>
 
-        <footer>
-        </footer>
     </body>
 
 </html>
