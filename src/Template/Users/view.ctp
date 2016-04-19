@@ -71,12 +71,12 @@
 			
 		<tbody>
 			<?php foreach($alertas as $alerta): ?>
-				<tr>
+				<tr class="<?php (!strcmp($alerta->statusAlerta, 'Resolvido')) ? print 'positive' : print 'negative'; ?>">
 					<td><?php echo $alerta->geradoPor; ?></td>
 					<td><?php echo $alerta->tomboEquipamento; ?></td>
 					<td><?php echo $alerta->statusAlerta; ?></td>
 					<td><?php echo date('d/m/Y g:i A', strtotime($alerta->dataAlerta)); ?></td>
-					<td>
+					<td data-id="<?php echo $alerta->id; ?>">
 						<button class="ui teal button mini btnVerAlerta"><i class="unhide icon"></i>Ler</button>
 						<button class="ui red button mini btnApagarAlerta"><i class="delete icon"></i>Apagar</button>
 					</td>

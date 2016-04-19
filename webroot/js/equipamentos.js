@@ -250,10 +250,6 @@ $(document).ready(function(){
 
 	});
 
-
-
-
-
 	$('#addEquipamento').on('click', function(event){
 
 		event.preventDefault();	

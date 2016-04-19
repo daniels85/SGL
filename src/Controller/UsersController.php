@@ -444,9 +444,9 @@ class UsersController extends AppController
      * @param string|null $matricula Users matricula e $codLocal Locals codigo.
      * @return True ou False.
      */
-    public static function isCoordenador($matricula, $codigoLocal){
+    public static function isCoordenador($user, $codigoLocal){
         $matriculas = self::getMatriculaUsers($codigoLocal);
-        if(in_array($matricula, $matriculas)){
+        if(in_array($user['matricula'], $matriculas) && !strcmp($user['role'], 'Professor')){
             return true;
         }else{
             return false;
@@ -459,9 +459,9 @@ class UsersController extends AppController
      * @param string|null $matricula Users matricula e $codLocal Locals codigo.
      * @return True ou False.
      */
-    public static function isBolsista($matricula, $codigoLocal){
+    public static function isBolsista($user, $codigoLocal){
         $matriculas = self::getMatriculaUsers($codigoLocal);
-        if(in_array($matricula, $matriculas)){
+        if(in_array($user['matricula'], $matriculas) && !strcmp($user['role'], 'Bolsista')){
             return true;
         }
         return false;

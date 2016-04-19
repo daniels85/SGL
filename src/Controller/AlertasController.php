@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Alertas Controller
@@ -36,7 +37,6 @@ class AlertasController extends AppController
         $alerta = $this->Alertas->get($id, [
             'contain' => []
         ]);
-
         $this->set('alerta', $alerta);
         $this->set('_serialize', ['alerta']);
     }
@@ -96,10 +96,9 @@ class AlertasController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $alerta = $this->Alertas->patchEntity($alerta, $this->request->data);
             if ($this->Alertas->save($alerta)) {
-                $this->Flash->success(__('The alerta has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                echo 'sucesso';
             } else {
-                $this->Flash->error(__('The alerta could not be saved. Please, try again.'));
+                echo 'erro';
             }
         }
         $this->set(compact('alerta'));
@@ -125,6 +124,12 @@ class AlertasController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    public function beforeFilter(Event $event) {
+        parent::beforeFilter($event);
+        if(in_array($this->request->action, ['edit', 'add', 'delete'])){
+            $this->eventManager()->off($this->Csrf);
+        }
+    }
 
     
     public function isAuthorized($user){

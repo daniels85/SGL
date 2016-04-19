@@ -86,7 +86,7 @@
             <div class="tablet mobile only row">
                 <div class="column">
                     <div class="ui fixed main menu">
-                        <a class="item nav">Home</a>
+                        <a href="/" class="item nav">Home</a>
                         <div class="right menu">
                             <?php if (!is_null($this->request->session()->read('Auth.User.username'))): ?>
                             <a class="launch icon item">
@@ -111,8 +111,14 @@
 
         <?php if (!is_null($this->request->session()->read('Auth.User.username'))): ?>
         <div class="ui right vertical sidebar menu">
-            <a class="item">Bolsistas</a>
+            <?php if(!strcmp($this->request->session()->read('Auth.User.role'), 'Professor')): ?>
+            <a href="/users/bolsistas" class="item">Bolsistas</a>
+            <?php endif; ?>
+
+            <?php if(!strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')): ?>
+            <a href="/users/bolsistas" class="item">Bolsistas</a>
             <a href="/users" class="item">Usuários</a>
+            <?php endif; ?>
             <div class="item">
                 <div class="header"><?php echo $this->request->session()->read('Auth.User.nome'); ?><i class="user icon"></i></div>
                 <div class="menu">

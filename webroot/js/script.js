@@ -1,7 +1,12 @@
 $(document).ready(function(){
+
+	$('.ui.modal')
+		.modal('setting', 'transition', 'fade up');
+		
 	$('.ui.dropdown')
-					.dropdown('setting', 'transition', 'slide down')
-					.dropdown();
+		.dropdown('setting', 'transition', 'slide down')
+		.dropdown();
+
 	$('.launch.icon.item').click(function(event){
 		event.preventDefault();
 		$('.ui.right.vertical.sidebar.menu')
@@ -9,9 +14,4 @@ $(document).ready(function(){
 			.sidebar('toggle');
 	});
 
-	$('.btnVerAlerta').click(function(event){
-		$('.ui.modal')
-			.modal('setting', 'transition', 'fade up')
-			.modal('show');
-	});
 });

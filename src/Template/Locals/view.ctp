@@ -68,7 +68,7 @@
 							    Opções
 							    <div class="menu">
 							      <div class="item btnVerEquipamento"><i class="unhide icon"></i>Ver</div>
-							      <div class="item btnEditarEquipamento <?php if(!UsersController::isCoordenador($matricula, $local->codigo)) echo 'disabled'; ?>"><i class="edit icon"></i>Editar</div>
+							      <div class="item btnEditarEquipamento <?php if(!UsersController::isCoordenador($this->request->session()->read('Auth.User'), $local->codigo) && !UsersController::isBolsista($this->request->session()->read('Auth.User'), $local->codigo)) echo 'disabled'; ?>"><i class="edit icon"></i>Editar</div>
 							      <div class="item btnAlertarEquipamento <?php if(!strcmp($equipamento->status, 'Alerta')) echo 'disabled'; ?>"><i class="warning sing icon"></i>Alertar</div>
 							    </div>
 							</div>
@@ -93,6 +93,8 @@
 		</table>
 	</div>
 </div>
+<?php if(UsersController::isCoordenador($this->request->session()->read('Auth.User'), $local->codigo) || UsersController::isBolsista($this->request->session()->read('Auth.User'), $local->codigo) ) : ?>
 <div class="sixten wide column row">
 	<button class="ui button teal" id="addEquipamento" data-id="<?php echo $local->id; ?>"><i class="add icon"></i> Adicionar Equipamento</button>
 </div>
+<?php endif; ?>

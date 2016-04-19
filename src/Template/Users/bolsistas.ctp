@@ -32,9 +32,9 @@
 							<i class="setting icon"></i>
 						    Opções
 						    <div class="menu">
-						      <a href="/users/view/<?php echo $user->id ?>" class="item btnVerEquipamento"><i class="unhide icon"></i>Ver</a>
-						      <a href="/users/edit/<?php echo $user->id ?>" class="item btnEditarEquipamento"><i class="edit icon"></i>Modificar</a>
-						      <a href="/users/delete/<?php echo $user->id ?>" class="item btnAlertarEquipamento"><i class="remove user icon"></i>Excluir</a>
+						      <a href="/users/view/<?php echo $user->id ?>" class="item"><i class="unhide icon"></i>Ver</a>
+						      <a href="/users/edit/<?php echo $user->id ?>" class="item <?php if(strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')) echo 'disabled'; ?>" ><i class="edit icon"></i>Modificar</a>
+						      <a href="/users/delete/<?php echo $user->id ?>" class="item <?php if(strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')) echo 'disabled'; ?>"><i class="remove user icon"></i>Excluir</a>
 						    </div>
 						</div>
 					</td>

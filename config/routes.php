@@ -75,6 +75,19 @@ Router::scope('/', function (RouteBuilder $routes) {
         ]
     );
 
+        /**
+        * Edit alerta
+        */
+        $routes->connect('alertas/edit/:id', [
+                'controller' => 'Alertas', 
+                'action' => 'edit',
+                'method' => 'PUT'
+            ], [
+                'id' => '\d+', 
+                'pass' => ['id']
+            ]
+        );
+
     /**
      * Connect catchall routes for all controllers.
      *
