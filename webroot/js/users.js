@@ -177,7 +177,7 @@ $(document).ready(function(){
 				rules : [
 					{
 						type : 'email',
-						prompt : 'Pro favor insira um email.'
+						prompt : 'Pro favor insira um email válido.'
 					}
 				]
 			}
@@ -188,13 +188,12 @@ $(document).ready(function(){
 				
 				event.preventDefault();
 				
-				$('.ui.dimmer').dimmer('show');
-				
 				nome = $('#nome').val();
 				username = $('#username').val();
 				matricula = $('#matricula').val();
 				email = $('#email').val();
 				
+				$('.ui.dimmer.loading').dimmer('show');
 
 				$.ajax({
 
@@ -206,9 +205,9 @@ $(document).ready(function(){
 						   +'&email='+email,
 
 					success: function(data){
-						
-						$('.ui.dimmer').dimmer('hide');
-						
+
+						$('.ui.dimmer.loading').dimmer('hide');
+				
 						if(data == 'cadastrado'){
 							mensagem_sucesso =  '<div class="ui success message">';
 							mensagem_sucesso += '<div class="header">';
@@ -356,7 +355,7 @@ $(document).ready(function(){
 
 				conteudo += '<h4 class="ui header">Criado: </h4>';
 				conteudo += '<div class="description">';
-				conteudo += data['alerta'].dataAlerta;
+				conteudo += moment(data['alerta'].dataAlerta).format('DD/MM/YYYY hh:mm:ss');
 				conteudo += '</div>';
 
 				conteudo += '</div>';

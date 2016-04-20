@@ -240,6 +240,11 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
+
+        if(strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')){
+            return $this->redirect(['action' => 'index']);
+        }
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
@@ -523,7 +528,49 @@ class UsersController extends AppController
     }
 
     public function isAuthorized($user){
-        return true;
+
+        if($this->request->action === 'view'){
+            $userId = (int)$this->request->params['pass'][0];
+            if(isset($user['role']) && $user['role'] === 'Administrador' || $user['role'] === 'Professor' || $user['id'] === $userId){
+                return true;
+            }
+            return false;
+        }
+
+        if($this->request->action === 'edit'){
+            $userId = (int)$this->request->params['pass'][0];
+            if(isset($user['role']) && $user['role'] === 'Administrador' || $user['id'] === $userId){
+                return true;
+            }
+            return false;
+        }
+
+        if($this->request->action === 'alterarEmail'){
+            if(isset($user['role'])){
+                return true;
+            }
+            return false;
+        }
+
+        if($this->request->action === 'alterarSenha'){
+            if(isset($user['role'])){
+                return true;
+            }
+            return false;
+        }
+
+        if($this->request->action === 'bolsistas'){
+            if(isset($user['role']) && $user['role'] === 'Administrador' || $user['role'] === 'Professor'){
+                return true;
+            }
+            return false;
+        }
+
+        if($this->request->action === 'logout'){
+            return true;
+        }
+
+        return parent::isAuthorized($user);
     }   
 
 }

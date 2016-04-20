@@ -1,6 +1,6 @@
 <?php 
 	use App\Controller\UsersController;
-	$matricula = $this->request->session()->read('Auth.User.matricula');
+	$userAuth = $this->request->session()->read('Auth.User');
 ?>
 <div class="sixten centered wide column row">
 		<h4 class="ui horizontal divider header">
@@ -68,8 +68,8 @@
 							    Opções
 							    <div class="menu">
 							      <div class="item btnVerEquipamento"><i class="unhide icon"></i>Ver</div>
-							      <div class="item btnEditarEquipamento <?php if(!UsersController::isCoordenador($this->request->session()->read('Auth.User'), $local->codigo) && !UsersController::isBolsista($this->request->session()->read('Auth.User'), $local->codigo)) echo 'disabled'; ?>"><i class="edit icon"></i>Editar</div>
-							      <div class="item btnAlertarEquipamento <?php if(!strcmp($equipamento->status, 'Alerta')) echo 'disabled'; ?>"><i class="warning sing icon"></i>Alertar</div>
+							      <div class="item btnEditarEquipamento <?php if(!UsersController::isCoordenador($userAuth, $local->codigo) && !UsersController::isBolsista($userAuth, $local->codigo) && strcmp($userAuth['role'], 'Administrador')) echo 'disabled'; ?>"><i class="edit icon"></i>Editar</div>
+							      <div class="item btnAlertarEquipamento <?php if(!strcmp($equipamento->status, 'Alerta') || !strcmp($equipamento->status, 'Defeito')) echo 'disabled'; ?>"><i class="warning sing icon"></i>Alertar</div>
 							    </div>
 							</div>
 						</td>
@@ -93,8 +93,10 @@
 		</table>
 	</div>
 </div>
-<?php if(UsersController::isCoordenador($this->request->session()->read('Auth.User'), $local->codigo) || UsersController::isBolsista($this->request->session()->read('Auth.User'), $local->codigo) ) : ?>
+
+<?php if(UsersController::isCoordenador($userAuth, $local->codigo) || UsersController::isBolsista($userAuth, $local->codigo) || !strcmp($userAuth['role'], 'Administrador')) : ?>
 <div class="sixten wide column row">
-	<button class="ui button teal" id="addEquipamento" data-id="<?php echo $local->id; ?>"><i class="add icon"></i> Adicionar Equipamento</button>
+	<button class="ui button teal" id="addEquipamento" data-id="<?php echo $local->codigo; ?>"><i class="add icon"></i> Adicionar Equipamento</button>
 </div>
+
 <?php endif; ?>

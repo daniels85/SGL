@@ -1,3 +1,6 @@
+<?php 
+use Cake\Mailer\Email;
+ ?>
 <div class="sixten centered wide column row">
 	<h4 class="ui horizontal divider header">
 		<i class="users icon"></i>

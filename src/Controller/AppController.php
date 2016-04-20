@@ -62,12 +62,14 @@ class AppController extends Controller
     }
 
     public function beforeFilter(Event $event){
+
         if(in_array($this->request->controller, ['Locals'])){
-            $this->Auth->allow(['index', 'logout', 'view']);
+            $this->Auth->allow(['index', 'view']);
         }else{
             $this->Auth->allow(['logout']);
         }
         
+        $this->Auth->config('authError', "Você não está autorizado a acessar essa página.");
     }
 
     /**

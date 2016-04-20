@@ -257,10 +257,12 @@ class LocalsController extends AppController {
             'contain' => []
         ]);
         
-        if(!UsersController::isCoordenador($this->request->session()->read('Auth.User.matricula'), $local->codigo)){
-            if(strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')){
+        $userAuth = $this->request->session()->read('Auth.User');
+
+        if(!(UsersController::isCoordenador($userAuth, $local->codigo) || !strcmp($userAuth['role'], 'Administrador'))){
+            
                 return $this->redirect($this->Auth->redirectUrl());
-            }
+            
         }
 
         $codigo = $local->codigo;

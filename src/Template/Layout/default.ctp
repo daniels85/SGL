@@ -140,27 +140,25 @@
         </div>
         <?php endif; ?> 
 
-
-        <?php echo $this->Flash->render(); ?>
-        <?php echo $this->Flash->render('auth'); ?>
-
         <h5 class="ui horizontal divider header"></h5>
 
         <div class="ui container">
             
-            <div class="ui stackable grid">       
+            <div class="ui stackable grid">                   
+
+                <?php echo $this->Flash->render(); ?>
+
+                <?php echo $this->Flash->render('auth'); ?>
 
                 <?php echo $this->fetch('content'); ?>
 
                 <div class="ui modal">
                     <i class="close icon"></i>
-                    <div class="ui dimmer">
-                        <div class="ui loader">
-                            <div class="ui text loader">Aguardando...</div>
-                        </div>
-                    </div>  
-                    <div class="header"></div>
-                    <div class="mensagem"></div>
+                    <div class="ui dimmer loading">                        
+                        <div class="ui text loader">Aguarde...</div>                       
+                    </div>                     
+                    <div class="header"></div> 
+                    <div class="mensagem"></div>              
                     <div class="content"></div> 
                 </div>
 

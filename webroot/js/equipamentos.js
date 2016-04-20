@@ -1,6 +1,5 @@
 var host = $(location).attr('host');	
 $(document).ready(function(){
-	$('#dataDeCompra').mask("00/00/0000", {placeholder: "__/__/____"});
 	var container = $('.container');
 	var listar_equipamentos = container.find('#listar-equipamentos');
 	var modalHeader = $('.ui.modal').find('.header');
@@ -79,6 +78,11 @@ $(document).ready(function(){
 				conteudoModal += '</div>';
 
 				conteudoModal += '<div class="field">';
+				conteudoModal += '<label>dataDeCompra</label>';
+				conteudoModal += '<input type="text" id="dataDeCompra" value="'+moment(data['equipamento'].dataDeCompra).format('DD/MM/YYYY')+'">';
+				conteudoModal += '</div>';
+
+				conteudoModal += '<div class="field">';
 				conteudoModal += '<label>Responsavel</label>';
 				conteudoModal += '<input type="text" id="responsavel" value="'+data['equipamento'].responsavel+'">';
 				conteudoModal += '</div>';
@@ -89,6 +93,8 @@ $(document).ready(function(){
 				modalContent.html(conteudoModal);
 
 				modalHeader.html('Editar - Equipamento: '+data['equipamento'].nome+' [ Tombo: '+data['equipamento'].tombo+' ]');
+
+				$('#dataDeCompra').mask("00/00/0000", {placeholder: "__/__/____"});
 
 				$('.ui.modal').modal('show');
 
@@ -319,6 +325,8 @@ $(document).ready(function(){
 
 				modalContent.html(conteudoModal);
 
+				$('#dataDeCompra').mask("00/00/0000", {placeholder: "__/__/____"});
+				
 				$('.ui.modal').modal('show');
 
 				$('#bntSalvarEquipamento').on('click', function(event){

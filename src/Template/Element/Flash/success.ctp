@@ -1,7 +1,9 @@
-<div class="ui success message">
-	<i class="close icon" onclick="this.classList.add('hidden')"></i>
-	<div class="header">
-		<i class="checkmark icon"></i>
-		<?php echo $message; ?>
+<div class="sixten centered wide column row">
+	<div class="ui floating message positive">
+		<i class="close icon"></i>
+		<div class="header">
+			<p><i class="checkmark icon"></i>
+			<?php echo $message; ?></p>
+		</div>
 	</div>
 </div>
