@@ -30,10 +30,11 @@ use Cake\Mailer\Email;
 						<div class="ui floating dropdown icon button">
 							<i class="setting icon"></i>
 						    Opções
-						    <div class="menu">
-						      <a href="/users/view/<?php echo $user->id ?>" class="item btnVerEquipamento"><i class="unhide icon"></i>Ver</a>
-						      <a href="/users/edit/<?php echo $user->id ?>" class="item btnEditarEquipamento"><i class="edit icon"></i>Modificar</a>
-						      <a href="/users/delete/<?php echo $user->id ?>" class="item btnAlertarEquipamento"><i class="remove user icon"></i>Excluir</a>
+						    <div class="menu" data-id="<?php echo $user->id ?>">
+								<a href="/users/view/<?php echo $user->id ?>" class="item"><i class="unhide icon"></i>Ver</a>
+								<a href="/users/edit/<?php echo $user->id ?>" class="item"><i class="edit icon"></i>Modificar</a>								
+								<a href="/users/edit/<?php echo $user->id ?>" class="item"><i class="setting icon"></i>Resetar Senha</a>
+								<a href="/users/delete/<?php echo $user->id ?>" class="item deletarUser"><i class="remove user icon"></i>Excluir</a>
 						    </div>
 						</div>
 					</td>
@@ -45,5 +46,5 @@ use Cake\Mailer\Email;
 </div>
 
 <div class="sixten wide column row">
-	<a class="ui button teal" href="/users/add"><i class="add user icon"></i> Adicionar Usuário</a>
+	<a class="ui button teal labeled icon" href="/users/add"><i class="add user icon"></i> Adicionar Usuário</a>
 </div>

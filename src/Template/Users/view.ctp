@@ -38,8 +38,8 @@
 		<tfoot class="full-width">
 			<tr>
 				<th colspan="2" data-id="<?php echo $user->id; ?>">
-					<button class="ui button teal tiny right floated btnMudarSenha"><i class="setting icon"></i>Alterar senha</button>
-					<button class="ui button teal tiny right floated btnMudarEmail"><i class="setting icon"></i>Alterar E-mail</button>
+					<button class="ui button teal tiny right floated labeled icon btnMudarSenha"><i class="setting icon"></i>Alterar senha</button>
+					<button class="ui button teal tiny right floated labeled icon btnMudarEmail"><i class="setting icon"></i>Alterar E-mail</button>
 				</th>
 			</tr>
 		</tfoot>
@@ -77,8 +77,8 @@
 					<td><?php echo $alerta->statusAlerta; ?></td>
 					<td><?php echo date('d/m/Y g:i A', strtotime($alerta->dataAlerta)); ?></td>
 					<td data-id="<?php echo $alerta->id; ?>">
-						<button class="ui teal button mini btnVerAlerta"><i class="unhide icon"></i>Ler</button>
-						<button class="ui red button mini btnApagarAlerta"><i class="delete icon"></i>Apagar</button>
+						<button class="ui teal button mini labeled icon btnVerAlerta"><i class="unhide icon"></i>Ler</button>
+						<button class="ui red button mini labeled icon btnApagarAlerta <?php if($alerta->statusAlerta === 'Pedente') print 'disabled'; ?>"><i class="delete icon"></i>Apagar</button>
 					</td>
 
 				</tr>

@@ -5,10 +5,12 @@
 				Cadastrar local
 			</h4>
 			<?php $this->Flash->render('auth'); ?>
-			<?php echo $this->Form->create(); ?>
-			        <?php echo $this->Form->input('nome', ['required' => true]); ?>
+			<div id="formAddLocal">
+			
+					<?php echo $this->Form->create(); ?>
+			        <?php echo $this->Form->input('nome'); ?>
 
-			        <?php echo $this->Form->input('Código', ['name' => 'codigo', 'required' => true]); ?>
+			        <?php echo $this->Form->input('Código', ['name' => 'codigo']); ?>
 			        <div class="field">
 				        <label>Coordenador</label>
 				        <?php echo $this->Form->select('coordenadores', $professores, ['name' => 'coordenadores[]', 'multiple' => true]); ?>
@@ -17,24 +19,31 @@
 			        	<label>Bolsista</label>
 			        	<?php echo $this->Form->select('bolsistas', $bolsistas, ['name' => 'bolsistas[]', 'multiple' => true]); ?>
 			        </div>
-
+			        <?php  
+			        	$opcoes = [
+			        		'' => 'Selecione uma opção',
+			        		'Laboratório' => 'Laboratório', 
+							'Sala de Aula' => 'Sala de Aula',
+							'Gabinete' => 'Gabinete',
+							'Coordenação' => 'Coordenação'
+			        	]; 
+			        ?>
 			        <div class="field">
 			        	<label>Tipo</label>
-			        	<?php echo $this->Form->select(
-			        								'tipo', 
-			        								[
-			        									['empty' => 'Selecione uma opção'], 
-			        									[
-			        										'Laboratório' => 'Laboratório', 
-			        										'Sala de Aula' => 'Sala de Aula',
-			        										'Gabinete' => 'Gabinete',
-			        										'Coordenação' => 'Coordenação'
-			        									]
-			        								]); ?>
+			        	
+			        	<select class="ui fluid dropdown" id="tipo">
+			        		<?php foreach($opcoes as $key => $opcao): ?>
+			        			<option value="<?php echo $key; ?>"><?php echo $opcao; ?></option>
+			        		<?php endforeach; ?>
+			        	</select>
+
 			        </div>
 
-			<?php echo $this->Form->button(__('Enviar'), ['class' => 'ui button green']);; ?>
-			<?php echo $this->Form->end(); ?>
+			        <div class="ui error message"></div>
+
+				<?php echo $this->Form->button(__('Enviar'), ['class' => 'ui button green']);; ?>
+				<?php echo $this->Form->end(); ?>
+			</div>
 		</div>
 	</div>
 </div>

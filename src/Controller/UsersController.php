@@ -91,7 +91,7 @@ class UsersController extends AppController
             $user->cadastradoPor = $this->request->session()->read('Auth.User.nome');
             $user->dataDeCadastro = date('Y-m-d H:i:s');
 
-            if ($this->Users->save($user) && self::mailer($this->request->data)) {
+            if ($this->Users->save($user) && self::mailer($this->request->data, 'cadastro', 'Cadastro Efetuado - SGL')) {
                 $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {
@@ -103,7 +103,7 @@ class UsersController extends AppController
     }
 
     /**
-    * Gerar senhas method
+    * gerarSenhas method
     * 
     * @author Thiago Belem <contato@thiagobelem.net>
     *
@@ -145,22 +145,20 @@ class UsersController extends AppController
      * @param $data Dados para formar o email.
      * @return boolean True ou False.
      */
-    public function mailer($data){
+    public function mailer($data, $template, $subject){
         $email = new Email();
         $email->transport('mailSgl');
         $email->emailFormat('html');
-        $email->template('cadastro');
+        $email->template($template);
         $email->from('sglmailer@gmail.com', 'SGL');
         $email->to($data['email'], $data['nome']);
         $email->viewVars($data);
-        $email->subject('Cadastro Efetuado - SGL');
+        $email->subject($subject);
         
-        try{
-            $email->send();
-            return true;
-        }catch(Exception $e){
+        if(!$email->send()){
             return false;
         }
+        return true;
     }
 
     /**
@@ -183,10 +181,39 @@ class UsersController extends AppController
     } 
 
     /**
+     * resetarSenha method
+     *
+     * @param string|null $id User id.
+     * @return string sucesso ou erro.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function resetarSenha($id){
+        $user = $this->Users->get($id);
+
+        $newPassword = self::gerarSenha(10);
+
+        $data = [
+            'nome' => $user->nome,
+            'matricula' => $user->matricula,
+            'email' => $user->email,
+            'username' => $user->username,
+            'newPassword' => $newPassword,
+        ];
+
+        $user->password = $newPassword;
+
+        if($this->Users->save($user) && self::mailer($data, 'recuperarSenha', 'Recuperação de Senha - SGL')){
+            echo 'sucesso';
+        }else{
+            echo 'erro';
+        }
+    }
+
+    /**
      * alterarEmail method
      *
      * @param string|null $id User id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
+     * @return string sucesso ou erro.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function alterarEmail($id){
@@ -220,7 +247,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->data);
             $user->cadastradoPor = $this->request->session()->read('Auth.User.nome');
             $user->dataDeCadastro = date('Y-m-d H:i:s');
-            if ($this->Users->save($user) && self::mailer($this->request->data)) {
+            if ($this->Users->save($user) && self::mailer($this->request->data, 'cadastro', 'Cadastro Efetuado - SGL')) {
                 echo 'cadastrado';
             } else {
                 echo 'erro';
@@ -270,9 +297,9 @@ class UsersController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
+            $this->Flash->success(__('Usuário delatado com sucesso.'));
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Erro ao deletar usuário, tente novamente.'));
         }
         return $this->redirect(['action' => 'index']);
     }
@@ -559,8 +586,22 @@ class UsersController extends AppController
             return false;
         }
 
+        if($this->request->action === 'resetarSenha'){
+            if(isset($user['role']) && $user['role'] === 'Professor' || $user['role'] === 'Administrador'){
+                return true;
+            }
+            return false;
+        }
+
         if($this->request->action === 'bolsistas'){
             if(isset($user['role']) && $user['role'] === 'Administrador' || $user['role'] === 'Professor'){
+                return true;
+            }
+            return false;
+        }
+
+        if($this->request->action === 'cadastrarBolsista'){
+            if(isset($user['role']) && $user['role'] === 'Administrador' || $user['role'] === 'Professor' ){
                 return true;
             }
             return false;

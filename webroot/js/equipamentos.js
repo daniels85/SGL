@@ -1,7 +1,9 @@
 var host = $(location).attr('host');	
+
 $(document).ready(function(){
 	var container = $('.container');
 	var listar_equipamentos = container.find('#listar-equipamentos');
+	var modal = $('.ui.modal');
 	var modalHeader = $('.ui.modal').find('.header');
 	var modalContent = $('.ui.modal').find('.content');
 	var mensagem = $('.ui.modal').find('.mensagem');
@@ -26,7 +28,7 @@ $(document).ready(function(){
 
 				modalContent.html('');
 
-				conteudoModal  = '<form class="ui form">';
+				conteudoModal  = '<form class="ui form editEquipamento">';
 
 				conteudoModal += '<div class="field">';
 				conteudoModal += '<label>Nome</label>';
@@ -51,7 +53,7 @@ $(document).ready(function(){
 
 				conteudoModal += '<div class="field">';
 				conteudoModal += '<label>Local</label>';
-				conteudoModal += '<select id="codLocal">';
+				conteudoModal += '<select id="codLocal" class="ui fluid dropdown">';
 				for(i = 0; i < data['locals'].length; i++){
 					conteudoModal += (data['locals'][i].codigo == data['equipamento'].codLocal)?'<option value="'+data['locals'][i].codigo+'" selected>'+data['locals'][i].nome+'</option>' : '<option value="'+data['locals'][i].codigo+'">'+data['locals'][i].nome+'</option>';
 				}
@@ -60,7 +62,7 @@ $(document).ready(function(){
 
 				conteudoModal += '<div class="field">';
 				conteudoModal += '<label>Tipo</label>';
-				conteudoModal += '<select id="tipo">';
+				conteudoModal += '<select id="tipo" class="ui fluid dropdown">';
 				for(i = 0; i < data['tipoEquipamentos'].length; i++){
 					conteudoModal += (data['tipoEquipamentos'][i].id == data['equipamento'].tipo)? '<option value="'+data['tipoEquipamentos'][i].id+'" selected >'+data['tipoEquipamentos'][i].nome+'</option>' : '<option value="'+data['tipoEquipamentos'][i].id+'">'+data['tipoEquipamentos'][i].nome+'</option>';
 				}
@@ -87,7 +89,9 @@ $(document).ready(function(){
 				conteudoModal += '<input type="text" id="responsavel" value="'+data['equipamento'].responsavel+'">';
 				conteudoModal += '</div>';
 
-				conteudoModal += '<button id="bntEditar" class="ui button green">Salvar</button>';
+				conteudoModal += '<div class="ui error message"></div>';
+
+				conteudoModal += '<button class="ui button green">Salvar</button>';
 				conteudoModal += '</form>';
 
 				modalContent.html(conteudoModal);
@@ -96,64 +100,143 @@ $(document).ready(function(){
 
 				$('#dataDeCompra').mask("00/00/0000", {placeholder: "__/__/____"});
 
-				$('.ui.modal').modal('show');
+				modal.modal('show');
 
-				$('#bntEditar').on('click', function(event){
-					event.preventDefault();
+				// Validação do formulário
 
-					var nome = $('#nome').val();
-					var tombo = $('#tombo').val();
-					var status = $('#status').val();
-					var codLocal = $('#codLocal').val();
-					var fornecedor = $('#fornecedor').val();
-					var modelo = $('#modelo').val();
-					var responsavel = $('#responsavel').val();
-					var tipo = $('#tipo').val();
-					var dataDeCompra = $('#dataDeCompra').val();
+				$('.ui.form.editEquipamento').form({
 
-					$.ajax({
-
-						url: 'http://'+host+'/Equipamentos/edit/'+data['equipamento'].id,
-						type: 'PUT',
-						data: 	'nome='+nome
-								+'&tombo='+tombo
-								+'&status='+status
-								+'&codLocal='+codLocal
-								+'&fornecedor='+fornecedor
-								+'&modelo='+modelo
-								+'&responsavel='+responsavel
-								+'&tipo='+tipo
-								+'&dataDeCompra='+dataDeCompra,
-
-						beforeSend: function(request){
-							return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
-						},
-
-						success: function(data){
-							if(data == 'Editado'){
-								mensagem_sucesso =  '<div class="ui success message">';
-								mensagem_sucesso += '<div class="header">';
-								mensagem_sucesso += '<i class="checkmark icon"></i>Equipamento modificado com sucesso.';
-								mensagem_sucesso += '</div>';
-								mensagem_sucesso += '</div>';
-
-								mensagem.html(mensagem_sucesso);
-								setTimeout(function(){
-									location.reload();									
-								},1000);
+					nome : {
+						identifier : 'nome',
+						rules : [
+							{
+								type : 'empty',
+								prompt : 'Campo nome é obrigatório.'
 							}
-							if(data == 'Erro'){
-								mensagem_erro =  '<div class="ui negative message">';
-								mensagem_erro += '<div class="header">';
-								mensagem_erro += '<i class="warning sign icon"></i>Erro ao modificar.';
-								mensagem_erro += '</div>';
-								mensagem_erro += '</div>';
+						]
+					},
 
-								mensagem.html(mensagem_erro);
+					tombo : {
+						identifier : 'tombo',
+						rules : [
+							{
+								type : 'minLength[6]',
+								prompt : 'O tombo deve conter no mínimo 6 caracteres.'
 							}
-						}
+						]
+					},
 
-					});
+					dataDeCompra : {
+						identifier : 'dataDeCompra',
+						rules : [
+							{
+								type : 'minLength[10]',
+								prompt : 'Insira uma data válida.'
+							}
+						]
+					},
+
+					fornecedor : {
+						identifier : 'fornecedor',
+						rules : [
+							{
+								type : 'empty',
+								prompt : 'Campo fornecedor é obrigatório.'
+							}
+						]
+					},
+
+					modelo : {
+						identifier : 'modelo',
+						rules : [
+							{
+								type : 'empty',
+								prompt : 'Campo modelo é obrigatório.'
+							}
+						]
+					},
+
+					responsavel : {
+						identifier : 'responsavel',
+						rules : [
+							{
+								type : 'empty',
+								prompt : 'Campo responsável é obrigatório.'
+							}
+						]
+					},
+
+					tipo : {
+						identifier : 'tipo',
+						rules : [
+							{
+								type : 'empty',
+								prompt : 'Campo tipo é obrigatório.'
+							}
+						]
+					},
+
+				}, {
+
+					onSuccess : function(event){
+
+						event.preventDefault();
+
+						var nome = $('#nome').val();
+						var tombo = $('#tombo').val();
+						var status = $('#status').val();
+						var codLocal = $('#codLocal').val();
+						var fornecedor = $('#fornecedor').val();
+						var modelo = $('#modelo').val();
+						var responsavel = $('#responsavel').val();
+						var tipo = $('#tipo').val();
+						var dataDeCompra = $('#dataDeCompra').val();
+
+						$.ajax({
+
+							url: 'http://'+host+'/Equipamentos/edit/'+data['equipamento'].id,
+							type: 'PUT',
+							data: 	'nome='+nome
+									+'&tombo='+tombo
+									+'&status='+status
+									+'&codLocal='+codLocal
+									+'&fornecedor='+fornecedor
+									+'&modelo='+modelo
+									+'&responsavel='+responsavel
+									+'&tipo='+tipo
+									+'&dataDeCompra='+dataDeCompra,
+
+							beforeSend: function(request){
+								return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+							},
+
+							success: function(data){
+								if(data == 'Editado'){
+									mensagem_sucesso =  '<div class="ui success message">';
+									mensagem_sucesso += '<div class="header">';
+									mensagem_sucesso += '<i class="checkmark icon"></i>Equipamento modificado com sucesso.';
+									mensagem_sucesso += '</div>';
+									mensagem_sucesso += '</div>';
+
+									mensagem.html(mensagem_sucesso);
+									setTimeout(function(){
+										location.reload();									
+									},1000);
+								}
+								if(data == 'Erro'){
+									mensagem_erro =  '<div class="ui negative message">';
+									mensagem_erro += '<div class="header">';
+									mensagem_erro += '<i class="warning sign icon"></i>Erro ao modificar.';
+									mensagem_erro += '</div>';
+									mensagem_erro += '</div>';
+
+									mensagem.html(mensagem_erro);
+								}
+							}
+
+						});
+
+					}
 
 				});
 
@@ -186,69 +269,91 @@ $(document).ready(function(){
 
 				modalHeader.html("Enviar Alerta - Equipamento: "+equipamento['equipamento'].nome+" [ Tombo: "+equipamento['equipamento'].tombo+" ]");
 
-				conteudoModal  = '<form class="ui form">';
+				conteudoModal  = '<form class="ui form enviarAlerta">';
 				conteudoModal += '<div class="field">';
 				conteudoModal += '<label>Descrição do problema: </label>';
 				conteudoModal += '<textarea id="descricao" placeholder="Descreva aqui o problema do equipamento..."></textarea>';
 				conteudoModal += '</div>';
-				conteudoModal += '<button id="btnEnviarAlerta" class="ui button green">Enviar</button>';
+
+				conteudoModal += '<div class="ui error message"></div>';
+
+				conteudoModal += '<button class="ui button green">Enviar</button>';
 				conteudoModal += '</form>';
 				
 				modalContent.html(conteudoModal);
 
-				$('.ui.modal').modal('show');
+				modal.modal('show');
 
-				$('#btnEnviarAlerta').on('click', function(event){
-					event.preventDefault();
-					var tomboEquipamento = equipamento['equipamento'].tombo;
-					var geradoPor = equipamento['session'];
-					var descricao = $('#descricao').val();
-					var codLocal = equipamento['equipamento'].codLocal;
+				// Validação do formulário.
+				$('.ui.form.enviarAlerta').form({
 
-					$.ajax({
-						url: 'http://'+host+'/alertas/add',
-						type: 'PUT',
-						data: 	'descricao='+descricao
-								+'&geradoPor='+geradoPor
-								+'&tomboEquipamento='+tomboEquipamento
-								+'&codLocal='+codLocal,
-
-						beforeSend: function(request){
-							return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
-						},
-
-						success: function(data){
-							if(data == 'Cadastrado'){
-								mensagem_sucesso =  '<div class="ui success message">';
-								mensagem_sucesso += '<div class="header">';
-								mensagem_sucesso += '<i class="checkmark icon"></i>Alerta cadastrado com sucesso.';
-								mensagem_sucesso += '</div>';
-								mensagem_sucesso += '</div>';
-
-								mensagem.html(mensagem_sucesso);
-								alteraStatusEquipamento(equipamento, 'Alerta');
-								setTimeout(function(){
-									location.reload();									
-								},1000);
+					descricao : {
+						identifier : 'descricao',
+						rules : [
+							{
+								type : 'empty',
+								prompt : 'Campo descrição é obrigatório.'
 							}
-							if(data == 'Erro'){
-								mensagem_erro =  '<div class="ui negative message">';
-								mensagem_erro += '<div class="header">';
-								mensagem_erro += '<i class="warning sign icon"></i>Erro ao enviar alerta.';
-								mensagem_erro += '</div>';
-								mensagem_erro += '</div>';
+						]
+					}
 
-								mensagem.html(mensagem_erro);
-							}
-						},
+				}, {
 
-						error: function(XMLHttpRequest, textStatus, errorThrown){
-			  			
-			  			}
+					onSuccess : function(event){
 
-					});
+						event.preventDefault();
+						var tomboEquipamento = equipamento['equipamento'].tombo;
+						var geradoPor = equipamento['session'];
+						var descricao = $('#descricao').val();
+						var codLocal = equipamento['equipamento'].codLocal;
+
+						$.ajax({
+							url: 'http://'+host+'/alertas/add',
+							type: 'PUT',
+							data: 	'descricao='+descricao
+									+'&geradoPor='+geradoPor
+									+'&tomboEquipamento='+tomboEquipamento
+									+'&codLocal='+codLocal,
+
+							beforeSend: function(request){
+								return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+							},
+
+							success: function(data){
+								if(data == 'Cadastrado'){
+									mensagem_sucesso =  '<div class="ui success message">';
+									mensagem_sucesso += '<div class="header">';
+									mensagem_sucesso += '<i class="checkmark icon"></i>Alerta cadastrado com sucesso.';
+									mensagem_sucesso += '</div>';
+									mensagem_sucesso += '</div>';
+
+									mensagem.html(mensagem_sucesso);
+									alteraStatusEquipamento(equipamento, 'Alerta');
+									setTimeout(function(){
+										location.reload();									
+									},1000);
+								}
+								if(data == 'Erro'){
+									mensagem_erro =  '<div class="ui negative message">';
+									mensagem_erro += '<div class="header">';
+									mensagem_erro += '<i class="warning sign icon"></i>Erro ao enviar alerta.';
+									mensagem_erro += '</div>';
+									mensagem_erro += '</div>';
+
+									mensagem.html(mensagem_erro);
+								}
+							},
+
+							error: function(XMLHttpRequest, textStatus, errorThrown){
+				  			
+				  			}
+
+						});
+
+					}
 
 				});
+
 
 			}
 
@@ -276,7 +381,7 @@ $(document).ready(function(){
 
 				modalContent.html('');
 
-				conteudoModal  = '<form class="ui form">';
+				conteudoModal  = '<form class="ui form cadastrarEquipamento">';
 
 				conteudoModal += '<div class="field">';
 				conteudoModal += '<label>Nome: </label>';
@@ -310,12 +415,14 @@ $(document).ready(function(){
 
 				conteudoModal += '<div class="field">';
 				conteudoModal += '<label>Tipo</label>';
-				conteudoModal += '<select id="tipo">';
+				conteudoModal += '<select id="tipo" class="ui fluid dropdown">';
 				for(i = 0; i < data['tipoEquipamentos'].length; i++){
 					conteudoModal += '<option value="'+data['tipoEquipamentos'][i].id+'">'+data['tipoEquipamentos'][i].nome+'</option>';
 				}
 				conteudoModal += '</select>';
 				conteudoModal += '</div>';
+
+				conteudoModal += '<div class="ui error message"></div>';
 
 				conteudoModal += '<button id="bntSalvarEquipamento" class="ui button green">Salvar</button>';
 
@@ -327,72 +434,149 @@ $(document).ready(function(){
 
 				$('#dataDeCompra').mask("00/00/0000", {placeholder: "__/__/____"});
 				
-				$('.ui.modal').modal('show');
+				modal.modal('show');
 
-				$('#bntSalvarEquipamento').on('click', function(event){
+				// Validação do furmulário.
+				$('.ui.form.cadastrarEquipamento').form({
+					nome : {
+						identifier : 'nome',
+						rules : [
+							{
+								type : 'empty',
+								prompt : 'Campo nome é obrigatório.'
+							}
+						]
+					},
 
-					event.preventDefault();
+					tombo : {
+						identifier : 'tombo',
+						rules : [
+							{
+								type : 'minLength[6]',
+								prompt : 'O tombo deve conter no mínimo 6 caracteres.'
+							}
+						]
+					},
+
+					dataDeCompra : {
+						identifier : 'dataDeCompra',
+						rules : [
+							{
+								type : 'minLength[10]',
+								prompt : 'Insira uma data válida.'
+							}
+						]
+					},
+
+					fornecedor : {
+						identifier : 'fornecedor',
+						rules : [
+							{
+								type : 'empty',
+								prompt : 'Campo fornecedor é obrigatório.'
+							}
+						]
+					},
+
+					modelo : {
+						identifier : 'modelo',
+						rules : [
+							{
+								type : 'empty',
+								prompt : 'Campo modelo é obrigatório.'
+							}
+						]
+					},
+
+					responsavel : {
+						identifier : 'responsavel',
+						rules : [
+							{
+								type : 'empty',
+								prompt : 'Campo responsável é obrigatório.'
+							}
+						]
+					},
+
+					tipo : {
+						identifier : 'tipo',
+						rules : [
+							{
+								type : 'empty',
+								prompt : 'Campo tipo é obrigatório.'
+							}
+						]
+					},
+
+
+				}, {
+
+					onSuccess: function(event){
+
+						event.preventDefault();
 					
-					var nome = $('#nome').val();
-					var tombo = $('#tombo').val();
-					var dataDeCompra = $('#dataDeCompra').val();
-					var fornecedor = $('#fornecedor').val();
-					var modelo = $('#modelo').val();
-					var responsavel = $('#responsavel').val();
-					var tipo = $('#tipo').val();
+						var nome = $('#nome').val();
+						var tombo = $('#tombo').val();
+						var dataDeCompra = $('#dataDeCompra').val();
+						var fornecedor = $('#fornecedor').val();
+						var modelo = $('#modelo').val();
+						var responsavel = $('#responsavel').val();
+						var tipo = $('#tipo').val();
 
-					$.ajax({
+						$.ajax({
 
-						url: 'http://'+host+'/equipamentos/cadastrar',
-						type: 'PUT',
-						data: 	'nome='+nome
-								+'&tombo='+tombo
-								+'&dataDeCompra='+dataDeCompra
-								+'&fornecedor='+fornecedor
-								+'&modelo='+modelo
-								+'&responsavel='+responsavel
-								+'&tipo='+tipo
-								+'&codLocal='+codLocal,
+							url: 'http://'+host+'/equipamentos/cadastrar',
+							type: 'PUT',
+							data: 	'nome='+nome
+									+'&tombo='+tombo
+									+'&dataDeCompra='+dataDeCompra
+									+'&fornecedor='+fornecedor
+									+'&modelo='+modelo
+									+'&responsavel='+responsavel
+									+'&tipo='+tipo
+									+'&codLocal='+codLocal,
 
-						beforeSend: function(request){
-							return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
-						},
+							beforeSend: function(request){
+								return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+							},
 
-						success: function(data){
-							if(data == 'Cadastrado'){
-								mensagem_sucesso =  '<div class="ui success message">';
-								mensagem_sucesso += '<div class="header">';
-								mensagem_sucesso += '<i class="checkmark icon"></i>Equipamento cadastrado com sucesso.';
-								mensagem_sucesso += '</div>';
-								mensagem_sucesso += '</div>';
+							success: function(data){
+								if(data == 'Cadastrado'){
+									mensagem_sucesso =  '<div class="ui success message">';
+									mensagem_sucesso += '<div class="header">';
+									mensagem_sucesso += '<i class="checkmark icon"></i>Equipamento cadastrado com sucesso.';
+									mensagem_sucesso += '</div>';
+									mensagem_sucesso += '</div>';
 
-								mensagem.html(mensagem_sucesso);
-								
-								setTimeout(function(){
-									location.reload();									
-								},1000);
+									mensagem.html(mensagem_sucesso);
+									
+									setTimeout(function(){
+										location.reload();									
+									},1000);
 
+								}
+								if(data == 'Erro ao cadastrar'){
+									mensagem_erro =  '<div class="ui negative message">';
+									mensagem_erro += '<div class="header">';
+									mensagem_erro += '<i class="warning sign icon"></i>Erro ao cadastrar equipamento.';
+									mensagem_erro += '</div>';
+									mensagem_erro += '<ul class="list">';
+									mensagem_erro += '<li>Verifique se o tombo do equipamento está correto.</li>';
+									mensagem_erro += '<li>Verifique se não há outro equipamento com o mesmo tombo.</li>';
+									mensagem_erro += '</ul>';
+									mensagem_erro += '</div>';
+
+									mensagem.html(mensagem_erro);
+
+								}
 							}
-							if(data == 'Erro ao cadastrar'){
-								mensagem_erro =  '<div class="ui negative message">';
-								mensagem_erro += '<div class="header">';
-								mensagem_erro += '<i class="warning sign icon"></i>Erro ao cadastrar equipamento.';
-								mensagem_erro += '</div>';
-								mensagem_erro += '<ul class="list">';
-								mensagem_erro += '<li>Verifique se o tombo do equipamento está correto.</li>';
-								mensagem_erro += '<li>Verifique se não há outro equipamento com o mesmo tombo.</li>';
-								mensagem_erro += '</ul>';
-								mensagem_erro += '</div>';
-
-								mensagem.html(mensagem_erro);
-
-							}
-						}
 
 
-					});
+						});
+					}
 
 				});
+
 			}
 
 		});

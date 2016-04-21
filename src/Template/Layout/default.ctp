@@ -31,6 +31,7 @@
         <?php //echo $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css'); ?>                 
         <?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js'); ?>
         <?php echo $this->Html->script('equipamentos.js'); ?>
+        <?php echo $this->Html->script('locals.js'); ?>
         <?php echo $this->Html->script('users.js'); ?>
         <?php echo $this->Html->script('script.js'); ?>
 
@@ -152,15 +153,18 @@
 
                 <?php echo $this->fetch('content'); ?>
 
-                <div class="ui modal">
+                <div class="ui modal small">
                     <i class="close icon"></i>
                     <div class="ui dimmer loading">                        
                         <div class="ui text loader">Aguarde...</div>                       
                     </div>                     
                     <div class="header"></div> 
                     <div class="mensagem"></div>              
-                    <div class="content"></div> 
+                    <div class="content"></div>
+                    <div class="actions"></div> 
                 </div>
+
+
 
             </div>  
 

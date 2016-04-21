@@ -117,11 +117,10 @@ class AlertasController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $alerta = $this->Alertas->get($id);
         if ($this->Alertas->delete($alerta)) {
-            $this->Flash->success(__('The alerta has been deleted.'));
+            echo 'sucesso';
         } else {
-            $this->Flash->error(__('The alerta could not be deleted. Please, try again.'));
+            echo 'erro'; 
         }
-        return $this->redirect(['action' => 'index']);
     }
 
     public function beforeFilter(Event $event) {

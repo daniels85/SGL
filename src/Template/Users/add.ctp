@@ -6,7 +6,7 @@
 			</h4>
 			<?php $this->Flash->render('auth'); ?>
 			<?php echo $this->Form->create(); ?>
-					<div class="ui error message"></div>
+
 			        <?php echo $this->Form->input('nome'); ?>
 
 			        <?php echo $this->Form->input('matrícula', ['name' => 'matricula']); ?>
@@ -26,7 +26,7 @@
 			        	echo $this->Form->input('tipo', ['name' => 'role', 'options' => $options]); 
 			       	?>
 			        
-
+			<div class="ui error message"></div>
 
 			<?php echo $this->Form->button(__('Enviar'), ['class' => 'ui button green']);; ?>
 
@@ -44,7 +44,7 @@
 				rules : [
 					{
 						type : 'empty',
-						prompt : 'Por favor insira um nome.'
+						prompt : 'Campo nome é obrigatório.'
 					}
 				]
 			},
@@ -54,7 +54,7 @@
 				rules : [
 					{
 						type : 'minLength[6]',
-						prompt : 'Por favor insira uma matricula de no mínimo 6 caracteres.'
+						prompt : 'Matrícula deve conter no mínimo 6 caracteres.'
 					}
 				]
 			},
@@ -74,7 +74,7 @@
 				rules : [
 					{
 						type : 'email',
-						prompt : 'Por favor insira um email.'
+						prompt : 'Insira um email válido.'
 					}
 				]
 			},

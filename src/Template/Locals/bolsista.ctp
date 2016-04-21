@@ -49,6 +49,6 @@
 <div class="four column row">
 	<div class="column"></div>
 	<div class="column">
-		<button class="ui button teal btnCadastrarBolsista"><i class="add icon"></i>Cadastrar Bolsista</button>
+		<button class="ui button teal btnCadastrarBolsista labeled icon"><i class="add icon"></i>Cadastrar Bolsista</button>
 	</div>
 </div>

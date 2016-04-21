@@ -34,7 +34,7 @@ class UsersTable extends Table
             'joinType' => 'INNER'
         ]);
 
-        $this->belongsToMany('UserLocals', [
+        $this->belongsTo('UserLocals', [
             'className' => 'UserLocals',
             'foreignKey' => 'user_matricula',
             'bindingKey' => 'matricula',

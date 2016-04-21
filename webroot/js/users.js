@@ -1,4 +1,5 @@
 var host = $(location).attr('host');
+
 $(document).ready(function(){
 
 	container = $('.container');
@@ -6,6 +7,7 @@ $(document).ready(function(){
 	modalMensagem = modal.find('.mensagem');
 	modalHeader = modal.find('.header');
 	modalContent = modal.find('.content');
+	modalActions = modal.find('.actions')
 
 	$('.btnMudarSenha').on('click', function(event){
 
@@ -13,6 +15,10 @@ $(document).ready(function(){
 
 		var idUsuario = $(this).closest('th').attr('data-id');
 
+		modalHeader.html('');
+		modalContent.html('');
+		modalActions.html('');
+		
 		modalHeader.html('Alterar Senha');
 
 		conteudo  = '<form class="ui form">';
@@ -106,6 +112,7 @@ $(document).ready(function(){
 
 		modalHeader.html('');
 		modalContent.html('');
+		modalActions.html('');
 
 		modalHeader.html('Cadastrar Bolsista');
 		
@@ -247,6 +254,10 @@ $(document).ready(function(){
 
 		var idUsuario = $(this).closest('th').attr('data-id');
 
+		modalHeader.html('');
+		modalContent.html('');
+		modalActions.html('');
+
 		conteudo  = '<form class="ui form">';
 		conteudo += '<div class="field">';
 		conteudo += '<label>Email</label>';
@@ -274,7 +285,9 @@ $(document).ready(function(){
 				]
 			}
 		}, {
+
 			onSuccess: function(event){
+
 				event.preventDefault();
 
 				email = $('#email').val();
@@ -318,7 +331,6 @@ $(document).ready(function(){
 			}
 		});
 
-
 	});
 
 
@@ -340,7 +352,10 @@ $(document).ready(function(){
 
 			success : function(data){
 				
-				console.log(data);
+				modalHeader.html('');
+				modalContent.html('');
+				modalActions.html('');
+
 				conteudo  = '<div class="ui raised segment">';
 
 				conteudo += '<h4 class="ui header">Descrição:</h4>';
@@ -355,7 +370,7 @@ $(document).ready(function(){
 
 				conteudo += '<h4 class="ui header">Criado: </h4>';
 				conteudo += '<div class="description">';
-				conteudo += moment(data['alerta'].dataAlerta).format('DD/MM/YYYY hh:mm:ss');
+				conteudo += moment(data['alerta'].dataAlerta).format('DD/MM/YYYY');
 				conteudo += '</div>';
 
 				conteudo += '</div>';
@@ -383,8 +398,7 @@ $(document).ready(function(){
 
 						beforeSend: function(request){
 							return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
-						},			
-
+						},		
 						
 						success: function(data){
 
@@ -415,6 +429,186 @@ $(document).ready(function(){
 					});
 
 				});
+
+			}
+
+		});
+
+	});
+
+	$('.btnApagarAlerta').on('click', function(event){
+
+		event.preventDefault();
+
+		idAlerta = $(this).closest('td').attr('data-id');
+
+		modalHeader.html('');
+		modalContent.html('');
+		modalActions.html('');
+
+		$.ajax({
+
+			url: 'http://'+host+'/alertas/delete/'+idAlerta,
+			type: 'POST',
+
+			beforeSend: function(request){
+				return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+			},
+
+			success: function(data){
+				if(data == 'sucesso'){
+
+					conteudoModal  = '<h2 class="ui center aligned icon header green">';
+					conteudoModal += '<i class="checkmark icon"></i>';
+					conteudoModal += 'Alerta apagado com sucesso';
+					conteudoModal += '</h2>';
+
+					modalContent.html(conteudoModal);
+
+					modal.modal('show');
+
+					setTimeout(function(){
+						location.reload();									
+					},1000);
+				}
+				if(data == 'erro'){
+
+					conteudoModal  = '<h2 class="ui center aligned icon header green">';
+					conteudoModal += '<i class="warning sign icon"></i>';
+					conteudoModal += 'Erro ao apagar alerta';
+					conteudoModal += '</h2>';
+
+					modalContent.html(conteudoModal);
+
+					modal.modal('show');
+
+				}
+
+			}
+
+		});
+
+	});
+
+	$('.deletarUser').on('click', function(event){
+
+		event.preventDefault();
+
+		idUsuario = $(this).closest('div').attr('data-id');
+
+		modalHeader.html('');
+		modalContent.html('');
+		modalActions.html('');
+
+		conteudoModal  = '<h2 class="ui center aligned icon header">';
+		conteudoModal += '<i class="delete user icon"></i>';
+		conteudoModal += 'Realmente deseja apagar este usuário?';
+		conteudoModal += '</h2>';
+		conteudoModal += '<h3 class="ui horizontal divider header"></h3>';	
+
+		actionModal = '<button class="ui negative button tiny labeled icon">';
+		actionModal += '<i class="remove icon"></i>';
+		actionModal += 'Não';
+		actionModal += '</button>';
+
+		actionModal += '<button class="ui positive button tiny labeled icon">';
+		actionModal += '<i class="checkmark icon"></i>';
+		actionModal += 'Sim';
+		actionModal += '</button>';
+
+		modalContent.html(conteudoModal);
+		modalActions.html(actionModal);
+
+		modal.modal({
+					onDeny : function(){
+						modal.modal('hide');
+					},
+					onApprove : function() {
+						
+						$.ajax({
+
+							url : 'http://'+host+'/users/delete/'+idUsuario,
+							type : 'POST',
+
+							beforeSend : function(request){
+								return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+							},
+
+							success : function(data){
+								setTimeout(function(){
+									location.reload();									
+								},500);
+							}
+
+						});
+
+					}
+				})
+		.modal('show');
+
+	});
+
+	$('.resetarSenha').on('click', function(event){
+
+		idUsuario = $(this).closest('div').attr('data-id');
+
+		// Requisição ajax para pegar todos os dados do usuário
+		$.ajax({
+
+			url : 'http://'+host+'/users/view/'+idUsuario,
+			type : 'GET',
+			dataType : 'json',
+
+			beforeSend : function(request){
+				return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+			},
+
+			success : function(data){				
+				
+				modalHeader.html('');
+				modalContent.html('');
+				modalActions.html('');
+
+				modalHeader.html('Recuperação de senha');
+
+				conteudoModal  = '<h4 class="ui header">';
+				conteudoModal += 'Resetar senha de '+data['user'].nome;
+				conteudoModal += '<div class="sub header">Um email com a nova senha será enviado para '+data['user'].email+'</div>';
+				conteudoModal += '</h4>';
+
+				actionModal = '<button class="ui negative button tiny labeled icon">';
+				actionModal += '<i class="remove icon"></i>';
+				actionModal += 'Não';
+				actionModal += '</button>';
+
+				actionModal += '<button class="ui positive button tiny labeled icon">';
+				actionModal += '<i class="checkmark icon"></i>';
+				actionModal += 'Sim';
+				actionModal += '</button>';
+
+				modalContent.html(conteudoModal);
+				modalActions.html(actionModal);
+
+				modal.modal({
+							onDeny : function(){
+								modal.modal('hide');
+								modalActions.html('');
+							},
+							onApprove : function() {
+								
+								$.ajax({
+
+									url : 'http://'+host+'/users/resetarSenha/'+idUsuario,
+									type : 'POST',
+
+									beforeSend : function(request){
+										return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+									},
+
+								});
+
+							}
+						}).modal('show');
 
 			}
 

@@ -13,10 +13,10 @@
 namespace DebugKit\Panel;
 
 use Cake\Controller\Controller;
-use Cake\Database\Query;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
 use Cake\Form\Form;
+use Cake\ORM\Query;
 use Cake\ORM\ResultSet;
 use Cake\Utility\Hash;
 use Closure;

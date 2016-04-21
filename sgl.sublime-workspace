@@ -4,72 +4,296 @@
 		"selected_items":
 		[
 			[
-				"on",
-				"onSuccess"
+				"use",
+				"userId"
 			],
 			[
-				"pro",
-				"prompt"
+				"us",
+				"users"
 			],
 			[
-				"modal",
-				"modal"
+				"v",
+				"válido"
 			],
 			[
-				"moda",
-				"modal"
+				"sta",
+				"status"
 			],
 			[
-				"con",
-				"conteudo"
-			],
-			[
-				"id",
-				"idUsuario"
-			],
-			[
-				"c",
-				"class	Attr"
-			],
-			[
-				"se",
-				"setting"
-			],
-			[
-				"h",
-				"href	Attr"
-			],
-			[
-				"matr",
-				"matricula_bolsista"
-			],
-			[
-				"join",
-				"joinType"
-			],
-			[
-				"bind",
-				"bindingKey"
-			],
-			[
-				"fore",
-				"foreignKey"
-			],
-			[
-				"req",
-				"request"
+				"equi",
+				"equipamento"
 			],
 			[
 				"eq",
 				"equipamento"
 			],
 			[
-				"data",
-				"dataAlerta"
+				"co",
+				"codigo"
 			],
 			[
-				"tom",
-				"tomboEquipamento"
+				"srt",
+				"strcmp"
+			],
+			[
+				"suc",
+				"success"
+			],
+			[
+				"m",
+				"matricula"
+			],
+			[
+				"on",
+				"onSuccess"
+			],
+			[
+				"id",
+				"identifier"
+			],
+			[
+				"bol",
+				"addBolsista"
+			],
+			[
+				"modal",
+				"modalContent"
+			],
+			[
+				"mo",
+				"modalHeader"
+			],
+			[
+				"con",
+				"conteudoModal"
+			],
+			[
+				"c",
+				"conteudoModal"
+			],
+			[
+				"pa",
+				"patchEntity"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"font-",
+				"font-size"
+			],
+			[
+				"size",
+				"font-size"
+			],
+			[
+				"reur",
+				"return"
+			],
+			[
+				"re",
+				"retorno"
+			],
+			[
+				"ret",
+				"retorno"
+			],
+			[
+				"ca",
+				"caracteres"
+			],
+			[
+				"sim",
+				"simbolos"
+			],
+			[
+				"nu",
+				"numeros"
+			],
+			[
+				"ma",
+				"maiusculas"
+			],
+			[
+				"p",
+				"password2"
+			],
+			[
+				"pro",
+				"prompt"
+			],
+			[
+				"pr",
+				"prompt"
+			],
+			[
+				"op",
+				"options"
+			],
+			[
+				"clss",
+				"className"
+			],
+			[
+				"pass",
+				"password"
+			],
+			[
+				"user",
+				"username"
+			],
+			[
+				"tim",
+				"timeout"
+			],
+			[
+				"u",
+				"usersLocal"
+			],
+			[
+				"cod",
+				"codLocal"
+			],
+			[
+				"matr",
+				"matricula"
+			],
+			[
+				"bolsi",
+				"bolsista"
+			],
+			[
+				"va",
+				"var_dump"
+			],
+			[
+				"Users",
+				"UsersController"
+			],
+			[
+				"loc",
+				"local"
+			],
+			[
+				"pu",
+				"public"
+			],
+			[
+				"local",
+				"locals"
+			],
+			[
+				"com",
+				"compact"
+			],
+			[
+				"wh",
+				"where"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"wi",
+				"width"
+			],
+			[
+				"end",
+				"endforeach"
+			],
+			[
+				"l",
+				"local"
+			],
+			[
+				"is",
+				"is_array"
+			],
+			[
+				"key",
+				"keyField"
+			],
+			[
+				"matri",
+				"matricula"
+			],
+			[
+				"equip",
+				"equipamentos"
+			],
+			[
+				"strc",
+				"strcmp"
+			],
+			[
+				"data",
+				"dataDeCompra"
+			],
+			[
+				"Equip",
+				"Equipamentos"
+			],
+			[
+				"ti",
+				"tipo"
+			],
+			[
+				"for",
+				"fornecedor"
+			],
+			[
+				"da",
+				"dataDeCompra"
+			],
+			[
+				"sele",
+				"selected"
+			],
+			[
+				"se",
+				"select"
+			],
+			[
+				"vl",
+				"value"
+			],
+			[
+				"sema",
+				"semantic-ui"
+			],
+			[
+				"moda",
+				"modalContent"
+			],
+			[
+				"t",
+				"type	Attr"
+			],
+			[
+				"h",
+				"href	Attr"
+			],
+			[
+				"bols",
+				"bolsista"
+			],
+			[
+				"req",
+				"request"
+			],
+			[
+				"matricula",
+				"matricula_bolsista"
+			],
+			[
+				"bin",
+				"bindingKey"
+			],
+			[
+				"fore",
+				"foreignKey"
 			],
 			[
 				"date",
@@ -100,10 +324,6 @@
 				"function"
 			],
 			[
-				"m",
-				"modelo"
-			],
-			[
 				"fo",
 				"fornecedor"
 			],
@@ -120,34 +340,18 @@
 	"buffers":
 	[
 		{
-			"file": "src/Template/Users/edit.ctp",
-			"settings":
-			{
-				"buffer_size": 2092,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Template/Users/view.ctp",
-			"settings":
-			{
-				"buffer_size": 2491,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "webroot/js/users.js",
 			"settings":
 			{
-				"buffer_size": 7704,
+				"buffer_size": 10556,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Template/Users/index.ctp",
+			"file": "webroot/js/equipamentos.js",
 			"settings":
 			{
-				"buffer_size": 1396,
+				"buffer_size": 14095,
 				"line_ending": "Unix"
 			}
 		},
@@ -155,7 +359,31 @@
 			"file": "src/Controller/UsersController.php",
 			"settings":
 			{
-				"buffer_size": 16102,
+				"buffer_size": 17654,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "webroot/js/script.js",
+			"settings":
+			{
+				"buffer_size": 477,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Controller/AppController.php",
+			"settings":
+			{
+				"buffer_size": 2589,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Template/Users/index.ctp",
+			"settings":
+			{
+				"buffer_size": 1430,
 				"line_ending": "Unix"
 			}
 		}
@@ -167,18 +395,19 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 0.0,
+		"height": 341.0,
 		"last_filter": "",
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 336.0
 	},
 	"console":
 	{
-		"height": 0.0,
+		"height": 114.0,
 		"history":
 		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
 		]
 	},
 	"distraction_free":
@@ -194,43 +423,75 @@
 	[
 		"/home/ivanov/Documentos/sgl",
 		"/home/ivanov/Documentos/sgl/config",
-		"/home/ivanov/Documentos/sgl/config/Migrations",
 		"/home/ivanov/Documentos/sgl/src",
 		"/home/ivanov/Documentos/sgl/src/Controller",
 		"/home/ivanov/Documentos/sgl/src/Template",
+		"/home/ivanov/Documentos/sgl/src/Template/Element",
+		"/home/ivanov/Documentos/sgl/src/Template/Element/Flash",
+		"/home/ivanov/Documentos/sgl/src/Template/Layout",
 		"/home/ivanov/Documentos/sgl/src/Template/Users",
 		"/home/ivanov/Documentos/sgl/webroot",
-		"/home/ivanov/Documentos/sgl/webroot/js"
+		"/home/ivanov/Documentos/sgl/webroot/js",
+		"/home/ivanov/Documentos/sgl/webroot/semantic-ui/dist"
 	],
 	"file_history":
 	[
-		"/home/ivanov/Documentos/sgl/src/Template/Users/alterar_email.ctp",
-		"/home/ivanov/Documentos/sgl/src/Template/Locals/index.ctp",
-		"/home/ivanov/Documentos/sgl/webroot/js/script.js",
-		"/home/ivanov/Documentos/sgl/src/Template/Users/view.ctp",
-		"/var/www/html/layout.html",
+		"/home/ivanov/Documentos/sgl/src/Template/Element/Flash/default.ctp",
+		"/home/ivanov/Documentos/sgl/src/Template/Element/Flash/error.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Layout/default.ctp",
-		"/home/ivanov/Documentos/sgl/src/Template/Locals/edit.ctp",
-		"/home/ivanov/Documentos/sgl/webroot/css/sgl.css",
-		"/home/ivanov/Documentos/sgl/webroot/js/equipamentos.js",
-		"/home/ivanov/Documentos/sgl/src/Controller/UsersController.php",
-		"/home/ivanov/Documentos/sgl/src/Controller/LocalsController.php",
-		"/home/ivanov/Documentos/sgl/src/Model/Table/UsersTable.php",
-		"/home/ivanov/Documentos/sgl/src/Model/Table/BolsistasAlertasTable.php",
-		"/home/ivanov/Documentos/sgl/src/Controller/AlertasController.php",
-		"/home/ivanov/Documentos/sgl/config/routes.php",
-		"/home/ivanov/Documentos/sgl/src/Controller/AppController.php",
-		"/home/ivanov/Documentos/sgl/src/Template/Locals/view.ctp",
-		"/home/ivanov/Documentos/sgl/src/Controller/EquipamentosController.php",
-		"/home/ivanov/Documentos/sgl/src/Template/Alertas/add.ctp",
-		"/home/ivanov/Documentos/sgl/src/Template/Equipamentos/index.ctp",
-		"/home/ivanov/Documentos/sgl/src/Template/Equipamentos/edit.ctp",
-		"/home/ivanov/Documentos/sgl/src/Model/Table/AlertasTable.php",
-		"/home/ivanov/Documentos/sgl/src/Model/Entity/Alerta.php",
-		"/home/ivanov/Documentos/sgl/src/Template/Equipamentos/view.ctp",
+		"/home/ivanov/Documentos/sgl/src/Template/Element/Flash/success.ctp",
+		"/home/ivanov/Documentos/sgl/src/Controller/UserLocalsController.php",
 		"/home/ivanov/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/ivanov/Documentos/sgl/src/Template/Locals/view.ctp",
+		"/home/ivanov/Documentos/sgl/src/Template/Users/bolsistas.ctp",
+		"/home/ivanov/Documentos/sgl/src/Controller/LocalsController.php",
+		"/home/ivanov/Documentos/sgl/webroot/js/equipamentos.js",
+		"/home/ivanov/Documentos/sgl/src/Controller/AlertasController.php",
+		"/home/ivanov/Documentos/sgl/src/Controller/EquipamentosController.php",
+		"/home/ivanov/Documentos/sgl/src/Controller/UsersController.php",
+		"/home/ivanov/Documentos/sgl/src/Controller/AppController.php",
+		"/home/ivanov/Documentos/sgl/src/Template/Users/index.ctp",
+		"/home/ivanov/Documentos/sgl/src/Template/Users/view.ctp",
+		"/home/ivanov/Documentos/sgl/src/Template/Locals/bolsista.ctp",
+		"/home/ivanov/Documentos/sgl/webroot/js/users.js",
+		"/home/ivanov/Documentos/sgl/src/Template/Users/add.ctp",
+		"/home/ivanov/Documentos/sgl/src/Template/Users/cadastrar_bolsista.ctp",
+		"/home/ivanov/Documentos/sgl/webroot/js/formularios.js",
+		"/home/ivanov/Documentos/sgl/webroot/js/bolsistas.js",
+		"/home/ivanov/Documentos/sgl/src/Template/Users/alterar_senha.ctp",
+		"/home/ivanov/Documentos/sgl/src/Template/Users/alterarSenha.ctp",
+		"/var/www/html/email.html",
+		"/home/ivanov/Documentos/sgl/src/Template/Email/html/cadastro.ctp",
+		"/var/www/html/layout.html",
+		"/home/ivanov/Documentos/sgl/src/Model/Table/UserLocalsTable.php",
+		"/home/ivanov/Documentos/sgl/src/Model/Table/UsersTable.php",
+		"/home/ivanov/Documentos/sgl/config/app.php",
+		"/home/ivanov/Documentos/sgl/src/Template/Locals/index.ctp",
+		"/home/ivanov/Documentos/sgl/webroot/css/sgl.css",
+		"/home/ivanov/Documentos/sgl/.gitignore",
+		"/home/ivanov/Documentos/sgl/src/Model/Entity/Local.php",
+		"/home/ivanov/Documentos/sgl/src/Template/Locals/edit.ctp",
+		"/home/ivanov/Documentos/sgl/src/Model/Table/LocalsTable.php",
+		"/home/ivanov/Documentos/sgl/vendor/cakephp/cakephp/src/View/Helper/FormHelper.php",
+		"/var/www/html/teste.html",
+		"/var/www/html/login.html",
+		"/home/ivanov/Documentos/sgl/src/Template/Locals/add.ctp",
+		"/home/ivanov/Documentos/sgl/webroot/semantic-ui/dist/semantic.min.css",
+		"/home/ivanov/Documentos/sgl/src/Template/Locals/edit2.ctp",
+		"/home/ivanov/Documentos/sgl/webroot/js/addlocal.js",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/login.ctp",
+		"/home/ivanov/Documentos/sgl/vendor/cakephp/cakephp/src/Form/Form.php",
+		"/home/ivanov/Documentos/sgl/vendor/cakephp/cakephp/src/View/Helper/PaginatorHelper.php",
+		"/home/ivanov/Documentos/sgl/webroot/js/script.js",
+		"/home/ivanov/Documentos/sgl/config/routes.php",
+		"/home/ivanov/Documentos/sgl/src/Template/Locals/view2.ctp",
+		"/home/ivanov/Documentos/sgl/src/Template/Equipamentos/edit.ctp",
+		"/home/ivanov/Documentos/sgl/src/Model/Table/EquipamentosTable.php",
+		"/home/ivanov/Documentos/sgl/src/Model/Table/BolsistasAlertasTable.php",
+		"/home/ivanov/Documentos/sgl/src/Model/Entity/Alerta.php",
+		"/home/ivanov/Documentos/sgl/src/Model/Table/AlertasTable.php",
 		"/home/ivanov/Documentos/sgl/config/Migrations/20160412000922_create_table_bolsistas_alertas.php",
+		"/home/ivanov/Documentos/sgl/config/Migrations/20160412011326_TablesComplete.php",
 		"/home/ivanov/Documentos/sgl/config/Migrations/20160412005851_create_foreings_bolsistas_alertas.php",
 		"/home/ivanov/Documentos/sgl/config/Migrations/20160411234828_alter_users.php",
 		"/home/ivanov/Documentos/sgl/config/Migrations/20160412000706_alter_alertas.php",
@@ -241,20 +502,17 @@
 		"/home/ivanov/Downloads/SGL-autentica-o/src/Controller/UsersController.php",
 		"/home/ivanov/Documentos/sgl/src/Controller/OcorrenciasController.php",
 		"/home/ivanov/Documentos/sgl/src/Controller/TipoEquipamentosController.php",
-		"/home/ivanov/Documentos/sgl/src/Controller/UserLocalsController.php",
-		"/home/ivanov/Documentos/sgl/src/Template/Users/add.ctp",
 		"/home/ivanov/Documentos/sgl/webroot/js/alertas.js",
 		"/var/www/html/Dropbox/sgl/form.html",
 		"/home/ivanov/Documentos/sgl/src/Template/Equipamentos/add.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Equipamentos/cadastrar.ctp",
-		"/home/ivanov/Documentos/sgl/webroot/semantic-ui/dist/semantic.min.css",
 		"/home/ivanov/Documentos/sgl/untitled.sublime-project",
 		"/home/ivanov/Downloads/sgl.sql",
 		"/home/ivanov/Downloads/sgl (1).sql"
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 38.0
 	},
 	"find_in_files":
 	{
@@ -268,7 +526,24 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			" \n",
+			"bolsistas",
+			"user",
+			"isCoordenador",
+			"<?",
+			"alteraStatusEquipamento",
+			"alertar",
+			"IN",
+			"this",
+			"isBolsista",
+			"modalContent",
+			"centred",
+			"center",
+			"grid",
+			"console.log",
+			"edita",
+			"content",
+			"getBolistas",
+			");\n",
 			".ui.modal"
 		],
 		"highlight": true,
@@ -287,58 +562,117 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/Template/Users/edit.ctp",
+					"file": "webroot/js/users.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2092,
+						"buffer_size": 10556,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								901,
-								901
+								8693,
+								8693
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 4357.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "src/Template/Users/view.ctp",
+					"file": "webroot/js/equipamentos.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2491,
+						"buffer_size": 14095,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1013,
-								1013
+								4815,
+								4815
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1092.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/Controller/UsersController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 17654,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8540,
+								8540
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 6757.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "webroot/js/script.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 477,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								420,
+								420
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -349,49 +683,50 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "webroot/js/users.js",
+					"buffer": 4,
+					"file": "src/Controller/AppController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7704,
+						"buffer_size": 2589,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7348,
-								7348
+								2070,
+								2070
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3507.0,
+						"translation.y": 429.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 5,
 					"file": "src/Template/Users/index.ctp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1396,
+						"buffer_size": 1430,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								299,
-								299
+								6,
+								6
 							]
 						],
 						"settings":
@@ -403,37 +738,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/Controller/UsersController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 16102,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4894,
-								4894
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1950.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -492,12 +797,12 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"last_filter": "",
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"select_symbol":
 	{
@@ -516,7 +821,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 198.0,
+	"side_bar_width": 193.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

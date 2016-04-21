@@ -188,13 +188,20 @@ return [
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
         'mailSgl' => [
-            'host' => 'smtp.gmail.com',
-            'port' => 587,
+            'host' => 'ssl://smtp.gmail.com',
+            'port' => 465,
             'timeout' => 60,
             'username' => 'sglmailer@gmail.com',
             'password' => 'sgl12345',
             'className' => 'Smtp',
-            'tls' => true
+            'context' => [
+                 'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                ]
+            ]
+            //'tls' => true
         ]
     ],
 
