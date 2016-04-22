@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+	$('#dataDeCompra').mask("00/00/0000", {placeholder: "__/__/____"});
+	
 	$('.ui.modal')
 		.modal('setting', 'transition', 'fade up');
 		

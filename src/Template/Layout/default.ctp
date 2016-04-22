@@ -31,7 +31,7 @@
         <?php //echo $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css'); ?>                 
         <?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js'); ?>
         <?php echo $this->Html->script('equipamentos.js'); ?>
-        <?php echo $this->Html->script('locals.js'); ?>
+        <?php echo $this->Html->script('formularios.js'); ?>
         <?php echo $this->Html->script('users.js'); ?>
         <?php echo $this->Html->script('script.js'); ?>
 
@@ -67,6 +67,7 @@
                                 <?php if(!strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')): ?>
                                 <a href="/users/bolsistas" class="item">Bolsistas</a>
                                 <a href="/users" class="item">Usuários</a>
+                                <a href="/equipamentos" class="item">Equipamentos</a>
                                 <?php endif; ?>
 
                             <div class="ui dropdown item">
@@ -119,6 +120,7 @@
             <?php if(!strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')): ?>
             <a href="/users/bolsistas" class="item">Bolsistas</a>
             <a href="/users" class="item">Usuários</a>
+            <a href="/equipamentos" class="item">Equipamentos</a>
             <?php endif; ?>
             <div class="item">
                 <div class="header"><?php echo $this->request->session()->read('Auth.User.nome'); ?><i class="user icon"></i></div>

@@ -14,6 +14,14 @@ use Cake\Mailer\Email;
 class UsersController extends AppController
 {
 
+    public $paginate = [
+        'limit' => 10,
+        'order' => [
+            'Alertas.dataAlerta' => 'desc',
+            'Users.nome' => 'asc'
+        ]
+    ];
+
     public function initialize() {
         parent::initialize();
         $this->loadComponent('Csrf');
@@ -62,12 +70,10 @@ class UsersController extends AppController
         $alertas = $this->Users->Alertas
                                     ->find()
                                     ->contain(['BolsistasAlertas'])
-                                    ->where(['BolsistasAlertas.matricula_bolsista' => $user->matricula])
-                                    ->all()
-                                    ->toArray();
+                                    ->where(['BolsistasAlertas.matricula_bolsista' => $user->matricula]);
 
         $this->set('user', $user);
-        $this->set('alertas', $alertas);
+        $this->set('alertas', $this->paginate($alertas));
         $this->set('_serialize', ['user', 'alertas']);
     }
 
@@ -92,10 +98,10 @@ class UsersController extends AppController
             $user->dataDeCadastro = date('Y-m-d H:i:s');
 
             if ($this->Users->save($user) && self::mailer($this->request->data, 'cadastro', 'Cadastro Efetuado - SGL')) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('Usuário cadastrado com sucesso.'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                $this->Flash->error(__('Ocorreu um erro ao cadastrar o usuário.'));
             }
         }
         $this->set(compact('user'));
@@ -275,10 +281,10 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('Usuário modificado com sucesso.'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                $this->Flash->error(__('Ocorreu um erro ao modicar o usuário.'));
             }
         }
         $this->set(compact('user'));
@@ -299,7 +305,7 @@ class UsersController extends AppController
         if ($this->Users->delete($user)) {
             $this->Flash->success(__('Usuário delatado com sucesso.'));
         } else {
-            $this->Flash->error(__('Erro ao deletar usuário, tente novamente.'));
+            $this->Flash->error(__('Erro ao deletar usuário.'));
         }
         return $this->redirect(['action' => 'index']);
     }
@@ -323,7 +329,7 @@ class UsersController extends AppController
                 $this->Auth->setUser($user);
                 return $this->redirect($this->Auth->redirectUrl());
             }
-            $this->Flash->error(__('Usuário ou senha ínvalido, tente novamente.'));
+            $this->Flash->error(__('Usuário ou senha ínvalidos, tente novamente.'));
         }
     }
 
@@ -555,6 +561,8 @@ class UsersController extends AppController
     }
 
     public function isAuthorized($user){
+
+        $this->Auth->config('authError', "Você não está autorizado a acessar essa página.");
 
         if($this->request->action === 'view'){
             $userId = (int)$this->request->params['pass'][0];

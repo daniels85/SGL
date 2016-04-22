@@ -48,8 +48,8 @@
 </div>
 
 <?php 
-	if(!empty($alertas)):
-		$matricula = $alertas[0]->bolsistas_alerta->matricula_bolsista;
+	if(!empty($alertas->toArray())):
+		$matricula = $alertas->toArray()[0]->bolsistas_alerta->matricula_bolsista;
 		if($this->request->session()->read('Auth.User.matricula') == $matricula):
 ?>
 <div class="sixteen centered wide column row">
@@ -61,10 +61,10 @@
 		
 		<thead>
 			<tr>
-				<th>Gerado por</th>
-				<th>Tombo de Equipamento</th>
-				<th>Status do Alerta</th>				
-				<th>Data de Envio</th>
+				<th><?php echo $this->Paginator->sort('geradoPor', 'Gerado Por', ['direction' => 'desc']); ?></th>
+				<th><?php echo $this->Paginator->sort('tomboEquipamento', 'Tombo do Equipamento', ['direction' => 'desc']); ?></th>
+				<th><?php echo $this->Paginator->sort('statusAlerta', 'Status do Alerta', ['direction' => 'desc']); ?></th>				
+				<th><?php echo $this->Paginator->sort('dataAlerta', 'Data de Envio', ['direction' => 'desc']); ?></th>
 				<th></th>
 			</tr>
 		</thead>
@@ -84,6 +84,20 @@
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
+		<tfoot>
+			<tr>
+				<th colspan="6">
+
+					<div class="ui right floated pagination menu small">
+						<?php echo $this->Paginator->prev(); ?>
+
+						<?php echo $this->Paginator->numbers(); ?>
+						
+						<?php echo $this->Paginator->next(); ?>
+					</div>
+				</th>
+			</tr>
+		</tfoot>
 	</table>
 </div>	
 

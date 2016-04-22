@@ -15,6 +15,7 @@ class LocalsController extends AppController {
     public $paginate = [
         'limit' => 10,
         'order' => [
+            'Locals.nome' => 'asc',
             'Equipamentos.nome' => 'asc'
         ]
     ];
@@ -31,8 +32,8 @@ class LocalsController extends AppController {
      * @return \Cake\Network\Response|null
      */
     public function index() {
-        $locals = $this->paginate($this->Locals);
 
+        $locals = $this->paginate($this->Locals);
         
 
         $this->set(compact('locals'));
@@ -60,18 +61,18 @@ class LocalsController extends AppController {
         $bolsistas = UsersController::getBolistas($local->codigo);
         
         /** Equipamentos **/
-        $equipamentos = $this->getEquipamentos($local->codigo);
-
-        $this->set('equipamentos', $this->paginate($equipamentos2 = $this->Locals->Equipamentos
-                                                                                            ->find()
-                                                                                            ->where(['codLocal' => $local->codigo])
-                                                                                            ->contain(['TipoEquipamentos'])
-                                                                                            ));
+        $equipamentos = $this->Locals->Equipamentos
+                                            ->find()
+                                            ->where(['codLocal' => $local->codigo])
+                                            ->contain(['TipoEquipamentos']);
+                                                
+        $this->set('equipamentos', $this->paginate($equipamentos));
 
         $this->set('local', $local);
         $this->set('coordenadores', $coordenadores);       
         $this->set('bolsistas', $bolsistas);
         $this->set('_serialize', ['local']);
+
     }
 
     public function getEquipamentos($codigoLocal){
@@ -114,7 +115,7 @@ class LocalsController extends AppController {
                 return $this->redirect(['action' => 'index']);
 
             } else {
-                $this->Flash->error(__('Erro ao cadastrar local. Tente novamente.'));
+                $this->Flash->error(__('Ocorreu erro ao cadastrar local.'));
             }
         }
 
@@ -205,11 +206,11 @@ class LocalsController extends AppController {
                 //    }
                 //}
 
-                $this->Flash->success(__('The local has been saved.'));
+                $this->Flash->success(__('Local salvo com sucesso.'));
                 return $this->redirect(['action' => 'index']);
 
             } else {
-                $this->Flash->error(__('The local could not be saved. Please, try again.'));
+                $this->Flash->error(__('Ocorreu erro ao modificar o local.'));
             }
         }
 
@@ -245,9 +246,9 @@ class LocalsController extends AppController {
         $local = $this->Locals->get($id);
 
         if ($this->Locals->delete($local)) {
-            $this->Flash->success(__('The local has been deleted.'));
+            $this->Flash->success(__('Local deletado com sucesso.'));
         } else {
-            $this->Flash->error(__('The local could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Ocorreu erro ao deletar local.'));
         }
         return $this->redirect(['action' => 'index']);
     }
@@ -325,35 +326,10 @@ class LocalsController extends AppController {
         $this->set('_serialize', ['local']);
     }
 
-    /**
-     * isCoordenador method
-     *
-     * @param string|null $matricula Users matricula e $codLocal Locals codigo.
-     * @return True ou False.
-     */
-    public static function isCoordenador($matricula, $codigoLocal){
-        $matriculas = UsersController::getMatriculaUsers($codigoLocal);
-        if(in_array($matricula, $matriculas)){
-            return true;
-        }
-        return false;
-    }
+    public function isAuthorized($user){ 
 
-    /**
-     * isBolsista method
-     *
-     * @param string|null $matricula Users matricula e $codLocal Locals codigo.
-     * @return True ou False.
-     */
-    public static function isBolsista($matricula, $codigoLocal){
-        $matriculas = self::getMatriculaUsers($codigoLocal);
-        if(in_array($matricula, $matriculas)){
-            return true;
-        }
-        return false;
-    }
+        $this->Auth->config('authError', "Você não está autorizado a acessar essa página.");
 
-    public function isAuthorized($user){       
         if ($this->request->action === 'view') {
             return true;
         }

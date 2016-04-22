@@ -16,7 +16,7 @@ $(document).ready(function(){
 
 		$.ajax({
 
-			url: 'http://'+host+'/Equipamentos/edit/'+idEquipamento,
+			url: 'http://'+host+'/Equipamentos/editar/'+idEquipamento,
 			dataType: 'json',
 			type: 'GET',
 
@@ -194,7 +194,7 @@ $(document).ready(function(){
 
 						$.ajax({
 
-							url: 'http://'+host+'/Equipamentos/edit/'+data['equipamento'].id,
+							url: 'http://'+host+'/Equipamentos/editar/'+data['equipamento'].id,
 							type: 'PUT',
 							data: 	'nome='+nome
 									+'&tombo='+tombo

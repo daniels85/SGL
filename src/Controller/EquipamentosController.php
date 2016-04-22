@@ -11,6 +11,13 @@ use App\Controller\AppController;
 class EquipamentosController extends AppController
 {
 
+    public $paginate = [
+        'limit' => 10,
+        'order' => [
+            'Equipamentos.nome' => 'asc'
+        ]
+    ];
+
     /**
      * Index method
      *
@@ -18,9 +25,12 @@ class EquipamentosController extends AppController
      */
     public function index()
     {
-        $equipamentos = $this->paginate($this->Equipamentos);
 
-        $this->set(compact('equipamentos'));
+        $equipamentos = $this->Equipamentos
+                                        ->find('all')
+                                        ->contain(['TipoEquipamentos', 'Locals']);
+
+        $this->set('equipamentos', $this->paginate($equipamentos));
         $this->set('_serialize', ['equipamentos']);
     }
 
@@ -34,7 +44,7 @@ class EquipamentosController extends AppController
     public function view($id = null)
     {
         $equipamento = $this->Equipamentos->get($id, [
-            'contain' => []
+            'contain' => ['TipoEquipamentos', 'Locals']
         ]);
 
         $session = $this->request->session()->read('Auth.User.nome');
@@ -53,20 +63,76 @@ class EquipamentosController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {
+    public function add() {   
+
+        $tipoEquipamentos = $this->Equipamentos->TipoEquipamentos
+                                                            ->find()
+                                                            ->select(['id', 'nome'])
+                                                            ->all()
+                                                            ->toArray();
+
+        $locals = $this->Equipamentos->Locals
+                                            ->find()
+                                            ->select(['nome', 'codigo'])
+                                            ->all()
+                                            ->toArray();
+
         $equipamento = $this->Equipamentos->newEntity();
         if ($this->request->is('post')){
             $equipamento = $this->Equipamentos->patchEntity($equipamento, $this->request->data);
             if ($this->Equipamentos->save($equipamento)) {
-                $this->Flash->success(__('The equipamento has been saved.'));
+                $this->Flash->success(__('Equipamento cadastrado com sucesso.'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The equipamento could not be saved. Please, try again.'));
+                $this->Flash->error(__('Ocorreu um erro ao cadastrar o equipamento.'));
             }
         }
+        
         $this->set(compact('equipamento'));
-        $this->set('_serialize', ['equipamento']);
+        $this->set(compact('tipoEquipamentos'));
+        $this->set(compact('locals'));
+        $this->set('_serialize', ['equipamento', 'tipoEquipamentos', 'locals']);
+    }
+
+    /**
+     * Editar method
+     *
+     * @param string|null $id Equipamento id.
+     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function editar($id = null)
+    {
+        $equipamento = $this->Equipamentos->get($id, [
+            'contain' => []
+        ]);
+        $tipoEquipamentos = $this->Equipamentos->TipoEquipamentos
+                                                            ->find()
+                                                            ->select(['id', 'nome'])
+                                                            ->all()
+                                                            ->toArray();
+
+        $locals = $this->Equipamentos->Locals
+                                            ->find()
+                                            ->select(['nome', 'codigo'])
+                                            ->all()
+                                            ->toArray();
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $equipamento = $this->Equipamentos->patchEntity($equipamento, $this->request->data);
+            $equipamento->dataDeCompra = date('Y-m-d', strtotime($this->request->data['dataDeCompra']));
+
+            if ($this->Equipamentos->save($equipamento)) {
+                echo 'Editado';
+            } else {
+                echo 'Erro';
+            }
+        }
+
+        $this->set(compact('equipamento'));
+        $this->set(compact('tipoEquipamentos'));
+        $this->set(compact('locals'));
+        $this->set('_serialize', ['equipamento', 'tipoEquipamentos', 'locals']);
     }
 
     /**
@@ -79,7 +145,7 @@ class EquipamentosController extends AppController
     public function edit($id = null)
     {
         $equipamento = $this->Equipamentos->get($id, [
-            'contain' => []
+            'contain' => ['TipoEquipamentos', 'Locals']
         ]);
         $tipoEquipamentos = $this->Equipamentos->TipoEquipamentos
                                                             ->find()
@@ -88,21 +154,23 @@ class EquipamentosController extends AppController
                                                             ->toArray();
 
         $locals = $this->Equipamentos->Locals
-                                                            ->find()
-                                                            ->select(['nome', 'codigo'])
-                                                            ->all()
-                                                            ->toArray();
+                                            ->find()
+                                            ->select(['nome', 'codigo'])
+                                            ->all()
+                                            ->toArray();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $equipamento = $this->Equipamentos->patchEntity($equipamento, $this->request->data);
             $equipamento->dataDeCompra = date('Y-m-d', strtotime($this->request->data['dataDeCompra']));
 
             if ($this->Equipamentos->save($equipamento)) {
-                echo 'Editado';
+                $this->Flash->success(__('Equipamento modificado com sucesso.'));
             } else {
-                echo 'Erro';
+                $this->Flash->error(__('Ocorreu um erro ao modificar o equipamento.'));
             }
+            return $this->redirect(['action' => 'index']);
         }
+
         $this->set(compact('equipamento'));
         $this->set(compact('tipoEquipamentos'));
         $this->set(compact('locals'));
@@ -121,9 +189,9 @@ class EquipamentosController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $equipamento = $this->Equipamentos->get($id);
         if ($this->Equipamentos->delete($equipamento)) {
-            $this->Flash->success(__('The equipamento has been deleted.'));
+            $this->Flash->success(__('Equipamento deletado com sucesso.'));
         } else {
-            $this->Flash->error(__('The equipamento could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Ocorreu um erro ao deletar o equipamento.'));
         }
         return $this->redirect(['action' => 'index']);
     }
@@ -154,7 +222,36 @@ class EquipamentosController extends AppController
     }
 
     public function isAuthorized($user){
-        return true;
+        
+        if($this->request->action === 'index'){
+            if(isset($user['role'])){
+                return true;
+            }
+            return false;
+        }
+
+        if($this->request->action === 'cadastrar'){
+            if(isset($user['role'])){
+                return true;
+            }
+            return false;
+        }
+
+        if($this->request->action === 'view'){
+            if(isset($user['role'])){
+                return true;
+            }
+            return false;
+        }
+
+        if($this->request->action === 'editar'){
+            if(isset($user['role'])){
+                return true;
+            }
+            return false;
+        }
+
+        return parent::isAuthorized($user);
     }   
 
 }

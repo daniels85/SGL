@@ -45,10 +45,10 @@
 		<table class="ui teal stackable table center aligned">
 			<thead>
 				<tr>
-					<th class="three wide">Nome</th>
-					<th class="four wide">Tombo</th>
-					<th class="three wide">Status</th>
-					<th class="three wide">Tipo</th>
+					<th class="three wide"><?php echo $this->Paginator->sort('nome', null, ['direction' => 'desc']); ?></th>
+					<th class="four wide"><?php echo $this->Paginator->sort('tombo', null, ['direction' => 'desc']); ?></th>
+					<th class="three wide"><?php echo $this->Paginator->sort('status', null, ['direction' => 'desc']); ?></th>
+					<th class="three wide"><?php echo $this->Paginator->sort('tipo', null, ['direction' => 'desc']); ?></th>
 					<th class="three wide"></th>
 				</tr>
 			</thead>

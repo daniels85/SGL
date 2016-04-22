@@ -73,9 +73,9 @@ class PaginatorHelper extends Helper
             'number' => '<a href="{{url}}" class="item">{{text}}</a>',
             'current' => '<a href="" class="item active">{{text}}</a>',
             'ellipsis' => '<li class="ellipsis">...</li>',
-            'sort' => '<a href="{{url}}">{{text}}</a>',
-            'sortAsc' => '<a class="asc" href="{{url}}">{{text}}</a>',
-            'sortDesc' => '<a class="desc" href="{{url}}">{{text}}</a>',
+            'sort' => '<a class="ui tiny header" href="{{url}}">{{text}}</a>',
+            'sortAsc' => '<a class="ui tiny header" href="{{url}}">{{text}}</a>',
+            'sortDesc' => '<a class="ui tiny header" href="{{url}}">{{text}}</a>',
             'sortAscLocked' => '<a class="asc locked" href="{{url}}">{{text}}</a>',
             'sortDescLocked' => '<a class="desc locked" href="{{url}}">{{text}}</a>',
         ]

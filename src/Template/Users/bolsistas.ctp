@@ -6,13 +6,11 @@
 	<table class="ui teal stackable table">		
 		<thead>
 			<tr>
-				<th>Nome</th>
-				<th>Username</th>
-				<th>Matrícula</th>
-				<th>Função</th>
-				<th>Cadastrado por</th>
-				<th>Última vez Ativo</th>
-				<th>Data de Cadastro</th>
+				<th><?php echo $this->Paginator->sort('nome', null, ['direction' => 'desc']); ?></th>
+				<th><?php echo $this->Paginator->sort('username', null, ['direction' => 'desc']); ?></th>
+				<th><?php echo $this->Paginator->sort('matricula', 'Matrícula', ['direction' => 'desc']); ?></th>
+				<th><?php echo $this->Paginator->sort('role', 'Função', ['direction' => 'desc']); ?></th>
+				<th><?php echo $this->Paginator->sort('email', 'E-mail', ['direction' => 'desc']); ?></th>
 				<th></th>
 			</tr>
 		</thead>
@@ -24,9 +22,7 @@
 					<td><?php echo $user->username; ?></td>
 					<td><?php echo $user->matricula; ?></td>
 					<td><?php echo $user->role; ?></td>
-					<td><?php echo $user->cadastradoPor; ?></td>
-					<td><?php ($user->ultimaVezAtivo) ? print date('d/m/Y H:i', strtotime($user->ultimaVezAtivo)) : print 'Nunca ativo.'; ?></td>
-					<td><?php echo date('d/m/Y H:i', strtotime($user->dataDeCadastro)); ?></td>
+					<td><?php echo $user->email; ?></td>
 					<td >
 						<div class="ui floating dropdown icon button">
 							<i class="setting icon"></i>
@@ -42,7 +38,20 @@
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
+		<tfoot>
+			<tr>
+				<th colspan="6">
 
+					<div class="ui right floated pagination menu small">
+						<?php echo $this->Paginator->prev(); ?>
+
+						<?php echo $this->Paginator->numbers(); ?>
+						
+						<?php echo $this->Paginator->next(); ?>
+					</div>
+				</th>
+			</tr>
+		</tfoot>
 	</table>
 </div>
 

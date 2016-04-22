@@ -9,9 +9,9 @@
 	<table class="ui teal stackable table center aligned">		
 		<thead>
 			<tr >
-				<th class="four wide">Nome</th>
-				<th class="three wide">Código</th>
-				<th class="four wide">Tipo</th>
+				<th class="four wide"><?php echo $this->Paginator->sort('nome', null, ['direction' => 'desc']); ?></th>
+				<th class="three wide"><?php echo $this->Paginator->sort('codigo', 'Código', ['direction' => 'desc']); ?></th>
+				<th class="four wide"><?php echo $this->Paginator->sort('tipo', null, ['direction' => 'desc']); ?></th>
 				<th class="five wide"></th>
 			</tr>
 		</thead>
@@ -38,7 +38,20 @@
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
+		<tfoot>
+			<tr>
+				<th colspan="4">
 
+					<div class="ui right floated pagination menu small">
+						<?php echo $this->Paginator->prev(); ?>
+
+						<?php echo $this->Paginator->numbers(); ?>
+						
+						<?php echo $this->Paginator->next(); ?>
+					</div>
+				</th>
+			</tr>
+		</tfoot>
 	</table>
 </div>
 
