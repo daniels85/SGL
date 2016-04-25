@@ -44,8 +44,13 @@ class EquipamentosController extends AppController
     public function view($id = null)
     {
         $equipamento = $this->Equipamentos->get($id, [
-            'contain' => ['TipoEquipamentos', 'Locals']
+            'contain' => ['TipoEquipamentos', 'Locals', 'Alertas']
         ]);
+
+        $alerta = $this->Equipamentos->Alertas
+                                            ->find('all')
+                                            ->where(['tomboEquipamento' => $equipamento->tombo])
+                                            ->last();
 
         $session = $this->request->session()->read('Auth.User.nome');
         //$session = array(
@@ -53,6 +58,7 @@ class EquipamentosController extends AppController
         //        'matricula' => $this->request->session()->read('Auth.User.matricula')
         //    );
 
+        $this->set('alerta', $alerta);
         $this->set('equipamento', $equipamento);
         $this->set('session', $session);
         $this->set('_serialize', ['equipamento', 'session']);

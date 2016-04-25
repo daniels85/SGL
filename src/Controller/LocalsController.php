@@ -35,9 +35,10 @@ class LocalsController extends AppController {
 
         $locals = $this->paginate($this->Locals);
         
-
+        //$this->viewBuilder()->template('teste');
         $this->set(compact('locals'));
         $this->set('_serialize', ['locals']);
+        
     }
 
     /**
@@ -326,9 +327,7 @@ class LocalsController extends AppController {
         $this->set('_serialize', ['local']);
     }
 
-    public function isAuthorized($user){ 
-
-        $this->Auth->config('authError', "Você não está autorizado a acessar essa página.");
+    public function isAuthorized($user) {
 
         if ($this->request->action === 'view') {
             return true;

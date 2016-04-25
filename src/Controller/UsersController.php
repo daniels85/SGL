@@ -109,17 +109,26 @@ class UsersController extends AppController
     }
 
     /**
-    * gerarSenhas method
-    * 
-    * @author Thiago Belem <contato@thiagobelem.net>
-    *
-    * @param integer $tamanho Tamanho da senha a ser gerada
-    * @param boolean $maiusculas Se terá letras maiúscualas
-    * @param boolean $numeros Se terá números
-    * @param boolean $simboloas Se terá simbolos
-    *
-    * @return string A senha gerada
-    */
+     * recuperarSenha method
+     *
+     * @return 
+     */
+    public function recuperarSenha(){
+        echo teste;
+    }
+
+    /**
+     * gerarSenhas method
+     * 
+     * @author Thiago Belem <contato@thiagobelem.net>
+     *
+     * @param integer $tamanho Tamanho da senha a ser gerada
+     * @param boolean $maiusculas Se terá letras maiúscualas
+     * @param boolean $numeros Se terá números
+     * @param boolean $simboloas Se terá simbolos
+     *
+     * @return string A senha gerada
+     */
     public function gerarSenha($tamanho = 8, $maiusculas = true, $numero = true, $simbolos = false){
         
         $lmin = 'abcdefghijklmnopqrstuvwxyz';
@@ -146,9 +155,9 @@ class UsersController extends AppController
     }
 
     /**
-     * Edit method
+     * mailer method
      *
-     * @param $data Dados para formar o email.
+     * @param array $data Dados para formar o email.
      * @return boolean True ou False.
      */
     public function mailer($data, $template, $subject){
@@ -336,6 +345,9 @@ class UsersController extends AppController
     public function logout(){
         return $this->redirect($this->Auth->logout($this->redirect('/')));
     }
+
+
+    // Funções ...
 
     /**
      * getUsersLocals method
@@ -562,8 +574,6 @@ class UsersController extends AppController
 
     public function isAuthorized($user){
 
-        $this->Auth->config('authError', "Você não está autorizado a acessar essa página.");
-
         if($this->request->action === 'view'){
             $userId = (int)$this->request->params['pass'][0];
             if(isset($user['role']) && $user['role'] === 'Administrador' || $user['role'] === 'Professor' || $user['id'] === $userId){
@@ -616,6 +626,10 @@ class UsersController extends AppController
         }
 
         if($this->request->action === 'logout'){
+            return true;
+        }
+
+        if($this->request->action === 'recuperarSenha'){
             return true;
         }
 

@@ -58,7 +58,7 @@ class AlertasController extends AppController
 
             $alerta = $this->Alertas->patchEntity($alerta, $this->request->data);
 
-            if ($this->Alertas->save($alerta)) {
+            if($this->Alertas->save($alerta)){
 
                 if(!empty($bolsistas)){
                     foreach ($bolsistas as $bolsista) {
@@ -66,13 +66,11 @@ class AlertasController extends AppController
                         $bolsistaAlertas->alerta_id = $alerta->id;
                         $bolsistaAlertas->matricula_bolsista = $bolsista->matricula;
                         $this->Alertas->BolsistasAlertas->save($bolsistaAlertas);
-                    }
-                    echo 'Cadastrado';
-                }
-                else{
-                    echo 'Erro';
-                }                               
-                               
+                    }                   
+                }          
+
+                echo 'Cadastrado';  
+
             } else {
                 echo 'Erro';
             }

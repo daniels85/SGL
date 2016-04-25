@@ -45,7 +45,8 @@ class AppController extends Controller
         $this->loadComponent('Csrf');
         $this->loadComponent('Auth',[
             'authorize' => ['Controller'],
-            'loginAction' => ['controller' => 'Users', 'action' => 'login']
+            'loginAction' => ['controller' => 'Users', 'action' => 'login'],
+            'authError' => 'Você não está autorizado a acessar essa página.'
         ]);
         $this->loadComponent('Cookie', ['expiry' => '1 day']);
 
@@ -62,14 +63,11 @@ class AppController extends Controller
     }
 
     public function beforeFilter(Event $event){
-
         if(in_array($this->request->controller, ['Locals'])){
             $this->Auth->allow(['index', 'view']);
         }else{
             $this->Auth->allow(['logout']);
         }
-        
-        $this->Auth->config('authError', "Você não está autorizado a acessar essa página.");
     }
 
     /**

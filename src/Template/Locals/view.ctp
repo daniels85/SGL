@@ -67,7 +67,7 @@
 								<i class="setting icon"></i>
 							    Opções
 							    <div class="menu">
-							      <div class="item btnVerEquipamento"><i class="unhide icon"></i>Ver</div>
+							      <a class="item" href="/Equipamentos/view/<?php echo $equipamento->id; ?>"><i class="unhide icon"></i>Ver</a>
 							      <div class="item btnEditarEquipamento <?php if(!UsersController::isCoordenador($userAuth, $local->codigo) && !UsersController::isBolsista($userAuth, $local->codigo) && strcmp($userAuth['role'], 'Administrador')) echo 'disabled'; ?>"><i class="edit icon"></i>Editar</div>
 							      <div class="item btnAlertarEquipamento <?php if(!strcmp($equipamento->status, 'Alerta') || !strcmp($equipamento->status, 'Defeito')) echo 'disabled'; ?>"><i class="warning sing icon"></i>Alertar</div>
 							    </div>

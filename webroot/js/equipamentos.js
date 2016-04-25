@@ -590,7 +590,7 @@ function alteraStatusEquipamento(equipamento, status){
 
 	$.ajax({
 
-		url: 'http://'+host+'/equipamentos/edit/'+equipamento['equipamento'].id,
+		url: 'http://'+host+'/equipamentos/editar/'+equipamento['equipamento'].id,
 		type: 'PUT',
 		data: 'status='+status,
 

@@ -113,4 +113,7 @@ class UsersTable extends Table
         $rules->add($rules->isUnique(['matricula']));
         return $rules;
     }
+
+    
+    
 }
