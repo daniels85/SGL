@@ -1,2 +1,5 @@
 /logs/*
 /webroot/semantic-ui/*
+/webroot/semantic-ui
+/webroot/semantic-ui/dist/*
+/webroot/semantic-ui/dist/

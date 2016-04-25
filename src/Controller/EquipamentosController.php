@@ -190,9 +190,9 @@ class EquipamentosController extends AppController
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
+    public function delete($id = null) {
+
+        //$this->request->allowMethod(['delete']);
         $equipamento = $this->Equipamentos->get($id);
         if ($this->Equipamentos->delete($equipamento)) {
             $this->Flash->success(__('Equipamento deletado com sucesso.'));
@@ -227,6 +227,36 @@ class EquipamentosController extends AppController
         $this->set('_serialize', ['tipoEquipamentos']);
     }
 
+    /**
+     * 
+     */
+    public function find(){
+        if($this->request->is('POST')){
+
+            $equipamento = $this->Equipamentos
+                                            ->find()
+                                            ->contain(['Locals', 'TipoEquipamentos'])
+                                            ->where(['tombo' => $this->request->data['tombo']])
+                                            ->first();
+
+            if(!empty($equipamento)){
+                
+                $alerta = $this->Equipamentos->Alertas
+                                            ->find('all')
+                                            ->where(['tomboEquipamento' => $equipamento->tombo])
+                                            ->last();
+
+                $this->set('equipamento', $equipamento);
+                $this->set('alerta', $alerta);
+
+            }else{
+                $this->Flash->error(__('Equipamento não encontrado.'));
+                return $this->redirect($this->referer());
+            }
+
+        }
+    }
+
     public function isAuthorized($user){
         
         if($this->request->action === 'index'){
@@ -252,6 +282,13 @@ class EquipamentosController extends AppController
 
         if($this->request->action === 'editar'){
             if(isset($user['role'])){
+                return true;
+            }
+            return false;
+        }
+
+        if($this->request->action === 'delete'){
+            if(isset($user['role']) && $user['role'] === 'Administrador'){
                 return true;
             }
             return false;

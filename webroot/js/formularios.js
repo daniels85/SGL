@@ -4,6 +4,9 @@ $(document).ready(function(){
 	var formAddUsuario = $('#formAddUsuario').find('.ui.form');
 	var formEquipamento = $('#formEquipamento').find('.ui.form');
 	var formTipoEquipamento = $('#formTipoEquipamento').find('.ui.form');
+	var formLogin = $('#formLogin').find('.ui.form');
+	var formRecuperarSenha = $('#recuperarSenha').find('.ui.form');
+	var formBuscaEquipamento = $('#formBuscaEquipamento');
 
 	formAddLocal.form({	
 		
@@ -225,5 +228,61 @@ $(document).ready(function(){
 
 	});
 
+	formLogin.form({
+		username : {
+			identifier : 'username',
+			rules : [
+				{
+					type : 'empty',
+					prompt : 'Preencha o username.'
+				}
+			]
+		},
+
+		password : {
+			identifier : 'password',
+			rules : [
+				{
+					type : 'empty',
+					prompt : 'Preencha o password.'
+				}
+			]
+		}
+
+	});
+
+	formRecuperarSenha.form({
+
+		matricula : {
+			identifier : 'matricula',
+			rules : [
+				{
+					type : 'empty',
+					prompt : 'Preencha a matricula.'
+				},{
+					type: 'number',
+					prompt : 'Preencha o campo matricula somente com números.'
+				}
+			]
+		}
+
+	});
+
+	formBuscaEquipamento.form({
+
+		tombo : {
+			identifier : 'tombo',
+			rules : [
+				{
+					type : 'empty',
+					prompt : 'Campo obrigatório.'
+				},{
+					type : 'number',
+					prompt : 'Somente números.'
+				}
+			]
+		}
+
+	});
 
 });

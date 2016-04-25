@@ -11,8 +11,7 @@ use Cake\Mailer\Email;
  *
  * @property \App\Model\Table\UsersTable $Users
  */
-class UsersController extends AppController
-{
+class UsersController extends AppController {
 
     public $paginate = [
         'limit' => 10,
@@ -27,13 +26,41 @@ class UsersController extends AppController
         $this->loadComponent('Csrf');
     }
 
+    public function testeEmail(){
+
+        $data = [
+            'nome' => '$user->nome',
+            'matricula' => '$user->matricula',
+            'email' => 'ivanovdealmeida@gmail.com',
+            'username' => '$user->username',
+            'newPassword' => '$newPassword',
+        ];
+
+        $email = new Email();
+        $email->transport('mailSgl');
+        $email->emailFormat('html');
+        $email->template('recuperarSenha');
+        $email->from('sglmailer@gmail.com', 'SGL');
+        $email->to($data['email'], $data['nome']);
+        $email->viewVars($data);
+        $email->subject('sadojaspdjasid');
+        
+        print '<br>';
+        print '<br>';
+        print '<br>';
+        print '<br>';
+        print '<br>';
+        print '<br>';
+
+        var_dump($email->send());
+    }
+
     /**
      * Index method
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
-    {
+    public function index() {
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
@@ -54,8 +81,7 @@ class UsersController extends AppController
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
+    public function view($id = null) {
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
@@ -82,8 +108,7 @@ class UsersController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {   
+    public function add() {   
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
 
@@ -114,7 +139,41 @@ class UsersController extends AppController
      * @return 
      */
     public function recuperarSenha(){
-        echo teste;
+        
+        if($this->request->is('post')){
+            $user = $this->Users
+                            ->find()
+                            ->select(['id'])
+                            ->where(['matricula' => $this->request->data['matricula']])
+                            ->first();
+
+            if(!empty($user)){
+                $user = $this->Users->get($user->id);
+
+                $newPassword = self::gerarSenha(10);
+
+                $data = [
+                    'nome' => $user->nome,
+                    'matricula' => $user->matricula,
+                    'email' => $user->email,
+                    'username' => $user->username,
+                    'newPassword' => $newPassword,
+                ];
+
+                $user->password = $newPassword;
+
+                if($this->Users->save($user) && self::mailer($data, 'recuperarSenha', 'Recuperação de Senha - SGL')){
+                    $this->Flash->success(__('Um e-mail com sua nova senha foi enviado.'));
+                }else{
+                    $this->Flash->error(__('Ocorreu um erro, por favor tente novamente.'));
+                }
+
+            }else{
+                $this->Flash->error(__('Matrícula não encontrada.'));
+            }
+            
+        }
+
     }
 
     /**
@@ -277,8 +336,7 @@ class UsersController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
+    public function edit($id = null) {
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
@@ -307,8 +365,7 @@ class UsersController extends AppController
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
-    {
+    public function delete($id = null) {
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
@@ -568,10 +625,6 @@ class UsersController extends AppController
         return false;
     }
 
-    public function beforeFilter(Event $event) {
-        $this->eventManager()->off($this->Csrf);
-    }
-
     public function isAuthorized($user){
 
         if($this->request->action === 'view'){
@@ -626,10 +679,6 @@ class UsersController extends AppController
         }
 
         if($this->request->action === 'logout'){
-            return true;
-        }
-
-        if($this->request->action === 'recuperarSenha'){
             return true;
         }
 

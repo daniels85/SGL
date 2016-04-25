@@ -31,7 +31,7 @@
 							    <div class="menu" data-id="<?php echo $equipamento->id ?>">
 							      <a href="/equipamentos/view/<?php echo $equipamento->id ?>" class="item"><i class="unhide icon"></i>Ver</a>
 							      <a href="/equipamentos/edit/<?php echo $equipamento->id ?>" class="item" ><i class="edit icon"></i>Modificar</a>
-							      <a href="/equipamentos/delete/<?php echo $equipamento->id ?>" class="item"><i class="remove icon"></i>Excluir</a>
+							      <a href="/equipamentos/delete/<?php echo $equipamento->id ?>" class="item delete"><i class="remove icon"></i>Excluir</a>
 							    </div>
 							</div>
 						</td>

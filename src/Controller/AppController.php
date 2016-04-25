@@ -44,10 +44,18 @@ class AppController extends Controller
         $this->loadComponent('Flash');
         $this->loadComponent('Csrf');
         $this->loadComponent('Auth',[
-            'authorize' => ['Controller'],
-            'loginAction' => ['controller' => 'Users', 'action' => 'login'],
-            'authError' => 'Você não está autorizado a acessar essa página.'
+            'authorize' => [
+                'Controller'
+            ],
+            'loginAction' => [
+                'controller' => 'Users', 
+                'action' => 'login'
+            ],
+            'authError' => 'Você não está autorizado a acessar essa página.',
+            'unauthorizedRedirect' => $this->referer()
         ]);
+        $this->Auth->allow(['recuperarSenha']);
+
         $this->loadComponent('Cookie', ['expiry' => '1 day']);
 
     }
