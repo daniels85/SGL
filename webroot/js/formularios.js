@@ -94,6 +94,9 @@ $(document).ready(function(){
 				{
 					type : 'minLength[6]',
 					prompt : 'Matrícula deve conter no mínimo 6 caracteres.'
+				}, {
+					type : 'number',
+					prompt : 'Matrícula deve conter somente números.'
 				}
 			]
 		},

@@ -176,10 +176,10 @@
 	"buffers":
 	[
 		{
-			"file": "src/Controller/UsersController.php",
+			"file": "src/Template/Layout/default.ctp",
 			"settings":
 			{
-				"buffer_size": 21324,
+				"buffer_size": 8945,
 				"line_ending": "Unix"
 			}
 		}
@@ -218,39 +218,38 @@
 	[
 		"/home/ivanov/Documentos/sgl",
 		"/home/ivanov/Documentos/sgl/src",
-		"/home/ivanov/Documentos/sgl/src/Controller",
-		"/home/ivanov/Documentos/sgl/src/Model/Entity",
-		"/home/ivanov/Documentos/sgl/src/Template/Users"
+		"/home/ivanov/Documentos/sgl/src/Template",
+		"/home/ivanov/Documentos/sgl/src/Template/Layout"
 	],
 	"file_history":
 	[
+		"/home/ivanov/Documentos/sgl/src/Template/Users/bolsistas.ctp",
+		"/home/ivanov/Documentos/sgl/webroot/js/users.js",
+		"/home/ivanov/Documentos/sgl/src/Controller/UsersController.php",
+		"/home/ivanov/Documentos/sgl/webroot/js/formularios.js",
+		"/home/ivanov/Documentos/sgl/src/Template/Users/view.ctp",
 		"/home/ivanov/Documentos/sgl/src/Controller/UserLocalsController.php",
 		"/home/ivanov/Documentos/sgl/src/Controller/LocalsController.php",
 		"/home/ivanov/Documentos/sgl/src/Controller/EquipamentosController.php",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/teste_email.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Layout/default.ctp",
-		"/home/ivanov/Documentos/sgl/src/Controller/UsersController.php",
 		"/home/ivanov/Documentos/sgl/.gitignore",
 		"/home/ivanov/Documentos/sgl/.gitattributes",
-		"/home/ivanov/Documentos/sgl/webroot/js/formularios.js",
 		"/home/ivanov/Documentos/sgl/src/Template/Equipamentos/find.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Equipamentos/index.ctp",
 		"/home/ivanov/Documentos/sgl/webroot/js/script.js",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/login.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/recuperar_senha.ctp",
-		"/home/ivanov/Documentos/sgl/src/Template/Users/view.ctp",
 		"/home/ivanov/Documentos/sgl/src/Controller/AppController.php",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/resetar_senha.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Locals/index.ctp",
 		"/home/ivanov/Documentos/sgl/src/Model/Entity/User.php",
 		"/home/ivanov/Documentos/sgl/config/routes.php",
 		"/home/ivanov/Documentos/sgl/src/Controller/AlertasController.php",
-		"/home/ivanov/Documentos/sgl/webroot/js/users.js",
 		"/home/ivanov/Documentos/sgl/src/Model/Table/UsersTable.php",
 		"/home/ivanov/Documentos/sgl/src/Template/Alertas/edit.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Alertas/view.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Locals/view.ctp",
-		"/home/ivanov/Documentos/sgl/src/Template/Users/bolsistas.ctp",
 		"/home/ivanov/Documentos/sgl/webroot/js/equipamentos.js",
 		"/home/ivanov/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/index.ctp",
@@ -302,6 +301,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"find",
+			"addUsuario",
 			"<?",
 			"var",
 			" \n",
@@ -328,19 +329,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "src/Controller/UsersController.php",
+					"file": "src/Template/Layout/default.ctp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 21324,
+						"buffer_size": 8945,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								21324,
-								21324
+								8935,
+								8935
 							]
 						],
 						"settings":
@@ -350,7 +351,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 348.0,
+						"translation.y": 1956.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -412,12 +413,16 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"",
+				"/var/www/html/Dropbox/untitled.sublime-project"
+			]
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"select_symbol":
 	{

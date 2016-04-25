@@ -66,19 +66,13 @@ class UsersController extends AppController {
 
         $this->set(compact('users'));
         $this->set('_serialize', ['users']);
-
-        print '<br>';
-        print '<br>';
-        print '<br>';
-        print '<br>';
-        print '<br>';
-        print '<br>';
-
-        $hasher = new DefaultPasswordHasher();        
-        echo $hasher->hash('123456');
     }
 
-
+    /**
+     * bolsistas method
+     *
+     * @return \Cake\Network\Response|null
+     */
     public function bolsistas(){
         $users = $this->paginate($this->Users->find()->where(['role' => 'Bolsista']));
         $this->set(compact('users'));
@@ -147,7 +141,7 @@ class UsersController extends AppController {
     /**
      * recuperarSenha method
      *
-     * @return 
+     * @return \Cake\Network\Response|void Redirects em caso de sucesso na recuperação.
      */
     public function recuperarSenha(){
         
@@ -175,6 +169,7 @@ class UsersController extends AppController {
 
                 if($this->Users->save($user) && self::mailer($data, 'recuperarSenha', 'Recuperação de Senha - SGL')){
                     $this->Flash->success(__('Um e-mail com sua nova senha foi enviado.'));
+                    return $this->redirect(['action' => 'login']);
                 }else{
                     $this->Flash->error(__('Ocorreu um erro, por favor tente novamente.'));
                 }
@@ -250,7 +245,6 @@ class UsersController extends AppController {
      * alterarSenha method
      *
      * @param string|null $id User id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function alterarSenha($id){
@@ -269,7 +263,6 @@ class UsersController extends AppController {
      * resetarSenha method
      *
      * @param string|null $id User id.
-     * @return string sucesso ou erro.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function resetarSenha($id){
@@ -298,7 +291,6 @@ class UsersController extends AppController {
      * alterarEmail method
      *
      * @param string|null $id User id.
-     * @return string sucesso ou erro.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function alterarEmail($id){
@@ -420,8 +412,8 @@ class UsersController extends AppController {
     /**
      * getUsersLocals method
      *
-     * @param string|null $codigoLocal Local codigo.
-     * @return Array composto por user_matricula da tabela UserLocals.
+     * @param string $codigoLocal Local codigo.
+     * @return array $userLocal UserLocals user_matricula.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public static function getUsersLocals($codigoLocal){
@@ -440,8 +432,8 @@ class UsersController extends AppController {
     /**
      * getUsersLocals method
      *
-     * @param string|null $codigoLocal Local codigo.
-     * @return Array composto por user_matricula da tabela UserLocals.
+     * @param string $codigoLocal Local codigo.
+     * @return array $userLocal UserLocals $user_matricula.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public static function getUsersLocalsBolsistas($codigoLocal){
@@ -470,8 +462,8 @@ class UsersController extends AppController {
     /**
      * getMatriculaUsers method
      *
-     * @param string|null $codigoLocal Local codigo.
-     * @return Array com matricula de todos os usuarios relacionados ao local
+     * @param string $codigoLocal Local codigo.
+     * @return array $matriculas Users matricula.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public static function getMatriculaUsers($codigoLocal){
@@ -490,8 +482,8 @@ class UsersController extends AppController {
     /**
      * getCoordenadores method
      *
-     * @param string|null $codigoLocal Local codigo.
-     * @return Array com todos os Coordenadores associados ao local.
+     * @param string $codigoLocal Local codigo.
+     * @return array $coordenadores Users nome e matricula.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public static function getCoordenadores($codigoLocal){
@@ -514,7 +506,7 @@ class UsersController extends AppController {
      * getBolistas method
      *
      * @param string|null $codigoLocal Local codigo.
-     * @return Array com todos os Bolsistas associados ao local.
+     * @return array $bolsistas Users nome e matricula.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public static function getBolistas($codigoLocal){
@@ -537,7 +529,7 @@ class UsersController extends AppController {
      * getMatriculaBolistas method
      *
      * @param string|null $codigoLocal Local codigo.
-     * @return Array com as matriculas de todos os Bolsistas associados ao local.
+     * @return array $bolsistas Users matricula.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public static function getMatriculaBolistas($codigoLocal){
@@ -559,7 +551,8 @@ class UsersController extends AppController {
     /**
      * isCoordenador method
      *
-     * @param string|null $matricula Users matricula e $codLocal Locals codigo.
+     * @param Object $user Users.
+     * @param string $codLocal Locals codigo.
      * @return True ou False.
      */
     public static function isCoordenador($user, $codigoLocal){
@@ -574,7 +567,8 @@ class UsersController extends AppController {
     /**
      * isBolsista method
      *
-     * @param string|null $matricula Users matricula e $codLocal Locals codigo.
+     * @param Object $user Users.
+     * @param string $codLocal Locals codigo.
      * @return True ou False.
      */
     public static function isBolsista($user, $codigoLocal){
@@ -588,7 +582,8 @@ class UsersController extends AppController {
     /**
      * insereUserLocals method
      *
-     * @param string|null $codigo Local codigo e $matricula User matricula.
+     * @param string $codigo Local codigo.
+     * @param string $matricula User matricula.
      * @return True ou False.
      */
     public function insereUserLocals($codigo, $matricula){
@@ -606,7 +601,8 @@ class UsersController extends AppController {
     /**
      * atualizaUserLocals method
      *
-     * @param $id UserLocals id e $codigo Local codigo.
+     * @param string $id UserLocals id.
+     * @param string $codifo Local codigo.
      * @return True ou False.
      */
     public function atualizaUserLocals($id, $codigo){
@@ -636,11 +632,17 @@ class UsersController extends AppController {
         return false;
     }
 
+    /**
+     * isAuthorized method
+     *
+     * @param object $user User.
+     * @return true ou false.
+     */
     public function isAuthorized($user){
 
         if($this->request->action === 'view'){
             $userId = (int)$this->request->params['pass'][0];
-            if(isset($user['role']) && $user['role'] === 'Administrador' || $user['role'] === 'Professor' || $user['id'] === $userId){
+            if(isset($user['role']) && $user['role'] === 'Administrador' || $user['id'] === $userId){
                 return true;
             }
             return false;

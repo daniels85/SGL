@@ -121,17 +121,11 @@
             <?php endif; ?>
 
             <?php if(!strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')): ?>
+
             <a href="/users/bolsistas" class="item">Bolsistas</a>
             <a href="/users" class="item">Usuários</a>
             <a href="/equipamentos" class="item">Equipamentos</a>
             <?php endif; ?>
-            <div class="item">
-                <div class="header"><?php echo $this->request->session()->read('Auth.User.nome'); ?><i class="user icon"></i></div>
-                <div class="menu">
-                    <a class="item" href="/Users/view/<?php echo $this->request->session()->read('Auth.User.id');  ?>"><i class="settings icon"></i>Conta</a>
-                    <a class="item" href="/users/logout"><i class="log out icon"></i>Logout</a>
-                </div>              
-            </div>          
             <div class="item">
                 <div class="header">Buscar por Equipamento</div>
                 <div class="menu">
@@ -146,6 +140,14 @@
                     </div>
                 </div>
             </div>
+            <div class="item">
+                <div class="header"><?php echo $this->request->session()->read('Auth.User.nome'); ?><i class="user icon"></i></div>
+                <div class="menu">
+                    <a class="item" href="/Users/view/<?php echo $this->request->session()->read('Auth.User.id');  ?>"><i class="settings icon"></i>Conta</a>
+                    <a class="item" href="/users/logout"><i class="log out icon"></i>Logout</a>
+                </div>              
+            </div>          
+            
         </div>
         <?php endif; ?> 
 
@@ -178,6 +180,6 @@
 
         </div>
 
-    </body>
+    </body> 
 
 </html>

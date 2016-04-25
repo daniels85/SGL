@@ -33,19 +33,14 @@
 			<td>Última ativo</td>
 			<td><?php echo date('d/m/Y H:i', strtotime($user->ultimaVezAtivo)); ?></td>
 		</tr>
-		
-		<?php if(!strcmp($this->request->session()->read('Auth.User.matricula'), $user->matricula)): ?>
-		<tfoot class="full-width">
-			<tr>
-				<th colspan="2" data-id="<?php echo $user->id; ?>">
-					<button class="ui button teal tiny right floated labeled icon btnMudarSenha"><i class="setting icon"></i>Alterar senha</button>
-					<button class="ui button teal tiny right floated labeled icon btnMudarEmail"><i class="setting icon"></i>Alterar E-mail</button>
-				</th>
-			</tr>
-		</tfoot>
-		<?php endif; ?>
 	</table>
 </div>
+<?php if(!strcmp($this->request->session()->read('Auth.User.matricula'), $user->matricula)): ?>
+<div class="sixteen centered wide column row">
+	<button class="ui button teal small right floated labeled icon btnMudarSenha"><i class="setting icon"></i>Alterar senha</button>
+	<button class="ui button teal small right floated labeled icon btnMudarEmail"><i class="setting icon"></i>Alterar E-mail</button>
+</div>
+<?php endif; ?>
 
 <?php 
 	if(!empty($alertas->toArray())):
