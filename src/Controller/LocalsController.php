@@ -308,11 +308,11 @@ class LocalsController extends AppController {
                     }
                 }
 
-                $this->Flash->success(__('The local has been saved.'));
+                $this->Flash->success(__('Bolsistas alterados com sucesso.'));
                 return $this->redirect(['action' => 'index']);
 
             } else {
-                $this->Flash->error(__('The local could not be saved. Please, try again.'));
+                $this->Flash->error(__('Erro ao alterar bolsista. Tente novamente.'));
             }
         }
 

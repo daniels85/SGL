@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
 use Cake\Mailer\Email;
+use Cake\Auth\DefaultPasswordHasher;
 
 /**
  * Users Controller
@@ -65,6 +66,16 @@ class UsersController extends AppController {
 
         $this->set(compact('users'));
         $this->set('_serialize', ['users']);
+
+        print '<br>';
+        print '<br>';
+        print '<br>';
+        print '<br>';
+        print '<br>';
+        print '<br>';
+
+        $hasher = new DefaultPasswordHasher();        
+        echo $hasher->hash('123456');
     }
 
 
