@@ -16,8 +16,7 @@ class UserLocalsController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
-    {
+    public function index() {
         $userLocals = $this->paginate($this->UserLocals);
 
         $this->set(compact('userLocals'));
@@ -31,8 +30,7 @@ class UserLocalsController extends AppController
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
+    public function view($id = null) {
         $userLocal = $this->UserLocals->get($id, [
             'contain' => []
         ]);
@@ -46,8 +44,7 @@ class UserLocalsController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {
+    public function add() {
         $userLocal = $this->UserLocals->newEntity();
         if ($this->request->is('post')) {
             $userLocal = $this->UserLocals->patchEntity($userLocal, $this->request->data);
@@ -69,8 +66,7 @@ class UserLocalsController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
+    public function edit($id = null) {
         $userLocal = $this->UserLocals->get($id, [
             'contain' => []
         ]);
@@ -94,8 +90,7 @@ class UserLocalsController extends AppController
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
-    {
+    public function delete($id = null) {
         $this->request->allowMethod(['post', 'delete']);
         $userLocal = $this->UserLocals->get($id);
         if ($this->UserLocals->delete($userLocal)) {

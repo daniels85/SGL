@@ -76,20 +76,7 @@ class LocalsController extends AppController {
 
     }
 
-    public function getEquipamentos($codigoLocal){
-
-        $equipamentosTable = TableRegistry::get('Equipamentos');
-
-        $equipamentos = $equipamentosTable
-                                    ->find()
-                                    ->select(['id', 'nome', 'status', 'tipo', 'tombo'])                                    
-                                    ->where(['codLocal' => $codigoLocal])
-                                    ->contain(['TipoEquipamentos'])
-                                    ->all()
-                                    ->toArray();
-
-        return $equipamentos;
-    }
+    
 
     /**
      * Add method
@@ -254,6 +241,12 @@ class LocalsController extends AppController {
         return $this->redirect(['action' => 'index']);
     }
 
+    /**
+     * bolsista method
+     *
+     * @param string|null $id Local id.
+     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
+     */
     public function bolsista($id = null){
         $local = $this->Locals->get($id, [
             'contain' => []
@@ -325,6 +318,27 @@ class LocalsController extends AppController {
 
         $this->set(compact('local', 'bolsistas', 'userLocalsBolsistas', 'usersLocal'));
         $this->set('_serialize', ['local']);
+    }
+
+    /**
+     * getEquipamentos method
+     *
+     * @param $codigoLocal Local codigo
+     * @return array Equipamento $equipamentos
+     */
+    public function getEquipamentos($codigoLocal){
+
+        $equipamentosTable = TableRegistry::get('Equipamentos');
+
+        $equipamentos = $equipamentosTable
+                                    ->find()
+                                    ->select(['id', 'nome', 'status', 'tipo', 'tombo'])                                    
+                                    ->where(['codLocal' => $codigoLocal])
+                                    ->contain(['TipoEquipamentos'])
+                                    ->all()
+                                    ->toArray();
+
+        return $equipamentos;
     }
 
     public function isAuthorized($user) {

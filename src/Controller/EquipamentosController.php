@@ -104,7 +104,6 @@ class EquipamentosController extends AppController
      * Editar method
      *
      * @param string|null $id Equipamento id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function editar($id = null)
@@ -202,6 +201,10 @@ class EquipamentosController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    /**
+     * cadastrar method
+     *
+     */
     public function cadastrar(){
 
         $equipamento = $this->Equipamentos->newEntity();
@@ -228,7 +231,9 @@ class EquipamentosController extends AppController
     }
 
     /**
+     * find method
      * 
+     * @return \Cake\Network\Response|null
      */
     public function find(){
         if($this->request->is('POST')){
