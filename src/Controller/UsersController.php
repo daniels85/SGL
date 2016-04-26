@@ -91,6 +91,8 @@ class UsersController extends AppController {
             'contain' => []
         ]);
 
+        
+
         $alertas2 = $this->Users->BolsistasAlertas
                                     ->find()                                
                                     ->contain(['Alertas'])

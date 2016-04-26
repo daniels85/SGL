@@ -81,9 +81,9 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<th colspan="6">
+				<th colspan="5">
 
-					<div class="ui right floated pagination menu small">
+					<div class="ui pagination menu small">
 						<?php echo $this->Paginator->prev(); ?>
 
 						<?php echo $this->Paginator->numbers(); ?>

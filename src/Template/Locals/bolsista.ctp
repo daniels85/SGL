@@ -34,9 +34,7 @@
 							<?php endforeach; ?>
 						</select>
 
-			        </div>
-
-			        
+			        </div>			        
 
 			<?php echo $this->Form->button(__('Enviar'), ['class' => 'ui button green']);; ?>
 			<?php echo $this->Form->end(); ?>

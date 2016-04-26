@@ -4,8 +4,8 @@
 		Equipamentos
 	</h4>
 	<div id="listar-equipamentos">
-		<table class="ui teal stackable center aligned table">		
-			<thead>
+		<table class="ui teal stackable table">		
+			<thead class="center aligned">
 				<tr>
 					<th class="two wide"><?php echo $this->Paginator->sort('nome', null, ['direction' => 'desc']); ?></th>
 					<th class="three wide"><?php echo $this->Paginator->sort('tombo', null, ['direction' => 'desc']); ?></th>
@@ -16,7 +16,7 @@
 				</tr>
 			</thead>
 				
-			<tbody>
+			<tbody class="center aligned">
 				<?php foreach($equipamentos as $equipamento): ?>
 					<tr>
 						<td><?php echo $equipamento->nome; ?></td>
@@ -38,11 +38,10 @@
 					</tr>
 				<?php endforeach; ?>
 			</tbody>
-			<tfoot>
+			<tfoot class="full-width">
 				<tr>
-					<th colspan="6">
-
-						<div class="ui right floated pagination menu small">
+					<th colspan="6" class="right aligned">
+						<div class="ui pagination menu small">
 							<?php echo $this->Paginator->prev(); ?>
 
 							<?php echo $this->Paginator->numbers(); ?>
@@ -55,9 +54,10 @@
 		</table>
 	</div>
 </div>
-
-<div class="sixten wide column row">
-	<a class="ui button teal labeled icon small" href="/equipamentos/add"><i class="add icon"></i>Cadastrar Equipamento</a>
-	<a class="ui button teal labeled icon small" href="/tipoEquipamentos"><i class="unhide icon"></i>Ver Tipos de Equipamento</a>
-	<a class="ui button teal labeled icon small" href="/tipoEquipamentos/add"><i class="add icon"></i>Cadastrar Tipo de Equipamento</a>
+<div class="sixten wide column row centered"> 
+	<div class="three ui buttons">
+		<a href="/equipamentos/add" class="ui button teal labeled icon"><i class="add icon"></i>Cadastrar Equipamento</a>
+		<a href="/tipoEquipamentos" class="ui button teal labeled icon"><i class="unhide icon"></i>Ver tipos</a>
+		<a href="/tipoEquipamentos/add" class="ui button teal labeled icon"><i class="add icon"></i>Cadastrar tipo</a>
+	</div>
 </div>

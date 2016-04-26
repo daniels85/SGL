@@ -37,17 +37,7 @@
 			<td>Responsável</td>
 			<td><?php echo $equipamento->responsavel; ?></td>
 		</tr>
-		
-		<?php if(!strcmp($this->request->session()->read('Auth.User.matricula'), $equipamento->matricula)): ?>
-		<tfoot class="full-width">
-			<tr>
-				<th colspan="2" data-id="<?php echo $user->id; ?>">
-					<button class="ui button teal tiny right floated labeled icon btnMudarSenha"><i class="setting icon"></i>Alterar senha</button>
-					<button class="ui button teal tiny right floated labeled icon btnMudarEmail"><i class="setting icon"></i>Alterar E-mail</button>
-				</th>
-			</tr>
-		</tfoot>
-		<?php endif; ?>
+	
 	</table>
 </div>
 

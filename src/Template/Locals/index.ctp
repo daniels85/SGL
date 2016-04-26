@@ -38,11 +38,11 @@
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
-		<tfoot>
+		<tfoot class="right aligned">
 			<tr>
 				<th colspan="4">
 
-					<div class="ui right floated pagination menu small">
+					<div class="ui pagination menu small">
 						<?php echo $this->Paginator->prev(); ?>
 
 						<?php echo $this->Paginator->numbers(); ?>

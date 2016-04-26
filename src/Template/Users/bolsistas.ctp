@@ -24,25 +24,25 @@
 					<td><?php echo $user->role; ?></td>
 					<td><?php echo $user->email; ?></td>
 					<td >
-						<div class="ui floating dropdown icon button">
+						<div class="ui floating dropdown icon button <?php if(strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')) echo 'disabled'; ?>">
 							<i class="setting icon"></i>
 						    Opções
 						    <div class="menu" data-id="<?php echo $user->id ?>">
 						      <a href="/users/view/<?php echo $user->id ?>" class="item"><i class="unhide icon"></i>Ver</a>
-						      <a href="/users/edit/<?php echo $user->id ?>" class="item <?php if(strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')) echo 'disabled'; ?>" ><i class="edit icon"></i>Modificar</a>
-						      <a class="item resetarSenha <?php if(strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')) echo 'disabled'; ?>"><i class="setting icon"></i>Resetar Senha</a>
-						      <a class="item deletarUser <?php if(strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')) echo 'disabled'; ?>"><i class="remove user icon"></i>Excluir</a>
+						      <a href="/users/edit/<?php echo $user->id ?>" class="item " ><i class="edit icon"></i>Modificar</a>
+						      <a class="item resetarSenha"><i class="setting icon"></i>Resetar Senha</a>
+						      <a class="item deletarUser"><i class="remove user icon"></i>Excluir</a>
 						    </div>
 						</div>
 					</td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
-		<tfoot>
+		<tfoot class="right aligned">
 			<tr>
 				<th colspan="6">
 
-					<div class="ui right floated pagination menu small">
+					<div class="ui pagination menu small">
 						<?php echo $this->Paginator->prev(); ?>
 
 						<?php echo $this->Paginator->numbers(); ?>
