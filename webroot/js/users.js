@@ -214,6 +214,10 @@ $(document).ready(function(){
 						   +'&matricula='+matricula
 						   +'&email='+email,
 
+					beforeSend: function(request){
+						return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+					},
+					
 					success: function(data){
 
 						$('.ui.dimmer.loading').dimmer('hide');

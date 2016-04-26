@@ -105,13 +105,14 @@
                 </div>
             </div>  
 
+            <!--
             <div class="computer only row">
                 <button class="circular ui teal icon button back-computer" onclick="window.history.back();"><i class="arrow left icon"></i></button>
             </div>
             <div class="mobile tablet only row">
                 <button class="circular ui teal icon button back-mobile" onclick="window.history.back();"><i class="arrow left icon"></i></button>
             </div>
-
+            -->
         </div>
 
         <?php if (!is_null($this->request->session()->read('Auth.User.username'))): ?>
@@ -151,6 +152,7 @@
         </div>
         <?php endif; ?> 
 
+        <h5 class="ui horizontal divider header"></h5>
         <h5 class="ui horizontal divider header"></h5>
 
         <div class="ui container">

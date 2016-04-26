@@ -74,7 +74,13 @@ class UsersController extends AppController {
      * @return \Cake\Network\Response|null
      */
     public function bolsistas(){
-        $users = $this->paginate($this->Users->find()->where(['role' => 'Bolsista']));
+        $users = $this->Users
+                            ->find()
+                            ->where(['role' => 'Bolsista'])
+                            ->contain(['UserLocals']);
+
+        $users = $this->paginate($users);
+
         $this->set(compact('users'));
         $this->set('_serialize', ['users']);
     }

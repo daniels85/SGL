@@ -27,14 +27,8 @@ class UsersTable extends Table
         $this->table('users');
         $this->displayField('id');
         $this->primaryKey('id');
-    
-        $this->belongsTo('LocalsCoordenador', [
-            'className' => 'Locals',
-            'bindingKey' => 'matricula',
-            'joinType' => 'INNER'
-        ]);
 
-        $this->belongsTo('UserLocals', [
+        $this->hasMany('UserLocals', [
             'className' => 'UserLocals',
             'foreignKey' => 'user_matricula',
             'bindingKey' => 'matricula',

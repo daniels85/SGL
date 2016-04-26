@@ -260,12 +260,8 @@ class LocalsController extends AppController {
             
         }
 
-        $codigo = $local->codigo;
-
         /** Bolsistas **/
-        $usersLocal = UsersController::getUsersLocalsBolsistas($local->codigo);
-        
-        
+        $usersLocal = UsersController::getUsersLocalsBolsistas($local->codigo);      
 
         /** Matriculas **/
         $matriculas = UsersController::getUsersLocals($local->codigo);

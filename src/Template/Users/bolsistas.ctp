@@ -10,6 +10,7 @@
 				<th><?php echo $this->Paginator->sort('username', null, ['direction' => 'desc']); ?></th>
 				<th><?php echo $this->Paginator->sort('matricula', 'Matrícula', ['direction' => 'desc']); ?></th>
 				<th><?php echo $this->Paginator->sort('role', 'Função', ['direction' => 'desc']); ?></th>
+				<th><?php echo $this->Paginator->sort('local', 'Local', ['direction' => 'desc']); ?></th>
 				<th><?php echo $this->Paginator->sort('email', 'E-mail', ['direction' => 'desc']); ?></th>
 				<th></th>
 			</tr>
@@ -22,6 +23,7 @@
 					<td><?php echo $user->username; ?></td>
 					<td><?php echo $user->matricula; ?></td>
 					<td><?php echo $user->role; ?></td>
+					<td><?php echo 'p'; ?></td>
 					<td><?php echo $user->email; ?></td>
 					<td >
 						<div class="ui floating dropdown icon button <?php if(strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')) echo 'disabled'; ?>">
@@ -40,7 +42,7 @@
 		</tbody>
 		<tfoot class="right aligned">
 			<tr>
-				<th colspan="6">
+				<th colspan="7">
 
 					<div class="ui pagination menu small">
 						<?php echo $this->Paginator->prev(); ?>
