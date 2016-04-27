@@ -35,6 +35,12 @@ class UsersTable extends Table
             'joinType' => 'INNER'
         ]);
 
+        $this->hasMany('Locals', [
+            'className' => 'Locals',
+            'foreignKey' => 'codigo',
+            'joinType' => 'INNER'
+        ]);
+
         $this->hasMany('Alertas', [
             'className' => 'Alertas',
             'joinType' => 'INNER'

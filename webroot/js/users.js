@@ -358,7 +358,7 @@ $(document).ready(function(){
 			},			
 
 			success : function(data){
-				
+
 				modalHeader.html('');
 				modalContent.html('');
 				modalActions.html('');
@@ -381,11 +381,14 @@ $(document).ready(function(){
 				conteudo += '</div>';
 
 				conteudo += '</div>';
-
-				conteudo += '<div class="actions">';
-				conteudo += '<div class="ui button approve positive small btnResolvido"><i class="checkmark icon"></i>Marcar como resolvido</div>';
-				conteudo += '<div class="ui button negative cancel small btnOcorrencia"><i class="warning circle icon"></i>Criar ocorrência</div>';
-				conteudo += '</div>';
+				for(i = 0; i < data['bolsistas'].length; i++){
+					if(data['session'] === data['bolsistas'][i].user_matricula){
+						conteudo += '<div class="actions">';
+						conteudo += '<div class="ui button approve positive small btnResolvido"><i class="checkmark icon"></i>Marcar como resolvido</div>';
+						//conteudo += '<div class="ui button negative cancel small btnOcorrencia"><i class="warning circle icon"></i>Criar ocorrência</div>';
+						conteudo += '</div>';
+					}
+				}				
 
 				modalHeader.html('Alerta - Tombo: '+data['alerta'].tomboEquipamento);
 				modalContent.html(conteudo);

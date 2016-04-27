@@ -37,8 +37,23 @@ class AlertasController extends AppController
         $alerta = $this->Alertas->get($id, [
             'contain' => []
         ]);
+
+        $tomboEquip = $alerta->tomboEquipamento;
+        
+        $local = $this->Alertas->Equipamentos
+                                    ->find()
+                                    ->select(['codLocal'])
+                                    ->where(['tombo' => $tomboEquip])
+                                    ->first()
+                                    ->toArray();
+
+        $session = $this->request->session()->read('Auth.User.matricula');
+        $bolsistas = UsersController::getUsersLocalsBolsistas($local['codLocal']);
+
+        $this->set('session', $session);
+        $this->set('bolsistas', $bolsistas);
         $this->set('alerta', $alerta);
-        $this->set('_serialize', ['alerta']);
+        $this->set('_serialize', ['alerta', 'bolsistas', 'session']);
     }
 
     /**

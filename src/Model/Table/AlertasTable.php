@@ -34,6 +34,12 @@ class AlertasTable extends Table
             'joinType' => 'INNER'
         ]);
 
+        $this->hasMany('Equipamentos', [
+            'foreignKey' => 'tombo',
+            'bindingKey' => 'tomboEquipamento',
+            'joinType' => 'INNER'
+        ]);
+
     }
 
     /**

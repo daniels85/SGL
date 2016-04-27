@@ -76,8 +76,7 @@ class UsersController extends AppController {
     public function bolsistas(){
         $users = $this->Users
                             ->find()
-                            ->where(['role' => 'Bolsista'])
-                            ->contain(['UserLocals']);
+                            ->where(['role' => 'Bolsista']);
 
         $users = $this->paginate($users);
 
