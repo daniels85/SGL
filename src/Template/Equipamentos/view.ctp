@@ -68,9 +68,7 @@
 				<td><?php echo date('d/m/Y g:i A', strtotime($alerta->dataAlerta)); ?></td>
 				<td data-id="<?php echo $alerta->id; ?>">
 					<button class="ui teal button mini labeled icon btnVerAlerta"><i class="unhide icon"></i>Ler</button>
-					<button class="ui red button mini labeled icon btnApagarAlerta <?php if($alerta->statusAlerta === 'Pedente') print 'disabled'; ?>"><i class="delete icon"></i>Apagar</button>
 				</td>
-
 			</tr>
 			
 		</tbody>

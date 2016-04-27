@@ -264,7 +264,7 @@ class LocalsController extends AppController {
         $usersLocal = UsersController::getUsersLocalsBolsistas($local->codigo);      
 
         /** Matriculas **/
-        $matriculas = UsersController::getUsersLocals($local->codigo);
+        $matriculas = UsersController::getMatriculaUsers($local->codigo);
 
         if(!empty($matriculas)){
 

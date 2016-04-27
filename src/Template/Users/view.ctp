@@ -79,7 +79,7 @@
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
-		<tfoot>
+		<tfoot class="right aligned">
 			<tr>
 				<th colspan="5">
 
