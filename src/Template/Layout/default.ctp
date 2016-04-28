@@ -176,8 +176,6 @@
                     <div class="actions"></div> 
                 </div>
 
-
-
             </div>  
 
         </div>

@@ -23,7 +23,7 @@
 		        		'' => 'Selecione um tipo',
 		        		'Professor' => 'Professor',
 		        		'Bolsista' => 'Bolsista',
-		        		'Suporte' => 'Suporte'
+		        		'Administrador' => 'Administrador'
 		        	];
 
 		        	echo $this->Form->input('tipo', ['name' => 'role', 'options' => $options]); 

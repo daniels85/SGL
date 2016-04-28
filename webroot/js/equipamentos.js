@@ -7,7 +7,7 @@ $(document).ready(function(){
 	var modalHeader = $('.ui.modal').find('.header');
 	var modalContent = $('.ui.modal').find('.content');
 	var mensagem = $('.ui.modal').find('.mensagem');
-
+	var modalActions = $('.ui.modal').find('.actions');
 
 	listar_equipamentos.on('click', '.btnEditarEquipamento', function(){
 		event.preventDefault();
@@ -252,6 +252,10 @@ $(document).ready(function(){
 		now = new Date;
 		var data = now.getDate()+'/'+(now.getMonth()+1)+'/'+now.getFullYear();
 		var idEquipamento = $(this).closest('tr').attr('data-id');
+
+		modalHeader.html('');
+		modalContent.html('');
+		modalActions.html('');
 
 		$.ajax({
 
@@ -583,6 +587,232 @@ $(document).ready(function(){
 
 	});
 
+	$('.btnVerAlerta').click(function(event){
+		
+		event.preventDefault();	
+
+		idAlerta = $(this).closest('td').attr('data-id');
+
+		$.ajax({
+
+			url : 'http://'+host+'/alertas/view/'+idAlerta,
+			type : 'GET',
+			dataType: 'JSON',
+
+			beforeSend: function(request){
+				return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+			},			
+
+			success : function(data){
+				// Salva o equipamento
+				equipamento = data;
+
+				mensagem.html('');
+				modalHeader.html('');
+				modalContent.html('');
+				modalActions.html('');
+
+				conteudo  = '<div class="ui raised segment">';
+
+				conteudo += '<h4 class="ui header">Descrição:</h4>';
+				conteudo += '<div class="description">';
+				conteudo += data['alerta'].descricao;
+				conteudo += '</div>';
+
+				if(data['alerta'].observacoes != ''){
+					conteudo += '<h4 class="ui header">Observação:</h4>';
+					conteudo += '<div class="description">';
+					conteudo += data['alerta'].observacoes;
+					conteudo += '</div>';
+				}
+
+				conteudo += '<h4 class="ui header">Enviado por: </h4>';
+				conteudo += '<div class="description">';
+				conteudo += data['alerta'].geradoPor;
+				conteudo += '</div>';
+
+				conteudo += '<h4 class="ui header">Criado: </h4>';
+				conteudo += '<div class="description">';
+				conteudo += moment(data['alerta'].dataAlerta).format('DD/MM/YYYY');
+				conteudo += '</div>';
+
+				conteudo += '</div>';
+
+				for(i = 0; i < data['bolsistas'].length; i++){
+					if(data['session'] === data['bolsistas'][i].user_matricula && data['alerta'].statusAlerta === 'Pendente'){
+
+						actionModal  = '<button class="ui button negative labeled icon negative	first btnDefeito">';
+						actionModal += '<i class="warning sign icon"></i>';
+						actionModal += 'Marcar com defeito';
+						actionModal += '</button>';
+
+						actionModal += '<button class="ui button approve labeled icon positive btnResolvido">';
+						actionModal += '<i class="checkmark icon"></i>';
+						actionModal += 'Marcar como resolvido';
+						actionModal += '</button>';
+						modalActions.html(actionModal);
+					}
+				}
+								
+
+				modalHeader.html('Alerta - Tombo: '+data['alerta'].tomboEquipamento);
+				modalContent.html(conteudo);
+				
+
+				modal.modal('show');
+
+				// Marcar como resolvido
+				$('.btnResolvido').on('click', function(event){
+					event.preventDefault();
+
+					statusAlerta = 'Resolvido';
+
+					$.ajax({
+
+						url : 'http://'+host+'/alertas/edit/'+idAlerta,
+						type : 'PUT',
+						data : 'statusAlerta='+statusAlerta,
+
+						beforeSend: function(request){
+							return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+						},		
+						
+						success: function(data){
+
+							if(data == 'sucesso'){
+								mensagem_sucesso =  '<div class="ui success message">';
+								mensagem_sucesso += '<div class="header">';
+								mensagem_sucesso += '<i class="checkmark icon"></i>Estado do alerta alterado com sucesso.';
+								mensagem_sucesso += '</div>';
+								mensagem_sucesso += '</div>';
+
+								modalMensagem.html(mensagem_sucesso);
+
+								alteraStatusEquipamento(equipamento, 'Funcionando');
+
+								setTimeout(function(){
+									location.reload();									
+								},1000);
+							}
+							if(data == 'erro'){
+								mensagem_erro =  '<div class="ui negative message">';
+								mensagem_erro += '<div class="header">';
+								mensagem_erro += '<i class="warning sign icon"></i>Erro ao alterar estado do alerta.';
+								mensagem_erro += '</div>';
+								mensagem_erro += '</div>';
+
+								modalMensagem.html(mensagem_erro);
+							}
+
+						}
+
+					});
+
+				});
+
+				// Marcar com defeito				
+				$('.btnDefeito').on('click', function(event){
+					event.preventDefault();
+
+					
+
+					modal.modal('hide');
+
+					modalHeader.html('');
+					modalContent.html('');
+					modalActions.html('');
+
+					conteudo  = '<form class="ui form">';
+
+					conteudo += '<div class="field">';
+					conteudo += '<label>Descrição</label>';
+					conteudo += '<textarea id="descricao" placeholder="Descreva aqui o problema do equipamento..."></textarea>';
+					conteudo += '</div>';
+
+					conteudo += '<div class="ui message error"></div>';
+
+					conteudo += '<button class="ui button green" id="btnDefeitoEnviar">Enviar</button>';
+
+					conteudo += '</form>';					
+
+					modalHeader.html('Observaçôes');
+					modalContent.html(conteudo);
+
+					modal.modal('show');
+
+					// Validação do formulario
+					$('.ui.form').form({
+
+						descricao : {
+							identifier : 'descricao',
+							rules : [
+								{
+									type : 'empty',
+									prompt : 'Campo descrição é obrigatório.'
+								}
+							]
+						}
+
+					}, {
+
+						onSuccess : function(event){
+							event.preventDefault();
+
+							var statusAlerta = 'Encaminhado para o suporte';
+							var observacoes = $('#descricao').val();
+
+							$.ajax({
+
+								url : 'http://'+host+'/alertas/edit/'+idAlerta,
+								type : 'PUT',
+								data : 'statusAlerta='+statusAlerta+'&observacoes='+observacoes,
+
+								beforeSend: function(request){
+									return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+								},		
+								
+								success: function(data){
+
+									if(data == 'sucesso'){
+										mensagem_sucesso =  '<div class="ui success message">';
+										mensagem_sucesso += '<div class="header">';
+										mensagem_sucesso += '<i class="checkmark icon"></i>Estado do alerta alterado com sucesso.';
+										mensagem_sucesso += '</div>';
+										mensagem_sucesso += '</div>';
+
+										modalMensagem.html(mensagem_sucesso);
+
+										alteraStatusEquipamento(equipamento, 'Defeito');
+
+										setTimeout(function(){
+											location.reload();									
+										},1000);
+									}
+									if(data == 'erro'){
+										mensagem_erro =  '<div class="ui negative message">';
+										mensagem_erro += '<div class="header">';
+										mensagem_erro += '<i class="warning sign icon"></i>Erro ao alterar estado do alerta.';
+										mensagem_erro += '</div>';
+										mensagem_erro += '</div>';
+
+										modalMensagem.html(mensagem_erro);
+									}
+
+								}
+
+							});						
+
+						}
+
+					});
+
+				});
+
+			}
+
+		});
+
+	});
 
 });
 

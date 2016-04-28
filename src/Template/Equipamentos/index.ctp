@@ -17,8 +17,11 @@
 			</thead>
 				
 			<tbody class="center aligned">
-				<?php foreach($equipamentos as $equipamento): ?>
-					<tr>
+				<?php foreach($equipamentos as $equipamento): 
+					if(!strcmp($equipamento->status, "Funcionando")){ echo '<tr class="positive" >'; }
+					if(!strcmp($equipamento->status, "Alerta")){ echo '<tr class="warning" >'; }
+					if(!strcmp($equipamento->status, "Defeito")){ echo '<tr class="negative" >'; }
+				?>
 						<td><?php echo $equipamento->nome; ?></td>
 						<td><?php echo $equipamento->tombo; ?></td>
 						<td><?php echo $equipamento->status; ?></td>

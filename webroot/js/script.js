@@ -4,6 +4,9 @@ $(document).ready(function(){
 	
 	$('.ui.modal')
 		.modal('setting', 'transition', 'fade up');
+
+	$('.coupled.modal')
+		.modal({ allowMultiple: true });
 		
 	$('.ui.dropdown')
 		.dropdown('setting', 'transition', 'slide down')

@@ -23,7 +23,6 @@
 		        		'' => 'Selecione um tipo',
 		        		'Professor' => 'Professor',
 		        		'Bolsista' => 'Bolsista',
-		        		'Suporte' => 'Suporte',
 		        		'Administrador' => 'Administrador'
 		        	];
 
