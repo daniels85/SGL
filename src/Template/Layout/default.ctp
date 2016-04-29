@@ -16,7 +16,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+    
         <?php $this->Html->charset(); ?>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="_csrfToken" content="<?php echo $this->request->param('_csrfToken'); ?>" >

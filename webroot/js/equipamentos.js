@@ -663,46 +663,94 @@ $(document).ready(function(){
 
 				// Marcar como resolvido
 				$('.btnResolvido').on('click', function(event){
-					event.preventDefault();
+					event.preventDefault();					
 
-					statusAlerta = 'Resolvido';
+					modal.modal('hide');
 
-					$.ajax({
+					modalHeader.html('');
+					modalContent.html('');
+					modalActions.html('');
 
-						url : 'http://'+host+'/alertas/edit/'+idAlerta,
-						type : 'PUT',
-						data : 'statusAlerta='+statusAlerta,
+					conteudo  = '<form class="ui form">';
 
-						beforeSend: function(request){
-							return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
-						},		
-						
-						success: function(data){
+					conteudo += '<div class="field">';
+					conteudo += '<label>Descrição</label>';
+					conteudo += '<textarea id="descricao" placeholder="Descreva aqui a solução do problema..."></textarea>';
+					conteudo += '</div>';
 
-							if(data == 'sucesso'){
-								mensagem_sucesso =  '<div class="ui success message">';
-								mensagem_sucesso += '<div class="header">';
-								mensagem_sucesso += '<i class="checkmark icon"></i>Estado do alerta alterado com sucesso.';
-								mensagem_sucesso += '</div>';
-								mensagem_sucesso += '</div>';
+					conteudo += '<div class="ui message error"></div>';
 
-								modalMensagem.html(mensagem_sucesso);
+					conteudo += '<button class="ui button green" id="btnEnviar">Enviar</button>';
 
-								alteraStatusEquipamento(equipamento, 'Funcionando');
+					conteudo += '</form>';					
 
-								setTimeout(function(){
-									location.reload();									
-								},1000);
-							}
-							if(data == 'erro'){
-								mensagem_erro =  '<div class="ui negative message">';
-								mensagem_erro += '<div class="header">';
-								mensagem_erro += '<i class="warning sign icon"></i>Erro ao alterar estado do alerta.';
-								mensagem_erro += '</div>';
-								mensagem_erro += '</div>';
+					modalHeader.html('Observaçôes');
+					modalContent.html(conteudo);
 
-								modalMensagem.html(mensagem_erro);
-							}
+					modal.modal('show');
+
+					// Validação do formulario
+
+					$('.ui.form').form({
+
+						descricao : {
+							identifier : 'descricao',
+							rules : [
+								{
+									type : 'empty',
+									prompt : 'Campo descrição é obrigatório.'
+								}
+							]
+						}
+
+					}, {
+
+						onSuccess : function(event){
+							event.preventDefault();
+
+							var statusAlerta = 'Resolvido';
+							var observacoes = $('#descricao').val();
+
+							$.ajax({
+
+								url : 'http://'+host+'/alertas/edit/'+idAlerta,
+								type : 'PUT',
+								data : 'statusAlerta='+statusAlerta+'&observacoes='+observacoes,
+
+								beforeSend: function(request){
+									return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+								},		
+								
+								success: function(data){
+
+									if(data == 'sucesso'){
+										mensagem_sucesso =  '<div class="ui success message">';
+										mensagem_sucesso += '<div class="header">';
+										mensagem_sucesso += '<i class="checkmark icon"></i>Estado do alerta alterado com sucesso.';
+										mensagem_sucesso += '</div>';
+										mensagem_sucesso += '</div>';
+
+										modalMensagem.html(mensagem_sucesso);
+
+										alteraStatusEquipamento(equipamento, 'Funcionando');
+
+										setTimeout(function(){
+											location.reload();									
+										},1000);
+									}
+									if(data == 'erro'){
+										mensagem_erro =  '<div class="ui negative message">';
+										mensagem_erro += '<div class="header">';
+										mensagem_erro += '<i class="warning sign icon"></i>Erro ao alterar estado do alerta.';
+										mensagem_erro += '</div>';
+										mensagem_erro += '</div>';
+
+										modalMensagem.html(mensagem_erro);
+									}
+
+								}
+
+							});
 
 						}
 
