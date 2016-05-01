@@ -1,6 +1,5 @@
-var host = $(location).attr('host');	
-
-$(document).ready(function(){
+var host = $(location).attr('host');
+$(document).ready(function(){	
 	var container = $('.container');
 	var listar_equipamentos = container.find('#listar-equipamentos');
 	var modal = $('.ui.modal');
@@ -362,6 +361,62 @@ $(document).ready(function(){
 			}
 
 		});
+
+	});
+
+	listar_equipamentos.on('click', '.apagarEquipamento', function(event){
+
+		var idEquipamento = $(this).closest('div').attr('data-id');
+
+		modalHeader.html('');
+		modalContent.html('');
+		modalActions.html('');
+
+		conteudoModal  = '<h2 class="ui center aligned icon header">';
+		conteudoModal += '<i class="trash outline icon"></i>';
+		conteudoModal += 'Realmente deseja apagar este equipamento?';
+		conteudoModal += '</h2>';
+		conteudoModal += '<h3 class="ui horizontal divider header"></h3>';	
+
+		actionModal = '<button class="ui negative button tiny labeled icon">';
+		actionModal += '<i class="remove icon"></i>';
+		actionModal += 'Não';
+		actionModal += '</button>';
+
+		actionModal += '<button class="ui positive button tiny labeled icon">';
+		actionModal += '<i class="checkmark icon"></i>';
+		actionModal += 'Sim';
+		actionModal += '</button>';
+
+		modalContent.html(conteudoModal);
+		modalActions.html(actionModal);
+
+		modal.modal({
+					onDeny : function(){
+						modal.modal('hide');
+					},
+					onApprove : function() {
+						
+						$.ajax({
+
+							url : 'http://'+host+'/equipamentos/delete/'+idEquipamento,
+							type : 'POST',
+
+							beforeSend : function(request){
+								return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+							},
+
+							success : function(data){
+								setTimeout(function(){
+									location.reload();									
+								},500);
+							}
+
+						});
+
+					}
+				})
+		.modal('show');		
 
 	});
 

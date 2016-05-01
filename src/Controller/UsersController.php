@@ -112,7 +112,7 @@ class UsersController extends AppController {
 
         $this->set('user', $user);
         $this->set('alertas', $this->paginate($alertas));
-        $this->set('_serialize', ['user', 'alertas']);
+        $this->set('_serialize', ['user']);
     }
 
     /**

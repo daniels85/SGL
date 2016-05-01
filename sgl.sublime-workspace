@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"end",
+				"endif"
+			],
+			[
+				"user",
+				"userAuth"
+			],
+			[
+				"use",
+				"userAuth"
+			],
+			[
+				"en",
+				"endif"
+			],
+			[
+				"lis",
+				"listar_equipamentos"
+			],
+			[
+				"q",
+				"queryString"
+			],
+			[
 				"ob",
 				"observacoes"
 			],
@@ -146,10 +170,6 @@
 			[
 				"su",
 				"subject"
-			],
-			[
-				"use",
-				"username"
 			],
 			[
 				"new",
@@ -308,10 +328,6 @@
 				"password"
 			],
 			[
-				"user",
-				"username"
-			],
-			[
 				"tim",
 				"timeout"
 			],
@@ -362,10 +378,6 @@
 			[
 				"wi",
 				"width"
-			],
-			[
-				"end",
-				"endforeach"
 			],
 			[
 				"l",
@@ -483,6 +495,38 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "src/Controller/LocalsController.php",
+			"settings":
+			{
+				"buffer_size": 12845,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "webroot/js/locals.js",
+			"settings":
+			{
+				"buffer_size": 490,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Template/Layout/default.ctp",
+			"settings":
+			{
+				"buffer_size": 9072,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "webroot/js/equipamentos.js",
+			"settings":
+			{
+				"buffer_size": 26282,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -518,37 +562,47 @@
 	"expanded_folders":
 	[
 		"/home/ivanov/Documentos/sgl",
+		"/home/ivanov/Documentos/sgl/config",
 		"/home/ivanov/Documentos/sgl/src",
 		"/home/ivanov/Documentos/sgl/src/Controller",
-		"/home/ivanov/Documentos/sgl/webroot"
+		"/home/ivanov/Documentos/sgl/webroot",
+		"/home/ivanov/Documentos/sgl/webroot/js"
 	],
 	"file_history":
 	[
-		"/home/ivanov/Documentos/sgl/src/Controller/AlertasController.php",
-		"/home/ivanov/Documentos/sgl/webroot/js/equipamentos.js",
+		"/home/ivanov/Documentos/sgl/webroot/js/script.js",
+		"/home/ivanov/Documentos/sgl/webroot/js/users.js",
+		"/home/ivanov/Documentos/sgl/src/Template/Locals/view.ctp",
+		"/home/ivanov/Documentos/sgl/src/Template/Locals/index.ctp",
+		"/home/ivanov/Documentos/sgl/src/Controller/UsersController.php",
 		"/home/ivanov/Documentos/sgl/src/Template/Layout/default.ctp",
+		"/home/ivanov/Documentos/sgl/src/Controller/EquipamentosController.php",
+		"/home/ivanov/Documentos/sgl/webroot/js/equipamentos.js",
+		"/home/ivanov/Documentos/sgl/src/Template/Users/index.ctp",
+		"/home/ivanov/Documentos/sgl/src/Template/Equipamentos/index.ctp",
+		"/home/ivanov/Documentos/sgl/src/Template/Users/view.ctp",
+		"/home/ivanov/Documentos/sgl/src/Template/Locals/add.ctp",
+		"/home/ivanov/Documentos/sgl/src/Template/Layout/error.ctp",
+		"/home/ivanov/Documentos/sgl/vendor/cakephp/cakephp/src/Template/Layout/dev_error.ctp",
+		"/home/ivanov/Documentos/sgl/src/Template/Error/error500.ctp",
+		"/home/ivanov/Documentos/sgl/webroot/js/typed-js/index.htm",
+		"/home/ivanov/Downloads/fun-gh-pages/room/index.html",
+		"/home/ivanov/Downloads/fun-gh-pages/highball/index.html",
+		"/home/ivanov/Documentos/sgl/config/routes.php",
+		"/home/ivanov/Documentos/sgl/src/Controller/AlertasController.php",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/add.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/edit.ctp",
-		"/home/ivanov/Documentos/sgl/src/Template/Equipamentos/index.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Equipamentos/view.ctp",
-		"/home/ivanov/Documentos/sgl/webroot/js/users.js",
-		"/home/ivanov/Documentos/sgl/webroot/js/script.js",
 		"/home/ivanov/Documentos/sgl/README.md",
 		"/home/ivanov/Documentos/sgl/src/Controller/LocalsController.php",
-		"/home/ivanov/Documentos/sgl/src/Template/Users/view.ctp",
 		"/home/ivanov/Documentos/sgl/webroot/js/formularios.js",
-		"/home/ivanov/Documentos/sgl/src/Controller/UsersController.php",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/bolsistas.ctp",
-		"/home/ivanov/Documentos/sgl/src/Template/Users/index.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Locals/bolsista.ctp",
-		"/home/ivanov/Documentos/sgl/src/Template/Locals/index.ctp",
-		"/home/ivanov/Documentos/sgl/src/Template/Locals/view.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Equipamentos/find.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/TipoEquipamentos/index.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/login.ctp",
 		"/home/ivanov/Documentos/sgl/src/Controller/AppController.php",
 		"/home/ivanov/Documentos/sgl/src/Model/Table/EquipamentosTable.php",
-		"/home/ivanov/Documentos/sgl/src/Controller/EquipamentosController.php",
 		"/home/ivanov/Documentos/sgl/src/Model/Table/UsersTable.php",
 		"/home/ivanov/Documentos/sgl/src/Model/Entity/User.php",
 		"/home/ivanov/Documentos/sgl/src/Model/Entity/Local.php",
@@ -570,7 +624,6 @@
 		"/home/ivanov/Documentos/sgl/src/Template/Email/html/recuperarSenha.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/resetar_senha.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Email/html/cadastro.ctp",
-		"/home/ivanov/Documentos/sgl/src/Template/Locals/add.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Locals/edit.ctp",
 		"/home/ivanov/Documentos/sgl/config/app.php",
 		"/home/ivanov/Documentos/sgl/src/Template/Locals/email.ctp",
@@ -594,7 +647,6 @@
 		"/home/ivanov/Documentos/sgl/src/Template/Locals/edit2.ctp",
 		"/home/ivanov/Documentos/sgl/webroot/js/addlocal.js",
 		"/home/ivanov/Documentos/sgl/vendor/cakephp/cakephp/src/Form/Form.php",
-		"/home/ivanov/Documentos/sgl/config/routes.php",
 		"/home/ivanov/Documentos/sgl/src/Template/Locals/view2.ctp",
 		"/home/ivanov/Documentos/sgl/src/Model/Table/BolsistasAlertasTable.php",
 		"/home/ivanov/Documentos/sgl/src/Model/Entity/Alerta.php",
@@ -632,6 +684,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"var",
+			"left",
+			"aligne",
+			"<?",
 			"Alerta",
 			"recuperarSenha",
 			"user",
@@ -686,8 +742,127 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "src/Controller/LocalsController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12845,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2468,
+								2468
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 702.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "webroot/js/locals.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 490,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								479,
+								479
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/Template/Layout/default.ctp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9072,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1747,
+								1747
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 117.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "webroot/js/equipamentos.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 26282,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								66,
+								66
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -750,7 +925,7 @@
 		[
 			[
 				"",
-				"/var/www/teste3/teste3.sublime-project"
+				"/var/www/html/Dropbox/ProjetoWEB02/web02.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -772,7 +947,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 260.0,
+	"side_bar_width": 374.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

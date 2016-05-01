@@ -317,6 +317,17 @@ class LocalsController extends AppController {
     }
 
     /**
+     * Relatorio method
+     *
+     * @param $codigoLocal Local codigo
+     * @return ...
+     */
+    public function relatorio($codigoLocal = null){
+        $this->set('codigoLocal', $codigoLocal);
+        $this->set('data', $this->request->data);
+    }
+
+    /**
      * getEquipamentos method
      *
      * @param $codigoLocal Local codigo
@@ -351,6 +362,13 @@ class LocalsController extends AppController {
         }
 
         if($this->request->action === 'bolsista'){
+            if (isset($user['role']) && $user['role'] === 'Professor' || $user['role'] === 'Administrador') {
+                return true;
+            }
+            return false;
+        }
+
+        if($this->request->action === 'relatorio'){
             if (isset($user['role']) && $user['role'] === 'Professor' || $user['role'] === 'Administrador') {
                 return true;
             }

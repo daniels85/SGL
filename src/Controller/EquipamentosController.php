@@ -191,7 +191,7 @@ class EquipamentosController extends AppController
      */
     public function delete($id = null) {
 
-        //$this->request->allowMethod(['delete']);
+        $this->request->allowMethod(['POST']);
         $equipamento = $this->Equipamentos->get($id);
         if ($this->Equipamentos->delete($equipamento)) {
             $this->Flash->success(__('Equipamento deletado com sucesso.'));
@@ -202,7 +202,7 @@ class EquipamentosController extends AppController
     }
 
     /**
-     * cadastrar method
+     * Cadastrar method
      *
      */
     public function cadastrar(){
@@ -231,11 +231,12 @@ class EquipamentosController extends AppController
     }
 
     /**
-     * find method
+     * Find method
      * 
      * @return \Cake\Network\Response|null
      */
-    public function find(){
+    public function find($tombo = null){
+
         if($this->request->is('POST')){
 
             $equipamento = $this->Equipamentos
@@ -259,13 +260,15 @@ class EquipamentosController extends AppController
                 return $this->redirect($this->referer());
             }
 
-        }
+        }else{
+            return $this->redirect($this->referer());
+        }   
     }
 
     public function isAuthorized($user){
         
         if($this->request->action === 'index'){
-            if(isset($user['role'])){
+            if(isset($user['role']) && $user['role'] === 'Administrador' ){
                 return true;
             }
             return false;
@@ -294,6 +297,13 @@ class EquipamentosController extends AppController
 
         if($this->request->action === 'delete'){
             if(isset($user['role']) && $user['role'] === 'Administrador'){
+                return true;
+            }
+            return false;
+        }
+
+        if($this->request->action === 'find'){
+            if(isset($user['role'])){
                 return true;
             }
             return false;

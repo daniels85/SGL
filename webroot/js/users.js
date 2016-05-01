@@ -1,16 +1,13 @@
-var host = $(location).attr('host');
-
 $(document).ready(function(){
-
+	host = $(location).attr('host');
 	container = $('.container');
 	modal = container.find('.ui.modal');
 	modalMensagem = modal.find('.mensagem');
 	modalHeader = modal.find('.header');
 	modalContent = modal.find('.content');
-	modalActions = modal.find('.actions')
+	modalActions = modal.find('.actions');
 
 	$('.btnMudarSenha').on('click', function(event){
-
 		event.preventDefault();
 
 		var idUsuario = $(this).closest('th').attr('data-id');
@@ -466,8 +463,7 @@ $(document).ready(function(){
 				return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
 			},
 
-			success : function(data){				
-				
+			success : function(data){
 				modalHeader.html('');
 				modalContent.html('');
 				modalActions.html('');

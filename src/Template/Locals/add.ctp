@@ -31,7 +31,7 @@
 			        <div class="field">
 			        	<label>Tipo</label>
 			        	
-			        	<select class="ui fluid dropdown" id="tipo">
+			        	<select class="ui fluid dropdown" id="tipo" name="tipo">
 			        		<?php foreach($opcoes as $key => $opcao): ?>
 			        			<option value="<?php echo $key; ?>"><?php echo $opcao; ?></option>
 			        		<?php endforeach; ?>

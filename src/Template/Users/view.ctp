@@ -31,7 +31,7 @@
 		</tr>
 		<tr>
 			<td>Última ativo</td>
-			<td><?php echo date('d/m/Y H:i', strtotime($user->ultimaVezAtivo)); ?></td>
+			<td><?php (!is_null($user->ultimaVezAtivo)) ? print date('d/m/Y H:i', strtotime($user->ultimaVezAtivo)) : print 'Nunca ativo'; ?></td>
 		</tr>
 	</table>
 </div>

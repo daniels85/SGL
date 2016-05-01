@@ -2,7 +2,7 @@
 	use App\Controller\UsersController;
 	$userAuth = $this->request->session()->read('Auth.User');
 ?>
-<div class="sixten centered wide column row">
+<div class="sixteen centered wide column row">
 		<h4 class="ui horizontal divider header">
 			<i class="building outline icon"></i>
 			Laboratório
@@ -34,7 +34,7 @@
 
 		</table>
 </div>
-<div class="sixten centered wide column row">
+<div class="sixteen centered wide column row">
 	<h4 class="ui horizontal divider header">
 		<i class="desktop icon"></i>
 		Equipamentos
@@ -95,8 +95,19 @@
 </div>
 
 <?php if(UsersController::isCoordenador($userAuth, $local->codigo) || UsersController::isBolsista($userAuth, $local->codigo) || !strcmp($userAuth['role'], 'Administrador')) : ?>
-<div class="sixten wide column row">
-	<button class="ui button teal labeled icon" id="addEquipamento" data-id="<?php echo $local->codigo; ?>"><i class="add icon"></i> Adicionar Equipamento</button>
+
+<div class="sixteen wide column row centered">
+	<div class="ui horizontal labeled icon buttons">
+
+		<button class="ui button teal" id="addEquipamento" data-id="<?php echo $local->codigo; ?>"><i class="add icon"></i> Adicionar Equipamento</button>
+
+		<?php if(UsersController::isCoordenador($userAuth, $local->codigo) || $userAuth['role'] === 'Administrador'): ?>
+
+		<button class="ui button teal gerarRelatorioLocal" data-id="<?php echo $local->codigo; ?>"><i class="file text outline icon"></i> Gerar Relatório</button>
+
+		<?php endif; ?>
+
+	</div>
 </div>
 
 <?php endif; ?>
