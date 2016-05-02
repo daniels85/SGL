@@ -7,6 +7,7 @@ $(document).ready(function(){
 	var formLogin = $('#formLogin').find('.ui.form');
 	var formRecuperarSenha = $('#recuperarSenha').find('.ui.form');
 	var formBuscaEquipamento = $('#formBuscaEquipamento');
+	var formRelatorioLocal = $('#formRelatorioLocal').find('.ui.form');
 
 	formAddLocal.form({	
 		
@@ -285,6 +286,30 @@ $(document).ready(function(){
 				}
 			]
 		}
+
+	});
+
+	formRelatorioLocal.form({
+
+		dataInicio : {
+				identifier : 'dataInicio',
+				rules : [
+					{
+						type : 'minLength[10]',
+						prompt : 'Insira uma data de início válida.'
+					}
+				]
+			},
+
+			dataFim : {
+				identifier : 'dataFim',
+				rules : [
+					{
+						type : 'minLength[10]',
+						prompt : 'Insira uma data de fim válida.'
+					}
+				]
+			}
 
 	});
 

@@ -103,6 +103,8 @@
 
 		<?php if(UsersController::isCoordenador($userAuth, $local->codigo) || $userAuth['role'] === 'Administrador'): ?>
 
+		<a class="ui button teal" href="/locals/relatorio/<?php echo $local->codigo; ?>"><i class="file text outline icon"></i> Gerar Relatório </a>
+
 		<button class="ui button teal gerarRelatorioLocal" data-id="<?php echo $local->codigo; ?>"><i class="file text outline icon"></i> Gerar Relatório</button>
 
 		<?php endif; ?>

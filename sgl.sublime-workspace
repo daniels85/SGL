@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"data",
+				"dataFim"
+			],
+			[
+				"cod",
+				"codigoLocal"
+			],
+			[
+				"daa",
+				"dataInicio"
+			],
+			[
+				"mo",
+				"modal"
+			],
+			[
+				"modal",
+				"modalHeader"
+			],
+			[
 				"end",
 				"endif"
 			],
@@ -164,10 +184,6 @@
 				"redirectUrl"
 			],
 			[
-				"modal",
-				"modalActions"
-			],
-			[
 				"su",
 				"subject"
 			],
@@ -182,10 +198,6 @@
 			[
 				"ger",
 				"gerarSenha"
-			],
-			[
-				"data",
-				"data"
 			],
 			[
 				"col",
@@ -268,10 +280,6 @@
 				"addBolsista"
 			],
 			[
-				"mo",
-				"modalHeader"
-			],
-			[
 				"pa",
 				"patchEntity"
 			],
@@ -334,10 +342,6 @@
 			[
 				"u",
 				"usersLocal"
-			],
-			[
-				"cod",
-				"codLocal"
 			],
 			[
 				"matr",
@@ -499,7 +503,7 @@
 			"file": "src/Controller/LocalsController.php",
 			"settings":
 			{
-				"buffer_size": 12845,
+				"buffer_size": 13351,
 				"line_ending": "Unix"
 			}
 		},
@@ -507,7 +511,15 @@
 			"file": "webroot/js/locals.js",
 			"settings":
 			{
-				"buffer_size": 490,
+				"buffer_size": 2252,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "webroot/js/users.js",
+			"settings":
+			{
+				"buffer_size": 12552,
 				"line_ending": "Unix"
 			}
 		},
@@ -515,15 +527,7 @@
 			"file": "src/Template/Layout/default.ctp",
 			"settings":
 			{
-				"buffer_size": 9072,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "webroot/js/equipamentos.js",
-			"settings":
-			{
-				"buffer_size": 26282,
+				"buffer_size": 9069,
 				"line_ending": "Unix"
 			}
 		}
@@ -571,13 +575,13 @@
 	"file_history":
 	[
 		"/home/ivanov/Documentos/sgl/webroot/js/script.js",
+		"/home/ivanov/Documentos/sgl/webroot/js/equipamentos.js",
 		"/home/ivanov/Documentos/sgl/webroot/js/users.js",
 		"/home/ivanov/Documentos/sgl/src/Template/Locals/view.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Locals/index.ctp",
 		"/home/ivanov/Documentos/sgl/src/Controller/UsersController.php",
 		"/home/ivanov/Documentos/sgl/src/Template/Layout/default.ctp",
 		"/home/ivanov/Documentos/sgl/src/Controller/EquipamentosController.php",
-		"/home/ivanov/Documentos/sgl/webroot/js/equipamentos.js",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/index.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Equipamentos/index.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/view.ctp",
@@ -751,15 +755,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12845,
+						"buffer_size": 13351,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2468,
-								2468
+								11498,
+								11498
 							]
 						],
 						"settings":
@@ -769,7 +773,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 702.0,
+						"translation.y": 3744.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -781,15 +785,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 490,
+						"buffer_size": 2252,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								479,
-								479
+								2229,
+								2229
 							]
 						],
 						"settings":
@@ -798,7 +802,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 507.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -806,19 +810,48 @@
 				},
 				{
 					"buffer": 2,
-					"file": "src/Template/Layout/default.ctp",
-					"semi_transient": false,
+					"file": "webroot/js/users.js",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 9072,
+						"buffer_size": 12552,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1747,
-								1747
+								1878,
+								1739
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 468.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/Template/Layout/default.ctp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9069,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1500,
+								1500
 							]
 						],
 						"settings":
@@ -828,36 +861,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 117.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "webroot/js/equipamentos.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 26282,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								66,
-								66
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 39.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,

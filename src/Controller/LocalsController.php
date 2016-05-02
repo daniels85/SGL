@@ -323,8 +323,31 @@ class LocalsController extends AppController {
      * @return ...
      */
     public function relatorio($codigoLocal = null){
-        $this->set('codigoLocal', $codigoLocal);
-        $this->set('data', $this->request->data);
+
+        if($this->request->is('post')){
+
+            //$dataInicio = date('Y-m-d H:i:s', strtotime($this->request->data['dataInicio'] . '00:00:00' ));
+            //$dataFim    = date('Y-m-d H:i:s', strtotime($this->request->data['dataFim'] . '23:59:59' ));
+
+            $equipamentos = $this->Locals->Equipamentos
+                                                ->find()
+                                                ->where(['codLocal' => $codigoLocal])
+                                                ->contain([
+                                                    'Alertas' => function($q){
+                                                        return $q
+                                                                //->where(['statusAlerta' => 'Pendente']);
+                                                                ->where(['dataAlerta >' => date('Y-m-d H:i:s', strtotime($this->request->data['dataInicio'] . '00:00:00' ))])
+                                                                ->andWhere(['dataAlerta <' => date('Y-m-d H:i:s', strtotime($this->request->data['dataFim'] . '23:59:59' ))]);
+                                                    }
+                                                ])
+                                                ->all()
+                                                ->toArray();
+
+            $this->set('equipamentos', $equipamentos);
+        }
+        
+
+
     }
 
     /**

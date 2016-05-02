@@ -79,7 +79,7 @@ $(document).ready(function(){
 				conteudoModal += '</div>';
 
 				conteudoModal += '<div class="field">';
-				conteudoModal += '<label>dataDeCompra</label>';
+				conteudoModal += '<label>Data de Compra</label>';
 				conteudoModal += '<input type="text" id="dataDeCompra" value="'+moment(data['equipamento'].dataDeCompra).format('DD/MM/YYYY')+'">';
 				conteudoModal += '</div>';
 

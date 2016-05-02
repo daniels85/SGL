@@ -398,7 +398,7 @@ class UsersController extends AppController {
 
                 date_default_timezone_set("America/Fortaleza");
                 $u = $this->Users->get($user['id']);
-                $u->ultimaVezAtivo = date('Y/m/d H:i:s');
+                $u->ultimaVezAtivo = date('Y-m-d H:i:s');
 
                 $this->Users->save($u);
 
