@@ -21,7 +21,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="_csrfToken" content="<?php echo $this->request->param('_csrfToken'); ?>" >
         <title>
-            SGL - <?php echo $this->fetch('title'); ?>
+            SGL <?php //echo $this->fetch('title'); ?>
         </title>
         <?php echo $this->Html->meta('icon'); ?>
 
@@ -78,7 +78,7 @@
                             <div class="ui dropdown item">
                                 <?php echo $this->request->session()->read('Auth.User.nome'); ?><i class="user icon"></i>
                                 <div class="menu">
-                                    <a href="/Users/view/<?php echo $this->request->session()->read('Auth.User.id');  ?>" class="item"><i class="settings icon"></i>Conta</a>
+                                    <a href="/Users/view/<?php echo $this->request->session()->read('Auth.User.matricula');  ?>" class="item"><i class="settings icon"></i>Conta</a>
                                     <a href="/users/logout" class="item"><i class="sign out icon"></i>Logout</a>
                                 </div>
                             </div>
@@ -146,7 +146,7 @@
             <div class="item">
                 <div class="header"><?php echo $this->request->session()->read('Auth.User.nome'); ?><i class="user icon"></i></div>
                 <div class="menu">
-                    <a class="item" href="/Users/view/<?php echo $this->request->session()->read('Auth.User.id');  ?>"><i class="settings icon"></i>Conta</a>
+                    <a class="item" href="/Users/view/<?php echo $this->request->session()->read('Auth.User.matricula');  ?>"><i class="settings icon"></i>Conta</a>
                     <a class="item" href="/users/logout"><i class="log out icon"></i>Logout</a>
                 </div>              
             </div>          

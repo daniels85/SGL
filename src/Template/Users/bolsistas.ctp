@@ -27,9 +27,9 @@
 						<div class="ui floating dropdown icon button <?php if(strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')) echo 'disabled'; ?>">
 							<i class="setting icon"></i>
 						    Opções
-						    <div class="menu" data-id="<?php echo $user->id ?>">
-						      <a href="/users/view/<?php echo $user->id ?>" class="item"><i class="unhide icon"></i>Ver</a>
-						      <a href="/users/edit/<?php echo $user->id ?>" class="item " ><i class="edit icon"></i>Modificar</a>
+						    <div class="menu" data-matricula="<?php echo $user->matricula ?>">
+						      <a href="/users/view/<?php echo $user->matricula ?>" class="item"><i class="unhide icon"></i>Ver</a>
+						      <a href="/users/edit/<?php echo $user->matricula ?>" class="item " ><i class="edit icon"></i>Modificar</a>
 						      <a class="item resetarSenha"><i class="setting icon"></i>Resetar Senha</a>
 						      <a class="item deletarUser"><i class="remove user icon"></i>Excluir</a>
 						    </div>

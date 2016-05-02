@@ -3,3 +3,6 @@
 /webroot/semantic-ui
 /webroot/semantic-ui/dist/*
 /webroot/semantic-ui/dist/
+/vendor/tcpdf/
+/vendor/tcpdf
+/vendor/tcpdf/*

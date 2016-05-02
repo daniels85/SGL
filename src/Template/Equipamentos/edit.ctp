@@ -14,7 +14,17 @@
 
 		        <?php echo $this->Form->input('tombo', ['value' => $equipamento->tombo]); ?>
 
-		        <?php echo $this->Form->input('status', ['value' => $equipamento->status]); ?>
+		        <?php 
+
+		        	$options = [
+		        		'Funcionando'	=> 'Funcionando',
+		        		'Alerta' 		=> 'Alerta',
+		        		'Defeito' 		=> 'Defeito'
+		        	];
+
+		        	echo $this->Form->input('status', ['options' => $options , 'default' => $equipamento->status]); 
+
+		        ?>
 
 		        <?php echo $this->Form->input('fornecedor', ['value' => $equipamento->fornecedor]); ?>
 

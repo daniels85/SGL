@@ -11,11 +11,11 @@ $(document).ready(function(){
 	listar_equipamentos.on('click', '.btnEditarEquipamento', function(){
 		event.preventDefault();
 
-		var idEquipamento = $(this).closest('tr').attr('data-id');
+		var tomboEquipamento = $(this).closest('tr').attr('data-tombo');
 
 		$.ajax({
 
-			url: 'http://'+host+'/Equipamentos/editar/'+idEquipamento,
+			url: 'http://'+host+'/Equipamentos/editar/'+tomboEquipamento,
 			dataType: 'json',
 			type: 'GET',
 
@@ -193,7 +193,7 @@ $(document).ready(function(){
 
 						$.ajax({
 
-							url: 'http://'+host+'/Equipamentos/editar/'+data['equipamento'].id,
+							url: 'http://'+host+'/Equipamentos/editar/'+data['equipamento'].tombo,
 							type: 'PUT',
 							data: 	'nome='+nome
 									+'&tombo='+tombo
@@ -248,9 +248,8 @@ $(document).ready(function(){
 
 	listar_equipamentos.on('click', '.btnAlertarEquipamento', function(event){
 		event.preventDefault();
-		now = new Date;
-		var data = now.getDate()+'/'+(now.getMonth()+1)+'/'+now.getFullYear();
-		var idEquipamento = $(this).closest('tr').attr('data-id');
+		
+		var tomboEquipamento = $(this).closest('tr').attr('data-tombo');
 
 		modalHeader.html('');
 		modalContent.html('');
@@ -258,7 +257,7 @@ $(document).ready(function(){
 
 		$.ajax({
 
-			url: 'http://'+host+'/equipamentos/view/'+idEquipamento,
+			url: 'http://'+host+'/equipamentos/view/'+tomboEquipamento,
 			dataType: 'json',
 			type: 'GET',
 
@@ -366,7 +365,7 @@ $(document).ready(function(){
 
 	listar_equipamentos.on('click', '.apagarEquipamento', function(event){
 
-		var idEquipamento = $(this).closest('div').attr('data-id');
+		var tomboEquipamento = $(this).closest('div').attr('data-tombo');
 
 		modalHeader.html('');
 		modalContent.html('');
@@ -399,7 +398,7 @@ $(document).ready(function(){
 						
 						$.ajax({
 
-							url : 'http://'+host+'/equipamentos/delete/'+idEquipamento,
+							url : 'http://'+host+'/equipamentos/delete/'+tomboEquipamento,
 							type : 'POST',
 
 							beforeSend : function(request){
@@ -491,7 +490,7 @@ $(document).ready(function(){
 
 				modalContent.html(conteudoModal);
 
-				$('#dataDeCompra').mask("00/00/0000", {placeholder: "__/__/____"});
+				$('#dataDeCompra').mask("00-00-0000", {placeholder: "__-__-____"});
 				
 				modal.modal('show');
 
@@ -923,7 +922,7 @@ function alteraStatusEquipamento(equipamento, status){
 
 	$.ajax({
 
-		url: 'http://'+host+'/equipamentos/editar/'+equipamento['equipamento'].id,
+		url: 'http://'+host+'/equipamentos/editar/'+equipamento['equipamento'].tombo,
 		type: 'PUT',
 		data: 'status='+status,
 

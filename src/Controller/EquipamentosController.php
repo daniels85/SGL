@@ -37,15 +37,18 @@ class EquipamentosController extends AppController
     /**
      * View method
      *
-     * @param string|null $id Equipamento id.
+     * @param string|null $tombo Equipamento tombo.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view($tombo = null)
     {
-        $equipamento = $this->Equipamentos->get($id, [
-            'contain' => ['TipoEquipamentos', 'Locals', 'Alertas']
-        ]);
+        
+        $equipamento = $this->Equipamentos
+                                    ->find()
+                                    ->where(['tombo' => $tombo])
+                                    ->contain(['TipoEquipamentos', 'Locals'])
+                                    ->first();
 
         $alerta = $this->Equipamentos->Alertas
                                             ->find('all')
@@ -103,14 +106,17 @@ class EquipamentosController extends AppController
     /**
      * Editar method
      *
-     * @param string|null $id Equipamento id.
+     * @param string|null $tombo Equipamento tombo.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function editar($id = null)
+    public function editar($tombo = null)
     {
-        $equipamento = $this->Equipamentos->get($id, [
-            'contain' => []
-        ]);
+        $equipamento = $this->Equipamentos
+                                    ->find()
+                                    ->where(['tombo' => $tombo])
+                                    ->contain(['TipoEquipamentos', 'Locals'])
+                                    ->first();
+
         $tipoEquipamentos = $this->Equipamentos->TipoEquipamentos
                                                             ->find()
                                                             ->select(['id', 'nome'])
@@ -143,15 +149,18 @@ class EquipamentosController extends AppController
     /**
      * Edit method
      *
-     * @param string|null $id Equipamento id.
+     * @param string|null $tombo Equipamento tombo.
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($tombo = null)
     {
-        $equipamento = $this->Equipamentos->get($id, [
-            'contain' => ['TipoEquipamentos', 'Locals']
-        ]);
+        $equipamento = $this->Equipamentos
+                                    ->find()
+                                    ->where(['tombo' => $tombo])
+                                    ->contain(['TipoEquipamentos', 'Locals'])
+                                    ->first();
+
         $tipoEquipamentos = $this->Equipamentos->TipoEquipamentos
                                                             ->find()
                                                             ->select(['id', 'nome'])
@@ -185,14 +194,19 @@ class EquipamentosController extends AppController
     /**
      * Delete method
      *
-     * @param string|null $id Equipamento id.
+     * @param string|null $tombo Equipamento tombo.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null) {
+    public function delete($tombo = null) {
 
         $this->request->allowMethod(['POST']);
-        $equipamento = $this->Equipamentos->get($id);
+        
+        $equipamento = $this->Equipamentos
+                                    ->find()
+                                    ->where(['tombo' => $tombo])
+                                    ->first();
+
         if ($this->Equipamentos->delete($equipamento)) {
             $this->Flash->success(__('Equipamento deletado com sucesso.'));
         } else {

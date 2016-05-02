@@ -77,7 +77,11 @@ class AlertasController extends AppController
 
         if ($this->request->is('ajax')) {
 
+            date_default_timezone_set("America/Fortaleza");
+
             $alerta = $this->Alertas->patchEntity($alerta, $this->request->data);
+
+            $alerta->dataAlerta = date('Y-m-d H:i:s');
 
             if($this->Alertas->save($alerta)){
 

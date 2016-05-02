@@ -36,7 +36,7 @@
 	</table>
 </div>
 <?php if(!strcmp($this->request->session()->read('Auth.User.matricula'), $user->matricula)): ?>
-<div class="sixteen centered wide column row">
+<div class="sixteen centered wide column row" data-matricula="<?php echo $user->matricula; ?>">
 	<button class="ui button teal small right floated labeled icon btnMudarSenha"><i class="setting icon"></i>Alterar senha</button>
 	<button class="ui button teal small right floated labeled icon btnMudarEmail"><i class="setting icon"></i>Alterar E-mail</button>
 </div>

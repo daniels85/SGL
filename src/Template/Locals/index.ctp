@@ -32,14 +32,14 @@
 						<!-- OPÇÃO DE VER PARA QUALQUER USUÁRIO QUE NÃO ESTEJA LOGADO -->
 						<?php if(is_null($this->request->session()->read('Auth.User.role')) || $this->request->session()->read('Auth.User.role') !== 'Administrador'): ?>
 							
-							<a class="ui button teal mini labeled icon" href="/Locals/view/<?php echo $local->id; ?>"><i class="unhide icon"></i>Ver</a>
+							<a class="ui button teal mini labeled icon" href="/Locals/view/<?php echo $local->codigo; ?>"><i class="unhide icon"></i>Ver</a>
 
 						<?php endif; ?>
 
 						<!-- OPÇÃO DE ALTERAR BOLSISTA SE FOR RESPONSÁVEL PELO LOCAL -->
 						<?php if(!is_null($this->request->session()->read('Auth.User.id')) && !strcmp($this->request->session()->read('Auth.User.role'), 'Professor') && UsersController::isCoordenador($this->request->session()->read('Auth.User'), $local->codigo)): ?>
 
-							<a class="ui button orange mini labeled icon" href="/Locals/bolsista/<?php echo $local->id; ?>"><i class="edit icon"></i>Alterar Bolsistas</a>
+							<a class="ui button orange mini labeled icon" href="/Locals/bolsista/<?php echo $local->codigo; ?>"><i class="edit icon"></i>Alterar Bolsistas</a>
 
 						<!-- DEMAIS OPÇÃES SE FOR ADMINISTRADOR -->
 						<?php elseif(!is_null($this->request->session()->read('Auth.User.id')) && !strcmp($this->request->session()->read('Auth.User.role'), 'Administrador') ): ?>
@@ -50,9 +50,9 @@
 							    Opções
 							    <div class="menu" data-id="<?php echo $local->id ?>">
 
-									<a href="/locals/view/<?php echo $local->id ?>" class="item"><i class="unhide icon"></i>Ver</a>
-									<a href="/Locals/bolsista/<?php echo $local->id; ?>"  class="item"><i class="edit icon"></i>Alterar Bolsistas</a>
-									<a href="/locals/edit/<?php echo $local->id ?>" class="item"><i class="edit icon"></i>Modificar</a>
+									<a href="/locals/view/<?php echo $local->codigo ?>" class="item"><i class="unhide icon"></i>Ver</a>
+									<a href="/Locals/bolsista/<?php echo $local->codigo; ?>"  class="item"><i class="edit icon"></i>Alterar Bolsistas</a>
+									<a href="/locals/edit/<?php echo $local->codigo ?>" class="item"><i class="edit icon"></i>Modificar</a>
 									<a class="item apagarLocal"><i class="remove icon"></i>Deletar</a>									
 
 							    </div>

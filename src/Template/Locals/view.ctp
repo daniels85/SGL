@@ -54,9 +54,9 @@
 			</thead>
 			<tbody>
 				<?php foreach($equipamentos as $equipamento): 
-					if(!strcmp($equipamento->status, "Funcionando")){ echo '<tr class="positive" data-id="'.$equipamento->id.'" >'; }
-					if(!strcmp($equipamento->status, "Alerta")){ echo '<tr class="warning" data-id="'.$equipamento->id.'" >'; }
-					if(!strcmp($equipamento->status, "Defeito")){ echo '<tr class="negative" data-id="'.$equipamento->id.'" >'; }
+					if(!strcmp($equipamento->status, "Funcionando")){ echo '<tr class="positive" data-tombo="'.$equipamento->tombo.'" >'; }
+					if(!strcmp($equipamento->status, "Alerta")){ echo '<tr class="warning" data-tombo="'.$equipamento->tombo.'" >'; }
+					if(!strcmp($equipamento->status, "Defeito")){ echo '<tr class="negative" data-tombo="'.$equipamento->tombo.'" >'; }
 				?>
 						<td><?php echo $equipamento->nome; ?></td>
 						<td><?php echo $equipamento->tombo; ?></td>
@@ -67,7 +67,7 @@
 								<i class="setting icon"></i>
 							    Opções
 							    <div class="menu">
-							      <a class="item" href="/Equipamentos/view/<?php echo $equipamento->id; ?>"><i class="unhide icon"></i>Ver</a>
+							      <a class="item" href="/Equipamentos/view/<?php echo $equipamento->tombo; ?>"><i class="unhide icon"></i>Ver</a>
 							      <div class="item btnEditarEquipamento <?php if(!UsersController::isCoordenador($userAuth, $local->codigo) && !UsersController::isBolsista($userAuth, $local->codigo) && strcmp($userAuth['role'], 'Administrador')) echo 'disabled'; ?>"><i class="edit icon"></i>Editar</div>
 							      <div class="item btnAlertarEquipamento <?php if(!strcmp($equipamento->status, 'Alerta') || !strcmp($equipamento->status, 'Defeito')) echo 'disabled'; ?>"><i class="warning sing icon"></i>Alertar</div>
 							    </div>
@@ -104,8 +104,6 @@
 		<?php if(UsersController::isCoordenador($userAuth, $local->codigo) || $userAuth['role'] === 'Administrador'): ?>
 
 		<a class="ui button teal" href="/locals/relatorio/<?php echo $local->codigo; ?>"><i class="file text outline icon"></i> Gerar Relatório </a>
-
-		<button class="ui button teal gerarRelatorioLocal" data-id="<?php echo $local->codigo; ?>"><i class="file text outline icon"></i> Gerar Relatório</button>
 
 		<?php endif; ?>
 

@@ -87,16 +87,21 @@ class UsersController extends AppController {
     /**
      * View method
      *
-     * @param string|null $id User id.
+     * @param string|null $matricula User matricula.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null) {
+    public function view($matricula = null) {
+        /****
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
+        ****/
 
-        
+        $user = $this->Users 
+                        ->find()
+                        ->where(['matricula' => $matricula])
+                        ->first();
 
         $alertas2 = $this->Users->BolsistasAlertas
                                     ->find()                                
@@ -251,11 +256,16 @@ class UsersController extends AppController {
     /**
      * alterarSenha method
      *
-     * @param string|null $id User id.
+     * @param string|null $matricula User matricula.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function alterarSenha($id){
-        $user = $this->Users->get($id);
+    public function alterarSenha($matricula){
+        //$user = $this->Users->get($id);
+
+        $user = $this->Users
+                        ->find()
+                        ->where(['matricula' => $matricula])
+                        ->first();
 
         $user = $this->Users->patchEntity($user, $this->request->data);
 
@@ -269,11 +279,14 @@ class UsersController extends AppController {
     /**
      * resetarSenha method
      *
-     * @param string|null $id User id.
+     * @param string|null $matricula User matricula.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function resetarSenha($id){
-        $user = $this->Users->get($id);
+    public function resetarSenha($matricula){
+        $user = $this->Users
+                        ->find()
+                        ->where(['matricula' => $matricula])
+                        ->first();
 
         $newPassword = self::gerarSenha(10);
 
@@ -297,11 +310,16 @@ class UsersController extends AppController {
     /**
      * alterarEmail method
      *
-     * @param string|null $id User id.
+     * @param string|null $matricula User matricula.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function alterarEmail($id){
-        $user = $this->Users->get($id);
+    public function alterarEmail($matricula){
+        //$user = $this->Users->get($id);
+
+        $user = $this->Users
+                        ->find()
+                        ->where(['matricula' => $matricula])
+                        ->first();
 
         $user = $this->Users->patchEntity($user, $this->request->data);
 
@@ -342,14 +360,21 @@ class UsersController extends AppController {
     /**
      * Edit method
      *
-     * @param string|null $id User id.
+     * @param string|null $matricula User matricula.
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null) {
+    public function edit($matricula = null) {
+        /****
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
+        ****/
+
+        $user = $this->Users
+                        ->find()
+                        ->where(['matricula' => $matricula])
+                        ->first();
 
         if(strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')){
             return $this->redirect(['action' => 'index']);
@@ -371,13 +396,18 @@ class UsersController extends AppController {
     /**
      * Delete method
      *
-     * @param string|null $id User id.
+     * @param string|null $matricula User matricula.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null) {
+    public function delete($matricula = null) {
         $this->request->allowMethod(['post', 'delete']);
-        $user = $this->Users->get($id);
+
+        $user = $this->Users
+                        ->find()
+                        ->where(['matricula' => $matricula])
+                        ->first();
+
         if ($this->Users->delete($user)) {
             $this->Flash->success(__('Usuário delatado com sucesso.'));
         } else {
@@ -648,16 +678,16 @@ class UsersController extends AppController {
     public function isAuthorized($user){
 
         if($this->request->action === 'view'){
-            $userId = (int)$this->request->params['pass'][0];
-            if(isset($user['role']) && $user['role'] === 'Administrador' || $user['id'] === $userId){
+            $userMatricula = $this->request->params['pass'][0];
+            if(isset($user['role']) && $user['role'] === 'Administrador' || $user['matricula'] === $userMatricula){
                 return true;
             }
             return false;
         }
 
         if($this->request->action === 'edit'){
-            $userId = (int)$this->request->params['pass'][0];
-            if(isset($user['role']) && $user['role'] === 'Administrador' || $user['id'] === $userId){
+            $userMatricula = $this->request->params['pass'][0];
+             if(isset($user['role']) && $user['role'] === 'Administrador' || $user['matricula'] === $userMatricula){
                 return true;
             }
             return false;

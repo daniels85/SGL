@@ -31,9 +31,9 @@
 							<div class="ui floating dropdown icon button">
 								<i class="setting icon"></i>
 							    Opções
-							    <div class="menu" data-id="<?php echo $equipamento->id ?>">
-							      <a href="/equipamentos/view/<?php echo $equipamento->id ?>" class="item"><i class="unhide icon"></i>Ver</a>
-							      <a href="/equipamentos/edit/<?php echo $equipamento->id ?>" class="item" ><i class="edit icon"></i>Modificar</a>
+							    <div class="menu" data-tombo="<?php echo $equipamento->tombo ?>">
+							      <a href="/equipamentos/view/<?php echo $equipamento->tombo ?>" class="item"><i class="unhide icon"></i>Ver</a>
+							      <a href="/equipamentos/edit/<?php echo $equipamento->tombo ?>" class="item" ><i class="edit icon"></i>Modificar</a>
 							      <a class="item apagarEquipamento"><i class="remove icon"></i>Excluir</a>
 							    </div>
 							</div>

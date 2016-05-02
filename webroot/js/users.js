@@ -10,7 +10,7 @@ $(document).ready(function(){
 	$('.btnMudarSenha').on('click', function(event){
 		event.preventDefault();
 
-		var idUsuario = $(this).closest('th').attr('data-id');
+		var matriculaUsuario = $(this).closest('div').attr('data-matricula');
 
 		modalHeader.html('');
 		modalContent.html('');
@@ -64,7 +64,7 @@ $(document).ready(function(){
 				
 				$.ajax({
 
-					url: 'http://'+host+'/users/alterarSenha/'+idUsuario,
+					url: 'http://'+host+'/users/alterarSenha/'+matriculaUsuario,
 					type: 'PUT',
 					data: 'password='+password,
 
@@ -255,7 +255,7 @@ $(document).ready(function(){
 
 		event.preventDefault();
 
-		var idUsuario = $(this).closest('th').attr('data-id');
+		var matriculaUsuario = $(this).closest('div').attr('data-matricula');
 
 		modalHeader.html('');
 		modalContent.html('');
@@ -297,7 +297,7 @@ $(document).ready(function(){
 
 				$.ajax({
 
-					url : 'http://'+host+'/users/alterarEmail/'+idUsuario,
+					url : 'http://'+host+'/users/alterarEmail/'+matriculaUsuario,
 					type : 'PUT',
 					data : 'email='+email,
 
@@ -394,7 +394,7 @@ $(document).ready(function(){
 
 		event.preventDefault();
 
-		idUsuario = $(this).closest('div').attr('data-id');
+		matriculaUsuario = $(this).closest('div').attr('data-matricula');
 
 		modalHeader.html('');
 		modalContent.html('');
@@ -427,7 +427,7 @@ $(document).ready(function(){
 						
 						$.ajax({
 
-							url : 'http://'+host+'/users/delete/'+idUsuario,
+							url : 'http://'+host+'/users/delete/'+matriculaUsuario,
 							type : 'POST',
 
 							beforeSend : function(request){
@@ -450,12 +450,12 @@ $(document).ready(function(){
 
 	$('.resetarSenha').on('click', function(event){
 
-		idUsuario = $(this).closest('div').attr('data-id');
+		matriculaUsuario = $(this).closest('div').attr('data-matricula');
 
 		// Requisição ajax para pegar todos os dados do usuário
 		$.ajax({
 
-			url : 'http://'+host+'/users/view/'+idUsuario,
+			url : 'http://'+host+'/users/view/'+matriculaUsuario,
 			type : 'GET',
 			dataType : 'json',
 
@@ -497,7 +497,7 @@ $(document).ready(function(){
 								
 								$.ajax({
 
-									url : 'http://'+host+'/users/resetarSenha/'+idUsuario,
+									url : 'http://'+host+'/users/resetarSenha/'+matriculaUsuario,
 									type : 'POST',
 
 									beforeSend : function(request){

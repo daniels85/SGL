@@ -44,16 +44,21 @@ class LocalsController extends AppController {
     /**
      * View method
      *
-     * @param string|null $id Local id.
+     * @param string|null $codigo Local codigo.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null) {
-        $equipamentosTable = TableRegistry::get('Equipamentos');
-        $local = $this->Locals->get($id, [
-            'contain' => []
-        ]);
+    public function view($codigo = null) {
 
+        //$local = $this->Locals->get($id, [
+        //    'contain' => []
+        //]);
+
+        $local = $this->Locals
+                            ->find()
+                            ->where(['codigo' => $codigo])
+                            ->all()
+                            ->first();
 
         /** Coordenador **/
         $coordenadores = UsersController::getCoordenadores($local->codigo);
@@ -132,17 +137,22 @@ class LocalsController extends AppController {
     /**
      * Edit method
      *
-     * @param string|null $id Local id.
+     * @param string|null $codigo Local codigo.
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null) {
-
+    public function edit($codigo = null) {
+        /*
         $local = $this->Locals->get($id, [
             'contain' => []
         ]);
+        */
 
-        $codigo = $local->codigo;
+        $local = $this->Locals
+                            ->find()
+                            ->where(['codigo' => $codigo])
+                            ->all()
+                            ->first();
 
         /** Coordenadores e Bolsistas **/
         $usersLocal = UsersController::getUsersLocals($local->codigo);
@@ -223,15 +233,21 @@ class LocalsController extends AppController {
     /**
      * Delete method
      *
-     * @param string|null $id Local id.
+     * @param string|null $codigo Local codigo.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null) {
+    public function delete($codigo = null) {
 
         $this->request->allowMethod(['post', 'delete', 'get']);
 
-        $local = $this->Locals->get($id);
+        //$local = $this->Locals->get($id);
+
+        $local = $this->Locals
+                            ->find()
+                            ->where(['codigo' => $codigo])
+                            ->all()
+                            ->first();
 
         if ($this->Locals->delete($local)) {
             $this->Flash->success(__('Local deletado com sucesso.'));
@@ -244,14 +260,21 @@ class LocalsController extends AppController {
     /**
      * bolsista method
      *
-     * @param string|null $id Local id.
+     * @param string|null $codigo Local codigo.
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      */
-    public function bolsista($id = null){
+    public function bolsista($codigo = null){
+        /**
         $local = $this->Locals->get($id, [
             'contain' => []
         ]);
-        
+        **/
+        $local = $this->Locals
+                            ->find()
+                            ->where(['codigo' => $codigo])
+                            ->all()
+                            ->first();
+
         $userAuth = $this->request->session()->read('Auth.User');
 
         if(!(UsersController::isCoordenador($userAuth, $local->codigo) || !strcmp($userAuth['role'], 'Administrador'))){
@@ -326,8 +349,15 @@ class LocalsController extends AppController {
 
         if($this->request->is('post')){
 
+            $this->viewBuilder()->layout('localPdf');
+
             //$dataInicio = date('Y-m-d H:i:s', strtotime($this->request->data['dataInicio'] . '00:00:00' ));
             //$dataFim    = date('Y-m-d H:i:s', strtotime($this->request->data['dataFim'] . '23:59:59' ));
+
+            $local = $this->Locals
+                                ->find()
+                                ->where(['codigo' => $codigoLocal])
+                                ->first();
 
             $equipamentos = $this->Locals->Equipamentos
                                                 ->find()
@@ -343,11 +373,10 @@ class LocalsController extends AppController {
                                                 ->all()
                                                 ->toArray();
 
+            $this->set('local', $local);
             $this->set('equipamentos', $equipamentos);
         }
         
-
-
     }
 
     /**
