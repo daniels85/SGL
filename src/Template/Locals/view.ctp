@@ -96,18 +96,10 @@
 
 <?php if(UsersController::isCoordenador($userAuth, $local->codigo) || UsersController::isBolsista($userAuth, $local->codigo) || !strcmp($userAuth['role'], 'Administrador')) : ?>
 
-<div class="sixteen wide column row centered">
-	<div class="ui horizontal labeled icon buttons">
+<div class="sixteen wide column row">
 
-		<button class="ui button teal" id="addEquipamento" data-id="<?php echo $local->codigo; ?>"><i class="add icon"></i> Adicionar Equipamento</button>
+	<button class="ui button teal labeled icon" id="addEquipamento" data-id="<?php echo $local->codigo; ?>"><i class="add icon"></i> Adicionar Equipamento</button>
 
-		<?php if(UsersController::isCoordenador($userAuth, $local->codigo) || $userAuth['role'] === 'Administrador'): ?>
-
-		<a class="ui button teal" href="/locals/relatorio/<?php echo $local->codigo; ?>"><i class="file text outline icon"></i> Gerar Relatório </a>
-
-		<?php endif; ?>
-
-	</div>
 </div>
 
 <?php endif; ?>

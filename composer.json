@@ -13,8 +13,7 @@
     },
     "require-dev": {
         "psy/psysh": "@stable",
-        "cakephp/bake": "~1.1",
-        "cakephp/debug_kit": "~3.0"
+        "cakephp/bake": "~1.1"
     },
     "suggest": {
         "phpunit/phpunit": "Allows automated tests to be run without system-wide install.",
@@ -23,11 +22,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "src"
-        },
-        "files" : [
-            "vendor/tcpdf/tcpdf.php",
-            "vendor/tcpdf/mypdf.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
