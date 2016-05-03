@@ -528,18 +528,18 @@
 			}
 		},
 		{
-			"file": "src/Controller/LocalsController.php",
+			"file": "webroot/js/equipamentos.js",
 			"settings":
 			{
-				"buffer_size": 25876,
+				"buffer_size": 26229,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Template/Equipamentos/view.ctp",
+			"file": "src/Controller/LocalsController.php",
 			"settings":
 			{
-				"buffer_size": 2238,
+				"buffer_size": 25929,
 				"line_ending": "Unix"
 			}
 		},
@@ -547,7 +547,7 @@
 			"file": "logs/error.log",
 			"settings":
 			{
-				"buffer_size": 30670,
+				"buffer_size": 37010,
 				"line_ending": "Unix"
 			}
 		}
@@ -588,12 +588,11 @@
 		"/home/ivanov/Documentos/sgl",
 		"/home/ivanov/Documentos/sgl/logs",
 		"/home/ivanov/Documentos/sgl/src",
-		"/home/ivanov/Documentos/sgl/src/Model",
-		"/home/ivanov/Documentos/sgl/src/Template",
+		"/home/ivanov/Documentos/sgl/src/Controller",
 		"/home/ivanov/Documentos/sgl/src/Template/Equipamentos",
 		"/home/ivanov/Documentos/sgl/src/Template/Layout",
-		"/home/ivanov/Documentos/sgl/vendor/tcpdf/config",
-		"/home/ivanov/Documentos/sgl/webroot/img"
+		"/home/ivanov/Documentos/sgl/webroot",
+		"/home/ivanov/Documentos/sgl/webroot/js"
 	],
 	"file_history":
 	[
@@ -797,7 +796,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -826,24 +825,53 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "src/Controller/LocalsController.php",
+					"file": "webroot/js/equipamentos.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 25876,
+						"buffer_size": 26229,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								21706,
-								21706
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 390.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/Controller/LocalsController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 25929,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								23134,
+								23134
 							]
 						],
 						"settings":
@@ -853,39 +881,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3519.0,
+						"translation.y": 7107.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/Template/Equipamentos/view.ctp",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 2238,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2009,
-								2009
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 273.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -894,7 +893,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 30670,
+						"buffer_size": 37010,
 						"regions":
 						{
 						},

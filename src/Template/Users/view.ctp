@@ -1,8 +1,8 @@
 <div class="sixteen centered wide column row">
-	<h3 class="ui horizontal divider header">
+	<h4 class="ui horizontal divider header">
 		<i class="user icon"></i>
 		Usuário
-	</h3>
+	</h4>
 	<table class="ui teal selectable stackable table">
 
 		<tr>
@@ -48,10 +48,10 @@
 		if($this->request->session()->read('Auth.User.matricula') == $matricula):
 ?>
 <div class="sixteen centered wide column row">
-	<h3 class="ui horizontal divider header">
+	<h4 class="ui horizontal divider header">
 		<i class="warning sign icon"></i>
 		Alertas
-	</h3>
+	</h4>
 	<table class="ui table yellow selectable stackable center aligned">
 		
 		<thead>

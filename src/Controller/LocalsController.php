@@ -566,14 +566,15 @@ class LocalsController extends AppController {
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table>                   
+                    
                     <div style="margin-top: 5px; margin-bottom: 5px;"><hr></div>
-            
                     ';
 
                 }
 
                 $html .= '
+                         
                     </div>
                     <!-- Fim Alertas -->
                 ';

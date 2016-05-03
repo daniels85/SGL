@@ -2,10 +2,10 @@
 	use App\Controller\UsersController;
 ?>
 <div class="sixten centered wide column row">
-	<h3 class="ui horizontal divider header">
+	<h4 class="ui horizontal divider header">
 		<i class="desktop icon"></i>
 		Tipo de tipoEquipamentos
-	</h3>
+	</h4>
 	<table class="ui teal stackable table center aligned">		
 		<thead>
 			<tr >

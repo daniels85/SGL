@@ -1,8 +1,8 @@
 <div class="sixteen centered wide column row">
-	<h3 class="ui horizontal divider header">
+	<h4 class="ui horizontal divider header">
 		<i class="desktop icon"></i>
 		Equipamento
-	</h3>
+	</h4>
 	<table class="ui teal selectable stackable table">
 
 		<tr>
@@ -43,10 +43,10 @@
 
 <?php if(!is_null($alerta)): ?>
 <div class="sixteen centered wide column row">
-	<h3 class="ui horizontal divider header">
+	<h4 class="ui horizontal divider header">
 		<i class="warning sign icon"></i>
 		Último Alerta
-	</h3>
+	</h4>
 	<table class="ui table yellow selectable stackable center aligned">
 		
 		<thead>
