@@ -25,7 +25,8 @@
             "App\\": "src"
         },
         "files" : [
-            "vendor/tcpdf/tcpdf.php"
+            "vendor/tcpdf/tcpdf.php",
+            "vendor/tcpdf/mypdf.php"
         ]
     },
     "autoload-dev": {

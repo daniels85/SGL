@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
 use tcpdf;
+use mypdf;
 
 /**
  * Locals Controller
@@ -372,7 +373,10 @@ class LocalsController extends AppController {
             $equipamentos = $this->Locals->Equipamentos
                                                 ->find()
                                                 ->where(['codLocal' => $codigoLocal])
+                                                ->order(['nome' => 'ASC'])
                                                 ->contain([
+                                                    'Locals',
+                                                    'TipoEquipamentos',
                                                     'Alertas' => function($q){
                                                         return $q
                                                                 //->where(['statusAlerta' => 'Pendente']);
@@ -383,6 +387,9 @@ class LocalsController extends AppController {
                                                 ->all()
                                                 ->toArray();
 
+
+                                            $this->set('equipamentos', $equipamentos);
+            //PdfsController::relatorioLocal($local, $bolsistas, $coordenadores, $equipamentos, $dataInicio, $dataFim);
             $this->gerarRaletorio($local, $bolsistas, $coordenadores, $equipamentos, $dataInicio, $dataFim);
         }
         
@@ -399,49 +406,43 @@ class LocalsController extends AppController {
      */
     public function gerarRaletorio($local, $bolsistas, $coordenadores, $equipamentos, $dataInicio, $dataFim){       
 
+        $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
         $dataInicio = date('d-m-Y', strtotime($dataInicio));
         $dataFim    = date('d-m-Y', strtotime($dataFim));
-
-        $this->response->header(['Content-type: application/pdf']);
+       
         header("Content-type:application/pdf");
-        $html = '
-            <link rel="stylesheet" type="text/css" href="semantic.css" />
-            <div class="ui container">
-                <h4 class="ui horizontal divider"></h4>
-                <div class="ui segment">
-                    <div class="ui items">
-                        <div class="item">
-                            <div class="ui small image right floated">
-                            </div>
-                            <div class="content">
-                                <a class="header">Instituto Federal de Educação, Ciência e Tecnologia do Ceará</a>
-                                <div class="meta">
-                                    <span>Description</span>
-                                </div>
-                                <div class="description">
-                                    <p></p>
-                                </div>
-                                <div class="extra">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        ';
+        //$this->response->header(['Content-type: application/pdf']);
 
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
+        //$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+                
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor($this->request->session()->read('Auth.User.nome'));
         $pdf->SetTitle('Relatório de Alertas - '.$local->nome);
-        $pdf->SetSubject('sadsad');
+        $pdf->SetSubject('');
+        $imagem = WWW_ROOT.'img/ifce.jpg';
+        $header = '
+            <table cellspacing="0" cellpadding="0" style="border-bottom: 1px solid black;">
+                <tr>
+                    <td rowspan="5"><img src="'.$imagem.'" width="125"></td>
+                    <td></td>
+                </tr>
+                <tr style="text-align: right;">     
+                    <td>Instituto Federal de Educação, Ciência e Tecnologia do Ceará</td>
+                </tr>
+                <tr style="text-align: right;">     
+                    <td>IFCE - Campus Maracanaú</td>
+                </tr>
+                <tr style="text-align: right;">     
+                    <td>SGL - Sistema de Gerenciamento de Laboratórios</td>
+                </tr>
+                <tr style="text-align: right;">     
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
+        ';
 
-        $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 006', PDF_HEADER_STRING);
-
-        // set header and footer fonts
-        $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->setHeaderData($ln='', $lw=0, $ht='', $header, $tc=array(0,0,0), $lc=array(0,0,0));
 
         // set default monospaced font
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
@@ -470,7 +471,7 @@ class LocalsController extends AppController {
         $pdf->AddPage();
 
         $html = '
-        <div style="margin: 20px 0 0 0; border: solid 1px #CCCCCC; padding: 0px;">
+        <div style="margin: 20px 0 0 0; padding: 0px;">
             <div style="padding:0; margin: 0 auto;">
                 <p style="text-align: center; font-size: 20pt; padding: 0px; font-family: arial;">Relatório de Alertas</p>
                 <table style="margin: 0 auto;">
@@ -507,104 +508,97 @@ class LocalsController extends AppController {
             </div>
 
         </div>
-
-        <div style="margin: 20px 0 0 0; border: solid 1px #CCCCCC; padding: 5px;">
-            <div style="margin: 5px 0 0 0; border-bottom: solid 1px #CCCCCC; padding: 5px;">
-                <table style="width: 100%;">
-                    <tr>
-                        <td style="text-align: center; padding: 5px; font-family: arial; width: 50%;">Equipamento: PC - 01</td>         
-                        <td style="text-align: center; padding: 5px; font-family: arial; width: 50%;">Tombo: 6516516</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div style="margin: 5px 0 0 0; padding: 10px;">
-                <table style="padding: 10px;">
-                    <thead>
-                        <tr>
-                            <th style="border-bottom: 1px solid #CCC; border-collapse:initial;">Alerta: 01</th>
-                            <th style="border-bottom: 1px solid #CCC; border-collapse:initial;">Enviado por: Fulano</th>
-                            <th style="border-bottom: 1px solid #CCC; border-collapse:initial;">Data: 15/14/6498</th>
-                            <th style="border-bottom: 1px solid #CCC; border-collapse:initial;">Status: Resolvido</th>
-                        </tr>
-
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="2" style="padding: 10px;">
-                                <div style="font-size: 12pt; font-family: arial; padding: 2px;">Descrição:</div> <div style="font-size: 8pt; font-family: arial; font-style: oblique; padding: 2px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco.</div>
-                            </td>
-                            <td colspan="2">
-                                <div style="font-size: 12pt; font-family: arial; padding: 2px;">Observações:</div> <div style="font-size: 8pt; font-family: arial; font-style: oblique; padding: 2px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco.</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div style="padding: 5px;"><hr></div>
-                <table style="padding: 10px;">
-                    <thead>
-                        <tr>
-                            <th style="border-bottom: 1px solid #CCC; border-collapse:initial;">Alerta: 01</th>
-                            <th style="border-bottom: 1px solid #CCC; border-collapse:initial;">Enviado por: Fulano</th>
-                            <th style="border-bottom: 1px solid #CCC; border-collapse:initial;">Data: 15/14/6498</th>
-                            <th style="border-bottom: 1px solid #CCC; border-collapse:initial;">Status: Resolvido</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="2" style="padding: 10px;">
-                                <div style="font-size: 12pt; font-family: arial; padding: 2px;">Descrição:</div> <div style="font-size: 8pt; font-family: arial; font-style: oblique; padding: 2px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco.</div>
-                            </td>
-                            <td colspan="2">
-                                <div style="font-size: 12pt; font-family: arial; padding: 2px;">Observações:</div> <div style="font-size: 8pt; font-family: arial; font-style: oblique; padding: 2px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco.</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div style="padding: 5px;"><hr></div>
-                <table style="padding: 10px;">
-                    <thead>
-                        <tr>
-                            <th style="border-bottom: 1px solid #CCC; border-collapse:initial;">Alerta: 01</th>
-                            <th style="border-bottom: 1px solid #CCC; border-collapse:initial;">Enviado por: Fulano</th>
-                            <th style="border-bottom: 1px solid #CCC; border-collapse:initial;">Data: 15/14/6498</th>
-                            <th style="border-bottom: 1px solid #CCC; border-collapse:initial;">Status: Resolvido</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="2" style="padding: 10px;">
-                                <div style="font-size: 12pt; font-family: arial; padding: 2px;">Descrição:</div> <div style="font-size: 8pt; font-family: arial; font-style: oblique; padding: 2px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco.</div>
-                            </td>
-                            <td colspan="2">
-                                <div style="font-size: 12pt; font-family: arial; padding: 2px;">Observações:</div> <div style="font-size: 8pt; font-family: arial; font-style: oblique; padding: 2px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco.</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
         ';
+        
+        //Concatenar os equipamentos e alertas
+
+        foreach($equipamentos as $equipamento){
+
+            $html .= '
+
+            <div style="margin: 20px 0 0 0; padding: 5px;">
+                <div style="margin: 5px 0 0 0; border-bottom: solid 1px black; padding: 5px;">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="text-align: left; padding: 5px; font-family: arial; width: 33%;">Equipamento: '.$equipamento->nome.'</td>         
+                            <td style="text-align: left; padding: 5px; font-family: arial; width: 33%;">Tombo: '.$equipamento->tombo.'</td>
+                            <td style="text-align: left; padding: 5px; font-family: arial; width: 33%;">Status: '.$equipamento->status.'</td>
+                        </tr>
+                        <tr>    
+                            <td style="text-align: left; padding: 5px; font-family: arial; width: 33%;">Tipo: '.$equipamento->tipo_equipamentos[0]->nome.'</td>                                    
+                            <td style="text-align: left; padding: 5px; font-family: arial; width: 33%;">Responsável: '.$equipamento->responsavel.'</td>
+                            <td style="text-align: left; padding: 5px; font-family: arial; width: 33%;">Modelo: '.$equipamento->modelo.'</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; padding: 5px; font-family: arial; width: 33%;">Fornecedor: '.$equipamento->fornecedor.'</td>
+                        </tr>
+                    </table>
+                </div>
+                <!--- Alertas -->
+
+                <div style="margin: 5px 0 0 0; padding: 10px;">
+               
+            ';
+
+            if(empty($equipamento->alertas)){
+                $html .= '<div style="font-size: 10pt; text-align: center;"><span>Não há alertas para este equipamento.</span></div>';
+            }else{
+
+                foreach($equipamento->alertas as $n => $alerta){
+                    $html .= '
+                    <table style="padding: 10px;">
+                        <thead>
+                            <tr>
+                                <th style="border-bottom: 1px solid #CCC; border-collapse:initial;">Alerta: '.($n+1).'</th>
+                                <th style="border-bottom: 1px solid #CCC; border-collapse:initial;">Enviado por: '.$alerta->geradoPor.'</th>
+                                <th style="border-bottom: 1px solid #CCC; border-collapse:initial;">Data: '.date('d/m/Y g:i A', strtotime($alerta->dataAlerta)).'</th>
+                                <th style="border-bottom: 1px solid #CCC; border-collapse:initial;">Status: '.$alerta->statusAlerta.'</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="2" style="padding: 10px;">
+                                    <div style="font-size: 11pt; font-family: arial; padding: 2px;">Descrição:</div> <div style="font-size: 8pt; font-family: arial; font-style: oblique; padding: 2px;"> '.$alerta->descricao.' </div>
+                                </td>
+                                <td colspan="2">
+                                    <div style="font-size: 11pt; font-family: arial; padding: 2px;">Observações:</div> <div style="font-size: 8pt; font-family: arial; font-style: oblique; padding: 2px;"> '.$alerta->observacoes.' </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="margin-top: 5px; margin-bottom: 5px;"><hr></div>
+            
+                    ';
+
+                }
+
+                $html .= '
+                    </div>
+                    <!-- Fim Alertas -->
+                ';
+
+            }
+
+            $html .= '
+                </div>
+                <!-- Fim Equipamento -->
+            ';
+        }
+
+
 
         $pdf->writeHTML($html, true, false, true, false, '');
 
-        //$pdf->Output('Relatório de Alertas - '.$local->nome.'.pdf', 'D');
-        return $this->response->download(
+
+        return $this->response->file(
             $pdf->Output('Relatório de Alertas - '.$local->nome.'.pdf', 'I')
         );
-    
+
+        //$pdf->Output('Relatório de Alertas - '.$local->nome.'.pdf', 'D');
+        //return $this->response->download(
+        //    $pdf->Output('Relatório de Alertas - '.$local->nome.'.pdf', 'I')
+        //);    
 
     }
 

@@ -1,6 +1,7 @@
 <?php 
 
 	use App\Controller\UsersController;
+
 	$userAuth = $this->request->session()->read('Auth.User');
 
 	if(isset($equipamentos)):
@@ -9,9 +10,13 @@
 	
 				echo $equipamento->nome.'<br>';
 
-				foreach ($equipamento->alertas as $alerta) {
-					var_dump($alerta);
-				}
+				if(!empty($equipamento->alertas)){
+					foreach ($equipamento->alertas as $alerta) {
+						var_dump($alerta);
+					}
+				}else{					
+					var_dump('Não há alertas.');
+				}		
 
 		}
 	?>
