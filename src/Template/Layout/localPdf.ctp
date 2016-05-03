@@ -1,10 +1,8 @@
 <?php 
-	
-	//use App\tcpdf\tcpdf;
-	
-	header("Content-type:application/pdf");
 
-	include '../vendor/tcpdf/tcpdf.php';
+	$this->response->header([
+		'Content-type: application/pdf']);
+	header("Content-type:application/pdf");
 
 	$html = '
 			<link rel="stylesheet" type="text/css" href="semantic.css" />
@@ -194,5 +192,6 @@
 	';
 
 	$pdf->writeHTML($html, true, false, true, false, '');
-	$pdf->Output('example_006.pdf', 'D');
+	$pdf->Output('example_006.pdf', 'I');
+
 	?>

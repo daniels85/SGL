@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2b3da0ed2efb7d4cc2d9f81b83cd8d54",
-    "content-hash": "de04a89bcf2c257bca4e8724da7366c2",
+    "hash": "5f194ba3de5a4a5045bd7396a4859bfd",
+    "content-hash": "ec1c12ab399f1841d744f201993a2c84",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -305,16 +305,16 @@
         },
         {
             "name": "cakephp/plugin-installer",
-            "version": "0.0.13",
+            "version": "0.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/plugin-installer.git",
-                "reference": "a0c3a0c0b7006d13f51eb53f40b408c31d97eef5"
+                "reference": "8e84898b44df50e88b5109bb7d4d28de845e9bf8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/plugin-installer/zipball/a0c3a0c0b7006d13f51eb53f40b408c31d97eef5",
-                "reference": "a0c3a0c0b7006d13f51eb53f40b408c31d97eef5",
+                "url": "https://api.github.com/repos/cakephp/plugin-installer/zipball/8e84898b44df50e88b5109bb7d4d28de845e9bf8",
+                "reference": "8e84898b44df50e88b5109bb7d4d28de845e9bf8",
                 "shasum": ""
             },
             "require-dev": {
@@ -341,7 +341,7 @@
                 }
             ],
             "description": "A composer installer for CakePHP 3.0+ plugins.",
-            "time": "2016-04-27 02:41:58"
+            "time": "2016-04-28 03:01:34"
         },
         {
             "name": "mobiledetect/mobiledetectlib",

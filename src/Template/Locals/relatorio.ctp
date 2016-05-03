@@ -1,4 +1,5 @@
 <?php 
+
 	use App\Controller\UsersController;
 	$userAuth = $this->request->session()->read('Auth.User');
 
@@ -46,5 +47,4 @@
 
 <?php 
 	endif;
-	
 ?>

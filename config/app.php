@@ -355,4 +355,20 @@ return [
     'Session' => [
         'defaults' => 'php',
     ],
+
+    'debug_kit' => [
+        'className' => 'Cake\Database\Connection',
+        'driver' => 'Cake\Database\Driver\Mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        //'port' => 'nonstandard_port_number',
+        'username' => 'sgl',    // Your DB username here
+        'password' => '1234',    // Your DB password here
+        'database' => 'sgl',
+        'encoding' => 'utf8',
+        'timezone' => 'UTC',
+        'cacheMetadata' => true,
+        'quoteIdentifiers' => false,
+        //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
+    ],
 ];
