@@ -156,7 +156,7 @@
         <h5 class="ui horizontal divider header"></h5>
         <h5 class="ui horizontal divider header"></h5>
 
-        <div class="ui container">
+        <div class="ui container" style="min-height: 624px; margin-bottom: 80px;">
             
             <div class="ui stackable grid">                   
 
@@ -179,6 +179,17 @@
 
             </div>  
 
+        </div>
+
+        <div class="ui vertical inverted footer segment">
+            <div class="ui center aligned container">                
+                <div class="ui horizontal inverted small divided link list">
+                    <a class="item" href="#">Site Map</a>
+                    <a class="item" href="#">Contact Us</a>
+                    <a class="item" href="#">Terms and Conditions</a>
+                    <a class="item" href="#">Privacy Policy</a>
+                </div>
+            </div>
         </div>
 
     </body> 
