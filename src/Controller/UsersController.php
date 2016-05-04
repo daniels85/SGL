@@ -92,23 +92,15 @@ class UsersController extends AppController {
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($matricula = null) {
-        /****
-        $user = $this->Users->get($id, [
-            'contain' => []
-        ]);
-        ****/
 
         $user = $this->Users 
                         ->find()
                         ->where(['matricula' => $matricula])
                         ->first();
 
-        $alertas2 = $this->Users->BolsistasAlertas
-                                    ->find()                                
-                                    ->contain(['Alertas'])
-                                    ->where(['matricula_bolsista' => $user->matricula])
-                                    ->all()
-                                    ->toArray();
+        if(is_null($user)){
+            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Parece que alguém está perdido.", 1);
+        }
 
         $alertas = $this->Users->Alertas
                                     ->find()
@@ -366,16 +358,15 @@ class UsersController extends AppController {
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($matricula = null) {
-        /****
-        $user = $this->Users->get($id, [
-            'contain' => []
-        ]);
-        ****/
 
         $user = $this->Users
                         ->find()
                         ->where(['matricula' => $matricula])
                         ->first();
+
+        if(is_null($user)){
+            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Parece que alguém está perdido.", 1);
+        }
 
         if(strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')){
             return $this->redirect(['action' => 'index']);
@@ -409,6 +400,10 @@ class UsersController extends AppController {
                         ->where(['matricula' => $matricula])
                         ->first();
 
+        if(is_null($user)){
+            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Parece que alguém está perdido.", 1);
+        }
+        
         if ($this->Users->delete($user)) {
             $this->Flash->success(__('Usuário deletado com sucesso.'));
         } else {

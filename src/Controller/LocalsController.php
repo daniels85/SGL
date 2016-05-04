@@ -60,6 +60,10 @@ class LocalsController extends AppController {
                             ->all()
                             ->first();
 
+
+        if(is_null($local)){
+            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Parece que alguém está perdido.", 1);            
+        }
         
 
         /** Coordenador **/
@@ -156,6 +160,10 @@ class LocalsController extends AppController {
                             ->all()
                             ->first();
 
+        if(is_null($local)){
+            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Parece que alguém está perdido.", 1); 
+        }
+
         /** Coordenadores e Bolsistas **/
         $usersLocal = UsersController::getUsersLocals($local->codigo);
 
@@ -251,6 +259,10 @@ class LocalsController extends AppController {
                             ->all()
                             ->first();
 
+        if(is_null($local)){
+            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Parece que alguém está perdido.", 1);
+        }
+
         if ($this->Locals->delete($local)) {
             $this->Flash->success(__('Local deletado com sucesso.'));
         } else {
@@ -276,6 +288,10 @@ class LocalsController extends AppController {
                             ->where(['codigo' => $codigo])
                             ->all()
                             ->first();
+
+        if(is_null($local)){
+            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Parece que alguém está perdido.", 1);
+        }
 
         $userAuth = $this->request->session()->read('Auth.User');
 
