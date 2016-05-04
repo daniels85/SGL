@@ -28,17 +28,16 @@
         <?php echo $this->Html->script('jquery-1.12.2.min.js'); ?>
         <?php echo $this->Html->script('jquery.mask.js'); ?>
         <?php echo $this->Html->script('moment.js'); ?>
-        <?php //echo $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css'); ?>                 
-        <?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js'); ?> 
         
+        <?php echo $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css'); ?>                 
+        <?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js'); ?>         
           
         <?php echo $this->Html->script('locals.js'); ?>
         <?php echo $this->Html->script('equipamentos.js'); ?>
         <?php echo $this->Html->script('formularios.js'); ?>        
         <?php echo $this->Html->script('users.js'); ?>  
+        <?php echo $this->Html->script('tipoEquipamentos.js'); ?>
         <?php echo $this->Html->script('script.js'); ?>
-
-        <?php echo $this->Html->css('/semantic-ui/dist/semantic.min.css'); ?>
 
         <?php echo $this->fetch('meta'); ?>
         <?php echo $this->fetch('css'); ?>

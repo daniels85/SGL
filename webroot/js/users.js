@@ -1,11 +1,11 @@
 $(document).ready(function(){
-	host = $(location).attr('host');
-	container = $('.container');
-	modal = container.find('.ui.modal');
-	modalMensagem = modal.find('.mensagem');
-	modalHeader = modal.find('.header');
-	modalContent = modal.find('.content');
-	modalActions = modal.find('.actions');
+	var host = $(location).attr('host');
+	var container = $('.container');
+	var modal = container.find('.ui.modal');
+	var modalMensagem = modal.find('.mensagem');
+	var modalHeader = modal.find('.header');
+	var modalContent = modal.find('.content');
+	var modalActions = modal.find('.actions');
 
 	$('.btnMudarSenha').on('click', function(event){
 		event.preventDefault();
@@ -41,7 +41,7 @@ $(document).ready(function(){
 				rules : [
 					{
 						type : 'minLength[6]',
-						prompt : 'A senha deve conter no mínimo 6 caracteres.'
+						prompt : 'O campo {name} deve ter pelo menos {ruleValue} caracteres.'
 					}
 				] 
 			},
@@ -151,7 +151,7 @@ $(document).ready(function(){
 				rules : [
 					{
 						type: 'empty',
-						prompt: 'Por favor insira um nome.'
+						prompt: 'O campo {name} é obrigatório.'
 					}
 				]
 			},
@@ -161,7 +161,7 @@ $(document).ready(function(){
 				rules : [
 					{
 						type : 'minLength[6]',
-						prompt : 'Username deve conter no mínimo 6 caracteres.'
+						prompt : 'O campo {name} deve ter pelo menos {ruleValue} caracteres.'
 					}
 				]
 			},
@@ -171,10 +171,10 @@ $(document).ready(function(){
 				rules : [
 					{
 						type : 'minLength[6]',
-						prompt : 'Matrícula deve conter no mínimo 6 caracteres.'
-					},{
+						prompt : 'O campo {name} deve ter pelo menos {ruleValue} caracteres.'
+					}, {
 						type : 'number',
-						prompt : 'Matrícula deve conter somente números.'
+						prompt : 'O campo {name} deve possuir somente números.'
 					}
 				]
 			},
@@ -184,7 +184,7 @@ $(document).ready(function(){
 				rules : [
 					{
 						type : 'email',
-						prompt : 'Pro favor insira um email válido.'
+						prompt : 'Por favor insira um email válido.'
 					}
 				]
 			}

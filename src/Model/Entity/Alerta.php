@@ -7,12 +7,14 @@ use Cake\ORM\Entity;
  * Alerta Entity.
  *
  * @property int $id
- * @property string $dataAlerta
+ * @property \App\Model\Entity\BolsistasAlerta $bolsistas_alerta
  * @property string $descricao
+ * @property string $observacoes
  * @property string $geradoPor
  * @property string $statusAlerta
  * @property string $tomboEquipamento
- * @property string $bolsistaResponsavel
+ * @property \Cake\I18n\Time $dataAlerta
+ * @property \App\Model\Entity\Equipamento[] $equipamentos
  */
 class Alerta extends Entity
 {

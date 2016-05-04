@@ -48,7 +48,7 @@
 
 								<i class="setting icon"></i>
 							    Opções
-							    <div class="menu" data-id="<?php echo $local->id ?>">
+							    <div class="menu" data-codigo="<?php echo $local->codigo ?>">
 
 									<a href="/locals/view/<?php echo $local->codigo ?>" class="item"><i class="unhide icon"></i>Ver</a>
 									<a href="/Locals/bolsista/<?php echo $local->codigo; ?>"  class="item"><i class="edit icon"></i>Alterar Bolsistas</a>

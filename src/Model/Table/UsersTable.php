@@ -52,8 +52,10 @@ class UsersTable extends Table
             'bindingKey' => 'matricula',
             'joinType' => 'INNER'
         ]);
-
+        
     }
+
+
 
     /**
      * Default validation rules.
@@ -86,16 +88,23 @@ class UsersTable extends Table
             ->add('matricula', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
-            ->allowEmpty('role');
+            ->email('email')
+            ->requirePresence('email', 'create')
+            ->notEmpty('email')
+            ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
+            ->requirePresence('role', 'create')
+            ->notEmpty('role');
 
         $validator
             ->allowEmpty('cadastradoPor');
 
         $validator
-            ->allowEmpty('dataDeCadastro');
+            ->dateTime('dataDeCadastro');
 
         $validator
-            ->allowEmpty('ultimaVezAtivo');
+            ->dateTime('ultimaVezAtivo');
 
         return $validator;
     }
@@ -110,10 +119,8 @@ class UsersTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->isUnique(['username']));
+        $rules->add($rules->isUnique(['email']));
         $rules->add($rules->isUnique(['matricula']));
         return $rules;
     }
-
-    
-    
 }

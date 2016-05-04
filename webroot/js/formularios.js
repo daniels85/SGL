@@ -16,7 +16,7 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'empty',
-					prompt : 'Campo nome é obrigatório.'
+					prompt : 'O campo {name} é obrigatório.'
 				}
 			]
 		},
@@ -26,7 +26,10 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'minLength[6]',
-					prompt : 'O campo código deve ter pelo menos 6 caracteres.'
+					prompt : 'O campo {name} deve ter pelo menos {ruleValue} caracteres.'
+				}, {
+					type : 'number',
+					prompt : 'O campo {name} deve possuir somente números.'
 				}
 			]
 		},
@@ -36,7 +39,7 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'empty',
-					prompt : 'Campo tipo é obrigatório.'
+					prompt : 'Selecione um {name}.'
 				}
 			]
 		}
@@ -50,7 +53,7 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'empty',
-					prompt : 'Campo nome é obrigatório.'
+					prompt : 'O campo {name} é obrigatório.'
 				}
 			]
 		},
@@ -60,7 +63,10 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'minLength[6]',
-					prompt : 'O campo código deve ter pelo menos 6 caracteres.'
+					prompt : 'O campo {name} deve conter no mínimo {ruleValue} caracteres.'
+				}, {
+					type : 'number',
+					prompt : 'O campo {name} deve possuir somente números.'
 				}
 			]
 		},
@@ -70,7 +76,7 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'empty',
-					prompt : 'Campo tipo é obrigatório.'
+					prompt : 'Selecione um {name}.'
 				}
 			]
 		}
@@ -84,7 +90,7 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'empty',
-					prompt : 'Campo nome é obrigatório.'
+					prompt : 'O campo {name} é obrigatório.'
 				}
 			]
 		},
@@ -94,10 +100,10 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'minLength[6]',
-					prompt : 'Matrícula deve conter no mínimo 6 caracteres.'
+					prompt : 'O campo {name} deve conter no mínimo {ruleValue} caracteres.'
 				}, {
 					type : 'number',
-					prompt : 'Matrícula deve conter somente números.'
+					prompt : 'O campo {name} deve possuir somente números.'
 				}
 			]
 		},
@@ -106,8 +112,8 @@ $(document).ready(function(){
 			identifier : 'username',
 			rules : [
 				{
-					type: 'minLength[6]',
-					prompt : 'Username deve conter no mínimo 6 caracteres.'
+					type: 'minLength[5]',
+					prompt : 'O campo {name} deve conter no mínimo {ruleValue} caracteres.'
 				}
 			]
 		},
@@ -117,7 +123,7 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'email',
-					prompt : 'Insira um email válido.'
+					prompt : 'Insira um {name} válido.'
 				}
 			]
 		},
@@ -127,7 +133,7 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'empty',
-					prompt : 'Selecione um tipo.'
+					prompt : 'Selecione um {name}.'
 				}
 			]
 		}
@@ -141,7 +147,7 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'empty',
-					prompt : 'Campo nome é obrigatório.'
+					prompt : 'O campo {name} é obrigatório.'
 				}
 			]
 		},
@@ -151,7 +157,10 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'minLength[6]',
-					prompt : 'O tombo deve conter no mínimo 6 caracteres.'
+					prompt : 'O campo {name} deve conter no mínimo {ruleValue} caracteres.'
+				}, {
+					type : 'number',
+					prompt : 'O campo {name} deve possuir somente números.'
 				}
 			]
 		},
@@ -171,7 +180,7 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'empty',
-					prompt : 'Campo fornecedor é obrigatório.'
+					prompt : 'O campo {name} é obrigatório.'
 				}
 			]
 		},
@@ -181,7 +190,7 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'empty',
-					prompt : 'Campo modelo é obrigatório.'
+					prompt : 'O campo {name} é obrigatório.'
 				}
 			]
 		},
@@ -191,7 +200,7 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'empty',
-					prompt : 'Campo responsável é obrigatório.'
+					prompt : 'O campo {name} é obrigatório.'
 				}
 			]
 		},
@@ -201,7 +210,7 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'empty',
-					prompt : 'Campo tipo é obrigatório.'
+					prompt : 'Selecione um {name}.'
 				}
 			]
 		}
@@ -215,7 +224,7 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'empty',
-					prompt : 'Campo nome é obrigatório.'
+					prompt : 'O campo {name} é obrigatório.'
 				}
 			]
 		},
@@ -225,7 +234,7 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'empty',
-					prompt : 'Campo descrição é obrigatório.'
+					prompt : 'O campo {name} é obrigatório.'
 				}
 			]
 		}
@@ -238,7 +247,7 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'empty',
-					prompt : 'Preencha o username.'
+					prompt : 'Preencha o {name}.'
 				}
 			]
 		},
@@ -248,7 +257,7 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'empty',
-					prompt : 'Preencha o password.'
+					prompt : 'Preencha o {name}.'
 				}
 			]
 		}
@@ -262,10 +271,10 @@ $(document).ready(function(){
 			rules : [
 				{
 					type : 'empty',
-					prompt : 'Preencha a matricula.'
+					prompt : 'Por favor informe sua {name}.'
 				},{
 					type: 'number',
-					prompt : 'Preencha o campo matricula somente com números.'
+					prompt : 'O campo {name} deve possuir somente números.'
 				}
 			]
 		}
@@ -296,7 +305,7 @@ $(document).ready(function(){
 				rules : [
 					{
 						type : 'minLength[10]',
-						prompt : 'Insira uma data de início válida.'
+						prompt : 'Insira uma {name} válida.'
 					}
 				]
 			},
@@ -306,7 +315,7 @@ $(document).ready(function(){
 				rules : [
 					{
 						type : 'minLength[10]',
-						prompt : 'Insira uma data de fim válida.'
+						prompt : 'Insira uma {name} válida.'
 					}
 				]
 			}

@@ -1,12 +1,12 @@
 var host = $(location).attr('host');
-$(document).ready(function(){	
+$(document).ready(function(){		
 	var container = $('.container');
 	var listar_equipamentos = container.find('#listar-equipamentos');
 	var modal = $('.ui.modal');
-	var modalHeader = $('.ui.modal').find('.header');
-	var modalContent = $('.ui.modal').find('.content');
-	var mensagem = $('.ui.modal').find('.mensagem');
-	var modalActions = $('.ui.modal').find('.actions');
+	var modalHeader = modal.find('.header');
+	var modalContent = modal.find('.content');
+	var modalMensagem = modal.find('.mensagem');
+	var modalActions = modal.find('.actions');
 
 	listar_equipamentos.on('click', '.btnEditarEquipamento', function(){
 		event.preventDefault();
@@ -84,7 +84,7 @@ $(document).ready(function(){
 				conteudoModal += '</div>';
 
 				conteudoModal += '<div class="field">';
-				conteudoModal += '<label>Responsavel</label>';
+				conteudoModal += '<label>Responsável</label>';
 				conteudoModal += '<input type="text" id="responsavel" value="'+data['equipamento'].responsavel+'">';
 				conteudoModal += '</div>';
 
@@ -110,7 +110,7 @@ $(document).ready(function(){
 						rules : [
 							{
 								type : 'empty',
-								prompt : 'Campo nome é obrigatório.'
+								prompt : 'O campo {name} é obrigatório.'
 							}
 						]
 					},
@@ -120,7 +120,10 @@ $(document).ready(function(){
 						rules : [
 							{
 								type : 'minLength[6]',
-								prompt : 'O tombo deve conter no mínimo 6 caracteres.'
+								prompt : 'O campo {name} deve conter no mínimo {ruleValue} caracteres.'
+							}, {
+								type : 'number',
+								prompt : 'O campo {name} deve possuir somente números.'
 							}
 						]
 					},
@@ -140,7 +143,7 @@ $(document).ready(function(){
 						rules : [
 							{
 								type : 'empty',
-								prompt : 'Campo fornecedor é obrigatório.'
+								prompt : 'O campo {name} é obrigatório.'
 							}
 						]
 					},
@@ -150,7 +153,7 @@ $(document).ready(function(){
 						rules : [
 							{
 								type : 'empty',
-								prompt : 'Campo modelo é obrigatório.'
+								prompt : 'O campo {name} é obrigatório.'
 							}
 						]
 					},
@@ -160,7 +163,7 @@ $(document).ready(function(){
 						rules : [
 							{
 								type : 'empty',
-								prompt : 'Campo responsável é obrigatório.'
+								prompt : 'O campo {name} é obrigatório.'
 							}
 						]
 					},
@@ -170,10 +173,10 @@ $(document).ready(function(){
 						rules : [
 							{
 								type : 'empty',
-								prompt : 'Campo tipo é obrigatório.'
+								prompt : 'Selecione um {name}.'
 							}
 						]
-					},
+					}
 
 				}, {
 
@@ -217,7 +220,7 @@ $(document).ready(function(){
 									mensagem_sucesso += '</div>';
 									mensagem_sucesso += '</div>';
 
-									mensagem.html(mensagem_sucesso);
+									modalMensagem.html(mensagem_sucesso);
 									setTimeout(function(){
 										location.reload();									
 									},1000);
@@ -229,7 +232,7 @@ $(document).ready(function(){
 									mensagem_erro += '</div>';
 									mensagem_erro += '</div>';
 
-									mensagem.html(mensagem_erro);
+									modalMensagem.html(mensagem_erro);
 								}
 							}
 
@@ -244,7 +247,6 @@ $(document).ready(function(){
 		});
 
 	});
-
 
 	listar_equipamentos.on('click', '.btnAlertarEquipamento', function(event){
 		event.preventDefault();
@@ -294,7 +296,7 @@ $(document).ready(function(){
 						rules : [
 							{
 								type : 'empty',
-								prompt : 'Campo descrição é obrigatório.'
+								prompt : 'O campo {name} é obrigatório.'
 							}
 						]
 					}
@@ -329,7 +331,7 @@ $(document).ready(function(){
 									mensagem_sucesso += '</div>';
 									mensagem_sucesso += '</div>';
 
-									mensagem.html(mensagem_sucesso);
+									modalMensagem.html(mensagem_sucesso);
 									alteraStatusEquipamento(equipamento, 'Alerta');
 									setTimeout(function(){
 										location.reload();									
@@ -342,7 +344,7 @@ $(document).ready(function(){
 									mensagem_erro += '</div>';
 									mensagem_erro += '</div>';
 
-									mensagem.html(mensagem_erro);
+									modalMensagem.html(mensagem_erro);
 								}
 							},
 
@@ -501,7 +503,7 @@ $(document).ready(function(){
 						rules : [
 							{
 								type : 'empty',
-								prompt : 'Campo nome é obrigatório.'
+								prompt : 'O campo {name} é obrigatório.'
 							}
 						]
 					},
@@ -511,7 +513,10 @@ $(document).ready(function(){
 						rules : [
 							{
 								type : 'minLength[6]',
-								prompt : 'O tombo deve conter no mínimo 6 caracteres.'
+								prompt : 'O campo {name} deve conter no mínimo {ruleValue} caracteres.'
+							}, {
+								type : 'number',
+								prompt : 'O campo {name} deve possuir somente números.'
 							}
 						]
 					},
@@ -531,7 +536,7 @@ $(document).ready(function(){
 						rules : [
 							{
 								type : 'empty',
-								prompt : 'Campo fornecedor é obrigatório.'
+								prompt : 'O campo {name} é obrigatório.'
 							}
 						]
 					},
@@ -541,7 +546,7 @@ $(document).ready(function(){
 						rules : [
 							{
 								type : 'empty',
-								prompt : 'Campo modelo é obrigatório.'
+								prompt : 'O campo {name} é obrigatório.'
 							}
 						]
 					},
@@ -551,7 +556,7 @@ $(document).ready(function(){
 						rules : [
 							{
 								type : 'empty',
-								prompt : 'Campo responsável é obrigatório.'
+								prompt : 'O campo {name} é obrigatório.'
 							}
 						]
 					},
@@ -561,10 +566,10 @@ $(document).ready(function(){
 						rules : [
 							{
 								type : 'empty',
-								prompt : 'Campo tipo é obrigatório.'
+								prompt : 'Selecione um {name}.'
 							}
 						]
-					},
+					}
 
 
 				}, {
@@ -606,7 +611,7 @@ $(document).ready(function(){
 									mensagem_sucesso += '</div>';
 									mensagem_sucesso += '</div>';
 
-									mensagem.html(mensagem_sucesso);
+									modalMensagem.html(mensagem_sucesso);
 									
 									setTimeout(function(){
 										location.reload();									
@@ -624,7 +629,7 @@ $(document).ready(function(){
 									mensagem_erro += '</ul>';
 									mensagem_erro += '</div>';
 
-									mensagem.html(mensagem_erro);
+									modalMensagem.html(mensagem_erro);
 
 								}
 							}
@@ -661,7 +666,7 @@ $(document).ready(function(){
 				// Salva o equipamento
 				equipamento = data;
 
-				mensagem.html('');
+				modalMensagem.html('');
 				modalHeader.html('');
 				modalContent.html('');
 				modalActions.html('');
@@ -752,7 +757,7 @@ $(document).ready(function(){
 							rules : [
 								{
 									type : 'empty',
-									prompt : 'Campo descrição é obrigatório.'
+									prompt : 'O campo {name} é obrigatório.'
 								}
 							]
 						}
@@ -850,7 +855,7 @@ $(document).ready(function(){
 							rules : [
 								{
 									type : 'empty',
-									prompt : 'Campo descrição é obrigatório.'
+									prompt : 'O campo {name} é obrigatório.'
 								}
 							]
 						}

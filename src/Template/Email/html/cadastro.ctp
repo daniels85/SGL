@@ -15,6 +15,6 @@
 	<t style="font-size: 14pt; font-family:courier;">Senha:</t> <t style="font-size: 13pt; font-family:courier;"><?php echo $password; ?></t>
 	<br>
 	<br>
-	<t style="font-size: 8pt; font-family:courier;">Por favor não responda essa mensagem. Esse é um e-mail automático.</t>
+	<t style="font-size: 8pt; font-family:courier;">Por favor não responda essa mensagem. Este é um e-mail automático.</t>
 	
 </div>

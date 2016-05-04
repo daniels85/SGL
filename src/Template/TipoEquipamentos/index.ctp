@@ -1,5 +1,6 @@
 <?php 
 	use App\Controller\UsersController;
+	
 ?>
 <div class="sixten centered wide column row">
 	<h4 class="ui horizontal divider header">
@@ -20,9 +21,9 @@
 				<tr>
 					<td><?= ($tipo->nome) ?></td>
 					<td><?= ($tipo->descricao) ?></td>
-					<td class="left aligned">
+					<td class="left aligned" data-id="<?php echo $tipo->id; ?>">
 						<a class="ui button orange mini labeled icon" href="/tipoEquipamentos/edit/<?php echo $tipo->id; ?>"><i class="edit icon"></i>Modificar</a>
-						<a class="ui button red mini labeled icon" href="/tipoEquipamentos/delete/<?php echo $tipo->id; ?>"><i class="remove icon"></i>Deletar</a>
+						<a class="ui button red mini labeled icon btnApagarTipoEquipamento"><i class="remove icon"></i>Deletar</a>
 					</td>
 				</tr>
 			<?php endforeach; ?>
@@ -46,7 +47,11 @@
 
 <?php if(!is_null($this->request->session()->read('Auth.User.username')) && !strcmp($this->request->session()->read('Auth.User.role'), 'Administrador') ): ?>
 <div class="sixten wide column row">
-	<a class="ui button teal labeled icon" href="/tipoEquipamentos/add"><i class="add icon"></i>Adicionar tipo</a>
+	<a class="ui button teal labeled icon" href="/tipoEquipamentos/add"><i class="add icon"></i>Adicionar Tipo de Equipamento</a>
 </div>
-<?php endif; ?>
+<?php 
+	endif; 
 
+
+
+?>

@@ -51,7 +51,7 @@ class AppController extends Controller
                 'controller' => 'Users', 
                 'action' => 'login'
             ],
-            'authError' => 'Você não está autorizado a acessar essa página.',
+            'authError' => 'Ops! Me parece que você não tem permissão para acessar essa página.',
             'unauthorizedRedirect' => $this->referer()
         ]);
         $this->Auth->allow(['recuperarSenha']);

@@ -8,11 +8,11 @@ $(document).ready(function(){
 	var modalContent = modal.find('.content');
 	var modalActions = modal.find('.actions');
 
-	$('.apagarLocal').on('click', function(event){
+	$('.btnApagarTipoEquipamento').on('click', function(event){
 
 		event.preventDefault();
 
-		codigoLocal = $(this).closest('div').attr('data-codigo');
+		idTipo = $(this).closest('td').attr('data-id');
 
 		modalHeader.html('');
 		modalContent.html('');
@@ -20,7 +20,7 @@ $(document).ready(function(){
 
 		conteudoModal  = '<h2 class="ui center aligned icon header">';
 		conteudoModal += '<i class="delete icon"></i>';
-		conteudoModal += 'Realmente deseja apagar este Local?';
+		conteudoModal += 'Realmente deseja apagar este Tipo de Equipamento?';
 		conteudoModal += '</h2>';
 		conteudoModal += '<h3 class="ui horizontal divider header"></h3>';	
 
@@ -44,7 +44,7 @@ $(document).ready(function(){
 					onApprove : function() {
 						$.ajax({
 
-							url : 'http://'+host+'/locals/delete/'+codigoLocal,
+							url : 'http://'+host+'/tipo-equipamentos/delete/'+idTipo,
 							type : 'POST',
 
 							beforeSend : function(request){
@@ -68,7 +68,7 @@ $(document).ready(function(){
 								conteudoModal += '<div class="content">';
 								conteudoModal += 'Ops! Ocorreu um erro ao tentar apagar.';
 								conteudoModal += '<div class="sub header">';
-								conteudoModal += 'Certifique-se que não há nenhum equipamento associado a este Local.';
+								conteudoModal += 'Certifique-se que não há nenhum equipamento associado a este tipo.';
 								conteudoModal += '</div>';
 								conteudoModal += '</div>';
 								conteudoModal += '</h2>';

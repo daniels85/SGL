@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
 /**
  * Alertas Model
  *
+ * @property \Cake\ORM\Association\HasMany $BolsistasAlertas
  */
 class AlertasTable extends Table
 {
@@ -55,11 +56,11 @@ class AlertasTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('dataAlerta');
-
-        $validator
             ->requirePresence('descricao', 'create')
             ->notEmpty('descricao');
+
+        $validator
+            ->allowEmpty('observacoes', 'create');
 
         $validator
             ->requirePresence('geradoPor', 'create')
@@ -73,7 +74,9 @@ class AlertasTable extends Table
             ->notEmpty('tomboEquipamento');
 
         $validator
-            ->allowEmpty('bolsistaResponsavel');
+            ->dateTime('dataAlerta')
+            ->requirePresence('dataAlerta', 'create')
+            ->notEmpty('dataAlerta');
 
         return $validator;
     }

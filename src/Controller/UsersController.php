@@ -136,6 +136,7 @@ class UsersController extends AppController {
             $this->request->data['password'] = $password;
 
             $user = $this->Users->patchEntity($user, $this->request->data);
+            
             $user->cadastradoPor = $this->request->session()->read('Auth.User.nome');
             $user->dataDeCadastro = date('Y-m-d H:i:s');
 
@@ -143,7 +144,7 @@ class UsersController extends AppController {
                 $this->Flash->success(__('Usuário cadastrado com sucesso.'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('Ocorreu um erro ao cadastrar o usuário.'));
+                $this->Flash->error(__('Ops! Ocorreu um erro ao cadastrar o usuário.'));
             }
         }
         $this->set(compact('user'));
@@ -183,7 +184,7 @@ class UsersController extends AppController {
                     $this->Flash->success(__('Um e-mail com sua nova senha foi enviado.'));
                     return $this->redirect(['action' => 'login']);
                 }else{
-                    $this->Flash->error(__('Ocorreu um erro, por favor tente novamente.'));
+                    $this->Flash->error(__('Ops! Ocorreu um erro ao tentar recuperar sua senha.'));
                 }
 
             }else{
@@ -386,7 +387,7 @@ class UsersController extends AppController {
                 $this->Flash->success(__('Usuário modificado com sucesso.'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('Ocorreu um erro ao modicar o usuário.'));
+                $this->Flash->error(__('Ops! Ocorreu um erro ao modifcar o usuário.'));
             }
         }
         $this->set(compact('user'));
@@ -401,7 +402,7 @@ class UsersController extends AppController {
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($matricula = null) {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['ajax']);
 
         $user = $this->Users
                         ->find()
@@ -409,9 +410,9 @@ class UsersController extends AppController {
                         ->first();
 
         if ($this->Users->delete($user)) {
-            $this->Flash->success(__('Usuário delatado com sucesso.'));
+            $this->Flash->success(__('Usuário deletado com sucesso.'));
         } else {
-            $this->Flash->error(__('Erro ao deletar usuário.'));
+            $this->Flash->error(__('Ops! Ocorreu um erro ao deletar o usuário.'));
         }
         return $this->redirect(['action' => 'index']);
     }

@@ -106,11 +106,11 @@ class LocalsController extends AppController {
                     UsersController::insereUserLocals( $local->codigo, $user );
                 }
 
-                $this->Flash->success(__('Local salvo com sucesso.'));
+                $this->Flash->success(__('Local cadastrado com sucesso.'));
                 return $this->redirect(['action' => 'index']);
 
             } else {
-                $this->Flash->error(__('Ocorreu erro ao cadastrar local.'));
+                $this->Flash->error(__('Ops! Ocorreu um erro ao cadastrar.'));
             }
         }
 
@@ -206,11 +206,11 @@ class LocalsController extends AppController {
                 //    }
                 //}
 
-                $this->Flash->success(__('Local salvo com sucesso.'));
+                $this->Flash->success(__('Local modificado com sucesso.'));
                 return $this->redirect(['action' => 'index']);
 
             } else {
-                $this->Flash->error(__('Ocorreu erro ao modificar o local.'));
+                $this->Flash->error(__('Ops! Ocorreu um erro ao modifcar o local.'));
             }
         }
 
@@ -241,7 +241,7 @@ class LocalsController extends AppController {
      */
     public function delete($codigo = null) {
 
-        $this->request->allowMethod(['post', 'delete', 'get']);
+        $this->request->allowMethod(['ajax']);
 
         //$local = $this->Locals->get($id);
 
@@ -254,7 +254,7 @@ class LocalsController extends AppController {
         if ($this->Locals->delete($local)) {
             $this->Flash->success(__('Local deletado com sucesso.'));
         } else {
-            $this->Flash->error(__('Ocorreu erro ao deletar local.'));
+            $this->Flash->error(__('Ops! Ocorreu um erro ao deletar o local.'));
         }
         return $this->redirect(['action' => 'index']);
     }
@@ -320,7 +320,7 @@ class LocalsController extends AppController {
                 return $this->redirect(['action' => 'index']);
 
             } else {
-                $this->Flash->error(__('Erro ao alterar bolsista. Tente novamente.'));
+                $this->Flash->error(__('Ops! Ocorreu um erro ao salvar.'));
             }
         }
 

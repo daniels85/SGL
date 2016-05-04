@@ -24,7 +24,13 @@ class AlertasTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.alertas'
+        'app.alertas',
+        'app.bolsistas_alertas',
+        'app.users',
+        'app.user_locals',
+        'app.locals',
+        'app.equipamentos',
+        'app.tipo_equipamentos'
     ];
 
     /**

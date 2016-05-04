@@ -60,7 +60,7 @@
 <div class="sixten wide column row centered"> 
 	<div class="three ui buttons">
 		<a href="/equipamentos/add" class="ui button teal labeled icon"><i class="add icon"></i>Cadastrar Equipamento</a>
-		<a href="/tipoEquipamentos" class="ui button teal labeled icon"><i class="unhide icon"></i>Ver tipos</a>
-		<a href="/tipoEquipamentos/add" class="ui button teal labeled icon"><i class="add icon"></i>Cadastrar tipo</a>
+		<a href="/tipoEquipamentos" class="ui button teal labeled icon"><i class="unhide icon"></i>Ver Tipos</a>
+		<a href="/tipoEquipamentos/add" class="ui button teal labeled icon"><i class="add icon"></i>Cadastrar Tipo</a>
 	</div>
 </div>

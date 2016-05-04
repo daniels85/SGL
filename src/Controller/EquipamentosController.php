@@ -93,7 +93,7 @@ class EquipamentosController extends AppController
                 $this->Flash->success(__('Equipamento cadastrado com sucesso.'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('Ocorreu um erro ao cadastrar o equipamento.'));
+                $this->Flash->error(__('Ops! Ocorreu um erro ao cadastrar o equipamento.'));
             }
         }
         
@@ -180,7 +180,7 @@ class EquipamentosController extends AppController
             if ($this->Equipamentos->save($equipamento)) {
                 $this->Flash->success(__('Equipamento modificado com sucesso.'));
             } else {
-                $this->Flash->error(__('Ocorreu um erro ao modificar o equipamento.'));
+                $this->Flash->error(__('Ops! Ocorreu um erro ao modificar o equipamento.'));
             }
             return $this->redirect(['action' => 'index']);
         }
@@ -210,7 +210,7 @@ class EquipamentosController extends AppController
         if ($this->Equipamentos->delete($equipamento)) {
             $this->Flash->success(__('Equipamento deletado com sucesso.'));
         } else {
-            $this->Flash->error(__('Ocorreu um erro ao deletar o equipamento.'));
+            $this->Flash->error(__('Ops! Ocorreu um erro ao deletar o equipamento.'));
         }
         return $this->redirect(['action' => 'index']);
     }
