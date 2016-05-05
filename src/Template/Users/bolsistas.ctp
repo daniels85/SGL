@@ -1,4 +1,4 @@
-<div class="sixten centered wide column row">
+<div class="sixteen centered wide column row">
 	<h4 class="ui horizontal divider header">
 		<i class="users icon"></i>
 		Bolsistas
@@ -55,6 +55,6 @@
 	</table>
 </div>
 
-<div class="sixten wide column row">
+<div class="sixteen wide column row">
 	<button class="ui button teal labeled icon btnCadastrarBolsista"><i class="add user icon"></i> Adicionar Bolsista</button>
 </div>

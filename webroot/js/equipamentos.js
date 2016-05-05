@@ -743,7 +743,7 @@ $(document).ready(function(){
 
 					conteudo += '</form>';					
 
-					modalHeader.html('Observaçôes');
+					modalHeader.html('Observações');
 					modalContent.html(conteudo);
 
 					modal.modal('show');
@@ -842,7 +842,7 @@ $(document).ready(function(){
 
 					conteudo += '</form>';					
 
-					modalHeader.html('Observaçôes');
+					modalHeader.html('Observações');
 					modalContent.html(conteudo);
 
 					modal.modal('show');

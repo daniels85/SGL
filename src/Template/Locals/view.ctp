@@ -5,7 +5,7 @@
 <div class="sixteen centered wide column row">
 		<h4 class="ui horizontal divider header">
 			<i class="building outline icon"></i>
-			Laboratório
+			Informações do Local
 		</h4>
 		<table class="ui teal stackable table">
 

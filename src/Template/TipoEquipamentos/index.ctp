@@ -2,7 +2,7 @@
 	use App\Controller\UsersController;
 	
 ?>
-<div class="sixten centered wide column row">
+<div class="sixteen centered wide column row">
 	<h4 class="ui horizontal divider header">
 		<i class="desktop icon"></i>
 		Tipo de tipoEquipamentos
@@ -46,7 +46,7 @@
 </div>
 
 <?php if(!is_null($this->request->session()->read('Auth.User.username')) && !strcmp($this->request->session()->read('Auth.User.role'), 'Administrador') ): ?>
-<div class="sixten wide column row">
+<div class="sixteen wide column row">
 	<a class="ui button teal labeled icon" href="/tipoEquipamentos/add"><i class="add icon"></i>Adicionar Tipo de Equipamento</a>
 </div>
 <?php 

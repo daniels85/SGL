@@ -1,7 +1,7 @@
 <?php 
 use Cake\Mailer\Email;
  ?>
-<div class="sixten centered wide column row">
+<div class="sixteen centered wide column row">
 	<h4 class="ui horizontal divider header">
 		<i class="users icon"></i>
 		Usuários
@@ -58,6 +58,6 @@ use Cake\Mailer\Email;
 	</table>
 </div>
 
-<div class="sixten wide column row">
+<div class="sixteen wide column row">
 	<a class="ui button teal labeled icon" href="/users/add"><i class="add user icon"></i> Adicionar Usuário</a>
 </div>

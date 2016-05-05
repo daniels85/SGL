@@ -1,4 +1,4 @@
-<div class="sixten centered wide column row">
+<div class="sixteen centered wide column row">
 	<h4 class="ui horizontal divider header">
 		<i class="desktop icon"></i>
 		Equipamentos
@@ -57,7 +57,7 @@
 		</table>
 	</div>
 </div>
-<div class="sixten wide column row centered"> 
+<div class="sixteen wide column row centered"> 
 	<div class="three ui buttons">
 		<a href="/equipamentos/add" class="ui button teal labeled icon"><i class="add icon"></i>Cadastrar Equipamento</a>
 		<a href="/tipoEquipamentos" class="ui button teal labeled icon"><i class="unhide icon"></i>Ver Tipos</a>

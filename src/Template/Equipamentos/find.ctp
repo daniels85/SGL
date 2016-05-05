@@ -1,8 +1,8 @@
 <div class="sixteen centered wide column row">
-	<h4 class="ui horizontal divider header">
+	<h3 class="ui horizontal divider header">
 		<i class="desktop icon"></i>
 		Equipamento
-	</h4>
+	</h3>
 	<table class="ui teal selectable stackable table">
 
 		<tr>
@@ -37,16 +37,16 @@
 			<td>Responsável</td>
 			<td><?php echo $equipamento->responsavel; ?></td>
 		</tr>
-
+	
 	</table>
 </div>
 
 <?php if(!is_null($alerta)): ?>
 <div class="sixteen centered wide column row">
-	<h4 class="ui horizontal divider header">
+	<h3 class="ui horizontal divider header">
 		<i class="warning sign icon"></i>
 		Último Alerta
-	</h4>
+	</h3>
 	<table class="ui table yellow selectable stackable center aligned">
 		
 		<thead>
@@ -61,16 +61,14 @@
 			
 		<tbody>
 			
-			<tr class="<?php (!strcmp($alerta->statusAlerta, 'Resolvido')) ? print 'positive' : print 'negative'; ?>">
+			<tr class="<?php (strcmp($alerta->statusAlerta, 'Pendente')) ? print 'positive' : print 'negative'; ?>">
 				<td><?php echo $alerta->geradoPor; ?></td>
 				<td><?php echo $alerta->tomboEquipamento; ?></td>
 				<td><?php echo $alerta->statusAlerta; ?></td>
 				<td><?php echo date('d/m/Y g:i A', strtotime($alerta->dataAlerta)); ?></td>
 				<td data-id="<?php echo $alerta->id; ?>">
 					<button class="ui teal button mini labeled icon btnVerAlerta"><i class="unhide icon"></i>Ler</button>
-					<button class="ui red button mini labeled icon btnApagarAlerta <?php if($alerta->statusAlerta === 'Pedente') print 'disabled'; ?>"><i class="delete icon"></i>Apagar</button>
 				</td>
-
 			</tr>
 			
 		</tbody>

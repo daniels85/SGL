@@ -62,7 +62,7 @@ class LocalsController extends AppController {
 
 
         if(is_null($local)){
-            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Parece que alguém está perdido.", 1);            
+            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Parece que alguém está perdido.", 401);            
         }
         
 

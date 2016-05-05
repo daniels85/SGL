@@ -1,10 +1,10 @@
 <?php 
 	use App\Controller\UsersController;
 ?>
-<div class="sixten centered wide column row">
+<div class="sixteen centered wide column row">
 	<h4 class="ui horizontal divider header">
 		<i class="building outline icon"></i>
-		Laboratórios
+		Locais
 	</h4>
 	<table class="ui teal stackable table center aligned">		
 		<thead>
@@ -83,7 +83,7 @@
 </div>
 
 <?php if(!is_null($this->request->session()->read('Auth.User.username')) && !strcmp($this->request->session()->read('Auth.User.role'), 'Administrador') ): ?>
-<div class="sixten wide column row">
+<div class="sixteen wide column row">
 	<a class="ui button teal labeled icon" href="/Locals/add"><i class="add icon"></i>Adicionar Local</a>
 </div>
 <?php endif; ?>
