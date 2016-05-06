@@ -12,6 +12,13 @@ use Cake\Event\Event;
 class AlertasController extends AppController
 {
 
+    public $paginate = [
+        'limit' => 10,
+        'order' => [
+            'Alertas.dataAlerta' => 'desc'
+        ]
+    ];
+
     /**
      * Index method
      *
@@ -21,7 +28,7 @@ class AlertasController extends AppController
     {
         $alertas = $this->paginate($this->Alertas);
 
-        $this->set(compact('alertas'));
+        $this->set('alertas', $alertas);
         $this->set('_serialize', ['alertas']);
     }
 
@@ -68,7 +75,10 @@ class AlertasController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
     public function add()
-    {
+    {   
+
+        $this->request->allowMethod(['ajax']);
+
         $alerta = $this->Alertas->newEntity();        
 
         $codLocal = $this->request->data['codLocal'];
@@ -112,7 +122,10 @@ class AlertasController extends AppController
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
-    {
+    {   
+
+        $this->request->allowMethod(['ajax']);
+
         $alerta = $this->Alertas->get($id, [
             'contain' => []
         ]);

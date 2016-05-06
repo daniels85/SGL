@@ -62,7 +62,7 @@ class LocalsController extends AppController {
 
 
         if(is_null($local)){
-            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Parece que alguém está perdido.", 401);            
+            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Algo de errado aconteceu.", 1);            
         }
         
 
@@ -161,7 +161,7 @@ class LocalsController extends AppController {
                             ->first();
 
         if(is_null($local)){
-            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Parece que alguém está perdido.", 1); 
+            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Algo de errado aconteceu.", 1); 
         }
 
         /** Coordenadores e Bolsistas **/
@@ -260,7 +260,7 @@ class LocalsController extends AppController {
                             ->first();
 
         if(is_null($local)){
-            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Parece que alguém está perdido.", 1);
+            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Algo de errado aconteceu.", 1);
         }
 
         if ($this->Locals->delete($local)) {
@@ -290,7 +290,7 @@ class LocalsController extends AppController {
                             ->first();
 
         if(is_null($local)){
-            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Parece que alguém está perdido.", 1);
+            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Algo de errado aconteceu.", 1);
         }
 
         $userAuth = $this->request->session()->read('Auth.User');

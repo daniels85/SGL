@@ -520,50 +520,50 @@
 	"buffers":
 	[
 		{
-			"file": "logs/error.log",
+			"file": "src/Template/Layout/default.ctp",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 9639,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Model/Table/AlertasTable.php",
+			"file": "src/Template/Error/error500.ctp",
 			"settings":
 			{
-				"buffer_size": 1944,
+				"buffer_size": 1105,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Controller/AlertasController.php",
+			"file": "src/Template/Error/error500Default.ctp",
 			"settings":
 			{
-				"buffer_size": 4873,
+				"buffer_size": 1105,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Controller/AppController.php",
+			"file": "src/Template/Layout/error.ctp",
 			"settings":
 			{
-				"buffer_size": 2766,
+				"buffer_size": 1030,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Template/Alertas/add.ctp",
+			"file": "/var/www/teste/src/Template/Layout/error.ctp",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 1682,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Controller/EquipamentosController.php",
+			"file": "vendor/cakephp/cakephp/src/Template/Layout/error404.ctp",
 			"settings":
 			{
-				"buffer_size": 11686,
+				"buffer_size": 1237,
 				"line_ending": "Unix"
 			}
 		}
@@ -602,20 +602,36 @@
 	"expanded_folders":
 	[
 		"/var/www/sgl",
+		"/var/www/sgl/config",
 		"/var/www/sgl/logs",
 		"/var/www/sgl/src",
 		"/var/www/sgl/src/Controller",
 		"/var/www/sgl/src/Template",
-		"/var/www/sgl/src/Template/Alertas"
+		"/var/www/sgl/src/Template/Error",
+		"/var/www/sgl/src/Template/Layout",
+		"/var/www/sgl/vendor",
+		"/var/www/sgl/vendor/cakephp",
+		"/var/www/sgl/vendor/cakephp/cakephp",
+		"/var/www/sgl/vendor/cakephp/cakephp/src",
+		"/var/www/sgl/vendor/cakephp/cakephp/src/Template",
+		"/var/www/sgl/vendor/cakephp/cakephp/src/Template/Error",
+		"/var/www/sgl/vendor/cakephp/cakephp/src/Template/Layout"
 	],
 	"file_history":
 	[
+		"/var/www/sgl/logs/error.log",
+		"/var/www/sgl/src/Template/Error/missing_action.ctp",
+		"/var/www/sgl/config/app.php",
+		"/var/www/sgl/src/Model/Table/AlertasTable.php",
+		"/var/www/sgl/src/Controller/AlertasController.php",
+		"/var/www/sgl/src/Controller/AppController.php",
+		"/var/www/sgl/src/Template/Alertas/add.ctp",
+		"/var/www/sgl/src/Controller/EquipamentosController.php",
 		"/var/www/sgl/src/Controller/LocalsController.php",
 		"/var/www/sgl/src/Controller/UsersController.php",
 		"/var/www/sgl/src/Controller/TipoEquipamentosController.php",
 		"/var/www/sgl/webroot/js/equipamentos.js",
 		"/var/www/sgl/src/Model/Table/UsersTable.php",
-		"/var/www/sgl/src/Template/Alertas/add.ctp",
 		"/var/www/sgl/src/Model/Entity/User.php",
 		"/var/www/sgl/logs/debug.log",
 		"/var/www/sgl/webroot/js/formularios.js",
@@ -623,7 +639,6 @@
 		"/var/www/sgl/src/Template/Locals/index.ctp",
 		"/var/www/sgl/webroot/js/locals.js",
 		"/var/www/sgl/webroot/js/tipoEquipamentos.js",
-		"/var/www/sgl/src/Model/Table/AlertasTable.php",
 		"/var/www/sgl/src/Template/Equipamentos/index.ctp",
 		"/var/www/sgl/src/Template/Error/pdo_error.ctp",
 		"/var/www/sgl/src/Template/TipoEquipamentos/index.ctp",
@@ -731,13 +746,7 @@
 		"/home/ivanov/Documentos/sgl/config/Migrations/20160412005851_create_foreings_bolsistas_alertas.php",
 		"/home/ivanov/Documentos/sgl/config/Migrations/20160411234828_alter_users.php",
 		"/home/ivanov/Documentos/sgl/config/Migrations/20160412000706_alter_alertas.php",
-		"/home/ivanov/Documentos/sgl/config/Migrations/20160412000525_alter_equipamentos2.php",
-		"/home/ivanov/Documentos/sgl/config/Migrations/20160412000005_alter_equipamentos.php",
-		"/home/ivanov/Downloads/SGL-autentica-o/src/Template/Layout/default.ctp",
-		"/home/ivanov/Downloads/SGL-autentica-o/src/Controller/AppController.php",
-		"/home/ivanov/Downloads/SGL-autentica-o/src/Controller/UsersController.php",
-		"/home/ivanov/Documentos/sgl/src/Controller/OcorrenciasController.php",
-		"/home/ivanov/Documentos/sgl/webroot/js/alertas.js"
+		"/home/ivanov/Documentos/sgl/config/Migrations/20160412000525_alter_equipamentos2.php"
 	],
 	"find":
 	{
@@ -832,52 +841,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "logs/error.log",
+					"file": "src/Template/Layout/default.ctp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 9639,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/Model/Table/AlertasTable.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1944,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1436,
-								1436
+								9202,
+								9202
 							]
 						],
 						"settings":
@@ -887,27 +868,55 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 585.0,
+						"translation.y": 2340.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "src/Controller/AlertasController.php",
+					"buffer": 1,
+					"file": "src/Template/Error/error500.ctp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4873,
+						"buffer_size": 1105,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2526,
-								2526
+								83,
+								83
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/Template/Error/error500Default.ctp",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1105,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1105,
+								1105
 							]
 						],
 						"settings":
@@ -917,7 +926,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 702.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -925,19 +934,49 @@
 				},
 				{
 					"buffer": 3,
-					"file": "src/Controller/AppController.php",
+					"file": "src/Template/Layout/error.ctp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2766,
+						"buffer_size": 1030,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1635,
-								1635
+								1009,
+								1009
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 39.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/var/www/teste/src/Template/Layout/error.ctp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1682,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								1682
 							]
 						],
 						"settings":
@@ -950,62 +989,33 @@
 						"translation.y": 234.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/Template/Alertas/add.ctp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 5,
-					"file": "src/Controller/EquipamentosController.php",
+					"file": "vendor/cakephp/cakephp/src/Template/Layout/error404.ctp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11686,
+						"buffer_size": 1237,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8297,
-								8297
+								269,
+								269
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3744.0,
+						"translation.y": 195.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,

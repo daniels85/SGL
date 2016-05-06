@@ -99,7 +99,7 @@ class UsersController extends AppController {
                         ->first();
 
         if(is_null($user)){
-            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Parece que alguém está perdido.", 1);
+            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Algo de errado aconteceu.", 1);
         }
 
         $alertas = $this->Users->Alertas
@@ -365,7 +365,7 @@ class UsersController extends AppController {
                         ->first();
 
         if(is_null($user)){
-            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Parece que alguém está perdido.", 1);
+            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Algo de errado aconteceu.", 1);
         }
 
         if(strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')){
@@ -401,7 +401,7 @@ class UsersController extends AppController {
                         ->first();
 
         if(is_null($user)){
-            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Parece que alguém está perdido.", 1);
+            throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Algo de errado aconteceu.", 1);
         }
         
         if ($this->Users->delete($user)) {

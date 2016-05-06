@@ -1,0 +1,76 @@
+body{
+	background-color: #DDDDDD;
+}
+.editor-box {
+	padding: 0;
+	border-radius: 8px 8px 0px 0px;
+	border-left: 2px solid #BBBBBB;
+	border-right: 2px solid #BBBBBB;
+	border-bottom: 2px solid #BBBBBB;
+	box-shadow: 0 0 10px 1px black;
+	width: 100%;
+}
+.editor-box > .barra {
+	background-color: #BBBBBB;
+	box-sizing: border-box;
+	border-radius: 8px 8px 0 0;
+	margin: 0 auto;
+	height: 30px;
+	width: 100%;
+}
+.editor-box > .barra > .titulo {
+	text-align: center;
+	color: #000000;
+	text-shadow: 0 0 1px #AAAAAA;
+	padding: 5px;
+	font-size: 12pt;
+	font-family: arial;
+}
+.editor-box > .barra > .btn {
+	float: right;
+	position: relative;
+	top: -24px;
+	right: 2px;
+}
+
+.editor-box > .conteudo {
+	background-color: #000000;
+	box-sizing: border-box;
+	border-radius: 0 0 0px 0px;
+	height: 150px;
+	padding: 1px;
+	width: 100%;
+	opacity:0.70;
+	-webkit-opacity:0.70;
+	-moz-opacity: 0.70;
+	filter: alpha(opacity=70);
+}
+.editor-box > .conteudo > .texto {
+	color: white;
+	text-align: left;
+	font-size: 10pt;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.typed-cursor{
+	color: white;
+    opacity: 1;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+}
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
