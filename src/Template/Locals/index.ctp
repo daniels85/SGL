@@ -84,6 +84,6 @@
 
 <?php if(!is_null($this->request->session()->read('Auth.User.username')) && !strcmp($this->request->session()->read('Auth.User.role'), 'Administrador') ): ?>
 <div class="sixteen wide column row">
-	<a class="ui button teal labeled icon" href="/Locals/add"><i class="add icon"></i>Adicionar Local</a>
+	<a class="ui button teal labeled icon" href="/Locals/add"><i class="add icon"></i>Cadastrar Local</a>
 </div>
 <?php endif; ?>
