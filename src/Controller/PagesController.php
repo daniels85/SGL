@@ -62,4 +62,9 @@ class PagesController extends AppController
             throw new NotFoundException();
         }
     }
+
+    public function isAuthorized($user){
+        parent::isAuthorized($user);
+        return true;
+    }
 }

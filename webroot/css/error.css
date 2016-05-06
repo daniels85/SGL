@@ -1,5 +1,7 @@
 body{
-	background-color: #DDDDDD;
+	/*background-color: #DDDDDD;*/
+	background: linear-gradient(0deg, rgba(80, 80, 80, 1), rgba(180, 180, 180, 0.5));
+	
 }
 .editor-box {
 	padding: 0;
@@ -40,10 +42,10 @@ body{
 	height: 150px;
 	padding: 1px;
 	width: 100%;
-	opacity:0.70;
-	-webkit-opacity:0.70;
-	-moz-opacity: 0.70;
-	filter: alpha(opacity=70);
+	opacity:0.50;
+	-webkit-opacity:0.50;
+	-moz-opacity: 0.50;
+	filter: alpha(opacity=50);
 }
 .editor-box > .conteudo > .texto {
 	color: white;
