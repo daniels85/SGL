@@ -56,5 +56,5 @@
 </div>
 
 <div class="sixteen wide column row">
-	<button class="ui button teal labeled icon btnCadastrarBolsista"><i class="add user icon"></i> Adicionar Bolsista</button>
+	<button class="ui button teal labeled icon btnCadastrarBolsista"><i class="add user icon"></i>Cadastrar Bolsista</button>
 </div>

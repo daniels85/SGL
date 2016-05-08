@@ -4,7 +4,7 @@
 	<div class="column centered">
 		<div class="ui teal segment">
 			<h4 class="ui horizontal divider header">
-				Modificar local
+				Modificar Ambiente
 			</h4>
 
 			<?php $this->Flash->render('auth'); ?>

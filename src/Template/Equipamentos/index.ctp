@@ -4,46 +4,40 @@
 		Equipamentos
 	</h4>
 	<div id="listar-equipamentos">
-		<table class="ui teal stackable table">		
+		<table class="ui teal stackable definition table">		
 			<thead class="center aligned">
 				<tr>
-					<th class="two wide"><?php echo $this->Paginator->sort('nome', null, ['direction' => 'desc']); ?></th>
-					<th class="three wide"><?php echo $this->Paginator->sort('tombo', null, ['direction' => 'desc']); ?></th>
-					<th class="two wide"><?php echo $this->Paginator->sort('status', null, ['direction' => 'desc']); ?></th>
-					<th class="three wide"><?php echo $this->Paginator->sort('tipo', null, ['direction' => 'desc']); ?></th>
-					<th class="three wide"><?php echo $this->Paginator->sort('codLocal', 'Local', ['direction' => 'desc']); ?></th>
-					<th class="three wide"></th>
+					<th class=""></th>
+					<th class=""><?php echo $this->Paginator->sort('nome', null, ['direction' => 'desc']); ?></th>					
+					<th class=""><?php echo $this->Paginator->sort('status', null, ['direction' => 'desc']); ?></th>
+					<th class=""><?php echo $this->Paginator->sort('tombo', null, ['direction' => 'desc']); ?></th>
+					<th class=""><?php echo $this->Paginator->sort('tipo', null, ['direction' => 'desc']); ?></th>
+					<th class=""><?php echo $this->Paginator->sort('codLocal', 'Local', ['direction' => 'desc']); ?></th>
+					<th class=""></th>
 				</tr>
 			</thead>
-				
 			<tbody class="center aligned">
 				<?php foreach($equipamentos as $equipamento): 
-					if(!strcmp($equipamento->status, "Funcionando")){ echo '<tr class="positive" >'; }
-					if(!strcmp($equipamento->status, "Alerta")){ echo '<tr class="warning" >'; }
-					if(!strcmp($equipamento->status, "Defeito")){ echo '<tr class="negative" >'; }
+					if(!strcmp($equipamento->status, "Funcionando")){ echo '<tr class="positive" data-tombo="'.$equipamento->tombo.'" ><td><i class="checkmark green icon"></i></td>'; }
+					if(!strcmp($equipamento->status, "Alerta")){ echo '<tr class="warning" data-tombo="'.$equipamento->tombo.'" ><td><i class="warning orange sign icon"></i></td>'; }
+					if(!strcmp($equipamento->status, "Defeito")){ echo '<tr class="negative" data-tombo="'.$equipamento->tombo.'" ><td><i class="remove red icon"></i></td>'; }
 				?>
-						<td><?php echo $equipamento->nome; ?></td>
-						<td><?php echo $equipamento->tombo; ?></td>
+						<td><?php echo 'Computador '.$equipamento->nome; ?></td>
 						<td><?php echo $equipamento->status; ?></td>
+						<td><?php echo $equipamento->tombo; ?></td>
 						<td><?php echo $equipamento->tipo_equipamentos[0]->nome; ?></td>
 						<td><?php echo $equipamento->locals[0]->nome; ?></td>
-						<td >
-							<div class="ui floating dropdown icon button">
-								<i class="setting icon"></i>
-							    Opções
-							    <div class="menu" data-tombo="<?php echo $equipamento->tombo ?>">
-							      <a href="/equipamentos/view/<?php echo $equipamento->tombo ?>" class="item"><i class="unhide icon"></i>Ver</a>
-							      <a href="/equipamentos/edit/<?php echo $equipamento->tombo ?>" class="item" ><i class="edit icon"></i>Modificar</a>
-							      <a class="item apagarEquipamento"><i class="remove icon"></i>Excluir</a>
-							    </div>
-							</div>
+						<td>
+						      <a class="ui button tiny icon green" href="/equipamentos/view/<?php echo $equipamento->tombo ?>"><i class="unhide icon"></i></a>
+						      <a class="ui button tiny icon blue" href="/equipamentos/edit/<?php echo $equipamento->tombo ?>"><i class="edit icon"></i></a>
+						      <a class="ui button tiny icon red btnApagarEquipamento"><i class="remove icon"></i></a>
 						</td>
 					</tr>
 				<?php endforeach; ?>
 			</tbody>
-			<tfoot class="full-width">
+			<tfoot class="right aligned full-width">
 				<tr>
-					<th colspan="6" class="right aligned">
+					<th colspan="7">
 						<div class="ui pagination menu small">
 							<?php echo $this->Paginator->prev(); ?>
 

@@ -5,7 +5,7 @@
 <div class="sixteen centered wide column row">
 		<h4 class="ui horizontal divider header">
 			<i class="building outline icon"></i>
-			Informações do Local
+			Informações do Ambiente
 		</h4>
 		<table class="ui teal stackable table">
 
@@ -42,43 +42,39 @@
 
 	<div id="listar-equipamentos">
 
-		<table class="ui teal stackable table center aligned">
+		<table class="ui teal stackable table definition center aligned">
 			<thead>
 				<tr>
-					<th class="three wide"><?php echo $this->Paginator->sort('nome', null, ['direction' => 'desc']); ?></th>
-					<th class="four wide"><?php echo $this->Paginator->sort('tombo', null, ['direction' => 'desc']); ?></th>
-					<th class="three wide"><?php echo $this->Paginator->sort('status', null, ['direction' => 'desc']); ?></th>
-					<th class="three wide"><?php echo $this->Paginator->sort('tipo', null, ['direction' => 'desc']); ?></th>
-					<th class="three wide"></th>
+					<th></th>
+					<th><?php echo $this->Paginator->sort('nome', null, ['direction' => 'desc']); ?></th>					
+					<th><?php echo $this->Paginator->sort('status', null, ['direction' => 'desc']); ?></th>
+					<th><?php echo $this->Paginator->sort('tombo', null, ['direction' => 'desc']); ?></th>
+					<th><?php echo $this->Paginator->sort('tipo', null, ['direction' => 'desc']); ?></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php foreach($equipamentos as $equipamento): 
-					if(!strcmp($equipamento->status, "Funcionando")){ echo '<tr class="positive" data-tombo="'.$equipamento->tombo.'" >'; }
-					if(!strcmp($equipamento->status, "Alerta")){ echo '<tr class="warning" data-tombo="'.$equipamento->tombo.'" >'; }
-					if(!strcmp($equipamento->status, "Defeito")){ echo '<tr class="negative" data-tombo="'.$equipamento->tombo.'" >'; }
+					if(!strcmp($equipamento->status, "Funcionando")){ echo '<tr class="positive" data-tombo="'.$equipamento->tombo.'" ><td><i class="checkmark green icon"></i></td>'; }
+					if(!strcmp($equipamento->status, "Alerta")){ echo '<tr class="warning" data-tombo="'.$equipamento->tombo.'" ><td><i class="warning orange sign icon"></i></td>'; }
+					if(!strcmp($equipamento->status, "Defeito")){ echo '<tr class="negative" data-tombo="'.$equipamento->tombo.'" ><td><i class="remove red icon"></i></td>'; }
 				?>
-						<td><?php echo $equipamento->nome; ?></td>
-						<td><?php echo $equipamento->tombo; ?></td>
+						<td><?php echo 'Computador '.$equipamento->nome; ?></td>
 						<td><?php echo $equipamento->status; ?></td>
+						<td><?php echo $equipamento->tombo; ?></td>
 						<td><?php echo $equipamento->tipo_equipamentos[0]->nome; ?></td>
-						<td >
-							<div class="ui floating dropdown icon button <?php if(is_null($this->request->session()->read('Auth.User.id'))) echo 'disabled'; ?>">
-								<i class="setting icon"></i>
-							    Opções
-							    <div class="menu">
-							      <a class="item" href="/Equipamentos/view/<?php echo $equipamento->tombo; ?>"><i class="unhide icon"></i>Ver</a>
-							      <div class="item btnEditarEquipamento <?php if(!UsersController::isCoordenador($userAuth, $local->codigo) && !UsersController::isBolsista($userAuth, $local->codigo) && strcmp($userAuth['role'], 'Administrador')) echo 'disabled'; ?>"><i class="edit icon"></i>Editar</div>
-							      <div class="item btnAlertarEquipamento <?php if(!strcmp($equipamento->status, 'Alerta') || !strcmp($equipamento->status, 'Defeito')) echo 'disabled'; ?>"><i class="warning sing icon"></i>Alertar</div>
-							    </div>
-							</div>
+						<td>
+						      <a class="ui button icon green tiny" href="/Equipamentos/view/<?php echo $equipamento->tombo; ?>"><i class="unhide icon"></i></a>						      
+						      <button class="ui button icon tiny orange btnAlertarEquipamento <?php if(!strcmp($equipamento->status, 'Alerta') || !strcmp($equipamento->status, 'Defeito')) echo 'disabled'; ?>"><i class="warning sing icon"></i></button>
+						      <button class="ui button icon tiny blue btnEditarEquipamento <?php if(!UsersController::isCoordenador($userAuth, $local->codigo) && !UsersController::isBolsista($userAuth, $local->codigo) && strcmp($userAuth['role'], 'Administrador')) echo 'disabled'; ?>"><i class="edit icon"></i></button>
+						      <button class="ui button icon tiny red btnApagarEquipamento <?php if(!UsersController::isCoordenador($userAuth, $local->codigo) && !UsersController::isBolsista($userAuth, $local->codigo) && strcmp($userAuth['role'], 'Administrador')) echo 'disabled'; ?>"><i class="delete icon"></i></button>
 						</td>
 					</tr>
 				<?php endforeach; ?>
 			</tbody>
-			<tfoot class="right aligned">
+			<tfoot class="right aligned full-width">
 				<tr>
-					<th colspan="5">
+					<th colspan="6">
 
 						<div class="ui pagination menu">
 							<?php echo $this->Paginator->prev(); ?>

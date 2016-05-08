@@ -365,9 +365,9 @@ $(document).ready(function(){
 
 	});
 
-	listar_equipamentos.on('click', '.apagarEquipamento', function(event){
+	listar_equipamentos.on('click', '.btnApagarEquipamento', function(event){
 
-		var tomboEquipamento = $(this).closest('div').attr('data-tombo');
+		var tomboEquipamento = $(this).closest('tr').attr('data-tombo');
 
 		modalHeader.html('');
 		modalContent.html('');
@@ -411,7 +411,37 @@ $(document).ready(function(){
 								setTimeout(function(){
 									location.reload();									
 								},500);
-							}
+							},
+
+							error: function(XMLHttpRequest, textStatus, errorThrown){
+				  				
+				  				modalHeader.html('');
+								modalContent.html('');
+								modalActions.html('');
+
+								conteudoModal  = '<h2 class="ui center aligned header icon">';
+								conteudoModal += '<i class="warning sign icon"></i>';
+								conteudoModal += '<div class="content">';
+								conteudoModal += 'Ops! Ocorreu um erro ao tentar apagar.';
+								conteudoModal += '</div>';
+								conteudoModal += '</h2>';
+
+								actionModal  = '<button class="ui positive button tiny labeled icon">';
+								actionModal += '<i class="checkmark icon"></i>';
+								actionModal += 'Ok';
+								actionModal += '</button>';
+
+								modalContent.html(conteudoModal);
+								modalActions.html(actionModal);
+								modal.modal({
+											onApprove : function(){
+												modal.modal('hide');
+											}
+										})
+										.modal('show');
+
+
+				  			}
 
 						});
 

@@ -164,10 +164,11 @@
             
             <div class="ui stackable grid">                   
 
+            <div class="sixten centered wide column row">
                 <?php echo $this->Flash->render(); ?>
-
+            
                 <?php echo $this->Flash->render('auth'); ?>
-
+            </div>
                 <?php echo $this->fetch('content'); ?>
 
                 <div class="ui modal small">
@@ -188,10 +189,8 @@
         <div class="ui vertical inverted footer segment">
             <div class="ui center aligned container">                
                 <div class="ui horizontal inverted small divided link list">
-                    <a class="item" href="/sobre">Site Map</a>
-                    <a class="item" href="#">Contact Us</a>
-                    <a class="item" href="#">Terms and Conditions</a>
-                    <a class="item" href="#">Privacy Policy</a>
+                    <a class="item" href="/">Sistema de Gerenciamento de Laboratórios</a>
+                    <a class="item" href="https://ifce.edu.br/maracanau">IFCE - Instituto Federal de Educação, Ciência e Tecnologia do Ceará - Campus Maracanaú</a>
                 </div>
             </div>
         </div>

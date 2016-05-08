@@ -110,7 +110,10 @@ class EquipamentosController extends AppController
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function editar($tombo = null)
-    {
+    {   
+
+        $this->request->allowMethod(['ajax']);
+
         $equipamento = $this->Equipamentos
                                     ->find()
                                     ->where(['tombo' => $tombo])
@@ -310,7 +313,7 @@ class EquipamentosController extends AppController
         }
 
         if($this->request->action === 'delete'){
-            if(isset($user['role']) && $user['role'] === 'Administrador'){
+            if(isset($user['role']) && $user['role'] === 'Administrador' || $user['role'] === 'Bolsista' || $user['role'] === 'Professor'){
                 return true;
             }
             return false;

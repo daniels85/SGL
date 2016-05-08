@@ -2,7 +2,7 @@
 	<div class="column centered">
 		<div class="ui teal segment">
 			<h4 class="ui horizontal divider header">
-				Cadastrar local
+				Cadastrar Ambiente
 			</h4>
 			<?php $this->Flash->render('auth'); ?>
 			<div id="formAddLocal">
