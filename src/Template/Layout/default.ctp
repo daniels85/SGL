@@ -19,6 +19,7 @@
     
         <?php $this->Html->charset(); ?>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#028482">
         <meta name="_csrfToken" content="<?php echo $this->request->param('_csrfToken'); ?>" >
         <title>
             Sistema de Gerenciamento de Locais - <?php echo $this->fetch('title'); ?>
@@ -187,14 +188,13 @@
         </div>
 
         <div class="ui vertical inverted footer segment">
-            <div class="ui center aligned container">                
+            <div class="ui center aligned container">                      
                 <div class="ui horizontal inverted small divided link list">
                     <a class="item" href="/">Sistema de Gerenciamento de Laboratórios</a>
-                    <a class="item" href="https://ifce.edu.br/maracanau">IFCE - Instituto Federal de Educação, Ciência e Tecnologia do Ceará - Campus Maracanaú</a>
+                    <a class="item" href="https://ifce.edu.br/maracanau">Instituto Federal de Educação, Ciência e Tecnologia do Ceará - Campus Maracanaú</a>
                 </div>
             </div>
         </div>
-
     </body> 
 
 </html>

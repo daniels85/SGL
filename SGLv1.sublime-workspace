@@ -520,18 +520,26 @@
 	"buffers":
 	[
 		{
-			"file": "src/Template/Error/missing_view.ctp",
+			"file": "src/Template/Locals/view.ctp",
 			"settings":
 			{
-				"buffer_size": 669,
+				"buffer_size": 4140,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Controller/AlertasController.php",
+			"file": "src/Controller/LocalsController.php",
 			"settings":
 			{
-				"buffer_size": 5108,
+				"buffer_size": 14453,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Template/Equipamentos/index.ctp",
+			"settings":
+			{
+				"buffer_size": 2969,
 				"line_ending": "Unix"
 			}
 		},
@@ -539,71 +547,23 @@
 			"file": "src/Controller/EquipamentosController.php",
 			"settings":
 			{
-				"buffer_size": 11686,
+				"buffer_size": 11803,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Template/Alertas/index.ctp",
+			"file": "README.md",
 			"settings":
 			{
-				"buffer_size": 1713,
+				"buffer_size": 360,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Template/Locals/index.ctp",
+			"file": "webroot/js/equipamentos.js",
 			"settings":
 			{
-				"buffer_size": 3534,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Template/Locals/add.ctp",
-			"settings":
-			{
-				"buffer_size": 1660,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Template/Locals/edit.ctp",
-			"settings":
-			{
-				"buffer_size": 2881,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Template/Locals/view.ctp",
-			"settings":
-			{
-				"buffer_size": 3928,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Template/Error/missing_template.ctp",
-			"settings":
-			{
-				"buffer_size": 669,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Template/Alertas/add.ctp",
-			"settings":
-			{
-				"buffer_size": 0,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Template/Alertas/view.ctp",
-			"settings":
-			{
-				"buffer_size": 931,
+				"buffer_size": 27391,
 				"line_ending": "Unix"
 			}
 		}
@@ -642,21 +602,37 @@
 	"expanded_folders":
 	[
 		"/var/www/sgl",
+		"/var/www/sgl/logs",
 		"/var/www/sgl/src",
 		"/var/www/sgl/src/Controller",
 		"/var/www/sgl/src/Template",
-		"/var/www/sgl/src/Template/Alertas",
 		"/var/www/sgl/src/Template/Equipamentos",
-		"/var/www/sgl/src/Template/Error",
 		"/var/www/sgl/src/Template/Layout",
 		"/var/www/sgl/src/Template/Locals",
+		"/var/www/sgl/src/Template/Users",
 		"/var/www/sgl/webroot",
 		"/var/www/sgl/webroot/css",
 		"/var/www/sgl/webroot/js"
 	],
 	"file_history":
 	[
+		"/var/www/sgl/src/Template/Element/Flash/success.ctp",
+		"/var/www/sgl/src/Template/Element/Flash/error.ctp",
 		"/var/www/sgl/src/Template/Layout/default.ctp",
+		"/var/www/sgl/src/Template/Element/Flash/default.ctp",
+		"/var/www/sgl/src/Controller/AppController.php",
+		"/var/www/sgl/src/Template/Users/bolsistas.ctp",
+		"/var/www/sgl/src/Template/Locals/index.ctp",
+		"/var/www/sgl/src/Controller/EquipamentosController.php",
+		"/var/www/sgl/src/Template/Alertas/view.ctp",
+		"/var/www/sgl/src/Template/Alertas/add.ctp",
+		"/var/www/sgl/src/Template/Error/missing_template.ctp",
+		"/var/www/sgl/src/Template/Locals/view.ctp",
+		"/var/www/sgl/src/Template/Error/missing_view.ctp",
+		"/var/www/sgl/src/Controller/AlertasController.php",
+		"/var/www/sgl/src/Template/Alertas/index.ctp",
+		"/var/www/sgl/src/Template/Locals/add.ctp",
+		"/var/www/sgl/src/Template/Locals/edit.ctp",
 		"/var/www/sgl/src/Template/Error/error500.ctp",
 		"/var/www/sgl/src/Template/Error/error500Default.ctp",
 		"/var/www/sgl/src/Template/Error/missing_controller.ctp",
@@ -667,16 +643,12 @@
 		"/var/www/sgl/src/Template/Error/error400.ctp",
 		"/var/www/sgl/logs/error.log",
 		"/var/www/sgl/vendor/cakephp/cakephp/src/Template/Layout/error404.ctp",
-		"/var/www/sgl/src/Controller/EquipamentosController.php",
 		"/var/www/sgl/src/Controller/UsersController.php",
 		"/var/www/sgl/src/Controller/LocalsController.php",
 		"/var/www/sgl/src/Template/Layout/error.ctp",
 		"/var/www/teste/src/Template/Layout/error.ctp",
 		"/var/www/sgl/config/app.php",
 		"/var/www/sgl/src/Model/Table/AlertasTable.php",
-		"/var/www/sgl/src/Controller/AlertasController.php",
-		"/var/www/sgl/src/Controller/AppController.php",
-		"/var/www/sgl/src/Template/Alertas/add.ctp",
 		"/var/www/sgl/src/Controller/TipoEquipamentosController.php",
 		"/var/www/sgl/webroot/js/equipamentos.js",
 		"/var/www/sgl/src/Model/Table/UsersTable.php",
@@ -684,7 +656,6 @@
 		"/var/www/sgl/logs/debug.log",
 		"/var/www/sgl/webroot/js/formularios.js",
 		"/var/www/sgl/webroot/js/users.js",
-		"/var/www/sgl/src/Template/Locals/index.ctp",
 		"/var/www/sgl/webroot/js/locals.js",
 		"/var/www/sgl/webroot/js/tipoEquipamentos.js",
 		"/var/www/sgl/src/Template/Equipamentos/index.ctp",
@@ -692,7 +663,6 @@
 		"/var/www/sgl/src/Template/TipoEquipamentos/index.ctp",
 		"/var/www/sgl/webroot/js/script.js",
 		"/var/www/sgl/src/Template/Email/html/cadastro.ctp",
-		"/var/www/sgl/src/Template/Locals/view.ctp",
 		"/var/www/sgl/composer.json",
 		"/var/www/sgl/config/bootstrap.php",
 		"/home/ivanov/Documentos/sgl/src/Controller/EquipamentosController.php",
@@ -773,17 +743,7 @@
 		"/home/ivanov/Documentos/sgl/webroot/js/bolsistas.js",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/alterar_senha.ctp",
 		"/home/ivanov/Documentos/sgl/src/Template/Users/alterarSenha.ctp",
-		"/var/www/html/email.html",
-		"/var/www/html/layout.html",
-		"/home/ivanov/Documentos/sgl/src/Model/Table/UserLocalsTable.php",
-		"/home/ivanov/Documentos/sgl/webroot/css/sgl.css",
-		"/home/ivanov/Documentos/sgl/src/Model/Table/LocalsTable.php",
-		"/var/www/html/teste.html",
-		"/var/www/html/login.html",
-		"/home/ivanov/Documentos/sgl/webroot/semantic-ui/dist/semantic.min.css",
-		"/home/ivanov/Documentos/sgl/src/Template/Locals/edit2.ctp",
-		"/home/ivanov/Documentos/sgl/webroot/js/addlocal.js",
-		"/home/ivanov/Documentos/sgl/vendor/cakephp/cakephp/src/Form/Form.php"
+		"/var/www/html/email.html"
 	],
 	"find":
 	{
@@ -801,6 +761,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"            \n",
+			"asdasasdasdasdasdasdasdasdasdasdasdasdaaaaadasdasdasdasdasdasdasdasdasdaaaaa",
 			"equipamento",
 			"r",
 			"throw new \\Cake\\Datasource\\Exception\\RecordNotFoundException(\"Ops! Parece que alguém está perdido.\", 1);",
@@ -882,142 +844,24 @@
 	"groups":
 	[
 		{
-			"selected": 6,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/Template/Error/missing_view.ctp",
+					"file": "src/Template/Locals/view.ctp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 669,
+						"buffer_size": 4140,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								669,
-								669
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/Controller/AlertasController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5108,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								334,
-								334
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1677.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/Controller/EquipamentosController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 11686,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								331,
-								331
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "src/Template/Alertas/index.ctp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1713,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								119,
-								119
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/Template/Locals/index.ctp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3534,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3513,
-								3513
+								1222,
+								1222
 							]
 						],
 						"settings":
@@ -1029,24 +873,54 @@
 						"translation.y": 819.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "src/Template/Locals/add.ctp",
+					"buffer": 1,
+					"file": "src/Controller/LocalsController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1660,
+						"buffer_size": 14453,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								159,
-								159
+								13956,
+								13956
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4603.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/Template/Equipamentos/index.ctp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2969,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2267,
+								2267
 							]
 						],
 						"settings":
@@ -1055,33 +929,62 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 234.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "src/Template/Locals/edit.ctp",
+					"buffer": 3,
+					"file": "src/Controller/EquipamentosController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2881,
+						"buffer_size": 11803,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								207,
-								207
+								3928,
+								3928
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1170.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 360,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								360,
+								360
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1091,118 +994,32 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "src/Template/Locals/view.ctp",
+					"buffer": 5,
+					"file": "webroot/js/equipamentos.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3928,
+						"buffer_size": 27391,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								264,
-								264
+								12229,
+								12229
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.x": -0.0,
+						"translation.y": 429.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "src/Template/Error/missing_template.ctp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 669,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								669,
-								669
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "src/Template/Alertas/add.ctp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "src/Template/Alertas/view.ctp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 931,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								931,
-								931
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
 					"type": "text"
 				}
 			]
