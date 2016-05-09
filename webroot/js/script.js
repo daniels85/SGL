@@ -25,4 +25,22 @@ $(document).ready(function(){
 		$(this).closest('.message').transition('fade');
 	});
 
+	$('.ui.checkbox').checkbox();
+
 });
+
+function marcarTodos(){
+  $('.checkbox').each(
+         function(){
+           $(this).prop("checked", true);              
+         }
+
+    );
+}
+function desmarcarTodos(){
+  $('.checkbox').each(
+         function(){
+           $(this).prop("checked", false);               
+         }
+    );
+}

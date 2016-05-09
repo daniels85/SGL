@@ -60,11 +60,11 @@
                         <div class="right menu">
                             <?php if (!is_null($this->request->session()->read('Auth.User.username'))): ?>   
                             <div class="ui category search item">
-                                <div class="ui transparent icon input">
+                                <div class="ui left transparent icon input">
                                     <form method="POST" action="/equipamentos/find/" id="formBuscaEquipamento">
                                         <input type="hidden" name='_csrfToken' value="<?php echo $this->request->param('_csrfToken'); ?>"> 
                                         <input class="prompt" type="text" name='tombo' placeholder="Buscar por equipamento">
-                                        <i class="search link icon"></i>
+                                        <button class="ui basic button icon mini" type="submit"><i class="search link icon"></i></button>
                                     </form>
                                 </div>
                             </div>
@@ -141,7 +141,7 @@
                             <form method="POST" action="/equipamentos/find/" id="formBuscaEquipamento">
                                 <input type="hidden" name='_csrfToken' value="<?php echo $this->request->param('_csrfToken'); ?>"> 
                                 <input class="prompt" type="text" name='tombo' placeholder="Buscar por equipamento">
-                                <i class="search link icon"></i>
+                                <button class="ui basic button icon mini" type="submit"><i class="search link icon"></i></button>
                             </form>
                         </div>
                     </div>

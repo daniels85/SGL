@@ -95,7 +95,7 @@
 <div class="sixteen wide column row">
 
 	<button class="ui button teal labeled icon" id="addEquipamento" data-id="<?php echo $local->codigo; ?>"><i class="add icon"></i> Adicionar Equipamento</button>
-
+	<a class="ui button teal labeled icon" href="/Locals/moverEquipamentos/<?php echo $local->codigo; ?>"><i class="add icon"></i> Mover Equipamentos</a>
 </div>
 
 <?php endif; ?>

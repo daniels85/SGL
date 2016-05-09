@@ -87,7 +87,51 @@ class LocalsController extends AppController {
 
     }
 
-    
+    /**
+     * moverEquipamentos method
+     * 
+     * @param string|null $codigo Local codigo.
+     */
+    public function moverEquipamentos($codigo = null){
+        $local = $this->Locals
+                            ->find()
+                            ->where(['codigo' => $codigo])
+                            ->all()
+                            ->first();
+
+
+        $locals = $this->Locals
+                            ->find()
+                            ->select(['nome', 'codigo'])
+                            ->all()
+                            ->toArray();
+
+        /** Equipamentos **/
+        $equipamentos = $this->Locals->Equipamentos
+                                            ->find()
+                                            ->where(['codLocal' => $local->codigo])
+                                            ->contain(['TipoEquipamentos']);
+
+        $this->set('local', $local);
+        $this->set('locals', $locals);
+        $this->set('equipamentos', $equipamentos);
+
+        if($this->request->is('post')){
+
+
+            $equipamentos   = $this->request->data['equipamentos'];
+            $novoLocal      = $this->request->data['local']; 
+
+            
+            $this->Locals->Equipamentos
+                                    ->update()
+                                    ->set(['codLocal' => $novoLocal])
+                                    ->where(['tombo IN' => $equipamentos])
+                                    ->execute();
+            
+        }
+
+    }
 
     /**
      * Add method
