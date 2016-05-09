@@ -93,12 +93,12 @@ class LocalsController extends AppController {
      * @param string|null $codigo Local codigo.
      */
     public function moverEquipamentos($codigo = null){
+        
         $local = $this->Locals
                             ->find()
                             ->where(['codigo' => $codigo])
                             ->all()
                             ->first();
-
 
         $locals = $this->Locals
                             ->find()
@@ -123,11 +123,17 @@ class LocalsController extends AppController {
             $novoLocal      = $this->request->data['local']; 
 
             
-            $this->Locals->Equipamentos
+            $query = $this->Locals->Equipamentos
+                                    ->find()
                                     ->update()
                                     ->set(['codLocal' => $novoLocal])
-                                    ->where(['tombo IN' => $equipamentos])
-                                    ->execute();
+                                    ->where(['tombo IN' => $equipamentos]);
+
+            if($query->execute()){
+                $this->Flash->success(__('Equipamentos movidos com sucesso.'));
+            }else {
+                $this->Flash->error(__('Ops! Ocorreu um erro ao mover.'));
+            }
             
         }
 
