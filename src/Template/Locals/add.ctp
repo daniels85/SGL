@@ -23,6 +23,7 @@
 			        	$opcoes = [
 			        		'' => 'Selecione uma opção',
 			        		'Laboratório' => 'Laboratório', 
+			        		'Almoxarifado' => 'Almoxarifado',
 							'Sala de Aula' => 'Sala de Aula',
 							'Gabinete' => 'Gabinete',
 							'Coordenação' => 'Coordenação'

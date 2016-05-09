@@ -22,7 +22,7 @@
 					if(!strcmp($equipamento->status, "Alerta")){ echo '<tr class="warning" data-tombo="'.$equipamento->tombo.'" ><td><i class="warning orange sign icon"></i></td>'; }
 					if(!strcmp($equipamento->status, "Defeito")){ echo '<tr class="negative" data-tombo="'.$equipamento->tombo.'" ><td><i class="remove red icon"></i></td>'; }
 				?>
-						<td><?php echo 'Computador '.$equipamento->nome; ?></td>
+						<td><?php echo $equipamento->nome; ?></td>
 						<td><?php echo $equipamento->status; ?></td>
 						<td><?php echo $equipamento->tombo; ?></td>
 						<td><?php echo $equipamento->tipo_equipamentos[0]->nome; ?></td>

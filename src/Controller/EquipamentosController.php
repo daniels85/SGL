@@ -313,7 +313,7 @@ class EquipamentosController extends AppController
         }
 
         if($this->request->action === 'delete'){
-            if(isset($user['role']) && $user['role'] === 'Administrador' || $user['role'] === 'Bolsista' || $user['role'] === 'Professor'){
+            if(isset($user['role'])){
                 return true;
             }
             return false;

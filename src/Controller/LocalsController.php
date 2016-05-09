@@ -33,8 +33,18 @@ class LocalsController extends AppController {
      */
     public function index() {
 
-        $locals = $this->paginate($this->Locals);
         
+        
+        if(!is_null($this->request->session()->read('Auth.User.role')) && $this->request->session()->read('Auth.User.role') === 'Administrador'){
+            $locals = $this->paginate($this->Locals);
+        }else{
+            $locals = $this->Locals
+                                ->find()
+                                ->where(['tipo !=' => 'Almoxarifado']);
+
+            $locals = $this->paginate($locals);
+        }
+
         //$this->viewBuilder()->template('teste');
         $this->set(compact('locals'));
         $this->set('_serialize', ['locals']);
@@ -430,6 +440,13 @@ class LocalsController extends AppController {
 
         if($this->request->action === 'edit'){
             if (isset($user['role']) && $user['role'] === 'Administrador') {
+                return true;
+            }
+            return false;
+        }
+
+        if($this->request->action === 'moverEquipamentos'){
+            if(isset($user['role']) && $user['role'] === 'Administrador'){
                 return true;
             }
             return false;

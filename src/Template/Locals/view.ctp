@@ -59,15 +59,17 @@
 					if(!strcmp($equipamento->status, "Alerta")){ echo '<tr class="warning" data-tombo="'.$equipamento->tombo.'" ><td><i class="warning orange sign icon"></i></td>'; }
 					if(!strcmp($equipamento->status, "Defeito")){ echo '<tr class="negative" data-tombo="'.$equipamento->tombo.'" ><td><i class="remove red icon"></i></td>'; }
 				?>
-						<td><?php echo 'Computador '.$equipamento->nome; ?></td>
+						<td><?php echo $equipamento->nome; ?></td>
 						<td><?php echo $equipamento->status; ?></td>
 						<td><?php echo $equipamento->tombo; ?></td>
 						<td><?php echo $equipamento->tipo_equipamentos[0]->nome; ?></td>
 						<td>
+							<?php if(!is_null($this->request->session()->read('Auth.User.id'))): ?>
 						      <a class="ui button icon green tiny" href="/Equipamentos/view/<?php echo $equipamento->tombo; ?>"><i class="unhide icon"></i></a>						      
 						      <button class="ui button icon tiny orange btnAlertarEquipamento <?php if(!strcmp($equipamento->status, 'Alerta') || !strcmp($equipamento->status, 'Defeito')) echo 'disabled'; ?>"><i class="warning sing icon"></i></button>
 						      <button class="ui button icon tiny blue btnEditarEquipamento <?php if(!UsersController::isCoordenador($userAuth, $local->codigo) && !UsersController::isBolsista($userAuth, $local->codigo) && strcmp($userAuth['role'], 'Administrador')) echo 'disabled'; ?>"><i class="edit icon"></i></button>
 						      <button class="ui button icon tiny red btnApagarEquipamento <?php if(!UsersController::isCoordenador($userAuth, $local->codigo) && !UsersController::isBolsista($userAuth, $local->codigo) && strcmp($userAuth['role'], 'Administrador')) echo 'disabled'; ?>"><i class="delete icon"></i></button>
+						    <?php endif; ?>
 						</td>
 					</tr>
 				<?php endforeach; ?>
@@ -95,7 +97,9 @@
 <div class="sixteen wide column row">
 
 	<button class="ui button teal labeled icon" id="addEquipamento" data-id="<?php echo $local->codigo; ?>"><i class="add icon"></i> Adicionar Equipamento</button>
-	<a class="ui button teal labeled icon" href="/Locals/moverEquipamentos/<?php echo $local->codigo; ?>"><i class="add icon"></i> Mover Equipamentos</a>
+	<?php if($this->request->session()->read('Auth.User.role') === 'Administrador'): ?>
+		<a class="ui button teal labeled icon" href="/Locals/moverEquipamentos/<?php echo $local->codigo; ?>"><i class="add icon"></i> Mover Equipamentos</a>
+	<?php endif; ?>
 </div>
 
 <?php endif; ?>

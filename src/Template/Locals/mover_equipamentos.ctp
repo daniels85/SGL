@@ -45,7 +45,7 @@
 										<input type="checkbox" name="equipamentos[]" class="hidden checkbox" value="<?php echo $equipamento->tombo; ?>">
 									</div>
 								</td>
-								<td><?php echo 'Computador '.$equipamento->nome; ?></td>
+								<td><?php echo $equipamento->nome; ?></td>
 								<td><?php echo $equipamento->status; ?></td>
 								<td><?php echo $equipamento->tombo; ?></td>
 								<td><?php echo $equipamento->tipo_equipamentos[0]->nome; ?></td>								

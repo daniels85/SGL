@@ -65,11 +65,12 @@
 		        </div>
 		        <?php
 		        	$options = [
-		        				'Laboratório' => 'Laboratório', 
-								'Sala de Aula' => 'Sala de Aula',
-								'Gabinete' => 'Gabinete',
-								'Coordenação' => 'Coordenação'
-							];
+		        		'Laboratório' => 'Laboratório', 
+		        		'Almoxarifado' => 'Almoxarifado',
+						'Sala de Aula' => 'Sala de Aula',
+						'Gabinete' => 'Gabinete',
+						'Coordenação' => 'Coordenação'
+					];
 				?>
 
 		        <div class="field">
