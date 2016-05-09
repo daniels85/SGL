@@ -10,3 +10,4 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
  Versão  | Descrição 
 --------:|:------------------------------------------
   1.1.0  | Adicionado opção de excluir equipamento.
+  2.2.0  | Adicionado função de mover vários equipamentos.
