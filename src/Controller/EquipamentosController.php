@@ -211,11 +211,11 @@ class EquipamentosController extends AppController
                                     ->first();
 
         if ($this->Equipamentos->delete($equipamento)) {
-            $this->Flash->success(__('Equipamento deletado com sucesso.'));
+           $this->Flash->success(__('Equipamento deletado com sucesso.'));
         } else {
-            $this->Flash->error(__('Ops! Ocorreu um erro ao deletar o equipamento.'));
+           $this->Flash->error(__('Ops! Ocorreu um erro ao deletar o equipamento.'));
         }
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['controller' => 'Locals', 'action' => 'index']);
     }
 
     /**
