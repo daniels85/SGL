@@ -313,10 +313,10 @@ class EquipamentosController extends AppController
         }
 
         if($this->request->action === 'delete'){
-            if(isset($user['role'])){
+            if(isset($user['role']) && $user['role'] === 'Administrador' || $user['role'] === 'Professor' || $user['role'] === 'Bolsista'){
                 return true;
             }
-            return false;
+            return false;            
         }
 
         if($this->request->action === 'find'){
@@ -325,8 +325,6 @@ class EquipamentosController extends AppController
             }
             return false;
         }
-
-        return parent::isAuthorized($user);
     }   
 
 }

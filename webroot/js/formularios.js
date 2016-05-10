@@ -8,6 +8,7 @@ $(document).ready(function(){
 	var formRecuperarSenha = $('#recuperarSenha').find('.ui.form');
 	var formBuscaEquipamento = $('#formBuscaEquipamento');
 	var formRelatorioLocal = $('#formRelatorioLocal').find('.ui.form');
+	var formMoverEquipamentos = $('#formMoverEquipamentos').find('.ui.form');
 
 	formAddLocal.form({	
 		
@@ -319,6 +320,20 @@ $(document).ready(function(){
 					}
 				]
 			}
+
+	});
+
+	formMoverEquipamentos.form({
+
+		local : {
+			identifier : 'local',
+			rules : [
+				{
+					type : 'empty',
+					prompt : 'Selecione um {name}'
+				}
+			]
+		}
 
 	});
 

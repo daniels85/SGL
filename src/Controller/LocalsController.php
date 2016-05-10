@@ -128,22 +128,26 @@ class LocalsController extends AppController {
 
         if($this->request->is('post')){
 
+            if(isset($this->request->data['equipamentos'])){
 
-            $equipamentos   = $this->request->data['equipamentos'];
-            $novoLocal      = $this->request->data['local']; 
+                $equipamentos   = $this->request->data['equipamentos'];
+                $novoLocal      = $this->request->data['local']; 
+                
+                $query = $this->Locals->Equipamentos
+                                                ->find()
+                                                ->update()
+                                                ->set(['codLocal' => $novoLocal])
+                                                ->where(['tombo IN' => $equipamentos]);
 
-            
-            $query = $this->Locals->Equipamentos
-                                    ->find()
-                                    ->update()
-                                    ->set(['codLocal' => $novoLocal])
-                                    ->where(['tombo IN' => $equipamentos]);
+                if($query->execute()){
+                    $this->Flash->success(__('Equipamentos movidos com sucesso.'));
+                }else {
+                    $this->Flash->error(__('Ops! Ocorreu um erro ao mover.'));
+                }
 
-            if($query->execute()){
-                $this->Flash->success(__('Equipamentos movidos com sucesso.'));
-            }else {
-                $this->Flash->error(__('Ops! Ocorreu um erro ao mover.'));
-            }
+            }else{
+                $this->Flash->error(__('Nenhum equipamento foi selecionado!'));
+            }            
             
         }
 

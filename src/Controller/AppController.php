@@ -65,7 +65,7 @@ class AppController extends Controller
         if (isset($user['role']) && $user['role'] === 'Administrador') {
             return true;
         }
-
+        
         // Bloqueia acesso por padrão
         return false;
     }

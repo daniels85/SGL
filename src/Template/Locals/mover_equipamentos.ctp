@@ -5,6 +5,7 @@
 				Mover equipamentos
 			</h4>
 			<?php $this->Flash->render('auth'); ?>
+
 			<div id="formMoverEquipamentos">
 			
 				<?php echo $this->Form->create(); ?>
@@ -71,7 +72,7 @@
 				</table>
 				
 				
-
+				<div class="ui error message"></div>
 				
 
 				<?php echo $this->Form->end(); ?>
