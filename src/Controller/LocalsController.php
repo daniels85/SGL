@@ -166,9 +166,13 @@ class LocalsController extends AppController {
 
             $local = $this->Locals->patchEntity($local, $this->request->data);
 
-            if ($this->Locals->save($local)) {               
+            /** Trata o array de matriculas vindo do formulario **/
+            $matriculasForm = array_unique(array_merge( $this->request->data['bolsistas'], $this->request->data['coordenadores'] ) );
 
-                $matriculasForm = array_filter(array_unique(array_merge($this->request->data['bolsistas'], $this->request->data['coordenadores'] )));
+
+            $matriculasForm = array_filter($matriculasForm);
+
+            if ($this->Locals->save($local)) {                  
                 
                 foreach ($matriculasForm as $user) {
                     UsersController::insereUserLocals( $local->codigo, $user );

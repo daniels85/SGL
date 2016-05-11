@@ -13,11 +13,11 @@
 			        <?php echo $this->Form->input('Código', ['name' => 'codigo']); ?>
 			        <div class="field">
 				        <label>Coordenador</label>
-				        <?php echo $this->Form->select('coordenadores', $professores, ['name' => 'coordenadores[]', 'multiple' => true]); ?>
+				        <?php echo $this->Form->select('coordenadores', $professores, ['name' => 'coordenadores', 'multiple' => true]); ?>
 					</div>
 					<div class="field">
 			        	<label>Bolsista</label>
-			        	<?php echo $this->Form->select('bolsistas', $bolsistas, ['name' => 'bolsistas[]', 'multiple' => true]); ?>
+			        	<?php echo $this->Form->select('bolsistas', $bolsistas, ['name' => 'bolsistas', 'multiple' => true]); ?>
 			        </div>
 			        <?php  
 			        	$opcoes = [
