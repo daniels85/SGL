@@ -98,7 +98,7 @@
 
 	<button class="ui button teal labeled icon" id="addEquipamento" data-id="<?php echo $local->codigo; ?>"><i class="add icon"></i> Adicionar Equipamento</button>
 	<?php if($this->request->session()->read('Auth.User.role') === 'Administrador'): ?>
-		<a class="ui button teal labeled icon" href="/Locals/moverEquipamentos/<?php echo $local->codigo; ?>"><i class="add icon"></i> Mover Equipamentos</a>
+		<a class="ui button teal labeled icon" href="/Locals/moverEquipamentos/<?php echo $local->codigo; ?>"><i class="move icon"></i> Mover Equipamentos</a>
 	<?php endif; ?>
 </div>
 
