@@ -6,19 +6,40 @@
 			</h4>
 			<?php $this->Flash->render('auth'); ?>
 			<div id="formAddLocal">
-			
+
 					<?php echo $this->Form->create(); ?>
 			        <?php echo $this->Form->input('nome'); ?>
 
 			        <?php echo $this->Form->input('Código', ['name' => 'codigo']); ?>
 			        <div class="field">
-				        <label>Coordenador</label>
-				        <?php echo $this->Form->select('coordenadores', $professores, ['name' => 'coordenadores', 'multiple' => true]); ?>
+				        <label>Coordenador: </label> 
+				        <input type="hidden" name="coordenadores[]" value=""/>
+						<select name="coordenadores[]" class="ui fluid dropdown" multiple>
+							<option value=""></option>
+							<?php foreach($professores as $professor): ?>
+								<option value=" <?php echo $professor->matricula; ?> ">
+									<?php echo $professor->nome." - Matrícula: ".$professor->matricula; ?> 
+								</option>
+							<?php endforeach; ?>
+						</select>
 					</div>
+					
 					<div class="field">
-			        	<label>Bolsista</label>
-			        	<?php echo $this->Form->select('bolsistas', $bolsistas, ['name' => 'bolsistas', 'multiple' => true]); ?>
+		        	
+						<label>Bolsista: </label> 
+						<input type="hidden" name="bolsistas[]" value=""/>
+						<select name="bolsistas[]" class="ui fluid dropdown" multiple>
+							<option value=""></option>
+							<?php foreach($bolsistas as $bolsista): ?>
+								<option value="<?php echo $bolsista->matricula; ?>">
+
+									<?= ($bolsista->nome." - Matrícula: ".$bolsista->matricula) ?> 
+								</option>
+							<?php endforeach; ?>
+						</select>
+
 			        </div>
+
 			        <?php  
 			        	$opcoes = [
 			        		'' => 'Selecione uma opção',

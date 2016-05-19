@@ -163,11 +163,10 @@ class LocalsController extends AppController {
         $local = $this->Locals->newEntity();
 
         if ($this->request->is('post')) {
-
             $local = $this->Locals->patchEntity($local, $this->request->data);
 
             /** Trata o array de matriculas vindo do formulario **/
-            $matriculasForm = array_unique(array_merge( $this->request->data['bolsistas'], $this->request->data['coordenadores'] ) );
+            $matriculasForm = array_unique(array_merge($this->request->data['bolsistas'], $this->request->data['coordenadores'] ) );
 
 
             $matriculasForm = array_filter($matriculasForm);
@@ -187,22 +186,17 @@ class LocalsController extends AppController {
         }
 
         $professores = $this->Locals->Users
-                                        ->find('list', [
-                                            'keyField' => 'matricula',
-                                            'valueField' => 'nome',
-                                            'conditions' => ['role' => 'Professor']
-                                        ])
+                                        ->find()
+                                        ->select(['nome', 'matricula'])
+                                        ->where(['role' => 'Professor'])
                                         ->all()
                                         ->toArray();
-
         $bolsistas = $this->Locals->Users
-                                        ->find('list', [
-                                            'keyField' => 'matricula',
-                                            'valueField' => 'nome',
-                                            'conditions' => ['role' => 'Bolsista']
-                                        ])
+                                        ->find()
+                                        ->select(['nome', 'matricula'])
+                                        ->where(['role' => 'Bolsista'])
                                         ->all()
-                                        ->toArray();
+                                        ->toArray(); 
 
         $this->set(compact('local', 'professores', 'bolsistas'));
         $this->set('_serialize', ['local']);

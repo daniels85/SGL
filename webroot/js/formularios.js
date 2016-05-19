@@ -26,7 +26,7 @@ $(document).ready(function(){
 			identifier : 'codigo',
 			rules : [
 				{
-					type : 'minLength[6]',
+					type : 'minLength[3]',
 					prompt : 'O campo {name} deve ter pelo menos {ruleValue} caracteres.'
 				}, {
 					type : 'number',
@@ -63,7 +63,7 @@ $(document).ready(function(){
 			identifier : 'codigo',
 			rules : [
 				{
-					type : 'minLength[6]',
+					type : 'minLength[3]',
 					prompt : 'O campo {name} deve conter no mínimo {ruleValue} caracteres.'
 				}, {
 					type : 'number',
