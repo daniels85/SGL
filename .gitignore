@@ -1,3 +1,7 @@
 /logs/*
 /webroot/semantic-ui/*
 /webroot/semantic-ui/
+/webroot/semantic-ui
+/webroot/semantic-ui/themes/*
+/webroot/semantic-ui/themes/
+/config/app.php

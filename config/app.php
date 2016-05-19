@@ -192,7 +192,7 @@ return [
             'port' => 465,
             'timeout' => 60,
             'username' => 'sglmailer@gmail.com',
-            'password' => 'sgl12345',
+            'password' => '5gl1fc32016',
             'className' => 'Smtp',
             'context' => [
                  'ssl' => [
@@ -242,7 +242,7 @@ return [
              */
             //'port' => 'non_standard_port_number',
             'username' => 'sgl',
-            'password' => '1234',
+            'password' => '5gl1fc32016',
             'database' => 'sgl',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
