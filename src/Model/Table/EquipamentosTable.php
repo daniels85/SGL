@@ -29,22 +29,29 @@ class EquipamentosTable extends Table
         $this->primaryKey('id');
 
         $this->hasMany('Locals', [
-            'className' => 'Locals',            
-            'foreignKey' => 'codigo',
-            'bindingKey' => 'codLocal',
-            'joinType' => 'INNER'
+            'className'     => 'Locals',            
+            'foreignKey'    => 'codigo',
+            'bindingKey'    => 'codLocal',
+            'joinType'      => 'INNER'
         ]);        
 
+        $this->hasOne('Users', [
+            'className'     => 'Users',
+            'foreignKey'    => 'matricula',
+            'bindingKey'    => 'responsavel',
+            'joinType'      => 'INNER'
+        ]);
+
         $this->hasMany('TipoEquipamentos', [
-            'bindingKey' => 'tipo',
-            'foreignKey' => 'id',
-            'joinType' => 'INNER'
+            'bindingKey'    => 'tipo',
+            'foreignKey'    => 'id',
+            'joinType'      => 'INNER'
         ]);
 
         $this->hasMany('Alertas', [
-            'bindingKey' => 'tombo',
-            'foreignKey' => 'tomboEquipamento',
-            'joinType' => 'INNER'
+            'bindingKey'    => 'tombo',
+            'foreignKey'    => 'tomboEquipamento',
+            'joinType'      => 'INNER'
         ]);
 
     }
@@ -85,7 +92,8 @@ class EquipamentosTable extends Table
             ->allowEmpty('modelo');
 
         $validator
-            ->allowEmpty('responsavel');
+            ->requirePresence('responsavel', 'create')
+            ->notEmpty('responsavel');
 
         $validator
             ->integer('tipo')

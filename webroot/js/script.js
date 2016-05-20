@@ -4,6 +4,8 @@ $(document).ready(function(){
 	$('#dataFim').mask("00-00-0000", {placeholder: "__-__-____"});
 	$('#dataDeCompra').mask("00-00-0000", {placeholder: "__-__-____"});
 	
+	$('.ui.accordion').accordion();
+
 	$('.ui.modal')
 		.modal('setting', 'transition', 'fade up');
 

@@ -47,7 +47,7 @@ class EquipamentosController extends AppController
         $equipamento = $this->Equipamentos
                                     ->find()
                                     ->where(['tombo' => $tombo])
-                                    ->contain(['TipoEquipamentos', 'Locals'])
+                                    ->contain(['TipoEquipamentos', 'Locals', 'Users'])
                                     ->first();
 
         $alerta = $this->Equipamentos->Alertas
@@ -86,9 +86,18 @@ class EquipamentosController extends AppController
                                             ->all()
                                             ->toArray();
 
+        $professores = $this->Equipamentos->Users
+                                                ->find('list', ['keyField' => 'matricula', 'valueField' => 'nome'])
+                                                ->select(['nome', 'matricula'])
+                                                ->where(['role' => 'Professor'])
+                                                ->all()
+                                                ->toArray();
+
         $equipamento = $this->Equipamentos->newEntity();
         if ($this->request->is('post')){
+
             $equipamento = $this->Equipamentos->patchEntity($equipamento, $this->request->data);
+
             if ($this->Equipamentos->save($equipamento)) {
                 $this->Flash->success(__('Equipamento cadastrado com sucesso.'));
                 return $this->redirect(['action' => 'index']);
@@ -98,6 +107,7 @@ class EquipamentosController extends AppController
         }
         
         $this->set(compact('equipamento'));
+        $this->set(compact('professores'));
         $this->set(compact('tipoEquipamentos'));
         $this->set(compact('locals'));
         $this->set('_serialize', ['equipamento', 'tipoEquipamentos', 'locals']);
@@ -117,7 +127,7 @@ class EquipamentosController extends AppController
         $equipamento = $this->Equipamentos
                                     ->find()
                                     ->where(['tombo' => $tombo])
-                                    ->contain(['TipoEquipamentos', 'Locals'])
+                                    ->contain(['TipoEquipamentos', 'Locals', 'Users'])
                                     ->first();
 
         $tipoEquipamentos = $this->Equipamentos->TipoEquipamentos
@@ -131,6 +141,13 @@ class EquipamentosController extends AppController
                                             ->select(['nome', 'codigo'])
                                             ->all()
                                             ->toArray();
+
+        $professores = $this->Equipamentos->Users
+                                                ->find()
+                                                ->select(['nome', 'matricula'])
+                                                ->where(['role' => 'Professor'])
+                                                ->all()
+                                                ->toArray();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $equipamento = $this->Equipamentos->patchEntity($equipamento, $this->request->data);
@@ -146,7 +163,8 @@ class EquipamentosController extends AppController
         $this->set(compact('equipamento'));
         $this->set(compact('tipoEquipamentos'));
         $this->set(compact('locals'));
-        $this->set('_serialize', ['equipamento', 'tipoEquipamentos', 'locals']);
+        $this->set(compact('professores'));
+        $this->set('_serialize', ['equipamento', 'tipoEquipamentos', 'locals', 'professores']);
     }
 
     /**
@@ -161,7 +179,7 @@ class EquipamentosController extends AppController
         $equipamento = $this->Equipamentos
                                     ->find()
                                     ->where(['tombo' => $tombo])
-                                    ->contain(['TipoEquipamentos', 'Locals'])
+                                    ->contain(['TipoEquipamentos', 'Locals', 'Users'])
                                     ->first();
 
         $tipoEquipamentos = $this->Equipamentos->TipoEquipamentos
@@ -176,6 +194,13 @@ class EquipamentosController extends AppController
                                             ->all()
                                             ->toArray();
 
+        $professores = $this->Equipamentos->Users
+                                                ->find('list', ['keyField' => 'matricula', 'valueField' => 'nome'])
+                                                ->select(['nome', 'matricula'])
+                                                ->where(['role' => 'Professor'])
+                                                ->all()
+                                                ->toArray();
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $equipamento = $this->Equipamentos->patchEntity($equipamento, $this->request->data);
             $equipamento->dataDeCompra = date('Y-m-d', strtotime($this->request->data['dataDeCompra']));
@@ -189,6 +214,7 @@ class EquipamentosController extends AppController
         }
 
         $this->set(compact('equipamento'));
+        $this->set(compact('professores'));
         $this->set(compact('tipoEquipamentos'));
         $this->set(compact('locals'));
         $this->set('_serialize', ['equipamento', 'tipoEquipamentos', 'locals']);
@@ -232,6 +258,13 @@ class EquipamentosController extends AppController
                                                             ->all()
                                                             ->toArray();
 
+        $professores = $this->Equipamentos->Users
+                                                ->find()
+                                                ->select(['nome', 'matricula'])
+                                                ->where(['role' => 'Professor'])
+                                                ->all()
+                                                ->toArray();
+
 
         if($this->request->is('put')){
             $equipamento = $this->Equipamentos->patchEntity($equipamento, $this->request->data);
@@ -244,7 +277,8 @@ class EquipamentosController extends AppController
         }
 
         $this->set(compact('tipoEquipamentos'));
-        $this->set('_serialize', ['tipoEquipamentos']);
+        $this->set(compact('professores'));
+        $this->set('_serialize', ['tipoEquipamentos', 'professores']);
     }
 
     /**
@@ -258,7 +292,7 @@ class EquipamentosController extends AppController
 
             $equipamento = $this->Equipamentos
                                             ->find()
-                                            ->contain(['Locals', 'TipoEquipamentos'])
+                                            ->contain(['Locals', 'TipoEquipamentos', 'Users'])
                                             ->where(['tombo' => $this->request->data['tombo']])
                                             ->first();
 
@@ -298,6 +332,13 @@ class EquipamentosController extends AppController
             return false;
         }
 
+        if($this->request->action === 'add'){
+            if(isset($user['role']) && $user['role'] === 'Administrador' ){
+                return true;
+            }
+            return false;
+        }
+
         if($this->request->action === 'view'){
             if(isset($user['role'])){
                 return true;
@@ -307,6 +348,13 @@ class EquipamentosController extends AppController
 
         if($this->request->action === 'editar'){
             if(isset($user['role'])){
+                return true;
+            }
+            return false;
+        }
+
+        if($this->request->action === 'edit'){
+            if(isset($user['role']) && $user['role'] === 'Administrador' ){
                 return true;
             }
             return false;

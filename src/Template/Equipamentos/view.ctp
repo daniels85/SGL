@@ -3,6 +3,7 @@
 		<i class="desktop icon"></i>
 		Equipamento
 	</h3>
+
 	<table class="ui teal selectable stackable table">
 
 		<tr>
@@ -35,7 +36,7 @@
 		</tr>
 		<tr>
 			<td>Responsável</td>
-			<td><?php echo $equipamento->responsavel; ?></td>
+			<td><?php echo $equipamento->user->nome; ?></td>
 		</tr>
 	
 	</table>

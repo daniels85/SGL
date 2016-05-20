@@ -35,6 +35,13 @@ class UsersTable extends Table
             'joinType' => 'INNER'
         ]);
 
+        $this->hasMany('Equipamentos', [
+            'className'     => 'Equipamentos',
+            'foreignKey'    => 'responsavel',
+            'bindingKey'    => 'matricula',
+            'joinType'      => 'INNER'
+        ]);
+
         $this->hasMany('Locals', [
             'className' => 'Locals',
             'foreignKey' => 'codigo',

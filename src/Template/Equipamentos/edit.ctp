@@ -5,7 +5,7 @@
 				Modificar Equipamento
 			</h4>
 			<?php $this->Flash->render('auth'); ?>
-			
+
 			<div id="formEquipamento">
 				
 				<?php echo $this->Form->create(); ?>
@@ -30,7 +30,9 @@
 
 		        <?php echo $this->Form->input('modelo', ['value' => $equipamento->modelo]); ?>
 
-		        <?php echo $this->Form->input('responsavel', ['value' => $equipamento->responsavel]); ?>
+
+
+		        <?php echo $this->Form->input('Responsável', ['name' => 'responsavel', 'options' => $professores, 'default' => $equipamento->user->matricula]); ?>
 
 		        <?php 
 

@@ -35,7 +35,7 @@
 		</tr>
 		<tr>
 			<td>Responsável</td>
-			<td><?php echo $equipamento->responsavel; ?></td>
+			<td><?php echo $equipamento->user->nome; ?></td>
 		</tr>
 	
 	</table>

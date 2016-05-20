@@ -1,4 +1,5 @@
 var host = $(location).attr('host');
+
 $(document).ready(function(){		
 	var container = $('.container');
 	var listar_equipamentos = container.find('#listar-equipamentos');
@@ -7,6 +8,10 @@ $(document).ready(function(){
 	var modalContent = modal.find('.content');
 	var modalMensagem = modal.find('.mensagem');
 	var modalActions = modal.find('.actions');
+
+	$('.ui.dropdown')
+			.dropdown('setting', 'transition', 'slide down')
+			.dropdown();
 
 	listar_equipamentos.on('click', '.btnEditarEquipamento', function(){
 		event.preventDefault();
@@ -24,6 +29,8 @@ $(document).ready(function(){
 			},
 
 			success: function(data){				
+
+				console.log(data);
 
 				modalContent.html('');
 
@@ -84,8 +91,16 @@ $(document).ready(function(){
 				conteudoModal += '</div>';
 
 				conteudoModal += '<div class="field">';
-				conteudoModal += '<label>Responsável</label>';
-				conteudoModal += '<input type="text" id="responsavel" value="'+data['equipamento'].responsavel+'">';
+				conteudoModal += '<label>Responsável </label>';
+				conteudoModal += '<select id="responsavel" class="ui fluid dropdown">';
+				conteudoModal += '<option value="">Selecione um Responsável</option>';
+
+				responsavelEquip = data['equipamento'].user.matricula;
+
+				for(i = 0; i < data['professores'].length; i++){
+					conteudoModal += (data['professores'][i].matricula == responsavelEquip)? '<option value="'+data['professores'][i].matricula+'" selected>'+data['professores'][i].nome+'</option>' : '<option value="'+data['professores'][i].matricula+'">'+data['professores'][i].nome+'</option>';
+				}
+				conteudoModal += '</select>';
 				conteudoModal += '</div>';
 
 				conteudoModal += '<div class="ui error message"></div>';
@@ -454,7 +469,7 @@ $(document).ready(function(){
 	$('#addEquipamento').on('click', function(event){
 
 		event.preventDefault();	
-		
+
 		var codLocal = $(this).attr('data-id');
 
 		$.ajax({
@@ -467,40 +482,45 @@ $(document).ready(function(){
 				return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
 			},
 
-			success: function(data){				
+			success: function(data){	
 
 				modalContent.html('');
 
 				conteudoModal  = '<form class="ui form cadastrarEquipamento">';
 
 				conteudoModal += '<div class="field">';
-				conteudoModal += '<label>Nome: </label>';
+				conteudoModal += '<label>Nome </label>';
 				conteudoModal += '<input type="text" name="nome" id="nome" placeholder="Ex.: PC-654">';
 				conteudoModal += '</div>';
 
 				conteudoModal += '<div class="field">';
-				conteudoModal += '<label>Tombo: </label>';
+				conteudoModal += '<label>Tombo </label>';
 				conteudoModal += '<input type="text" name="tombo" id="tombo" placeholder="Ex.: 65464">';
 				conteudoModal += '</div>';
 
 				conteudoModal += '<div class="field">';
-				conteudoModal += '<label>Data de Compra: </label>';
+				conteudoModal += '<label>Data de Compra </label>';
 				conteudoModal += '<input type="text" name="dataCompra" id="dataDeCompra" placeholder="Ex.: 15/15/15">';
 				conteudoModal += '</div>';
 
 				conteudoModal += '<div class="field">';
-				conteudoModal += '<label>Fornecedor: </label>';
+				conteudoModal += '<label>Fornecedor </label>';
 				conteudoModal += '<input type="text" name="fornecedor" id="fornecedor" placeholder="Ex.: Empresa X">';
 				conteudoModal += '</div>';
 
 				conteudoModal += '<div class="field">';
-				conteudoModal += '<label>Modelo: </label>';
+				conteudoModal += '<label>Modelo </label>';
 				conteudoModal += '<input type="text" name="modelo" id="modelo" placeholder="Ex.: All in One">';
 				conteudoModal += '</div>';
 
 				conteudoModal += '<div class="field">';
-				conteudoModal += '<label>Responsável: </label>';
-				conteudoModal += '<input type="text" name="responsavel" id="responsavel" placeholder="Ex.: Fulano">';
+				conteudoModal += '<label>Responsável </label>';
+				conteudoModal += '<select id="responsavel" class="ui fluid dropdown">';
+				conteudoModal += '<option value="">Selecione um Responsável</option>';
+				for(i = 0; i < data['professores'].length; i++){
+					conteudoModal += '<option value="'+data['professores'][i].matricula+'">'+data['professores'][i].nome+'</option>';
+				}
+				conteudoModal += '</select>';
 				conteudoModal += '</div>';
 
 				conteudoModal += '<div class="field">';

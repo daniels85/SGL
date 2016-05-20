@@ -18,7 +18,19 @@
 
 		        <?php echo $this->Form->input('modelo'); ?>
 
-		        <?php echo $this->Form->input('responsavel'); ?>
+		        <?php 
+
+		        	$options = [
+		        		'' => 'Escolha um Responsável'
+
+		        	];
+
+		        	$professores = $options+$professores;
+
+
+		        	echo $this->Form->input('responsável', ['name' => 'responsavel', 'options' => $professores]); 
+
+		        ?>
 
 		        <?php 
 

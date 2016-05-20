@@ -101,3 +101,56 @@
 	endif;
 
 ?>
+
+<?php if(!is_null($user->equipamentos)): ?>
+		<div class="sixteen centered wide column row">
+			
+			<div class="ui fluid accordion">
+
+				<div class="title">
+					<h4 class="ui horizontal divider header">
+						<i class="desktop icon"></i>
+						Equipamentos						
+					</h4>
+				</div>
+
+				<div class="content">
+					<div id="listar-equipamentos">
+						<table class="ui teal stackable definition table">		
+							<thead class="center aligned">
+								<tr>
+									<th class=""></th>
+									<th class=""><?php echo $this->Paginator->sort('nome', null, ['direction' => 'desc']); ?></th>					
+									<th class=""><?php echo $this->Paginator->sort('status', null, ['direction' => 'desc']); ?></th>
+									<th class=""><?php echo $this->Paginator->sort('tombo', null, ['direction' => 'desc']); ?></th>
+									<th class=""><?php echo $this->Paginator->sort('tipo', null, ['direction' => 'desc']); ?></th>
+									<th class=""><?php echo $this->Paginator->sort('codLocal', 'Local', ['direction' => 'desc']); ?></th>
+									<th class=""></th>
+								</tr>
+							</thead>
+							<tbody class="center aligned">
+								<?php foreach($user->equipamentos as $equipamento): 
+									if(!strcmp($equipamento->status, "Funcionando")){ echo '<tr class="positive" data-tombo="'.$equipamento->tombo.'" ><td><i class="checkmark green icon"></i></td>'; }
+									if(!strcmp($equipamento->status, "Alerta")){ echo '<tr class="warning" data-tombo="'.$equipamento->tombo.'" ><td><i class="warning orange sign icon"></i></td>'; }
+									if(!strcmp($equipamento->status, "Defeito")){ echo '<tr class="negative" data-tombo="'.$equipamento->tombo.'" ><td><i class="remove red icon"></i></td>'; }
+								?>
+										<td><?php echo $equipamento->nome; ?></td>
+										<td><?php echo $equipamento->status; ?></td>
+										<td><?php echo $equipamento->tombo; ?></td>
+										<td><?php echo $equipamento->tipo_equipamentos[0]->nome; ?></td>
+										<td><?php echo $equipamento->locals[0]->nome; ?></td>
+										<td>
+										    <a class="ui button tiny icon green" href="/equipamentos/view/<?php echo $equipamento->tombo ?>"><i class="unhide icon"></i></a>
+										    <button class="ui button icon tiny blue btnEditarEquipamento"><i class="edit icon"></i></button>
+						      				<button class="ui button icon tiny red btnApagarEquipamento"><i class="delete icon"></i></button>
+										</td>
+									</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+<?php endif; ?>

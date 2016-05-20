@@ -18,7 +18,8 @@ class UsersController extends AppController {
         'limit' => 10,
         'order' => [
             'Alertas.dataAlerta' => 'desc',
-            'Users.nome' => 'asc'
+            'Users.nome' => 'asc',
+            'Equipamentos.nome' => 'asc'
         ]
     ];
 
@@ -96,6 +97,7 @@ class UsersController extends AppController {
         $user = $this->Users 
                         ->find()
                         ->where(['matricula' => $matricula])
+                        ->contain(['Equipamentos' => ['TipoEquipamentos', 'Locals']])
                         ->first();
 
         if(is_null($user)){
