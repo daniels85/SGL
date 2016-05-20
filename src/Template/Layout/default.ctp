@@ -34,6 +34,8 @@
         <?php //echo $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css'); ?>                 
         <?php //echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js'); ?> 
 
+        <?php echo $this->Html->css('sgl'); ?> 
+
         <?php echo $this->Html->css('/webroot/semantic-ui/semantic.min.css'); ?>                 
         <?php echo $this->Html->script('/webroot/semantic-ui/semantic.min.js'); ?>          
           
@@ -43,6 +45,8 @@
         <?php echo $this->Html->script('users.js'); ?>  
         <?php echo $this->Html->script('tipoEquipamentos.js'); ?>
         <?php echo $this->Html->script('script.js'); ?>
+
+
 
         <?php echo $this->fetch('meta'); ?>
         <?php echo $this->fetch('css'); ?>
@@ -162,40 +166,39 @@
         </div>
         <?php endif; ?> 
 
-        <h5 class="ui horizontal divider header"></h5>
-        <h5 class="ui horizontal divider header"></h5>
+        <div id="wrapper">
+            <div class="ui container" id="content">
+                
+                <div class="ui stackable grid">                   
 
-        <div class="ui container" style="min-height: 624px; margin-bottom: 80px;">
-            
-            <div class="ui stackable grid">                   
-
-            <div class="sixten centered wide column row">
-                <?php echo $this->Flash->render(); ?>
-            
-                <?php echo $this->Flash->render('auth'); ?>
-            </div>
-                <?php echo $this->fetch('content'); ?>
-
-                <div class="ui modal small">
-                    <i class="close icon"></i>
-                    <div class="ui dimmer loading">                        
-                        <div class="ui text loader">Aguarde...</div>                       
-                    </div>                     
-                    <div class="header"></div> 
-                    <div class="mensagem"></div>              
-                    <div class="content"></div>
-                    <div class="actions"></div> 
+                <div class="sixten centered wide column row">
+                    <?php echo $this->Flash->render(); ?>
+                
+                    <?php echo $this->Flash->render('auth'); ?>
                 </div>
+                    <?php echo $this->fetch('content'); ?>
 
-            </div>  
+                    <div class="ui modal small">
+                        <i class="close icon"></i>
+                        <div class="ui dimmer loading">                        
+                            <div class="ui text loader">Aguarde...</div>                       
+                        </div>                     
+                        <div class="header"></div> 
+                        <div class="mensagem"></div>              
+                        <div class="content"></div>
+                        <div class="actions"></div> 
+                    </div>
 
-        </div>
+                </div>  
 
-        <div class="ui vertical inverted footer segment">
-            <div class="ui center aligned container">                      
-                <div class="ui horizontal inverted small divided link list">
-                    <a class="item" href="/">Sistema de Gerenciamento de Laboratórios</a>
-                    <a class="item" href="https://ifce.edu.br/maracanau">Instituto Federal de Educação, Ciência e Tecnologia do Ceará - Campus Maracanaú</a>
+            </div>
+
+            <div class="ui vertical inverted footer segment" id="footer">
+                <div class="ui center aligned container">                      
+                    <div class="ui horizontal inverted small divided link list">
+                        <a class="item" href="/">Sistema de Gerenciamento de Laboratórios</a>
+                        <a class="item" href="https://ifce.edu.br/maracanau">Instituto Federal de Educação, Ciência e Tecnologia do Ceará - Campus Maracanaú</a>
+                    </div>
                 </div>
             </div>
         </div>

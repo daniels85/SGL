@@ -134,7 +134,8 @@ class UsersController extends AppController {
             $user->cadastradoPor = $this->request->session()->read('Auth.User.nome');
             $user->dataDeCadastro = date('Y-m-d H:i:s');
 
-            if ($this->Users->save($user) && self::mailer($this->request->data, 'cadastro', 'Cadastro Efetuado - SGL')) {
+            if ($this->Users->save($user)) {
+                self::mailer($this->request->data, 'cadastro', 'Cadastro Efetuado - SGL');
                 $this->Flash->success(__('Usuário cadastrado com sucesso.'));
                 return $this->redirect(['action' => 'index']);
             } else {
@@ -174,7 +175,8 @@ class UsersController extends AppController {
 
                 $user->password = $newPassword;
 
-                if($this->Users->save($user) && self::mailer($data, 'recuperarSenha', 'Recuperação de Senha - SGL')){
+                if($this->Users->save($user)){
+                    self::mailer($data, 'recuperarSenha', 'Recuperação de Senha - SGL');
                     $this->Flash->success(__('Um e-mail com sua nova senha foi enviado.'));
                     return $this->redirect(['action' => 'login']);
                 }else{
@@ -242,10 +244,7 @@ class UsersController extends AppController {
         $email->viewVars($data);
         $email->subject($subject);
         
-        if(!$email->send()){
-            return false;
-        }
-        return true;
+        $email->send();
     }
 
     /**
