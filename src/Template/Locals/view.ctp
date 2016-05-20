@@ -1,4 +1,5 @@
 <?php 
+	use Cake\ORM\TableRegistry;
 	use App\Controller\UsersController;
 	$userAuth = $this->request->session()->read('Auth.User');
 ?>
@@ -7,6 +8,7 @@
 			<i class="building outline icon"></i>
 			Informações do Ambiente
 		</h4>
+
 		<table class="ui teal stackable table">
 
 			<tr>

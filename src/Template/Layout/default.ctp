@@ -76,6 +76,8 @@
                                 <?php if(!strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')): ?>
                                 <a href="/users/bolsistas" class="item">Bolsistas</a>
                                 <a href="/users" class="item">Usuários</a>
+                                <?php endif; ?>
+                                <?php if($this->request->session()->read('Auth.User.role') === 'Administrador' || $this->request->session()->read('Auth.User.role') === 'Suporte'): ?>
                                 <a href="/equipamentos" class="item">Equipamentos</a>
                                 <?php endif; ?>
 
@@ -130,7 +132,9 @@
             <?php if(!strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')): ?>
 
             <a href="/users/bolsistas" class="item">Bolsistas</a>
-            <a href="/users" class="item">Usuários</a>
+            <a href="/users" class="item">Usuários</a>            
+            <?php endif; ?>
+            <?php if($this->request->session()->read('Auth.User.role') === 'Administrador' || $this->request->session()->read('Auth.User.role') === 'Suporte'): ?>
             <a href="/equipamentos" class="item">Equipamentos</a>
             <?php endif; ?>
             <div class="item">

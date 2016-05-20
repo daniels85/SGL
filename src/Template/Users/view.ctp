@@ -66,7 +66,7 @@
 			
 		<tbody>
 			<?php foreach($alertas as $alerta): ?>
-				<tr class="<?php (!strcmp($alerta->statusAlerta, 'Resolvido')) ? print 'positive' : print 'negative'; ?>">
+				<tr class="<?php (!strcmp($alerta->statusAlerta, 'Pendente')) ? print 'negative' : print 'positive'; ?>">
 					<td><?php echo $alerta->geradoPor; ?></td>
 					<td><?php echo $alerta->tomboEquipamento; ?></td>
 					<td><?php echo $alerta->statusAlerta; ?></td>

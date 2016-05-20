@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 /**
  * Application Controller
  *
@@ -71,8 +72,28 @@ class AppController extends Controller
     }
 
     public function beforeFilter(Event $event){
+
         if(in_array($this->request->controller, ['Locals'])){
-            $this->Auth->allow(['index', 'view']);
+            
+            $this->Auth->allow(['index']);
+
+            if($this->request->action === 'view'){
+                $user = $this->request->session()->read('Auth.User');
+                $codLocal = $this->request->params['pass']['0'];
+
+                $locals = TableRegistry::get('Locals');
+
+                $local = $locals
+                            ->find()
+                            ->where(['codigo' => $codLocal])
+                            ->first();
+
+                if($local->tipo !== 'Almoxarifado'){
+                    $this->Auth->allow(['view']);
+                }
+
+            }
+
         }else{
             $this->Auth->allow(['logout']);
         }

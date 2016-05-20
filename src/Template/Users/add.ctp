@@ -21,9 +21,10 @@
 		        <?php 
 		        	$options = [
 		        		'' => 'Selecione um tipo',
-		        		'Professor' => 'Professor',
-		        		'Bolsista' => 'Bolsista',
-		        		'Administrador' => 'Administrador'
+		        		'Administrador' => 'Administrador',
+		        		'Bolsista' 		=> 'Bolsista',
+		        		'Professor' 	=> 'Professor',
+		        		'Suporte' 		=> 'Suporte'  		
 		        	];
 
 		        	echo $this->Form->input('tipo', ['name' => 'role', 'options' => $options]); 

@@ -35,7 +35,7 @@ class LocalsController extends AppController {
 
         
         
-        if(!is_null($this->request->session()->read('Auth.User.role')) && $this->request->session()->read('Auth.User.role') === 'Administrador'){
+        if(!is_null($this->request->session()->read('Auth.User.role')) && $this->request->session()->read('Auth.User.role') === 'Administrador' || $this->request->session()->read('Auth.User.role') === 'Suporte'){
             $locals = $this->paginate($this->Locals);
         }else{
             $locals = $this->Locals
@@ -437,7 +437,27 @@ class LocalsController extends AppController {
     public function isAuthorized($user) {
 
         if ($this->request->action === 'view') {
+            
+            $codLocal = $this->request->params['pass']['0'];
+
+            $local = $this->Locals
+                                ->find()
+                                ->where(['codigo' => $codLocal])
+                                ->first();
+
+            if(!strcmp($local->tipo , 'Almoxarifado')){
+
+                if(isset($user['role']) && $user['role'] === 'Administrador' || $user['role'] === 'Suporte'){
+
+                    return true;
+                }
+
+                return false;
+
+            }
+
             return true;
+
         }
 
         if($this->request->action === 'edit'){

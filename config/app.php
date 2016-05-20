@@ -242,7 +242,7 @@ return [
              */
             //'port' => 'non_standard_port_number',
             'username' => 'sgl',
-            'password' => 'sgl123',
+            'password' => '5gl1fc32016',
             'database' => 'sgl',
             'encoding' => 'utf8',
             'timezone' => 'UTC',

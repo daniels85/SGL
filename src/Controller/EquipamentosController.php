@@ -14,9 +14,16 @@ class EquipamentosController extends AppController
     public $paginate = [
         'limit' => 10,
         'order' => [
-            'Equipamentos.nome' => 'asc'
+            'Equipamentos.nome' => 'asc',            
+            'Alertas.dataAlerta' => 'desc',
         ]
     ];
+
+    public function initialize() {
+        parent::initialize();
+        $this->loadComponent('RequestHandler');
+        $this->loadComponent('Paginator');
+    }
 
     /**
      * Index method
@@ -55,6 +62,10 @@ class EquipamentosController extends AppController
                                             ->where(['tomboEquipamento' => $equipamento->tombo])
                                             ->last();
 
+        $alertas = $this->Equipamentos->Alertas
+                                            ->find('all')
+                                            ->where(['tomboEquipamento' => $equipamento->tombo]);
+
         $session = $this->request->session()->read('Auth.User.nome');
         //$session = array(
         //        'nome' => $this->request->session()->read('Auth.User.nome'), 
@@ -62,6 +73,7 @@ class EquipamentosController extends AppController
         //    );
 
         $this->set('alerta', $alerta);
+        $this->set('alertas', $this->paginate($alertas));
         $this->set('equipamento', $equipamento);
         $this->set('session', $session);
         $this->set('_serialize', ['equipamento', 'session']);
@@ -319,7 +331,7 @@ class EquipamentosController extends AppController
     public function isAuthorized($user){
         
         if($this->request->action === 'index'){
-            if(isset($user['role']) && $user['role'] === 'Administrador' ){
+            if(isset($user['role']) && $user['role'] === 'Administrador' || $user['role'] === 'Suporte'){
                 return true;
             }
             return false;
