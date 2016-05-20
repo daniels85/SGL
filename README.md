@@ -9,6 +9,7 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
 
  Versão  | Descrição 
 --------:|:--------------------------------------------------------------
+  1.3.0  | Modificado relação dos responsáveis por um equipamento. Agora são associados aos Usuários.
   1.2.2  | [Bugfix] Corrigido erros ao cadastrar ambiente.
   1.2.1  | [Bugfix] Corrigido erros de permissão ao excluir equipamento.
   1.2.0  | [Adicionado] Função de mover vários equipamentos.

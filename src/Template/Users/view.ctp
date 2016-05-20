@@ -102,7 +102,7 @@
 
 ?>
 
-<?php if(!is_null($user->equipamentos)): ?>
+<?php if(!empty($user->equipamentos)): ?>
 		<div class="sixteen centered wide column row">
 			
 			<div class="ui fluid accordion">
