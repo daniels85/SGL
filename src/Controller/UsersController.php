@@ -4,7 +4,6 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
-use Cake\Mailer\Email;
 use Cake\Auth\DefaultPasswordHasher;
 
 /**
@@ -135,7 +134,7 @@ class UsersController extends AppController {
             $user->dataDeCadastro = date('Y-m-d H:i:s');
 
             if ($this->Users->save($user)) {
-                self::mailer($this->request->data, 'cadastro', 'Cadastro Efetuado - SGL');
+                $this->mailer($this->request->data, 'cadastro', 'Cadastro Efetuado - SGL');
                 $this->Flash->success(__('Usuário cadastrado com sucesso.'));
                 return $this->redirect(['action' => 'index']);
             } else {
@@ -176,7 +175,7 @@ class UsersController extends AppController {
                 $user->password = $newPassword;
 
                 if($this->Users->save($user)){
-                    self::mailer($data, 'recuperarSenha', 'Recuperação de Senha - SGL');
+                    $this->mailer($data, 'recuperarSenha', 'Recuperação de Senha - SGL');
                     $this->Flash->success(__('Um e-mail com sua nova senha foi enviado.'));
                     return $this->redirect(['action' => 'login']);
                 }else{
@@ -229,25 +228,6 @@ class UsersController extends AppController {
     }
 
     /**
-     * mailer method
-     *
-     * @param array $data Dados para formar o email.
-     * @return boolean True ou False.
-     */
-    public function mailer($data, $template, $subject){
-        $email = new Email();
-        $email->transport('mailSgl');
-        $email->emailFormat('html');
-        $email->template($template);
-        $email->from('sglmailer@gmail.com', 'SGL');
-        $email->to($data['email'], $data['nome']);
-        $email->viewVars($data);
-        $email->subject($subject);
-        
-        $email->send();
-    }
-
-    /**
      * alterarSenha method
      *
      * @param string|null $matricula User matricula.
@@ -294,7 +274,7 @@ class UsersController extends AppController {
 
         $user->password = $newPassword;
 
-        if($this->Users->save($user) && self::mailer($data, 'recuperarSenha', 'Recuperação de Senha - SGL')){
+        if($this->Users->save($user) && $this->mailer($data, 'recuperarSenha', 'Recuperação de Senha - SGL')){
             echo 'sucesso';
         }else{
             echo 'erro';
@@ -343,7 +323,8 @@ class UsersController extends AppController {
             $user = $this->Users->patchEntity($user, $this->request->data);
             $user->cadastradoPor = $this->request->session()->read('Auth.User.nome');
             $user->dataDeCadastro = date('Y-m-d H:i:s');
-            if ($this->Users->save($user) && self::mailer($this->request->data, 'cadastro', 'Cadastro Efetuado - SGL')) {
+            if ($this->Users->save($user)) {
+                $this->mailer($this->request->data, 'cadastro', 'Cadastro Efetuado - SGL');
                 echo 'cadastrado';
             } else {
                 echo 'erro';
@@ -551,7 +532,7 @@ class UsersController extends AppController {
 
         $bolsistas = $usersTable
                         ->find()
-                        ->select(['nome', 'matricula'])
+                        ->select(['nome', 'matricula', 'email'])
                         ->where(['Users.matricula IN' => $matriculas, 'Users.role' => 'Bolsista'])
                         ->all()
                         ->toArray();

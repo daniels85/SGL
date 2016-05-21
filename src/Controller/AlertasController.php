@@ -82,6 +82,13 @@ class AlertasController extends AppController
         $alerta = $this->Alertas->newEntity();        
 
         $codLocal = $this->request->data['codLocal'];
+        $equipamento = $this->Alertas->Equipamentos
+                                                ->find()
+                                                ->where(['tombo' => $this->request->data['tomboEquipamento']])
+                                                ->contain(['Locals'])
+                                                ->all()
+                                                ->first();
+
 
         $bolsistas = UsersController::getBolistas($codLocal);
 
@@ -93,10 +100,22 @@ class AlertasController extends AppController
 
             $alerta->dataAlerta = date('Y-m-d H:i:s');
 
+
             if($this->Alertas->save($alerta)){
 
                 if(!empty($bolsistas)){
                     foreach ($bolsistas as $bolsista) {
+
+                        $data = [
+                            'alerta'        => $alerta,
+                            'nome'          => $bolsista->nome,
+                            'email'         => $bolsista->email,
+                            'equipamento'   => $equipamento,
+                            'data'          => $this->request->data
+                        ];
+
+                        $this->mailer($data, 'alerta', 'SGL - Alerta de Equipamento');
+
                         $bolsistaAlertas = $this->Alertas->BolsistasAlertas->newEntity();
                         $bolsistaAlertas->alerta_id = $alerta->id;
                         $bolsistaAlertas->matricula_bolsista = $bolsista->matricula;

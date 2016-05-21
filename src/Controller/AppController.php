@@ -17,6 +17,8 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
+use Cake\Mailer\Email;
+
 /**
  * Application Controller
  *
@@ -61,6 +63,25 @@ class AppController extends Controller
 
     }
 
+    /**
+     * mailer method
+     *
+     * @param array $data Dados para formar o email.
+     * @return boolean True ou False.
+     */
+    public function mailer($data, $template, $subject){
+        $email = new Email();
+        $email->transport('mailSgl');
+        $email->emailFormat('html');
+        $email->template($template);
+        $email->from('sglmailer@gmail.com', 'SGL');
+        $email->to($data['email'], $data['nome']);
+        $email->viewVars($data);
+        $email->subject($subject);
+        
+        $email->send();
+    }
+    
     public function isAuthorized($user){
         // Admin pode acessar todas as actions
         if (isset($user['role']) && $user['role'] === 'Administrador') {

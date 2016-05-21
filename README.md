@@ -3,12 +3,12 @@
 Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
 
 ---------------------------------------------------------
-### Versão 1.4.0
+### Versão 1.5.0
 
 ##### <i class="icon-file"></i> Changelog
-
  Versão  | Descrição 
 --------:|:--------------------------------------------------------------
+  1.5.0	 | [Adicionado] Enviar email aos bolsistas ao ser gerado alertas.
   1.4.0  | [Adicionado] Perfil Suporte
   1.3.0  | Modificado relação dos responsáveis por um equipamento. Agora são associados aos Usuários.
   1.2.2  | [Bugfix] Corrigido erros ao cadastrar ambiente.
