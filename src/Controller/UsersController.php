@@ -274,7 +274,8 @@ class UsersController extends AppController {
 
         $user->password = $newPassword;
 
-        if($this->Users->save($user) && $this->mailer($data, 'recuperarSenha', 'Recuperação de Senha - SGL')){
+        if($this->Users->save($user)){
+            $this->mailer($data, 'recuperarSenha', 'Recuperação de Senha - SGL');
             echo 'sucesso';
         }else{
             echo 'erro';
