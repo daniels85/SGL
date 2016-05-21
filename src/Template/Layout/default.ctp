@@ -51,15 +51,17 @@
         <?php echo $this->fetch('meta'); ?>
         <?php echo $this->fetch('css'); ?>
         <?php echo $this->fetch('script'); ?>
-        <script type="text/javascript">
-            
-        </script>
+
     </head>
     <body>
-        <div class="ui grid">           
+        <div class="ui stackable one column grid">         
+
             <div class="large monitor computer only row">
+
                 <div class="column">
-                    <div class="ui fixed menu">
+
+                    <div class="ui menu">
+
                         <a href="/" class="item">Home</a>
                         <div class="right menu">
                             <?php if (!is_null($this->request->session()->read('Auth.User.username'))): ?>   
@@ -101,6 +103,7 @@
             </div>
             
             <div class="tablet mobile only row">
+
                 <div class="column">
                     <div class="ui fixed main menu">
                         <a href="/" class="item nav">Home</a>
@@ -115,6 +118,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>  
 
             <!--
@@ -127,73 +131,81 @@
             -->
         </div>
 
-        <?php if (!is_null($this->request->session()->read('Auth.User.username'))): ?>
-        <div class="ui right vertical sidebar menu">
-            <?php if(!strcmp($this->request->session()->read('Auth.User.role'), 'Professor')): ?>
-            <a href="/users/bolsistas" class="item">Bolsistas</a>
-            <?php endif; ?>
+        
 
-            <?php if(!strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')): ?>
+        <div class="full height wrapper">
 
-            <a href="/users/bolsistas" class="item">Bolsistas</a>
-            <a href="/users" class="item">Usuários</a>            
-            <?php endif; ?>
-            <?php if($this->request->session()->read('Auth.User.role') === 'Administrador' || $this->request->session()->read('Auth.User.role') === 'Suporte'): ?>
-            <a href="/equipamentos" class="item">Equipamentos</a>
-            <?php endif; ?>
-            <div class="item">
-                <div class="header">Buscar por Equipamento</div>
-                <div class="menu">
-                    <div class="ui category search item">
-                        <div class="ui transparent icon input">
-                            <form method="POST" action="/equipamentos/find/" id="formBuscaEquipamento">
-                                <input type="hidden" name='_csrfToken' value="<?php echo $this->request->param('_csrfToken'); ?>"> 
-                                <input class="prompt" type="text" name='tombo' placeholder="Buscar por equipamento">
-                                <button class="ui basic button icon mini" type="submit"><i class="search link icon"></i></button>
-                            </form>
+            <div class="pusher">
+
+                <div class="ui right vertical sidebar menu">
+                <?php if (!is_null($this->request->session()->read('Auth.User.username'))): ?>                
+                    <?php if(!strcmp($this->request->session()->read('Auth.User.role'), 'Professor')): ?>
+                    <a href="/users/bolsistas" class="item">Bolsistas</a>
+                    <?php endif; ?>
+
+                    <?php if(!strcmp($this->request->session()->read('Auth.User.role'), 'Administrador')): ?>
+
+                    <a href="/users/bolsistas" class="item">Bolsistas</a>
+                    <a href="/users" class="item">Usuários</a>            
+                    <?php endif; ?>
+                    <?php if($this->request->session()->read('Auth.User.role') === 'Administrador' || $this->request->session()->read('Auth.User.role') === 'Suporte'): ?>
+                    <a href="/equipamentos" class="item">Equipamentos</a>
+                    <?php endif; ?>
+                    <div class="item">
+                        <div class="header">Buscar por Equipamento</div>
+                        <div class="menu">
+                            <div class="ui category search item">
+                                <div class="ui transparent icon input">
+                                    <form method="POST" action="/equipamentos/find/" id="formBuscaEquipamento">
+                                        <input type="hidden" name='_csrfToken' value="<?php echo $this->request->param('_csrfToken'); ?>"> 
+                                        <input class="prompt" type="text" name='tombo' placeholder="Buscar por equipamento">
+                                        <button class="ui basic button icon mini" type="submit"><i class="search link icon"></i></button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="header"><?php echo $this->request->session()->read('Auth.User.nome'); ?><i class="user icon"></i></div>
-                <div class="menu">
-                    <a class="item" href="/Users/view/<?php echo $this->request->session()->read('Auth.User.matricula');  ?>"><i class="settings icon"></i>Conta</a>
-                    <a class="item" href="/users/logout"><i class="log out icon"></i>Logout</a>
-                </div>              
-            </div>          
-            
-        </div>
-        <?php endif; ?> 
-
-        <div id="wrapper">
-            <div class="ui container" id="content">
+                    <div class="item">
+                        <div class="header"><?php echo $this->request->session()->read('Auth.User.nome'); ?><i class="user icon"></i></div>
+                        <div class="menu">
+                            <a class="item" href="/Users/view/<?php echo $this->request->session()->read('Auth.User.matricula');  ?>"><i class="settings icon"></i>Conta</a>
+                            <a class="item" href="/users/logout"><i class="log out icon"></i>Logout</a>
+                        </div>              
+                    </div>          
                 
-                <div class="ui stackable grid">                   
+                <?php endif; ?>   
+                </div>                
 
-                <div class="sixten centered wide column row">
-                    <?php echo $this->Flash->render(); ?>
-                
-                    <?php echo $this->Flash->render('auth'); ?>
-                </div>
-                    <?php echo $this->fetch('content'); ?>
+                <div class="ui container main">
+                    
+                    <div class="ui stackable grid">                   
 
-                    <div class="ui modal small">
-                        <i class="close icon"></i>
-                        <div class="ui dimmer loading">                        
-                            <div class="ui text loader">Aguarde...</div>                       
-                        </div>                     
-                        <div class="header"></div> 
-                        <div class="mensagem"></div>              
-                        <div class="content"></div>
-                        <div class="actions"></div> 
+                    <div class="sixten centered wide column row">
+                        <?php echo $this->Flash->render(); ?>
+                    
+                        <?php echo $this->Flash->render('auth'); ?>
                     </div>
 
-                </div>  
+                        <?php echo $this->fetch('content'); ?>
+
+                        <div class="ui modal small">
+                            <i class="close icon"></i>
+                            <div class="ui dimmer loading">                        
+                                <div class="ui text loader">Aguarde...</div>                       
+                            </div>                     
+                            <div class="header"></div> 
+                            <div class="mensagem"></div>              
+                            <div class="content"></div>
+                            <div class="actions"></div> 
+                        </div>
+
+                    </div>  
+
+                </div>
 
             </div>
 
-            <div class="ui vertical inverted footer segment" id="footer">
+            <div class="ui vertical inverted footer segment">
                 <div class="ui center aligned container">                      
                     <div class="ui horizontal inverted small divided link list">
                         <a class="item" href="/">Sistema de Gerenciamento de Laboratórios</a>
@@ -201,7 +213,9 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
     </body> 
 
 </html>

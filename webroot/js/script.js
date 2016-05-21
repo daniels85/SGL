@@ -20,6 +20,7 @@ $(document).ready(function(){
 		event.preventDefault();
 		$('.ui.right.vertical.sidebar.menu')
 			.sidebar('setting', 'transition', 'overlay')
+			.sidebar('setting', 'mobileTransition', 'overlay')
 			.sidebar('toggle');
 	});
 

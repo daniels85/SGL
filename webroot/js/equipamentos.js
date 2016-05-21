@@ -28,9 +28,7 @@ $(document).ready(function(){
 				return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
 			},
 
-			success: function(data){				
-
-				console.log(data);
+			success: function(data){		
 
 				modalContent.html('');
 

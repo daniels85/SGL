@@ -1,5 +1,4 @@
 <?php 
-	use Cake\ORM\TableRegistry;
 	use App\Controller\UsersController;
 	$userAuth = $this->request->session()->read('Auth.User');
 ?>

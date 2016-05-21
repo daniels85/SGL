@@ -12,17 +12,26 @@
 	right: 10%;
 }
 */
-#content {
-	padding-bottom:100px; /* Height of the footer element */
-}
-#wrapper {
-	min-height:100%;
-	position:relative;
+.ui.container.main {
+    margin-top: 30px;
+    padding-bottom:100px;               
 }
 
-#footer {
-	width:100%;
-	position:absolute;
-	bottom: 0;
-	left:0;
+.ui.vertical.inverted.footer.segment {
+    width:100%;                
+    bottom: 0;
+    left:0;
+    position:absolute;
 }
+
+.full.height.wrapper {
+    min-height:100%;
+    position:relative;
+}
+
+@media screen and (min-width: 992px) {
+    .ui.container.main{
+        margin-top: 0px;
+        padding-bottom:100px;
+    }
+}   
