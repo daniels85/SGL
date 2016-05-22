@@ -10,7 +10,7 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
 --------:|:--------------------------------------------------------------
   1.6.0  | [Adicionado] Alterar responsável.
   1.5.0	 | [Adicionado] Enviar email aos bolsistas ao ser gerado alertas.
-  1.4.0  | [Adicionado] Perfil Suporte
+  1.4.0  | [Adicionado] Perfil Suporte.
   1.3.0  | Modificado relação dos responsáveis por um equipamento. Agora são associados aos Usuários.
   1.2.2  | [Bugfix] Corrigido erros ao cadastrar ambiente.
   1.2.1  | [Bugfix] Corrigido erros de permissão ao excluir equipamento.
