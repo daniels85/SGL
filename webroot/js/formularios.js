@@ -306,7 +306,7 @@ $(document).ready(function(){
 				rules : [
 					{
 						type : 'minLength[10]',
-						prompt : 'Insira uma {name} válida.'
+						prompt : 'Insira um {name} válido.'
 					}
 				]
 			},
@@ -316,7 +316,7 @@ $(document).ready(function(){
 				rules : [
 					{
 						type : 'minLength[10]',
-						prompt : 'Insira uma {name} válida.'
+						prompt : 'Insira um {name} válido.'
 					}
 				]
 			}

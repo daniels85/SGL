@@ -562,8 +562,7 @@
 		"/var/www/sgl/src/Model/Table",
 		"/var/www/sgl/src/Template",
 		"/var/www/sgl/src/Template/Equipamentos",
-		"/var/www/sgl/src/Template/Locals",
-		"/var/www/sgl/vendor/cakephp/cakephp"
+		"/var/www/sgl/src/Template/Locals"
 	],
 	"file_history":
 	[

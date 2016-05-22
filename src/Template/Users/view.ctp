@@ -137,8 +137,8 @@
 										<td><?php echo $equipamento->nome; ?></td>
 										<td><?php echo $equipamento->status; ?></td>
 										<td><?php echo $equipamento->tombo; ?></td>
-										<td><?php echo $equipamento->tipo_equipamentos[0]->nome; ?></td>
-										<td><?php echo $equipamento->locals[0]->nome; ?></td>
+										<td><?php echo $equipamento->tipo_equipamento->nome; ?></td>
+										<td><?php echo $equipamento->local->nome; ?></td>
 										<td>
 										    <a class="ui button tiny icon green" href="/equipamentos/view/<?php echo $equipamento->tombo ?>"><i class="unhide icon"></i></a>
 										    <button class="ui button icon tiny blue btnEditarEquipamento"><i class="edit icon"></i></button>

@@ -313,6 +313,8 @@ $(document).ready(function(){
 						var descricao = $('#descricao').val();
 						var codLocal = equipamento['equipamento'].codLocal;
 
+						$('.ui.dimmer.loading').dimmer('show');
+
 						$.ajax({
 							url: 'http://'+host+'/alertas/add',
 							type: 'PUT',
@@ -326,6 +328,9 @@ $(document).ready(function(){
 							},
 
 							success: function(data){
+
+								$('.ui.dimmer.loading').dimmer('hide');
+
 								if(data == 'Cadastrado'){
 									mensagem_sucesso =  '<div class="ui success message">';
 									mensagem_sucesso += '<div class="header">';

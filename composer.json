@@ -22,7 +22,11 @@
     "autoload": {
         "psr-4": {
             "App\\": "src"
-        }
+        },
+        "files": [
+            "vendor/tcpdf/tcpdf.php",
+            "vendor/tcpdf/mypdf.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

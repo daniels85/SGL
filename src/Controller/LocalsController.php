@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Controller\PdfsController;
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
 
@@ -413,6 +414,76 @@ class LocalsController extends AppController {
 
         $this->set(compact('local', 'bolsistas', 'userLocalsBolsistas', 'usersLocal'));
         $this->set('_serialize', ['local']);
+    }
+
+    /**
+     * Relatorio method
+     *
+     * @param string|null $codigoLocal Local codigo
+     * @return \Cake\Network\Response -> arquivo pdf | redirect
+     */
+    public function relatorio($codigoLocal = null){
+
+        if($this->request->is('post')){
+
+            $local = $this->Locals
+                                ->find()
+                                ->where(['codigo' => $codigoLocal])
+                                ->all()
+                                ->first();
+
+            if(is_null($local)){
+                throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Ambiente não encontrado.", 404);
+            }
+
+            date_default_timezone_set("America/Fortaleza");
+
+            $dataInicio = date('Y-m-d H:i:s', strtotime($this->request->data['dataInicio'] . '00:00:00' ));
+            $dataFim    = date('Y-m-d H:i:s', strtotime($this->request->data['dataFim'] . '23:59:59' ));
+
+            if($dataInicio > $dataFim || $dataInicio > date('Y-m-d H:i:s')){
+                $this->Flash->error(__('Período inválido.'));
+                return $this->redirect(['action' =>  'relatorio', $codigoLocal]);
+            }
+
+            $local = $this->Locals
+                                ->find()
+                                ->where(['codigo' => $codigoLocal])
+                                ->first();
+
+             /** Coordenador **/
+            $coordenadores = UsersController::getCoordenadores($local->codigo);
+            
+            /** Bolsistas **/
+            $bolsistas = UsersController::getBolistas($local->codigo);
+
+            $equipamentos = $this->Locals->Equipamentos
+                                                ->find()                      
+                                                ->where(['codLocal' => $codigoLocal])                                                
+                                                ->order(['Equipamentos.nome' => 'ASC'])
+                                                ->contain([
+                                                    'Locals',
+                                                    'TipoEquipamentos',
+                                                    'Users',
+                                                    'Alertas' => function($q){
+                                                        return $q
+                                                                //->where(['statusAlerta' => 'Pendente']);
+                                                                ->where(['dataAlerta >' => date('Y-m-d H:i:s', strtotime($this->request->data['dataInicio'] . '00:00:00' ))])
+                                                                ->andWhere(['dataAlerta <' => date('Y-m-d H:i:s', strtotime($this->request->data['dataFim'] . '23:59:59' ))]);
+                                                    }
+                                                ])
+                                                ->all()
+                                               ->toArray();
+
+            
+            $this->response->header(['Content-type: application/pdf']);
+            
+            return PdfsController::relatorioLocal($local, $coordenadores, $bolsistas, $equipamentos, $dataInicio, $dataFim);
+        }
+       
+
+        
+
     }
 
     /**

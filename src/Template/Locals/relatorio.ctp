@@ -1,28 +1,3 @@
-<?php 
-
-	use App\Controller\UsersController;
-
-	$userAuth = $this->request->session()->read('Auth.User');
-
-	if(isset($equipamentos)):
-		
-		foreach ($equipamentos as $equipamento){
-	
-				echo $equipamento->nome.'<br>';
-
-				if(!empty($equipamento->alertas)){
-					foreach ($equipamento->alertas as $alerta) {
-						var_dump($alerta);
-					}
-				}else{					
-					var_dump('Não há alertas.');
-				}		
-
-		}
-	?>
-
-<?php else: ?>
-
 <div class="sixteen wide column row">
 		<h4 class="ui horizontal divider header">
 			<i class="file text outline icon"></i>
@@ -38,8 +13,8 @@
 				<?php echo $this->Form->create(null, ['class' => 'ui form equal width']); ?>
 				<h4 class="ui dividing header centered">Período do Relatório</h4>
 				<div class="fields">
-					<?php echo $this->Form->input('nome', ['name' => 'dataInicio', 'id' => 'dataInicio']); ?>
-					<?php echo $this->Form->input('nome', ['name' => 'dataFim', 'id' => 'dataFim']); ?>
+					<?php echo $this->Form->input('Início', ['name' => 'dataInicio', 'id' => 'dataInicio']); ?>
+					<?php echo $this->Form->input('Fim', ['name' => 'dataFim', 'id' => 'dataFim']); ?>
 				</div>
 				<div class="ui message error"></div>
 				<?php echo $this->Form->button(__('Enviar'), ['class' => 'ui button green']);; ?>
@@ -49,7 +24,3 @@
 
 		<div class="five wide column"></div>
 </div>
-
-<?php 
-	endif;
-?>

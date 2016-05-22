@@ -2,7 +2,7 @@
 		
 	<h3 style="font-family:verdana;">Olá <?php echo $nome; ?>,</h3>
 
-	<h3 style="font-family:verdana;">Há um novo alerta para o <?php echo $equipamento->locals[0]->nome; ?>.</h3>
+	<h3 style="font-family:verdana;">Há um novo alerta para o <?php echo $equipamento->local->nome; ?>.</h3>
 	
 	<h4 style="font-family:verdana;">Dados do Equipamento:</h4>
 	

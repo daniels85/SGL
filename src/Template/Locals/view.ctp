@@ -93,11 +93,20 @@
 	</div>
 </div>
 
-<?php if(UsersController::isCoordenador($userAuth, $local->codigo) || UsersController::isBolsista($userAuth, $local->codigo) || !strcmp($userAuth['role'], 'Administrador')) : ?>
+<?php if(UsersController::isCoordenador($userAuth, $local->codigo) || UsersController::isBolsista($userAuth, $local->codigo) || $userAuth['role'] === 'Administrador') : ?>
 
 <div class="sixteen wide column centered row">
 
-	<button class="ui button teal labeled icon left floated" id="addEquipamento" data-id="<?php echo $local->codigo; ?>"><i class="add icon"></i> Adicionar Equipamento</button>
+	<div class="ui buttons left floated">
+
+		<button class="ui button teal labeled icon" id="addEquipamento" data-id="<?php echo $local->codigo; ?>"><i class="add icon"></i> Adicionar Equipamento</button>
+
+		<?php if(!UsersController::isBolsista($userAuth, $local->codigo)): ?>
+			<a class="ui button teal labeled icon" href="/Locals/relatorio/<?php echo $local->codigo; ?>"><i class="file pdf outline icon"></i> Gerar Relatório</a>
+		<?php endif; ?>
+
+	</div>
+
 	<?php if($this->request->session()->read('Auth.User.role') === 'Administrador'): ?>
 		<div class="ui buttons right floated">
 			<a class="ui button teal labeled icon" href="/Locals/moverEquipamentos/<?php echo $local->codigo; ?>"><i class="move icon"></i> Mover Equipamentos</a>
