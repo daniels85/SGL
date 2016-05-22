@@ -559,12 +559,6 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
-	"expanded_folders":
-	[
-		"/home/ivanov/Documentos/sgl",
-		"/home/ivanov/Documentos/sgl/src",
-		"/home/ivanov/Documentos/sgl/src/Controller"
-	],
 	"file_history":
 	[
 		"/home/ivanov/Documentos/sgl/src/Controller/EquipamentosController.php",
@@ -863,7 +857,7 @@
 		[
 			[
 				"",
-				"/var/www/sgl/sglv01.sublime-project"
+				"/var/www/sgl/SGLv1.sublime-project"
 			]
 		],
 		"width": 380.0
