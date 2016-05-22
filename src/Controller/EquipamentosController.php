@@ -35,7 +35,7 @@ class EquipamentosController extends AppController
 
         $equipamentos = $this->Equipamentos
                                         ->find('all')
-                                        ->contain(['TipoEquipamentos', 'Locals']);
+                                        ->contain(['TipoEquipamentos', 'Locals', 'Users']);
 
         $this->set('equipamentos', $this->paginate($equipamentos));
         $this->set('_serialize', ['equipamentos']);
@@ -328,6 +328,61 @@ class EquipamentosController extends AppController
         }   
     }
 
+    public function alterarResponsavel ($codigo = null){
+        
+        $local = $this->Equipamentos->Locals
+                                        ->find()
+                                        ->where(['codigo' => $codigo])
+                                        ->all()
+                                        ->first();
+
+        $professores = $this->Equipamentos->Users
+                                                ->find('list', ['keyField' => 'matricula', 'valueField' => 'nome'])
+                                                ->select(['nome', 'matricula'])
+                                                ->where(['role' => 'Professor'])
+                                                ->all()
+                                                ->toArray();
+
+        /** Equipamentos **/
+        $equipamentos = $this->Equipamentos
+                                        ->find()
+                                        ->where(['codLocal' => $local->codigo])
+                                        ->contain(['TipoEquipamentos', 'Users'])
+                                        ->all()
+                                        ->toArray();
+
+        $this->set('local', $local);
+        $this->set('equipamentos', $equipamentos);
+        $this->set('professores', $professores);
+
+        if($this->request->is('post')){
+
+            if(isset($this->request->data['equipamentos'])){
+
+                $equipamentos           = $this->request->data['equipamentos'];
+                $novoResponsavel        = $this->request->data['responsavel']; 
+                
+                $query = $this->Equipamentos
+                                                ->find()
+                                                ->update()
+                                                ->set(['responsavel' => $novoResponsavel])
+                                                ->where(['tombo IN' => $equipamentos]);
+
+                if($query->execute()){
+                    $this->Flash->success(__('Responsável alterado com sucesso.'));
+                    return $this->redirect(['controller' => 'Locals', 'action' => 'view', $codigo]);
+                }else {
+                    $this->Flash->error(__('Ops! Ocorreu um erro ao alterar.'));
+                }
+
+            }else{
+                $this->Flash->error(__('Nenhum equipamento foi selecionado!'));
+            }            
+            
+        }
+
+    }
+
     public function isAuthorized($user){
         
         if($this->request->action === 'index'){
@@ -385,6 +440,14 @@ class EquipamentosController extends AppController
             }
             return false;
         }
+        
+        if($this->request->action === 'alterarResponsavel'){
+            if(isset($user['role']) && $user['role'] === 'Administrador' || $user['role'] === 'Professor' || $user['role'] === 'Bolsista'){
+                return true;
+            }
+            return false;            
+        }
+
     }   
 
 }

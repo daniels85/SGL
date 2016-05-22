@@ -42,7 +42,7 @@
 		        		$options += [$local->codigo => $local->nome];
 		        	}
 
-		        	echo $this->Form->input('Local', ['name' => 'codLocal', 'options' => $options, 'default' => $equipamento->locals[0]->codigo]); 
+		        	echo $this->Form->input('Local', ['name' => 'codLocal', 'options' => $options, 'default' => $equipamento->local->codigo]); 
 
 		        ?>		        
 
@@ -56,7 +56,7 @@
 		        		$options += [$tipo->id => $tipo->nome];
 		        	}
 		        	
-		        	echo $this->Form->input('tipo', ['name' => 'tipo', 'options' => $options, 'default' => $equipamento->tipo_equipamentos[0]->id]); 
+		        	echo $this->Form->input('tipo', ['name' => 'tipo', 'options' => $options, 'default' => $equipamento->tipo_equipamento->id]); 
 		       	?>
 			        
 				<div class="ui error message"></div>

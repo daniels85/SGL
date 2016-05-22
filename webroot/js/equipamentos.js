@@ -56,15 +56,6 @@ $(document).ready(function(){
 				conteudoModal += '</div>';
 
 				conteudoModal += '<div class="field">';
-				conteudoModal += '<label>Local</label>';
-				conteudoModal += '<select id="codLocal" class="ui fluid dropdown">';
-				for(i = 0; i < data['locals'].length; i++){
-					conteudoModal += (data['locals'][i].codigo == data['equipamento'].codLocal)?'<option value="'+data['locals'][i].codigo+'" selected>'+data['locals'][i].nome+'</option>' : '<option value="'+data['locals'][i].codigo+'">'+data['locals'][i].nome+'</option>';
-				}
-				conteudoModal += '</select>';				
-				conteudoModal += '</div>';
-
-				conteudoModal += '<div class="field">';
 				conteudoModal += '<label>Tipo</label>';
 				conteudoModal += '<select id="tipo" class="ui fluid dropdown">';
 				for(i = 0; i < data['tipoEquipamentos'].length; i++){
@@ -200,7 +191,6 @@ $(document).ready(function(){
 						var nome = $('#nome').val();
 						var tombo = $('#tombo').val();
 						var status = $('#status').val();
-						var codLocal = $('#codLocal').val();
 						var fornecedor = $('#fornecedor').val();
 						var modelo = $('#modelo').val();
 						var responsavel = $('#responsavel').val();
@@ -214,7 +204,6 @@ $(document).ready(function(){
 							data: 	'nome='+nome
 									+'&tombo='+tombo
 									+'&status='+status
-									+'&codLocal='+codLocal
 									+'&fornecedor='+fornecedor
 									+'&modelo='+modelo
 									+'&responsavel='+responsavel
@@ -524,6 +513,7 @@ $(document).ready(function(){
 				conteudoModal += '<div class="field">';
 				conteudoModal += '<label>Tipo</label>';
 				conteudoModal += '<select id="tipo" class="ui fluid dropdown">';
+				conteudoModal += '<option value="">Selecione um tipo</option>';
 				for(i = 0; i < data['tipoEquipamentos'].length; i++){
 					conteudoModal += '<option value="'+data['tipoEquipamentos'][i].id+'">'+data['tipoEquipamentos'][i].nome+'</option>';
 				}

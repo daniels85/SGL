@@ -63,7 +63,7 @@
 						<td><?php echo $equipamento->nome; ?></td>
 						<td><?php echo $equipamento->status; ?></td>
 						<td><?php echo $equipamento->tombo; ?></td>
-						<td><?php echo $equipamento->tipo_equipamentos[0]->nome; ?></td>
+						<td><?php echo $equipamento->tipo_equipamento->nome; ?></td>
 						<td>
 							<?php if(!is_null($this->request->session()->read('Auth.User.id'))): ?>
 						      <a class="ui button icon green tiny" href="/Equipamentos/view/<?php echo $equipamento->tombo; ?>"><i class="unhide icon"></i></a>						      
@@ -95,12 +95,16 @@
 
 <?php if(UsersController::isCoordenador($userAuth, $local->codigo) || UsersController::isBolsista($userAuth, $local->codigo) || !strcmp($userAuth['role'], 'Administrador')) : ?>
 
-<div class="sixteen wide column row">
+<div class="sixteen wide column centered row">
 
-	<button class="ui button teal labeled icon" id="addEquipamento" data-id="<?php echo $local->codigo; ?>"><i class="add icon"></i> Adicionar Equipamento</button>
+	<button class="ui button teal labeled icon left floated" id="addEquipamento" data-id="<?php echo $local->codigo; ?>"><i class="add icon"></i> Adicionar Equipamento</button>
 	<?php if($this->request->session()->read('Auth.User.role') === 'Administrador'): ?>
-		<a class="ui button teal labeled icon" href="/Locals/moverEquipamentos/<?php echo $local->codigo; ?>"><i class="move icon"></i> Mover Equipamentos</a>
+		<div class="ui buttons right floated">
+			<a class="ui button teal labeled icon" href="/Locals/moverEquipamentos/<?php echo $local->codigo; ?>"><i class="move icon"></i> Mover Equipamentos</a>
+			<a class="ui button teal labeled icon" href="/Equipamentos/alterarResponsavel/<?php echo $local->codigo; ?>"><i class="random icon"></i> Alterar Responsável dos Equipamentos</a>
+		</div>
 	<?php endif; ?>
+
 </div>
 
 <?php endif; ?>

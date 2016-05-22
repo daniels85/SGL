@@ -20,11 +20,11 @@
 		</tr>
 		<tr>
 			<td>Local</td>
-			<td><?php echo $equipamento->locals[0]->nome; ?></td>
+			<td><?php echo $equipamento->local->nome; ?></td>
 		</tr>
 		<tr>
 			<td>Tipo</td>
-			<td><?php echo $equipamento->tipo_equipamentos[0]->nome; ?></td>
+			<td><?php echo $equipamento->tipo_equipamento->nome; ?></td>
 		</tr>
 		<tr>
 			<td>Modelo</td>

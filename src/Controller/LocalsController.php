@@ -141,6 +141,7 @@ class LocalsController extends AppController {
 
                 if($query->execute()){
                     $this->Flash->success(__('Equipamentos movidos com sucesso.'));
+                    return $this->redirect(['controller' => 'Locals', 'action' => 'view', $codigo]);
                 }else {
                     $this->Flash->error(__('Ops! Ocorreu um erro ao mover.'));
                 }
@@ -291,6 +292,7 @@ class LocalsController extends AppController {
                                         ->where(['role' => 'Professor'])
                                         ->all()
                                         ->toArray();
+                                        
         $bolsistas = $this->Locals->Users
                                         ->find()
                                         ->select(['nome', 'matricula'])
@@ -326,9 +328,9 @@ class LocalsController extends AppController {
         }
 
         if ($this->Locals->delete($local)) {
-            $this->Flash->success(__('Local deletado com sucesso.'));
+            $this->Flash->success(__('Ambiente deletado com sucesso.'));
         } else {
-            $this->Flash->error(__('Ops! Ocorreu um erro ao deletar o local.'));
+            $this->Flash->error(__('Ops! Ocorreu um erro ao deletar o Ambiente.'));
         }
         return $this->redirect(['action' => 'index']);
     }

@@ -13,6 +13,7 @@
 					<th class=""><?php echo $this->Paginator->sort('tombo', null, ['direction' => 'desc']); ?></th>
 					<th class=""><?php echo $this->Paginator->sort('tipo', null, ['direction' => 'desc']); ?></th>
 					<th class=""><?php echo $this->Paginator->sort('codLocal', 'Local', ['direction' => 'desc']); ?></th>
+					<th class=""><?php echo $this->Paginator->sort('responsavel', 'Responsável', ['direction' => 'desc']); ?></th>
 					<th class=""></th>
 				</tr>
 			</thead>
@@ -25,8 +26,9 @@
 						<td><?php echo $equipamento->nome; ?></td>
 						<td><?php echo $equipamento->status; ?></td>
 						<td><?php echo $equipamento->tombo; ?></td>
-						<td><?php echo $equipamento->tipo_equipamentos[0]->nome; ?></td>
-						<td><?php echo $equipamento->locals[0]->nome; ?></td>
+						<td><?php echo $equipamento->tipo_equipamento->nome; ?></td>
+						<td><?php echo $equipamento->local->nome; ?></td>
+						<td><?php echo $equipamento->user->nome; ?></td>
 						<td>
 						      <a class="ui button tiny icon green" href="/equipamentos/view/<?php echo $equipamento->tombo ?>"><i class="unhide icon"></i></a>
 						      <a class="ui button tiny icon blue" href="/equipamentos/edit/<?php echo $equipamento->tombo ?>"><i class="edit icon"></i></a>
@@ -37,7 +39,7 @@
 			</tbody>
 			<tfoot class="right aligned full-width">
 				<tr>
-					<th colspan="7">
+					<th colspan="8">
 						<div class="ui pagination menu small">
 							<?php echo $this->Paginator->prev(); ?>
 

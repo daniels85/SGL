@@ -28,7 +28,7 @@ class EquipamentosTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->hasMany('Locals', [
+        $this->hasOne('Locals', [
             'className'     => 'Locals',            
             'foreignKey'    => 'codigo',
             'bindingKey'    => 'codLocal',
@@ -42,7 +42,7 @@ class EquipamentosTable extends Table
             'joinType'      => 'INNER'
         ]);
 
-        $this->hasMany('TipoEquipamentos', [
+        $this->hasOne('TipoEquipamentos', [
             'bindingKey'    => 'tipo',
             'foreignKey'    => 'id',
             'joinType'      => 'INNER'

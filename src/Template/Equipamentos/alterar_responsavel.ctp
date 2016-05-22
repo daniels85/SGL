@@ -1,7 +1,7 @@
 <div class="ten wide column centered">
 	<div class="ui teal segment">
 		<h4 class="ui horizontal divider header">
-			Mover equipamentos
+			Alterar Responsável
 		</h4>
 		<?php $this->Flash->render('auth'); ?>
 
@@ -10,15 +10,12 @@
 			<?php echo $this->Form->create(); ?>
 		    
 			<?php 
+
 	        	$options = [
-	        		'' => 'Selecione um local',
-	        	];
+	        		'' => 'Selecione um responsável',
+	        	] + $professores;
 
-	        	foreach($locals as $local){
-	        		$options[$local->codigo] = $local->nome;
-	        	}
-
-	        	echo $this->Form->input('Local', ['class' => 'ui dropdown selection six wide field', 'name' => 'local', 'options' => $options]); 
+	        	echo $this->Form->input('Responsável', ['class' => 'ui dropdown selection six wide field', 'name' => 'responsavel', 'options' => $options]); 
 	       	?>
 
 	       	<div class="field">
@@ -30,7 +27,8 @@
 						<th></th>
 						<th>Nome</th>					
 						<th>Status</th>
-						<th>Tombo</th>
+						<th>Tombo</th>						
+						<th>Responsável</th>
 						<th>Tipo</th>
 					</tr>
 				</thead>
@@ -48,13 +46,14 @@
 							<td><?php echo $equipamento->nome; ?></td>
 							<td><?php echo $equipamento->status; ?></td>
 							<td><?php echo $equipamento->tombo; ?></td>
-							<td><?php echo $equipamento->tipo_equipamento->nome; ?></td>								
+							<td><?php echo $equipamento->user->nome; ?></td>	
+							<td><?php echo $equipamento->tipo_equipamento->nome; ?></td>						
 						</tr>
 					<?php endforeach; ?>
 				</tbody> 
 				<tfoot class="full-width">
 					<tr class="left aligned">
-						<th colspan="4">
+						<th colspan="5">
 							<div class="ui small blue button" onclick="marcarTodos();">
 								Marcar Todos
 							</div>

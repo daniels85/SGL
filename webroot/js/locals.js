@@ -68,7 +68,7 @@ $(document).ready(function(){
 								conteudoModal += '<div class="content">';
 								conteudoModal += 'Ops! Ocorreu um erro ao tentar apagar.';
 								conteudoModal += '<div class="sub header">';
-								conteudoModal += 'Certifique-se que não há nenhum equipamento associado a este Local.';
+								conteudoModal += 'Certifique-se que não há nenhum equipamento associado a este Ambiente.';
 								conteudoModal += '</div>';
 								conteudoModal += '</div>';
 								conteudoModal += '</h2>';
