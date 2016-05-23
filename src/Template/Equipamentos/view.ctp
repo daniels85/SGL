@@ -1,3 +1,7 @@
+<?php 
+	use App\Controller\UsersController;
+	$userAuth = $this->request->session()->read('Auth.User');
+?>
 <div class="sixteen centered wide column row">
 	<h3 class="ui horizontal divider header">
 		<i class="desktop icon"></i>
@@ -40,6 +44,12 @@
 		</tr>
 	
 	</table>
+</div>
+
+<div class="sixteen wide column row">
+	<?php if(UsersController::isCoordenador($userAuth, $equipamento->local->codigo) || $userAuth['role'] === 'Administrador' || $userAuth['role'] === 'Suporte' || $userAuth['matricula'] === $equipamento->responsavel): ?>
+		<a class="ui button teal labeled icon" href="/Equipamentos/relatorio/<?php echo $equipamento->tombo; ?>"><i class="file pdf outline icon"></i> Gerar Relatório</a>
+	<?php endif; ?>
 </div>
 
 <?php if($this->request->session()->read('Auth.User.role') !== 'Administrador' && $this->request->session()->read('Auth.User.role') !== 'Suporte'): ?>

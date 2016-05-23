@@ -2,6 +2,9 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Controller\UsersController;
+use App\Controller\PdfsController;
+use Cake\Event\Event;
 
 /**
  * Equipamentos Controller
@@ -383,6 +386,49 @@ class EquipamentosController extends AppController
 
     }
 
+    public function relatorio($tombo = null){
+        
+        if($this->request->is(['post'])){
+
+            date_default_timezone_set("America/Fortaleza");
+
+            $dataInicio = date('Y-m-d H:i:s', strtotime($this->request->data['dataInicio'] . '00:00:00' ));
+            $dataFim    = date('Y-m-d H:i:s', strtotime($this->request->data['dataFim'] . '23:59:59' ));
+
+            if($dataInicio > $dataFim || $dataInicio > date('Y-m-d H:i:s')){
+                $this->Flash->error(__('Período inválido.'));
+                return $this->redirect(['action' =>  'relatorio', $codigoLocal]);
+            }
+            
+            $equipamento = $this->Equipamentos
+                                        ->find()
+                                        ->where(['tombo' => $tombo])
+                                        ->contain([
+                                                'TipoEquipamentos', 
+                                                'Users', 
+                                                'Locals',
+                                                'Alertas' => function($q){
+                                                        return $q
+                                                        //->where(['statusAlerta' => 'Pendente']);
+                                                            ->where(['dataAlerta >' => date('Y-m-d H:i:s', strtotime($this->request->data['dataInicio'] . '00:00:00' ))])
+                                                            ->andWhere(['dataAlerta <' => date('Y-m-d H:i:s', strtotime($this->request->data['dataFim'] . '23:59:59' ))]);
+                                                    }
+                                                ])
+                                                ->all()
+                                                ->first();
+
+            if(is_null($equipamento)){
+                throw new \Cake\Datasource\Exception\RecordNotFoundException("Ops! Equipamento não encontrado.", 404);
+            }
+
+            $this->response->header(['Content-type: application/pdf']);
+
+            return PdfsController::relatorioEquipamento($equipamento, $dataInicio, $dataFim);
+
+        }
+
+    }
+
     public function isAuthorized($user){
         
         if($this->request->action === 'index'){
@@ -443,6 +489,15 @@ class EquipamentosController extends AppController
         
         if($this->request->action === 'alterarResponsavel'){
             if(isset($user['role']) && $user['role'] === 'Administrador' || $user['role'] === 'Professor' || $user['role'] === 'Bolsista'){
+                return true;
+            }
+            return false;            
+        }
+
+        if($this->request->action === 'relatorio'){
+            $tomboEquipamento = $this->request->params['pass']['0'];
+            $equipamento = $this->Equipamentos->find()->where(['tombo' => $tomboEquipamento])->contain(['Locals', 'Users'])->first();
+            if(isset($user['role']) && $user['role'] === 'Administrador' || $user['role'] === 'Suporte' || UsersController::isCoordenador($user, $equipamento->codLocal) || $equipamento->responsavel === $user['matricula']){
                 return true;
             }
             return false;            

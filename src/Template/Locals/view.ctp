@@ -101,7 +101,7 @@
 
 		<button class="ui button teal labeled icon" id="addEquipamento" data-id="<?php echo $local->codigo; ?>"><i class="add icon"></i> Adicionar Equipamento</button>
 
-		<?php if(!UsersController::isBolsista($userAuth, $local->codigo)): ?>
+		<?php if(UsersController::isCoordenador($userAuth, $local->codigo) || $userAuth['role'] === 'Administrador' || $userAuth['role'] === 'Suporte'): ?>
 			<a class="ui button teal labeled icon" href="/Locals/relatorio/<?php echo $local->codigo; ?>"><i class="file pdf outline icon"></i> Gerar Relatório</a>
 		<?php endif; ?>
 

@@ -473,9 +473,8 @@ class LocalsController extends AppController {
                                                     }
                                                 ])
                                                 ->all()
-                                               ->toArray();
-
-            
+                                                ->toArray();
+  
             $this->response->header(['Content-type: application/pdf']);
             
             return PdfsController::relatorioLocal($local, $coordenadores, $bolsistas, $equipamentos, $dataInicio, $dataFim);
@@ -557,7 +556,7 @@ class LocalsController extends AppController {
 
         if($this->request->action === 'relatorio'){
             $codLocal = $this->request->params['pass']['0'];
-            if (isset($user['role']) && UsersController::isCoordenador($user, $codLocal) || $user['role'] === 'Administrador') {
+            if (isset($user['role']) && UsersController::isCoordenador($user, $codLocal) || $user['role'] === 'Administrador' || $user['role'] === 'Suporte') {
                 return true;
             }
             return false;

@@ -130,4 +130,8 @@ class UsersTable extends Table
         $rules->add($rules->isUnique(['matricula']));
         return $rules;
     }
+
+    public function ola(){
+        var_dump($this->get(1)->nome);
+    }
 }
