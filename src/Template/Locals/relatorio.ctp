@@ -1,7 +1,7 @@
 <div class="sixteen wide column row">
 		<h4 class="ui horizontal divider header">
 			<i class="file text outline icon"></i>
-			Relatório
+			Relatório do Ambiente
 		</h4>
 		
 		<div class="five wide column"></div>
