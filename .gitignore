@@ -1,9 +1,4 @@
-logs/*
-webroot/semantic-ui/*
-webroot/semantic-ui/themes/*
-config/app.php
-
 /logs/*
-/webroot/semantic-ui/*
-/webroot/semantic-ui/themes/*
-/config/app.php
+/webroot/semantic-ui/**
+/webroot/semantic-ui/**/*
+/vendor/tcpdf/fonts/**/*

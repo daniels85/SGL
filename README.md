@@ -3,11 +3,12 @@
 Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
 
 ---------------------------------------------------------
-### Versão 1.8.0
+### Versão 1.9.0
 
 ##### <i class="icon-file"></i> Changelog
  Versão   | Descrição 
 ---------:|:--------------------------------------------------------------
+  1.9.0   | [Removido] Opção de apagar equipamento pelo perfil do usuário.
   1.8.0   | [Adicionado] Gerar relatórios dos Equipamentos.
   1.7.0   | [Adicionado] Gerar relatórios dos Ambientes.
   1.6.0.1 | [CakePHP] Atualizado para versão 3.2.9.

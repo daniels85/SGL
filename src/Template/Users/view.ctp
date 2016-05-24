@@ -142,7 +142,6 @@
 										<td>
 										    <a class="ui button tiny icon green" href="/equipamentos/view/<?php echo $equipamento->tombo ?>"><i class="unhide icon"></i></a>
 										    <button class="ui button icon tiny blue btnEditarEquipamento"><i class="edit icon"></i></button>
-						      				<button class="ui button icon tiny red btnApagarEquipamento"><i class="delete icon"></i></button>
 										</td>
 									</tr>
 								<?php endforeach; ?>
