@@ -17,7 +17,7 @@
 						<select name="coordenadores[]" class="ui fluid dropdown" multiple>
 							<option value=""></option>
 							<?php foreach($professores as $professor): ?>
-								<option value=" <?php echo $professor->matricula; ?> ">
+								<option value="<?php echo $professor->matricula; ?>">
 									<?php echo $professor->nome." - Matrícula: ".$professor->matricula; ?> 
 								</option>
 							<?php endforeach; ?>
