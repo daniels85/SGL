@@ -16,6 +16,11 @@ $(document).ready(function(){
 		.dropdown('setting', 'transition', 'slide down')
 		.dropdown();
 
+	$('.button')
+		.popup({
+    		on: 'hover'
+ 		 });
+
 	$('.launch.icon.item').click(function(event){
 		event.preventDefault();
 		$('.ui.right.vertical.sidebar.menu')

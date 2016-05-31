@@ -30,9 +30,9 @@
 						<td><?php echo $equipamento->local->nome; ?></td>
 						<td><?php echo $equipamento->user->nome; ?></td>
 						<td>
-						      <a class="ui button tiny icon green" href="/equipamentos/view/<?php echo $equipamento->tombo ?>"><i class="unhide icon"></i></a>
-						      <a class="ui button tiny icon blue" href="/equipamentos/edit/<?php echo $equipamento->tombo ?>"><i class="edit icon"></i></a>
-						      <a class="ui button tiny icon red btnApagarEquipamento"><i class="remove icon"></i></a>
+						      <a class="ui button tiny icon green" data-content="Ver" href="/equipamentos/view/<?php echo $equipamento->tombo ?>"><i class="unhide icon"></i></a>
+						      <a class="ui button tiny icon blue" data-content="Editar" href="/equipamentos/edit/<?php echo $equipamento->tombo ?>"><i class="edit icon"></i></a>
+						      <a class="ui button tiny icon red btnApagarEquipamento" data-content="Apagar"><i class="remove icon"></i></a>
 						</td>
 					</tr>
 				<?php endforeach; ?>
