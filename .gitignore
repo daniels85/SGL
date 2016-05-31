@@ -2,4 +2,5 @@
 /tmp/*
 /logs/*
 /webroot/semantic-ui/*
+/webroot/semantic-ui/themes/default/assets/fonts/*.ttf
 /vendor/*

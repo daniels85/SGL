@@ -187,6 +187,22 @@ return [
             'tls' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
+        'mailSgl' => [
+            'host' => 'ssl://smtp.gmail.com',
+            'port' => 465,
+            'timeout' => 60,
+            'username' => '****',
+            'password' => '****',
+            'className' => 'Smtp',
+            'context' => [
+                 'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                ]
+            ]
+            //'tls' => true
+        ]
     ],
 
     /**
