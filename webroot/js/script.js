@@ -1,7 +1,6 @@
 $(document).ready(function(){
 	
-	$('#dataInicio').mask("00-00-0000", {placeholder: "__-__-____"});
-	$('#dataFim').mask("00-00-0000", {placeholder: "__-__-____"});
+	$('.inputData').mask("00-00-0000");
 	$('#dataDeCompra').mask("00-00-0000", {placeholder: "__-__-____"});
 	
 	$('.ui.accordion').accordion();
@@ -34,6 +33,34 @@ $(document).ready(function(){
 	});
 
 	$('.ui.checkbox').checkbox();
+
+
+	$('#rangestart').calendar({
+		type: 'date',
+		endCalendar: $('#rangeend'),
+		formatter: {
+			date: function (date, settings) {
+				if (!date) return '';
+				var day = date.getDate();
+				var month = date.getMonth() + 1;
+				var year = date.getFullYear();
+				return day + '-' + month + '-' + year;
+			}
+		}
+	});
+	$('#rangeend').calendar({
+		type: 'date',
+		startCalendar: $('#rangestart'),
+		formatter: {
+			date: function (date, settings) {
+				if (!date) return '';
+				var day = date.getDate();
+				var month = date.getMonth() + 1;
+				var year = date.getFullYear();
+				return day + '-' + month + '-' + year;
+			}
+		}
+	});
 
 });
 
