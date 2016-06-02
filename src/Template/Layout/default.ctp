@@ -64,23 +64,14 @@
 
                         <a href="/" class="item">Home</a>
                         <div class="right menu">
-                            <?php if (!is_null($this->request->session()->read('Auth.User.username'))): ?>   
-                            <!--
-                            <div class="ui category search item">
-                                <div class="ui left transparent icon input">
-                                    <form method="POST" action="/equipamentos/find/" id="formBuscaEquipamento">
-                                        <input type="hidden" name='_csrfToken' value="<?php echo $this->request->param('_csrfToken'); ?>"> 
-                                        <input class="prompt" type="text" name='tombo' placeholder="Buscar por equipamento">
-                                        <button class="ui basic button icon mini" type="submit"><i class="search link icon"></i></button>
-                                    </form>
-                                </div>
-                            </div>
-                            -->
-                            <div class="ui category search item">
+                            <?php if (!is_null($this->request->session()->read('Auth.User.username'))): ?>
+
+                            <div class="ui fluid category search item">
                                 <div class="ui search transparent icon input find equipamento">
                                     <i class="search icon"></i>
                                     <input type="text" class="prompt" id="busca" placeholder="Buscar equipamento...">
                                 </div>
+                                <div class="results"></div>
                             </div>
 
                                 <?php if(!strcmp($this->request->session()->read('Auth.User.role'), 'Professor')): ?>
@@ -159,27 +150,28 @@
                     <?php if($this->request->session()->read('Auth.User.role') === 'Administrador' || $this->request->session()->read('Auth.User.role') === 'Suporte'): ?>
                     <a href="/equipamentos" class="item">Equipamentos</a>
                     <?php endif; ?>
-                    <div class="item">
-                        <div class="header">Buscar por Equipamento</div>
-                        <div class="menu">
-                            <div class="ui category search item">
-                                <div class="ui transparent icon input">
-                                    <form method="POST" action="/equipamentos/find/" id="formBuscaEquipamento">
-                                        <input type="hidden" name='_csrfToken' value="<?php echo $this->request->param('_csrfToken'); ?>"> 
-                                        <input class="prompt" type="text" name='tombo' placeholder="Buscar por equipamento">
-                                        <button class="ui basic button icon mini" type="submit"><i class="search link icon"></i></button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="item">
                         <div class="header"><?php echo $this->request->session()->read('Auth.User.nome'); ?><i class="user icon"></i></div>
                         <div class="menu">
                             <a class="item" href="/Users/view/<?php echo $this->request->session()->read('Auth.User.matricula');  ?>"><i class="settings icon"></i>Conta</a>
                             <a class="item" href="/users/logout"><i class="log out icon"></i>Logout</a>
                         </div>              
-                    </div>          
+                    </div>  
+                    <div class="item">
+                        <div class="header">Buscar por Equipamento</div>
+                        <div class="menu">
+
+                            <div class="ui fluid category search item">
+                                <div class="ui search transparent icon input find equipamento">
+                                    <i class="search icon"></i>
+                                    <input type="text" class="prompt" id="busca" placeholder="Buscar equipamento...">
+                                </div>
+                                <div class="results fluid"></div>
+                            </div>
+                            
+                        </div>
+                    </div>        
                 
                 <?php endif; ?>   
                 </div>                

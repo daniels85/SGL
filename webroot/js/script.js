@@ -34,47 +34,50 @@ $(document).ready(function(){
 
 	$('.ui.checkbox').checkbox();
 	
-	$('.find.equipamento input').api({
-		action 		 : 'find equipamento',
-		stateContext : '.ui.input.find.equipamento',
-		url : 'http://'+$(location).attr('host')+'/Equipamentos/find/{value}',
-		method : 'GET',
-		beforeXHR: function(xhrObject){
-			return xhrObject.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
-		},
+	$('.ui.category.search.item').search({
 
-		onSuccess: function(data){
-			var response = {
-		        	results : {}
-		      	};
+		type			: 'category',
+		minCharacters 	: 2,
+		apiSettings		: {
+			url 	   : '//'+$(location).attr('host')+'/Equipamentos/find/{query}',
+			onResponse : function(data){
+				var response = {
+					results : {}
+				};
 
-			if(!data || !data.equipamentos){
-				return;
-			}
-
-			$.each(data.equipamentos, function(index, item){
-				var maxResults = 4;
-
-				if(index >= maxResults){
-					return false;
+				if(!data || !data.equipamentos){
+					return;
 				}
 
-				if(response.results[index] === undefined) {
-					response.results[index] = {
-						name    : index,
-						results : []
-					};
-				}
+				$.each(data.equipamentos, function(index, equipamento){
 
-				response.results[index].results.push({
-					title       : item.name,
-					description : item.tombo
+					var ambiente  = equipamento.local.nome,
+					maxResults = 5;
+
+					if(index>=maxResults){
+						return false;
+					}
+
+					if(response.results[ambiente] === undefined){
+						response.results[ambiente] = {
+							name 	: ambiente,
+							results : []
+						}
+					}
+
+					response.results[ambiente].results.push({
+						title		: equipamento.nome,
+						description : "Tombo: "+equipamento.tombo,
+						url			: 'http://'+$(location).attr('host')+'/Equipamentos/view/'+equipamento.tombo
+					});
+
 				});
 
-			});
-			console.log(response);
-			return response;
+				return response;
+
+			}
 		}
+
 	});
 	
 
@@ -91,6 +94,7 @@ $(document).ready(function(){
 			}
 		}
 	});
+
 	$('#rangeend').calendar({
 		type: 'date',
 		startCalendar: $('#rangestart'),

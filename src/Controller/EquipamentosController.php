@@ -397,7 +397,7 @@ class EquipamentosController extends AppController
 
             if($dataInicio > $dataFim || $dataInicio > date('Y-m-d H:i:s')){
                 $this->Flash->error(__('Período inválido.'));
-                return $this->redirect(['action' =>  'relatorio', $codigoLocal]);
+                return $this->redirect(['action' =>  'relatorio', $tombo]);
             }
             
             $equipamento = $this->Equipamentos
