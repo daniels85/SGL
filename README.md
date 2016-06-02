@@ -12,33 +12,9 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
 - Extenção mbstring PHP
 
 ### Instalação:
-- Fazer a instalação base do [CakePHP](http://cakephp.org) 3.x.
-  - ###### Instalando o CakePHP via Composer
-    O CakePHP utiliza o [Composer](https://getcomposer.org/), uma ferramenta de gerenciamento de dependências para PHP 5.3+, como o método suportado oficial para instalação.
-    
-    Primeiramente, você precisará baixar e instalar o Composer se não o fez anteriormente. Se você tem cURL instalada, é tão fácil quanto executar o seguinte:
-
-    ``` bash
-    $ curl -s https://getcomposer.org/installer | php
-    ```
-    Ou, você pode baixar **composer.phar** do [Site oficial do Composer](https://getcomposer.org/download/).
-   
-    Para sistemas Windows, você pode baixar o instalador [aqui](https://github.com/composer/windows-setup/releases/). Mais instruções para o instalador Windows do Composer podem ser encontradas dentro do LEIA-ME [aqui](https://github.com/composer/windows-setup).
-   
-    Agora que você baixou e instalou o Composer, você pode receber uma nova aplicação CakePHP executando:
-
-    ``` bash
-    $ php composer.phar create-project --prefer-dist cakephp/app my\_app\_name
-    ```
-    ###### Ou se o Composer estiver instalado globalmente:
-    
-    ``` bash
-    $ composer self-update && composer create-project --prefer-dist cakephp/app my_app_name
-    ```
-    > Você pode encontrar mais sobre a instalação do CakePHP 3.x [aqui](http://book.cakephp.org/3.0/pt/installation.html).
-
-- Configurar o arquivo config/app.php
-  - COnfigurar permições de de escrita para as pastas **logs** e **tmp**.
+- Configurar permissões de de escrita para as pastas **logs** e **tmp**.
+- Copiar e renomear o arquivo **config/app.default.php** para **config/app.php**.  
+- Configurar o arquivo **config/app.php**  
   - Configurar a conexão de banco de dados em Datasources -> default
     >> Você pode encontrar mais sobre configuração da Database [aqui](http://book.cakephp.org/3.0/en/orm/database-basics.html#database-configuration).
   - Configurar um novo perfil de transporte de e-mail em EmailTransport
@@ -63,11 +39,12 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
       > Para mais explicações sobre como configurar o Mail Transport visitar o [Cookbook [Email]](http://book.cakephp.org/3.0/en/core-libraries/email.html).
  
 ----------------------------------------------------------------------------
-### Versão 1.10.0.1
+### Versão 1.11.0
 
 ##### <i class="icon-file"></i> Changelog
  Versão   | Descrição 
 ----------:|:--------------------------------------------------------------
+  1.11.0   | [Modificação] Melhorado o sistema de busca.
   1.10.0.1 | [CakePHP] Atualizado para versão 3.2.10
   1.10.0   | [Adicionado] Professores podem ver a lista de alertas de seus bolsistas
   1.9.1    | [Bugfix] Corrigido bug na data de compra ao salvar os equipamentos.
