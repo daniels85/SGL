@@ -51,23 +51,23 @@ $(document).ready(function(){
 
 				$.each(data.equipamentos, function(index, equipamento){
 
-					var ambiente  = equipamento.local.nome,
+					var tipo  = equipamento.tipo_equipamento.nome,
 					maxResults = 5;
 
 					if(index>=maxResults){
 						return false;
 					}
 
-					if(response.results[ambiente] === undefined){
-						response.results[ambiente] = {
-							name 	: ambiente,
+					if(response.results[tipo] === undefined){
+						response.results[tipo] = {
+							name 	: tipo,
 							results : []
 						}
 					}
 
-					response.results[ambiente].results.push({
+					response.results[tipo].results.push({
 						title		: equipamento.nome,
-						description : "Tombo: "+equipamento.tombo,
+						description : "Tombo: "+equipamento.tombo+"<br>Local: "+equipamento.local.nome,
 						url			: 'http://'+$(location).attr('host')+'/Equipamentos/view/'+equipamento.tombo
 					});
 

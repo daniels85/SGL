@@ -66,7 +66,7 @@
                         <div class="right menu">
                             <?php if (!is_null($this->request->session()->read('Auth.User.username'))): ?>
 
-                            <div class="ui fluid category search item">
+                            <div class="ui left aligned category search item">
                                 <div class="ui search transparent icon input find equipamento">
                                     <i class="search icon"></i>
                                     <input type="text" class="prompt" id="busca" placeholder="Buscar equipamento...">
@@ -167,7 +167,7 @@
                                     <i class="search icon"></i>
                                     <input type="text" class="prompt" id="busca" placeholder="Buscar equipamento...">
                                 </div>
-                                <div class="results fluid"></div>
+                                <div class="results"></div>
                             </div>
                             
                         </div>
