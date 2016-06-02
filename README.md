@@ -16,7 +16,9 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
 - Copiar e renomear o arquivo **config/app.default.php** para **config/app.php**.  
 - Configurar o arquivo **config/app.php**  
   - Configurar a conexão de banco de dados em Datasources -> default
-    >> Você pode encontrar mais sobre configuração da Database [aqui](http://book.cakephp.org/3.0/en/orm/database-basics.html#database-configuration).
+    
+    > Você pode encontrar mais sobre configuração da Database [aqui](http://book.cakephp.org/3.0/en/orm/database-basics.html#database-configuration).
+  
   - Configurar um novo perfil de transporte de e-mail em EmailTransport
      
       ``` bash
