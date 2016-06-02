@@ -65,6 +65,7 @@
                         <a href="/" class="item">Home</a>
                         <div class="right menu">
                             <?php if (!is_null($this->request->session()->read('Auth.User.username'))): ?>   
+                            <!--
                             <div class="ui category search item">
                                 <div class="ui left transparent icon input">
                                     <form method="POST" action="/equipamentos/find/" id="formBuscaEquipamento">
@@ -72,6 +73,13 @@
                                         <input class="prompt" type="text" name='tombo' placeholder="Buscar por equipamento">
                                         <button class="ui basic button icon mini" type="submit"><i class="search link icon"></i></button>
                                     </form>
+                                </div>
+                            </div>
+                            -->
+                            <div class="ui category search item">
+                                <div class="ui search transparent icon input find equipamento">
+                                    <i class="search icon"></i>
+                                    <input type="text" class="prompt" id="busca" placeholder="Buscar equipamento...">
                                 </div>
                             </div>
 

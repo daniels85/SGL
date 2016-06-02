@@ -33,7 +33,50 @@ $(document).ready(function(){
 	});
 
 	$('.ui.checkbox').checkbox();
+	
+	$('.find.equipamento input').api({
+		action 		 : 'find equipamento',
+		stateContext : '.ui.input.find.equipamento',
+		url : 'http://'+$(location).attr('host')+'/Equipamentos/find/{value}',
+		method : 'GET',
+		beforeXHR: function(xhrObject){
+			return xhrObject.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
+		},
 
+		onSuccess: function(data){
+			var response = {
+		        	results : {}
+		      	};
+
+			if(!data || !data.equipamentos){
+				return;
+			}
+
+			$.each(data.equipamentos, function(index, item){
+				var maxResults = 4;
+
+				if(index >= maxResults){
+					return false;
+				}
+
+				if(response.results[index] === undefined) {
+					response.results[index] = {
+						name    : index,
+						results : []
+					};
+				}
+
+				response.results[index].results.push({
+					title       : item.name,
+					description : item.tombo
+				});
+
+			});
+			console.log(response);
+			return response;
+		}
+	});
+	
 
 	$('#rangestart').calendar({
 		type: 'date',
