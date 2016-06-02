@@ -318,33 +318,17 @@ class EquipamentosController extends AppController
      * @return \Cake\Network\Response|null
      */
     public function find($tombo = null){
+        $this->request->allowMethod('ajax');
+        $equipamentos = $this->Equipamentos
+                                        ->find()
+                                        ->contain(['Locals', 'TipoEquipamentos', 'Users'])
+                                        ->where(['tombo LIKE' => $tombo."%"])
+                                        ->all()
+                                        ->toArray();
 
-        if($this->request->is('POST')){
+        $this->set('equipamentos', $equipamentos);        
 
-            $equipamento = $this->Equipamentos
-                                            ->find()
-                                            ->contain(['Locals', 'TipoEquipamentos', 'Users'])
-                                            ->where(['tombo' => $this->request->data['tombo']])
-                                            ->first();
-
-            if(!empty($equipamento)){
-                
-                $alerta = $this->Equipamentos->Alertas
-                                            ->find('all')
-                                            ->where(['tomboEquipamento' => $equipamento->tombo])
-                                            ->last();
-
-                $this->set('equipamento', $equipamento);
-                $this->set('alerta', $alerta);
-
-            }else{
-                $this->Flash->error(__('Equipamento não encontrado.'));
-                return $this->redirect($this->referer());
-            }
-
-        }else{
-            return $this->redirect($this->referer());
-        }   
+        $this->set('_serialize', ['equipamentos']);
     }
 
     public function alterarResponsavel ($codigo = null){
