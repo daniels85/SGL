@@ -12,8 +12,8 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
 - Extenção mbstring PHP
 
 ### Instalação:
-- Configurar permissões de de escrita para as pastas **logs** e **tmp**.
-- Copiar e renomear o arquivo **config/app.default.php** para **config/app.php**.  
+- Configurar permissões de de escrita para as pastas **logs** e **tmp**
+- Copiar e renomear o arquivo **config/app.default.php** para **config/app.php**
 - Configurar o arquivo **config/app.php**  
   - Configurar a conexão de banco de dados em Datasources -> default
     
