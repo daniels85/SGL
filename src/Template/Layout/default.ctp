@@ -36,8 +36,8 @@
 
         <?php echo $this->Html->css('sgl'); ?> 
 
-        <?php echo $this->Html->css('/webroot/semantic-ui/semantic.min.css'); ?>                 
-        <?php echo $this->Html->script('/webroot/semantic-ui/semantic.min.js'); ?>          
+        <?php echo $this->Html->css('/semantic-ui/semantic.min.css'); ?>                 
+        <?php echo $this->Html->script('/semantic-ui/semantic.min.js'); ?>          
           
         <?php echo $this->Html->script('locals.js'); ?>
         <?php echo $this->Html->script('equipamentos.js'); ?>
