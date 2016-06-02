@@ -38,6 +38,7 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
     > Você pode encontrar mais sobre a instalação do CakePHP 3.x [aqui](http://book.cakephp.org/3.0/pt/installation.html).
 
 - Configurar o arquivo config/app.php
+  - COnfigurar permições de de escrita para as pastas **logs** e **tmp**.
   - Configurar a conexão de banco de dados em Datasources -> default
     >> Você pode encontrar mais sobre configuração da Database [aqui](http://book.cakephp.org/3.0/en/orm/database-basics.html#database-configuration).
   - Configurar um novo perfil de transporte de e-mail em EmailTransport
