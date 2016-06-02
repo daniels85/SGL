@@ -5,7 +5,7 @@
 	class MYPDF extends TCPDF {
 
 		public function Header(){
-			$image_file = '/webroot/img/ifce.jpg';
+			$image_file = '/img/ifce.jpg';
 			$this->Image($image_file, 10, 10, 25, '', 'JPG', '', 'T', false, false, 0, false, false, false);
 			$this->setFont('helvetica', 'B', 9);
 			$this->Cell(0, 0, 'Instituto Federal de Educação, Ciência e Tecnologia do Ceará', 0, false, 'R', 0, '', 0, false, 'M', 'M');

@@ -1,7 +1,6 @@
 $(document).ready(function(){
 	
-	$('#dataInicio').mask("00-00-0000", {placeholder: "__-__-____"});
-	$('#dataFim').mask("00-00-0000", {placeholder: "__-__-____"});
+	$('.inputData').mask("00-00-0000");
 	$('#dataDeCompra').mask("00-00-0000", {placeholder: "__-__-____"});
 	
 	$('.ui.accordion').accordion();
@@ -16,6 +15,11 @@ $(document).ready(function(){
 		.dropdown('setting', 'transition', 'slide down')
 		.dropdown();
 
+	$('.button')
+		.popup({
+    		on: 'hover'
+ 		 });
+
 	$('.launch.icon.item').click(function(event){
 		event.preventDefault();
 		$('.ui.right.vertical.sidebar.menu')
@@ -29,6 +33,34 @@ $(document).ready(function(){
 	});
 
 	$('.ui.checkbox').checkbox();
+
+
+	$('#rangestart').calendar({
+		type: 'date',
+		endCalendar: $('#rangeend'),
+		formatter: {
+			date: function (date, settings) {
+				if (!date) return '';
+				var day = date.getDate();
+				var month = date.getMonth() + 1;
+				var year = date.getFullYear();
+				return day + '-' + month + '-' + year;
+			}
+		}
+	});
+	$('#rangeend').calendar({
+		type: 'date',
+		startCalendar: $('#rangestart'),
+		formatter: {
+			date: function (date, settings) {
+				if (!date) return '';
+				var day = date.getDate();
+				var month = date.getMonth() + 1;
+				var year = date.getFullYear();
+				return day + '-' + month + '-' + year;
+			}
+		}
+	});
 
 });
 

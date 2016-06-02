@@ -1,5 +1,3 @@
 /config/app.php
 /tmp/*
 /logs/*
-/webroot/semantic-ui/*
-/vendor/*

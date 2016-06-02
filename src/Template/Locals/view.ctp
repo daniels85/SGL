@@ -66,10 +66,10 @@
 						<td><?php echo $equipamento->tipo_equipamento->nome; ?></td>
 						<td>
 							<?php if(!is_null($this->request->session()->read('Auth.User.id'))): ?>
-						      <a class="ui button icon green tiny" href="/Equipamentos/view/<?php echo $equipamento->tombo; ?>"><i class="unhide icon"></i></a>						      
-						      <button class="ui button icon tiny orange btnAlertarEquipamento <?php if(!strcmp($equipamento->status, 'Alerta') || !strcmp($equipamento->status, 'Defeito')) echo 'disabled'; ?>"><i class="warning sing icon"></i></button>
-						      <button class="ui button icon tiny blue btnEditarEquipamento <?php if(!UsersController::isCoordenador($userAuth, $local->codigo) && !UsersController::isBolsista($userAuth, $local->codigo) && strcmp($userAuth['role'], 'Administrador')) echo 'disabled'; ?>"><i class="edit icon"></i></button>
-						      <button class="ui button icon tiny red btnApagarEquipamento <?php if(!UsersController::isCoordenador($userAuth, $local->codigo) && !UsersController::isBolsista($userAuth, $local->codigo) && strcmp($userAuth['role'], 'Administrador')) echo 'disabled'; ?>"><i class="delete icon"></i></button>
+						      <a class="ui button icon green tiny" data-content="Ver" href="/Equipamentos/view/<?php echo $equipamento->tombo; ?>"><i class="unhide icon"></i></a>						      
+						      <button class="ui button icon tiny orange btnAlertarEquipamento <?php if(!strcmp($equipamento->status, 'Alerta') || !strcmp($equipamento->status, 'Defeito')) echo 'disabled'; ?>" data-content="Alertar"><i class="warning sing icon"></i></button>
+						      <button class="ui button icon tiny blue btnEditarEquipamento <?php if(!UsersController::isCoordenador($userAuth, $local->codigo) && !UsersController::isBolsista($userAuth, $local->codigo) && strcmp($userAuth['role'], 'Administrador')) echo 'disabled';  ?>" data-content="Editar"><i class="edit icon"></i></button>
+						      <button class="ui button icon tiny red btnApagarEquipamento <?php if(!UsersController::isCoordenador($userAuth, $local->codigo) && !UsersController::isBolsista($userAuth, $local->codigo) && strcmp($userAuth['role'], 'Administrador')) echo 'disabled'; ?>" data-content="Apagar"><i class="delete icon"></i></button>
 						    <?php endif; ?>
 						</td>
 					</tr>

@@ -305,7 +305,7 @@ $(document).ready(function(){
 				identifier : 'dataInicio',
 				rules : [
 					{
-						type : 'minLength[10]',
+						type : 'minLength[8]',
 						prompt : 'Insira um {name} válido.'
 					}
 				]
@@ -315,7 +315,7 @@ $(document).ready(function(){
 				identifier : 'dataFim',
 				rules : [
 					{
-						type : 'minLength[10]',
+						type : 'minLength[8]',
 						prompt : 'Insira um {name} válido.'
 					}
 				]
