@@ -972,7 +972,7 @@ function alteraStatusEquipamento(equipamento, status){
 
 	$.ajax({
 
-		url: 'http://'+host+'/equipamentos/editar/'+equipamento['equipamento'].tombo,
+		url: 'http://'+host+'/equipamentos/alterarStatus/'+equipamento['equipamento'].tombo+'/'+status,
 		type: 'PUT',
 		data: 'status='+status,
 

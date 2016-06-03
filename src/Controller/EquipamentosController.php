@@ -135,6 +135,21 @@ class EquipamentosController extends AppController
         $this->set('_serialize', ['equipamento', 'tipoEquipamentos', 'locals']);
     }
 
+    public function alterarStatus($tombo, $status){
+        $equipamento = $this->Equipamentos
+                                    ->find()
+                                    ->where(['tombo' => $tombo])
+                                    ->first();
+
+        $equipamento->status = $status;
+
+        if($this->Equipamentos->save($equipamento)){
+            echo 'sucesso';
+        }else{
+            echo 'erro';
+        }
+    }
+
     /**
      * Editar method
      *
@@ -173,12 +188,12 @@ class EquipamentosController extends AppController
                                                 ->all()
                                                 ->toArray();
 
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->request->is(['put'])) {
 
             $equipamento = $this->Equipamentos->patchEntity($equipamento, $this->request->data);
 
             $equipamento->dataDeCompra = date('Y-m-d H:m:s', strtotime($this->request->data['dataDeCompra']));
-
+            
             if ($this->Equipamentos->save($equipamento)) {
                 echo 'Editado';
             } else {
@@ -501,6 +516,10 @@ class EquipamentosController extends AppController
                 return true;
             }
             return false;            
+        }
+
+        if($this->request->action === 'alterarStatus'){
+            return true;
         }
 
     }   

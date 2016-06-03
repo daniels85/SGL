@@ -41,11 +41,12 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
       > Para mais explicações sobre como configurar o Mail Transport visitar o [Cookbook [Email]](http://book.cakephp.org/3.0/en/core-libraries/email.html).
  
 ----------------------------------------------------------------------------
-### Versão 1.11.0
+### Versão 1.11.1
 
 ##### <i class="icon-file"></i> Changelog
  Versão   | Descrição 
 ----------:|:--------------------------------------------------------------
+  1.11.1   | [Bugfix] Corrigido alterações da data do equipamento ao modificar status do equipamento.
   1.11.0   | [Modificação] Melhorado o sistema de busca.
   1.10.0.1 | [CakePHP] Atualizado para versão 3.2.10
   1.10.0   | [Adicionado] Professores podem ver a lista de alertas de seus bolsistas
