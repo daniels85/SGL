@@ -22,7 +22,7 @@
         <meta name="theme-color" content="#028482">
         <meta name="_csrfToken" content="<?php echo $this->request->param('_csrfToken'); ?>" >
         <title>
-            Sistema de Gerenciamento de Locais - <?php echo $this->fetch('title'); ?>
+            Sistema de Gerenciamento de Locais
         </title>
         <?php echo $this->Html->meta('icon'); ?>
 
