@@ -136,6 +136,7 @@ class EquipamentosController extends AppController
     }
 
     public function alterarStatus($tombo, $status){
+        $this->request->allowMethod(['ajax']);
         $equipamento = $this->Equipamentos
                                     ->find()
                                     ->where(['tombo' => $tombo])
