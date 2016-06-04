@@ -217,18 +217,30 @@ class UsersController extends AppController {
     public function alterarSenha($matricula){
         //$user = $this->Users->get($id);
 
+        $this->request->allowMethod('ajax');
+
+        $atual = $this->request->data['atual'];        
+
         $user = $this->Users
                         ->find()
                         ->where(['matricula' => $matricula])
                         ->first();
 
-        $user = $this->Users->patchEntity($user, $this->request->data);
+        if(strlen($atual) > 0 && $user->checkPassword($atual)){
+            $user = $this->Users->patchEntity($user, $this->request->data);
 
-        if($this->Users->save($user)){
-            echo 'sucesso';
+            if($this->Users->save($user)){
+                $retorno = true;
+            }else{
+                $retorno = false;
+            }
+
         }else{
-            echo 'erro';
+            $retorno = 'senha.incorreta';
+            
         }
+        $this->set(compact('retorno'));
+        $this->set('_serialize', ['retorno']);
     } 
 
     /**

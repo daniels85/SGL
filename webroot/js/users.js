@@ -20,11 +20,16 @@ $(document).ready(function(){
 
 		conteudo  = '<form class="ui form">';
 		conteudo += '<div class="field">';
+		conteudo += '<label>Senha atual</label>';
+		conteudo += '<input type="password" id="passwordAtual" name="passwordAtual">';
+		conteudo += '</div>';
+		conteudo += '<div class="ui header horizontal divider"></div>';
+		conteudo += '<div class="field">';
 		conteudo += '<label>Nova senha</label>';
 		conteudo += '<input type="password" id="password" name="password">';
 		conteudo += '</div>';
 		conteudo += '<div class="field">';
-		conteudo += '<label>Nova senha</label>';
+		conteudo += '<label>Confirme a senha</label>';
 		conteudo += '<input type="password" id="password2" name="password2">';
 		conteudo += '</div>';
 		conteudo += '<div class="ui error message"></div>';
@@ -36,6 +41,16 @@ $(document).ready(function(){
 		modal.modal('show');
 
 		$('.ui.form').form({
+			passwordAtual : {
+				identifier : 'passwordAtual',
+				rules : [
+					{
+						type : 'minLength[6]',
+						prompt : 'O campo {name} deve ter pelo menos {ruleValue} caracteres.'
+					}
+				] 
+			},
+
 			password : {
 				identifier : 'password',
 				rules : [
@@ -61,19 +76,22 @@ $(document).ready(function(){
 				event.preventDefault();
 				
 				password = $('#password').val();
+				atual = $('#passwordAtual').val();
 				
 				$.ajax({
 
 					url: 'http://'+host+'/users/alterarSenha/'+matriculaUsuario,
 					type: 'PUT',
-					data: 'password='+password,
+					dataType : 'json',
+					data: 'password='+password+'&atual='+atual,
 
 					beforeSend: function(request){
 						return request.setRequestHeader("X-CSRF-TOKEN", $("meta[name='_csrfToken']").attr('content'));
 					},
 
 					success: function(data){
-						if(data == 'sucesso'){
+						
+						if(data['retorno'] == true){
 							mensagem_sucesso =  '<div class="ui success message">';
 							mensagem_sucesso += '<div class="header">';
 							mensagem_sucesso += '<i class="checkmark icon"></i>Senha alterada com sucesso.';
@@ -85,10 +103,21 @@ $(document).ready(function(){
 								location.reload();									
 							},1000);
 						}
-						if(data == 'erro'){
+
+						if(data['retorno'] == false){
 							mensagem_erro =  '<div class="ui negative message">';
 							mensagem_erro += '<div class="header">';
 							mensagem_erro += '<i class="warning sign icon"></i>Erro ao alterar senha.';
+							mensagem_erro += '</div>';
+							mensagem_erro += '</div>';
+
+							modalMensagem.html(mensagem_erro);
+						}
+
+						if(data['retorno'] == 'senha.incorreta'){
+							mensagem_erro =  '<div class="ui negative message">';
+							mensagem_erro += '<div class="header">';
+							mensagem_erro += '<i class="warning sign icon"></i>Senha atual incorreta!';
 							mensagem_erro += '</div>';
 							mensagem_erro += '</div>';
 

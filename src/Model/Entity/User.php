@@ -66,5 +66,14 @@ class User extends Entity
         return false;
 
     }
+
+    public function checkPassword($value){
+        
+        if((new DefaultPasswordHasher)->check($value, $this->password)){
+            return true;
+        }
+
+        return false;
+    }
  
 }
