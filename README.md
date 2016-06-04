@@ -7,7 +7,7 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
 
 - Servidor HTTP
 - PHP 5.5.9 ou superior
-- Extensão mbstring PHP 
+- Extensão mbstring PHP
 - Extensão intl PHP
 - Extenção mbstring PHP
 
@@ -16,11 +16,11 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
 - Copiar e renomear o arquivo **config/app.default.php** para **config/app.php**
 - Configurar o arquivo **config/app.php**  
   - Configurar a conexão de banco de dados em Datasources -> default
-    
+
     > Você pode encontrar mais sobre configuração da Database [aqui](http://book.cakephp.org/3.0/en/orm/database-basics.html#database-configuration).
-  
+
   - Configurar um novo perfil de transporte de e-mail em EmailTransport
-     
+
       ``` bash
         'mailSgl' => [
             'host' => 'ssl://smtp.gmail.com',
@@ -39,13 +39,14 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
         ]
       ```
       > Para mais explicações sobre como configurar o Mail Transport visitar o [Cookbook [Email]](http://book.cakephp.org/3.0/en/core-libraries/email.html).
- 
+
 ----------------------------------------------------------------------------
-### Versão 1.11.1
+### Versão 1.11.2
 
 ##### <i class="icon-file"></i> Changelog
- Versão   | Descrição 
+ Versão   | Descrição
 ----------:|:--------------------------------------------------------------
+  1.11.2   | [Modificação] Adicionado verificação de senha para alteração.
   1.11.1   | [Bugfix] Corrigido alterações da data do equipamento ao modificar status do equipamento.
   1.11.0   | [Modificação] Melhorado o sistema de busca.
   1.10.0.1 | [CakePHP] Atualizado para versão 3.2.10
