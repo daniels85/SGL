@@ -7,7 +7,6 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
 
 - Servidor HTTP
 - PHP 5.5.9 ou superior
-- Extensão mbstring PHP
 - Extensão intl PHP
 - Extenção mbstring PHP
 
