@@ -1,3 +1,9 @@
 /config/app.php
 /tmp/*
 /logs/*
+/vendor/*
+sglv01.sublime-workspace
+SGLv1.sublime-workspace
+SGLv1.sublime-project
+phpunit.xml.dist
+.travis.yml

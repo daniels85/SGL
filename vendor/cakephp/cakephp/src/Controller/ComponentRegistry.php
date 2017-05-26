@@ -35,7 +35,7 @@ class ComponentRegistry extends ObjectRegistry implements EventDispatcherInterfa
      *
      * @var \Cake\Controller\Controller
      */
-    protected $_Controller = null;
+    protected $_Controller;
 
     /**
      * Constructor.
@@ -120,6 +120,7 @@ class ComponentRegistry extends ObjectRegistry implements EventDispatcherInterfa
         if ($enable) {
             $this->eventManager()->on($instance);
         }
+
         return $instance;
     }
 }

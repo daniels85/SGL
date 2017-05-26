@@ -23,7 +23,6 @@ use JsonSerializable;
 /**
  * Extends the built-in DateTime class to provide handy methods and locale-aware
  * formatting helpers
- *
  */
 class Time extends MutableDateTime implements JsonSerializable
 {
@@ -66,7 +65,7 @@ class Time extends MutableDateTime implements JsonSerializable
      * The format to use when formatting a time using `Cake\I18n\Time::timeAgoInWords()`
      * and the difference is more than `Cake\I18n\Time::$wordEnd`
      *
-     * @var string
+     * @var string|array|int
      * @see \Cake\I18n\Time::timeAgoInWords()
      */
     public static $wordFormat = [IntlDateFormatter::SHORT, -1];
@@ -79,13 +78,13 @@ class Time extends MutableDateTime implements JsonSerializable
      * @see \Cake\I18n\Time::timeAgoInWords()
      */
     public static $wordAccuracy = [
-        'year' => "day",
-        'month' => "day",
-        'week' => "day",
-        'day' => "hour",
-        'hour' => "minute",
-        'minute' => "minute",
-        'second' => "second",
+        'year' => 'day',
+        'month' => 'day',
+        'week' => 'day',
+        'day' => 'hour',
+        'hour' => 'minute',
+        'minute' => 'minute',
+        'second' => 'second',
     ];
 
     /**
@@ -97,12 +96,19 @@ class Time extends MutableDateTime implements JsonSerializable
     public static $wordEnd = '+1 month';
 
     /**
+     * serialise the value as a Unix Timestamp
+     *
+     * @var string
+     */
+    const UNIX_TIMESTAMP_FORMAT = 'unixTimestampFormat';
+
+    /**
      * {@inheritDoc}
      */
     public function __construct($time = null, $tz = null)
     {
         if ($time instanceof DateTimeInterface) {
-            $tz = $time->getTimeZone();
+            $tz = $time->getTimezone();
             $time = $time->format('Y-m-d H:i:s');
         }
 
@@ -233,7 +239,7 @@ class Time extends MutableDateTime implements JsonSerializable
      */
     public function timeAgoInWords(array $options = [])
     {
-        return $this->diffFormatter()->timeAgoInWords($this, $options);
+        return static::diffFormatter()->timeAgoInWords($this, $options);
     }
 
     /**
@@ -306,8 +312,10 @@ class Time extends MutableDateTime implements JsonSerializable
                     $groupedIdentifiers[$item[0]] = [$tz => $item[0] . $abbr];
                 }
             }
+
             return $groupedIdentifiers;
         }
+
         return array_combine($identifiers, $identifiers);
     }
 
@@ -328,6 +336,7 @@ class Time extends MutableDateTime implements JsonSerializable
         if (is_numeric($tmp)) {
             $timeInterval = $tmp . ' days';
         }
+
         return parent::wasWithinLast($timeInterval);
     }
 
@@ -348,6 +357,7 @@ class Time extends MutableDateTime implements JsonSerializable
         if (is_numeric($tmp)) {
             $timeInterval = $tmp . ' days';
         }
+
         return parent::isWithinNext($timeInterval);
     }
 }

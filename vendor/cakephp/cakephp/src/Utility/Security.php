@@ -20,7 +20,6 @@ use InvalidArgumentException;
 
 /**
  * Security Library contains utility methods related to security
- *
  */
 class Security
 {
@@ -113,6 +112,7 @@ class Security
                     E_USER_WARNING
                 );
             }
+
             return $bytes;
         }
         trigger_error(
@@ -121,6 +121,7 @@ class Security
             'Falling back to an insecure random source.',
             E_USER_WARNING
         );
+
         return static::insecureRandomBytes($length);
     }
 
@@ -197,6 +198,7 @@ class Security
             throw new InvalidArgumentException('You must use a key larger than 32 bytes for Security::rijndael()');
         }
         $crypto = static::engine();
+
         return $crypto->rijndael($text, $key, $operation);
     }
 
@@ -226,6 +228,7 @@ class Security
         $crypto = static::engine();
         $ciphertext = $crypto->encrypt($plain, $key);
         $hmac = hash_hmac('sha256', $ciphertext, $key);
+
         return $hmac . $ciphertext;
     }
 
@@ -252,7 +255,7 @@ class Security
      * @param string $cipher The ciphertext to decrypt.
      * @param string $key The 256 bit/32 byte key to use as a cipher key.
      * @param string|null $hmacSalt The salt to use for the HMAC process. Leave null to use Security.salt.
-     * @return string Decrypted data. Any trailing null bytes will be removed.
+     * @return string|bool Decrypted data. Any trailing null bytes will be removed.
      * @throws \InvalidArgumentException On invalid data or key.
      */
     public static function decrypt($cipher, $key, $hmacSalt = null)
@@ -279,6 +282,7 @@ class Security
         }
 
         $crypto = static::engine();
+
         return $crypto->decrypt($cipher, $key);
     }
 
@@ -304,6 +308,7 @@ class Security
         for ($i = 0; $i < $hashLength; $i++) {
             $result |= (ord($hmac[$i]) ^ ord($compare[$i]));
         }
+
         return $result === 0;
     }
 
@@ -319,6 +324,7 @@ class Security
         if ($salt === null) {
             return static::$_salt;
         }
+
         return static::$_salt = (string)$salt;
     }
 }

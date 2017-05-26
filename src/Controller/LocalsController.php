@@ -33,8 +33,6 @@ class LocalsController extends AppController {
      * @return \Cake\Network\Response|null
      */
     public function index() {
-
-        
         
         if(!is_null($this->request->session()->read('Auth.User.role')) && $this->request->session()->read('Auth.User.role') === 'Administrador' || $this->request->session()->read('Auth.User.role') === 'Suporte'){
             $locals = $this->paginate($this->Locals);

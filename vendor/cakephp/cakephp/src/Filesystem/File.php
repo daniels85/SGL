@@ -18,7 +18,6 @@ use finfo;
 
 /**
  * Convenience class for reading, writing and appending to files.
- *
  */
 class File
 {
@@ -29,7 +28,7 @@ class File
      * @var \Cake\Filesystem\Folder
      * @link http://book.cakephp.org/3.0/en/core-libraries/file-folder.html
      */
-    public $Folder = null;
+    public $Folder;
 
     /**
      * File name
@@ -37,7 +36,7 @@ class File
      * @var string
      * http://book.cakephp.org/3.0/en/core-libraries/file-folder.html#Cake\Filesystem\File::$name
      */
-    public $name = null;
+    public $name;
 
     /**
      * File info
@@ -53,7 +52,7 @@ class File
      * @var resource
      * http://book.cakephp.org/3.0/en/core-libraries/file-folder.html#Cake\Filesystem\File::$handle
      */
-    public $handle = null;
+    public $handle;
 
     /**
      * Enable locking for file reading and writing
@@ -61,7 +60,7 @@ class File
      * @var bool
      * http://book.cakephp.org/3.0/en/core-libraries/file-folder.html#Cake\Filesystem\File::$lock
      */
-    public $lock = null;
+    public $lock;
 
     /**
      * Path property
@@ -71,7 +70,7 @@ class File
      * @var mixed
      * http://book.cakephp.org/3.0/en/core-libraries/file-folder.html#Cake\Filesystem\File::$path
      */
-    public $path = null;
+    public $path;
 
     /**
      * Constructor
@@ -107,11 +106,13 @@ class File
     public function create()
     {
         $dir = $this->Folder->pwd();
+
         if (is_dir($dir) && is_writable($dir) && !$this->exists()) {
             if (touch($this->path)) {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -127,13 +128,12 @@ class File
         if (!$force && is_resource($this->handle)) {
             return true;
         }
-        if ($this->exists() === false) {
-            if ($this->create() === false) {
-                return false;
-            }
+        if ($this->exists() === false && $this->create() === false) {
+            return false;
         }
 
         $this->handle = fopen($this->path, $mode);
+
         return is_resource($this->handle);
     }
 
@@ -171,6 +171,7 @@ class File
         if ($bytes === false) {
             $this->close();
         }
+
         return trim($data);
     }
 
@@ -190,6 +191,7 @@ class File
         } elseif ($this->open() === true) {
             return fseek($this->handle, $offset, $seek) === 0;
         }
+
         return false;
     }
 
@@ -208,6 +210,7 @@ class File
         if (DIRECTORY_SEPARATOR === '\\' || $forceWindows === true) {
             $lineBreak = "\r\n";
         }
+
         return strtr($data, ["\r\n" => $lineBreak, "\n" => $lineBreak, "\r" => $lineBreak]);
     }
 
@@ -223,10 +226,8 @@ class File
     {
         $success = false;
         if ($this->open($mode, $force) === true) {
-            if ($this->lock !== null) {
-                if (flock($this->handle, LOCK_EX) === false) {
-                    return false;
-                }
+            if ($this->lock !== null && flock($this->handle, LOCK_EX) === false) {
+                return false;
             }
 
             if (fwrite($this->handle, $data) !== false) {
@@ -236,6 +237,7 @@ class File
                 flock($this->handle, LOCK_UN);
             }
         }
+
         return $success;
     }
 
@@ -261,6 +263,7 @@ class File
         if (!is_resource($this->handle)) {
             return true;
         }
+
         return fclose($this->handle);
     }
 
@@ -278,6 +281,7 @@ class File
         if ($this->exists()) {
             return unlink($this->path);
         }
+
         return false;
     }
 
@@ -307,6 +311,7 @@ class File
         if (!isset($this->info['mime'])) {
             $this->info['mime'] = $this->mime();
         }
+
         return $this->info;
     }
 
@@ -323,6 +328,7 @@ class File
         if (isset($this->info['extension'])) {
             return $this->info['extension'];
         }
+
         return false;
     }
 
@@ -342,6 +348,7 @@ class File
         if ($this->name) {
             return $this->name;
         }
+
         return false;
     }
 
@@ -360,7 +367,8 @@ class File
         if (!$ext) {
             $ext = $this->ext();
         }
-        return preg_replace("/(?:[^\w\.-]+)/", "_", basename($name, $ext));
+
+        return preg_replace("/(?:[^\w\.-]+)/", '_', basename($name, $ext));
     }
 
     /**
@@ -396,6 +404,7 @@ class File
                 $this->path = $this->Folder->slashTerm($dir) . $this->name;
             }
         }
+
         return $this->path;
     }
 
@@ -407,6 +416,7 @@ class File
     public function exists()
     {
         $this->clearStatCache();
+
         return (file_exists($this->path) && is_file($this->path));
     }
 
@@ -420,6 +430,7 @@ class File
         if ($this->exists()) {
             return substr(sprintf('%o', fileperms($this->path)), -4);
         }
+
         return false;
     }
 
@@ -433,6 +444,7 @@ class File
         if ($this->exists()) {
             return filesize($this->path);
         }
+
         return false;
     }
 
@@ -476,6 +488,7 @@ class File
         if ($this->exists()) {
             return fileowner($this->path);
         }
+
         return false;
     }
 
@@ -489,6 +502,7 @@ class File
         if ($this->exists()) {
             return filegroup($this->path);
         }
+
         return false;
     }
 
@@ -502,6 +516,7 @@ class File
         if ($this->exists()) {
             return fileatime($this->path);
         }
+
         return false;
     }
 
@@ -515,6 +530,7 @@ class File
         if ($this->exists()) {
             return filemtime($this->path);
         }
+
         return false;
     }
 
@@ -540,12 +556,13 @@ class File
         if (!$this->exists() || is_file($dest) && !$overwrite) {
             return false;
         }
+
         return copy($this->path, $dest);
     }
 
     /**
-     * Get the mime type of the file. Uses the finfo extension if
-     * its available, otherwise falls back to mime_content_type
+     * Gets the mime type of the file. Uses the finfo extension if
+     * it's available, otherwise falls back to mime_content_type().
      *
      * @return false|string The mimetype of the file, or false if reading fails.
      */
@@ -561,11 +578,13 @@ class File
                 return false;
             }
             list($type) = explode(';', $type);
+
             return $type;
         }
         if (function_exists('mime_content_type')) {
             return mime_content_type($this->pwd());
         }
+
         return false;
     }
 
@@ -598,10 +617,8 @@ class File
             return false;
         }
 
-        if ($this->lock !== null) {
-            if (flock($this->handle, LOCK_EX) === false) {
-                return false;
-            }
+        if ($this->lock !== null && flock($this->handle, LOCK_EX) === false) {
+            return false;
         }
 
         $replaced = $this->write(str_replace($search, $replace, $this->read()), 'w', true);

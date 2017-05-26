@@ -32,14 +32,14 @@ class ConsoleInputSubcommand
      *
      * @var string
      */
-    protected $_name;
+    protected $_name = '';
 
     /**
      * Help string for the subcommand
      *
      * @var string
      */
-    protected $_help;
+    protected $_help = '';
 
     /**
      * The ConsoleOptionParser for this subcommand.
@@ -84,6 +84,16 @@ class ConsoleInputSubcommand
     }
 
     /**
+     * Get the raw help string for this command
+     *
+     * @return string
+     */
+    public function getRawHelp()
+    {
+        return $this->_help;
+    }
+
+    /**
      * Generate the help for this this subcommand.
      *
      * @param int $width The width to make the name of the subcommand.
@@ -95,19 +105,21 @@ class ConsoleInputSubcommand
         if (strlen($name) < $width) {
             $name = str_pad($name, $width, ' ');
         }
+
         return $name . $this->_help;
     }
 
     /**
      * Get the usage value for this option
      *
-     * @return mixed Either false or a ConsoleOptionParser
+     * @return \Cake\Console\ConsoleOptionParser|bool Either false or a ConsoleOptionParser
      */
     public function parser()
     {
         if ($this->_parser instanceof ConsoleOptionParser) {
             return $this->_parser;
         }
+
         return false;
     }
 
@@ -122,6 +134,7 @@ class ConsoleInputSubcommand
         $command = $parent->addChild('command');
         $command->addAttribute('name', $this->_name);
         $command->addAttribute('help', $this->_help);
+
         return $parent;
     }
 }

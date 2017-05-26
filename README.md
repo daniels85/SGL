@@ -11,7 +11,7 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
 - Extensão mbstring PHP
 
 ### Instalação:
-- Configurar permissões de de escrita para as pastas **logs** e **tmp**
+- Configurar permissões de escrita para as pastas **logs** e **tmp**
 - Copiar e renomear o arquivo **config/app.default.php** para **config/app.php**
 - Configurar o arquivo **config/app.php**  
   - Configurar a conexão de banco de dados em Datasources -> default
@@ -40,11 +40,13 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
       > Para mais explicações sobre como configurar o Mail Transport visitar o [Cookbook [Email]](http://book.cakephp.org/3.0/en/core-libraries/email.html).
 
 ----------------------------------------------------------------------------
-### Versão 1.11.2
+### Versão 1.12
 
 ##### <i class="icon-file"></i> Changelog
  Versão   | Descrição
 ----------:|:--------------------------------------------------------------
+  1.12     | [Adicionado] Adicionado Helpers para Formulários e Paginação
+  1.11.2.1 | [CakePHP] Atualizado para versão 3.4
   1.11.2   | [Modificação] Adicionado verificação de senha para alteração.
   1.11.1   | [Bugfix] Corrigido alterações da data do equipamento ao modificar status do equipamento.
   1.11.0   | [Modificação] Melhorado o sistema de busca.

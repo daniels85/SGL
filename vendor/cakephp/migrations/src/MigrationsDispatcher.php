@@ -20,7 +20,6 @@ use Symfony\Component\Console\Application;
  */
 class MigrationsDispatcher extends Application
 {
-
     /**
      * Class Constructor.
      *
@@ -38,5 +37,6 @@ class MigrationsDispatcher extends Application
         $this->add(new Command\Rollback());
         $this->add(new Command\Seed());
         $this->add(new Command\Status());
+        $this->setCatchExceptions(false);
     }
 }

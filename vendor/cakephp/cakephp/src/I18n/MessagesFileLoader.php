@@ -70,7 +70,7 @@ class MessagesFileLoader
      * $package = $loader();
      * ```
      *
-     * Load and parse  src/Locale/fr_FR/validation.mo
+     * Load and parse src/Locale/fr_FR/validation.mo
      *
      * ```
      * $loader = new MessagesFileLoader('validation', 'fr_FR', 'mo');
@@ -130,7 +130,7 @@ class MessagesFileLoader
         }
 
         $name = ucfirst($ext);
-        $class = App::classname($name, 'I18n\Parser', 'FileParser');
+        $class = App::className($name, 'I18n\Parser', 'FileParser');
 
         if (!$class) {
             throw new RuntimeException(sprintf('Could not find class %s', "{$name}FileParser"));
@@ -138,6 +138,7 @@ class MessagesFileLoader
 
         $messages = (new $class)->parse($file);
         $package->setMessages($messages);
+
         return $package;
     }
 
@@ -159,7 +160,7 @@ class MessagesFileLoader
         $searchPaths = [];
 
         $localePaths = App::path('Locale');
-        if (empty($localePaths)) {
+        if (empty($localePaths) && defined('APP')) {
             $localePaths[] = APP . 'Locale' . DIRECTORY_SEPARATOR;
         }
         foreach ($localePaths as $path) {

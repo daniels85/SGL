@@ -27,6 +27,8 @@ use IteratorAggregate;
  *
  * This class is but a decorator of an actual statement implementation, such as
  * PDOStatement.
+ *
+ * @property-read string $queryString
  */
 class StatementDecorator implements StatementInterface, Countable, IteratorAggregate
 {
@@ -37,7 +39,7 @@ class StatementDecorator implements StatementInterface, Countable, IteratorAggre
      * Statement instance implementation, such as PDOStatement
      * or any other custom implementation.
      *
-     * @var mixed
+     * @var \Cake\Database\StatementInterface
      */
     protected $_statement;
 
@@ -168,6 +170,7 @@ class StatementDecorator implements StatementInterface, Countable, IteratorAggre
     public function execute($params = null)
     {
         $this->_hasExecuted = true;
+
         return $this->_statement->execute($params);
     }
 
@@ -250,6 +253,7 @@ class StatementDecorator implements StatementInterface, Countable, IteratorAggre
         if (!$this->_hasExecuted) {
             $this->execute();
         }
+
         return $this->_statement;
     }
 
@@ -277,14 +281,14 @@ class StatementDecorator implements StatementInterface, Countable, IteratorAggre
             return;
         }
 
-        $annonymousParams = is_int(key($params)) ? true : false;
+        $anonymousParams = is_int(key($params)) ? true : false;
         $offset = 1;
         foreach ($params as $index => $value) {
             $type = null;
             if (isset($types[$index])) {
                 $type = $types[$index];
             }
-            if ($annonymousParams) {
+            if ($anonymousParams) {
                 $index += $offset;
             }
             $this->bindValue($index, $value, $type);
@@ -307,6 +311,7 @@ class StatementDecorator implements StatementInterface, Countable, IteratorAggre
         if (isset($row[$column])) {
             return $row[$column];
         }
+
         return $this->_driver->lastInsertId($table, $column);
     }
 

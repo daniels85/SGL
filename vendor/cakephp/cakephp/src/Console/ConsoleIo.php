@@ -101,10 +101,10 @@ class ConsoleIo
      */
     public function __construct(ConsoleOutput $out = null, ConsoleOutput $err = null, ConsoleInput $in = null, HelperRegistry $helpers = null)
     {
-        $this->_out = $out ? $out : new ConsoleOutput('php://stdout');
-        $this->_err = $err ? $err : new ConsoleOutput('php://stderr');
-        $this->_in = $in ? $in : new ConsoleInput('php://stdin');
-        $this->_helpers = $helpers ? $helpers : new HelperRegistry();
+        $this->_out = $out ?: new ConsoleOutput('php://stdout');
+        $this->_err = $err ?: new ConsoleOutput('php://stderr');
+        $this->_in = $in ?: new ConsoleInput('php://stdin');
+        $this->_helpers = $helpers ?: new HelperRegistry();
         $this->_helpers->setIo($this);
     }
 
@@ -119,6 +119,7 @@ class ConsoleIo
         if ($level !== null) {
             $this->_level = $level;
         }
+
         return $this->_level;
     }
 
@@ -127,7 +128,7 @@ class ConsoleIo
      *
      * @param string|array $message A string or an array of strings to output
      * @param int $newlines Number of newlines to append
-     * @return int|bool Returns the number of bytes returned from writing to stdout.
+     * @return int|bool The number of bytes returned from writing to stdout.
      */
     public function verbose($message, $newlines = 1)
     {
@@ -139,7 +140,7 @@ class ConsoleIo
      *
      * @param string|array $message A string or an array of strings to output
      * @param int $newlines Number of newlines to append
-     * @return int|bool Returns the number of bytes returned from writing to stdout.
+     * @return int|bool The number of bytes returned from writing to stdout.
      */
     public function quiet($message, $newlines = 1)
     {
@@ -160,14 +161,16 @@ class ConsoleIo
      * @param string|array $message A string or an array of strings to output
      * @param int $newlines Number of newlines to append
      * @param int $level The message's output level, see above.
-     * @return int|bool Returns the number of bytes returned from writing to stdout.
+     * @return int|bool The number of bytes returned from writing to stdout.
      */
     public function out($message = '', $newlines = 1, $level = ConsoleIo::NORMAL)
     {
         if ($level <= $this->_level) {
             $this->_lastWritten = $this->_out->write($message, $newlines);
+
             return $this->_lastWritten;
         }
+
         return true;
     }
 
@@ -210,11 +213,11 @@ class ConsoleIo
      *
      * @param string|array $message A string or an array of strings to output
      * @param int $newlines Number of newlines to append
-     * @return void
+     * @return int|bool The number of bytes returned from writing to stderr.
      */
     public function err($message = '', $newlines = 1)
     {
-        $this->_err->write($message, $newlines);
+        return $this->_err->write($message, $newlines);
     }
 
     /**
@@ -311,6 +314,7 @@ class ConsoleIo
         while ($in === '' || !in_array($in, $options)) {
             $in = $this->_getInput($prompt, $printOptions, $default);
         }
+
         return $in;
     }
 
@@ -340,6 +344,7 @@ class ConsoleIo
         if ($default !== null && ($result === '' || $result === null)) {
             return $default;
         }
+
         return $result;
     }
 
@@ -372,13 +377,13 @@ class ConsoleIo
                 'types' => $outLevels,
                 'stream' => $this->_out
             ]);
-            Log::config('stdout', ['engine' => $stdout]);
+            Log::setConfig('stdout', ['engine' => $stdout]);
         }
         $stderr = new ConsoleLog([
             'types' => ['emergency', 'alert', 'critical', 'error', 'warning'],
             'stream' => $this->_err,
         ]);
-        Log::config('stderr', ['engine' => $stderr]);
+        Log::setConfig('stderr', ['engine' => $stderr]);
     }
 
     /**
@@ -394,6 +399,7 @@ class ConsoleIo
     public function helper($name, array $settings = [])
     {
         $name = ucfirst($name);
+
         return $this->_helpers->load($name, $settings);
     }
 }

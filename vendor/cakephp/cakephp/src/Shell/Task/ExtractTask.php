@@ -23,7 +23,6 @@ use Cake\Utility\Inflector;
 
 /**
  * Language string extractor
- *
  */
 class ExtractTask extends Shell
 {
@@ -52,9 +51,9 @@ class ExtractTask extends Shell
     /**
      * Current file being processed
      *
-     * @var string
+     * @var string|null
      */
-    protected $_file = null;
+    protected $_file;
 
     /**
      * Contains all content waiting to be write
@@ -80,9 +79,9 @@ class ExtractTask extends Shell
     /**
      * Destination path
      *
-     * @var string
+     * @var string|null
      */
-    protected $_output = null;
+    protected $_output;
 
     /**
      * An array of directories to exclude.
@@ -94,7 +93,7 @@ class ExtractTask extends Shell
     /**
      * Holds the validation string domain to use for validation messages when extracting
      *
-     * @var bool
+     * @var string
      */
     protected $_validationDomain = 'default';
 
@@ -132,14 +131,16 @@ class ExtractTask extends Shell
             if (strtoupper($response) === 'Q') {
                 $this->err('Extract Aborted');
                 $this->_stop();
+
                 return;
             }
             if (strtoupper($response) === 'D' && count($this->_paths)) {
                 $this->out();
+
                 return;
             }
             if (strtoupper($response) === 'D') {
-                $this->err('<warning>No directories selected.</warning> Please choose a directory.');
+                $this->warn('No directories selected. Please choose a directory.');
             } elseif (is_dir($response)) {
                 $this->_paths[] = $response;
                 $defaultPath = 'D';
@@ -206,6 +207,7 @@ class ExtractTask extends Shell
                 if (strtoupper($response) === 'Q') {
                     $this->err('Extract Aborted');
                     $this->_stop();
+
                     return;
                 }
                 if ($this->_isPathUsable($response)) {
@@ -238,6 +240,7 @@ class ExtractTask extends Shell
         if (!$this->_isPathUsable($this->_output)) {
             $this->err(sprintf('The output directory %s was not found or writable.', $this->_output));
             $this->_stop();
+
             return;
         }
 
@@ -256,7 +259,7 @@ class ExtractTask extends Shell
      */
     protected function _addTranslation($domain, $msgid, $details = [])
     {
-        $context = isset($details['msgctxt']) ? $details['msgctxt'] : "";
+        $context = isset($details['msgctxt']) ? $details['msgctxt'] : '';
 
         if (empty($this->_translations[$domain][$msgid][$context])) {
             $this->_translations[$domain][$msgid][$context] = [
@@ -308,7 +311,7 @@ class ExtractTask extends Shell
     public function getOptionParser()
     {
         $parser = parent::getOptionParser();
-        $parser->description(
+        $parser->setDescription(
             'CakePHP Language String Extraction:'
         )->addOption('app', [
             'help' => 'Directory where your application is located.'
@@ -361,6 +364,7 @@ class ExtractTask extends Shell
      */
     protected function _extractTokens()
     {
+        /* @var \Cake\Shell\Helper\ProgressHelper $progress */
         $progress = $this->helper('progress');
         $progress->init(['total' => count($this->_files)]);
         $isVerbose = $this->param('verbose');
@@ -435,6 +439,7 @@ class ExtractTask extends Shell
                 $strings = $this->_getStrings($position, $mapCount);
 
                 if ($mapCount === count($strings)) {
+                    $singular = null;
                     extract(array_combine($map, $strings));
                     $domain = isset($domain) ? $domain : 'default';
                     $details = [
@@ -481,13 +486,13 @@ class ExtractTask extends Shell
                         $occurrences[] = $file . ':' . implode(';', $lines);
                     }
                     $occurrences = implode("\n#: ", $occurrences);
-                    $header = "";
+                    $header = '';
                     if (!$this->param('no-location')) {
                         $header = '#: ' . str_replace(DIRECTORY_SEPARATOR, '/', str_replace($paths, '', $occurrences)) . "\n";
                     }
 
                     $sentence = '';
-                    if ($context !== "") {
+                    if ($context !== '') {
                         $sentence .= "msgctxt \"{$context}\"\n";
                     }
                     if ($plural === false) {
@@ -566,7 +571,7 @@ class ExtractTask extends Shell
                 if (strtoupper($response) === 'N') {
                     $response = '';
                     while (!$response) {
-                        $response = $this->in("What would you like to name this file?", null, 'new_' . $filename);
+                        $response = $this->in('What would you like to name this file?', null, 'new_' . $filename);
                         $File = new File($this->_output . $response);
                         $filename = $response;
                     }
@@ -593,7 +598,7 @@ class ExtractTask extends Shell
         $output .= "msgid \"\"\n";
         $output .= "msgstr \"\"\n";
         $output .= "\"Project-Id-Version: PROJECT VERSION\\n\"\n";
-        $output .= "\"POT-Creation-Date: " . date("Y-m-d H:iO") . "\\n\"\n";
+        $output .= '"POT-Creation-Date: ' . date('Y-m-d H:iO') . "\\n\"\n";
         $output .= "\"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\\n\"\n";
         $output .= "\"Last-Translator: NAME <EMAIL@ADDRESS>\\n\"\n";
         $output .= "\"Language-Team: LANGUAGE <EMAIL@ADDRESS>\\n\"\n";
@@ -601,6 +606,7 @@ class ExtractTask extends Shell
         $output .= "\"Content-Type: text/plain; charset=utf-8\\n\"\n";
         $output .= "\"Content-Transfer-Encoding: 8bit\\n\"\n";
         $output .= "\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n\"\n\n";
+
         return $output;
     }
 
@@ -633,6 +639,7 @@ class ExtractTask extends Shell
             }
             $position++;
         }
+
         return $strings;
     }
 
@@ -652,6 +659,7 @@ class ExtractTask extends Shell
             $string = strtr($string, ["\\'" => "'", "\\\\" => "\\"]);
         }
         $string = str_replace("\r\n", "\n", $string);
+
         return addcslashes($string, "\0..\37\\\"");
     }
 
@@ -742,6 +750,7 @@ class ExtractTask extends Shell
         if (!is_dir($path)) {
             mkdir($path, 0770, true);
         }
+
         return is_dir($path) && is_writable($path);
     }
 }

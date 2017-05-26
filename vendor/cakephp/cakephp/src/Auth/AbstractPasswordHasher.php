@@ -18,7 +18,6 @@ use Cake\Core\InstanceConfigTrait;
 
 /**
  * Abstract password hashing class
- *
  */
 abstract class AbstractPasswordHasher
 {
@@ -41,7 +40,7 @@ abstract class AbstractPasswordHasher
      */
     public function __construct(array $config = [])
     {
-        $this->config($config);
+        $this->setConfig($config);
     }
 
     /**

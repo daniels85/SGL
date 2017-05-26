@@ -67,7 +67,7 @@ class JsonConfig implements ConfigEngineInterface
         $values = json_decode(file_get_contents($file), true);
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new Exception(sprintf(
-                "Error parsing JSON string fetched from config file \"%s.json\": %s",
+                'Error parsing JSON string fetched from config file "%s.json": %s',
                 $key,
                 json_last_error_msg()
             ));
@@ -78,6 +78,7 @@ class JsonConfig implements ConfigEngineInterface
                 $key
             ));
         }
+
         return $values;
     }
 
@@ -93,6 +94,7 @@ class JsonConfig implements ConfigEngineInterface
     public function dump($key, array $data)
     {
         $filename = $this->_getFilePath($key);
+
         return file_put_contents($filename, json_encode($data, JSON_PRETTY_PRINT)) > 0;
     }
 }

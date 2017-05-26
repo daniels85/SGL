@@ -39,7 +39,7 @@ class Form
     /**
      * The schema used by this form.
      *
-     * @var \Cake\Form\Schema;
+     * @var \Cake\Form\Schema
      */
     protected $_schema;
 
@@ -53,7 +53,7 @@ class Form
     /**
      * The validator used by this form.
      *
-     * @var \Cake\Validation\Validator;
+     * @var \Cake\Validation\Validator
      */
     protected $_validator;
 
@@ -75,6 +75,7 @@ class Form
         if ($schema) {
             $this->_schema = $schema;
         }
+
         return $this->_schema;
     }
 
@@ -111,6 +112,7 @@ class Form
         if ($validator) {
             $this->_validator = $validator;
         }
+
         return $this->_validator;
     }
 
@@ -139,6 +141,7 @@ class Form
     {
         $validator = $this->validator();
         $this->_errors = $validator->errors($data);
+
         return count($this->_errors) === 0;
     }
 
@@ -172,6 +175,7 @@ class Form
         if (!$this->validate($data)) {
             return false;
         }
+
         return $this->_execute($data);
     }
 
@@ -200,6 +204,7 @@ class Form
             '_errors' => $this->errors(),
             '_validator' => $this->validator()->__debugInfo()
         ];
+
         return $special + get_object_vars($this);
     }
 }

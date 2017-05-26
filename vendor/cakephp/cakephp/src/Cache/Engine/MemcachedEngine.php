@@ -27,7 +27,6 @@ use Memcached;
  * support of binary protocol, and igbinary serialization
  * (if memcached extension compiled with --enable-igbinary)
  * Compressed keys can also be incremented/decremented
- *
  */
 class MemcachedEngine extends CacheEngine
 {
@@ -37,7 +36,7 @@ class MemcachedEngine extends CacheEngine
      *
      * @var \Memcached
      */
-    protected $_Memcached = null;
+    protected $_Memcached;
 
     /**
      * The default config used unless overridden by runtime configuration
@@ -90,6 +89,11 @@ class MemcachedEngine extends CacheEngine
     protected $_serializers = [];
 
     /**
+     * @var string[]
+     */
+    protected $_compiledGroupNames = [];
+
+    /**
      * Initialize the Cache Engine
      *
      * Called automatically by the cache frontend
@@ -125,7 +129,7 @@ class MemcachedEngine extends CacheEngine
         }
 
         if (isset($config['servers'])) {
-            $this->config('servers', $config['servers'], false);
+            $this->setConfig('servers', $config['servers'], false);
         }
 
         if (!is_array($this->_config['servers'])) {
@@ -259,6 +263,7 @@ class MemcachedEngine extends CacheEngine
             $host = substr($server, 0, $position);
             $port = substr($server, $position + 1);
         }
+
         return [$host, (int)$port];
     }
 
@@ -305,6 +310,7 @@ class MemcachedEngine extends CacheEngine
         foreach (array_keys($data) as $key) {
             $return[$key] = $success;
         }
+
         return $return;
     }
 
@@ -342,6 +348,7 @@ class MemcachedEngine extends CacheEngine
             $return[$key] = array_key_exists($this->_key($key), $values) ?
                 $values[$this->_key($key)] : false;
         }
+
         return $return;
     }
 
@@ -407,6 +414,7 @@ class MemcachedEngine extends CacheEngine
         foreach ($keys as $key) {
             $return[$key] = $success;
         }
+
         return $return;
     }
 
@@ -451,6 +459,7 @@ class MemcachedEngine extends CacheEngine
         }
 
         $key = $this->_key($key);
+
         return $this->_Memcached->add($key, $value, $duration);
     }
 

@@ -76,12 +76,13 @@ class Postgres extends Driver
         }
 
         if (!empty($config['timezone'])) {
-            $config['init'][] = sprintf("SET timezone = %s", $connection->quote($config['timezone']));
+            $config['init'][] = sprintf('SET timezone = %s', $connection->quote($config['timezone']));
         }
 
         foreach ($config['init'] as $command) {
             $connection->exec($command);
         }
+
         return true;
     }
 

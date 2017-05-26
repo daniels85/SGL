@@ -16,6 +16,7 @@ namespace Cake\Database\Type;
 
 use Cake\Database\Driver;
 use Cake\Database\Type;
+use Cake\Database\TypeInterface;
 use InvalidArgumentException;
 use PDO;
 
@@ -24,8 +25,30 @@ use PDO;
  *
  * Use to convert bool data between PHP and the database types.
  */
-class BoolType extends Type
+class BoolType extends Type implements TypeInterface
 {
+    /**
+     * Identifier name for this type.
+     *
+     * (This property is declared here again so that the inheritance from
+     * Cake\Database\Type can be removed in the future.)
+     *
+     * @var string|null
+     */
+    protected $_name;
+
+    /**
+     * Constructor.
+     *
+     * (This method is declared here again so that the inheritance from
+     * Cake\Database\Type can be removed in the future.)
+     *
+     * @param string|null $name The name identifying this type
+     */
+    public function __construct($name = null)
+    {
+        $this->_name = $name;
+    }
 
     /**
      * Convert bool data into the database format.
@@ -60,8 +83,9 @@ class BoolType extends Type
             return null;
         }
         if (is_string($value) && !is_numeric($value)) {
-            return strtolower($value) === 'true' ? true : false;
+            return strtolower($value) === 'true';
         }
+
         return !empty($value);
     }
 
@@ -98,6 +122,7 @@ class BoolType extends Type
         if ($value === 'false') {
             return false;
         }
+
         return !empty($value);
     }
 }

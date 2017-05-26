@@ -26,6 +26,13 @@ class FileWidget implements WidgetInterface
 {
 
     /**
+     * Templates
+     *
+     * @var \Cake\View\StringTemplate
+     */
+    protected $_templates;
+
+    /**
      * Constructor
      *
      * @param \Cake\View\StringTemplate $templates Templates list.
@@ -65,7 +72,7 @@ class FileWidget implements WidgetInterface
             'templateVars' => $data['templateVars'],
             'attrs' => $this->_templates->formatAttributes(
                 $data,
-                ['name', 'val']
+                ['name']
             )
         ]);
     }
@@ -79,6 +86,7 @@ class FileWidget implements WidgetInterface
         foreach (['name', 'type', 'tmp_name', 'error', 'size'] as $suffix) {
             $fields[] = $data['name'] . '[' . $suffix . ']';
         }
+
         return $fields;
     }
 }

@@ -64,7 +64,7 @@ class Dump extends AbstractCommand
      *
      * @param \Symfony\Component\Console\Input\InputInterface $input the input object
      * @param \Symfony\Component\Console\Output\OutputInterface $output the output object
-     * @return void
+     * @return bool Success of the call.
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -78,31 +78,30 @@ class Dump extends AbstractCommand
         $collection = $connection->schemaCollection();
 
         $options = [
-            'require-table' => true,
+            'require-table' => false,
             'plugin' => $this->getPlugin($input)
         ];
         $tables = $this->getTablesToBake($collection, $options);
 
         $dump = [];
-        if (empty($tables)) {
-            $this->output()->writeln('<info>No tables were found : the dump file was not created</info>');
-            return;
-        }
-
-        foreach ($tables as $table) {
-            $schema = $collection->describe($table);
-            $dump[$table] = $schema;
+        if ($tables) {
+            foreach ($tables as $table) {
+                $schema = $collection->describe($table);
+                $dump[$table] = $schema;
+            }
         }
 
         $filePath = $path . DS . 'schema-dump-' . $connectionName . '.lock';
         $output->writeln(sprintf('<info>Writing dump file `%s`...</info>', $filePath));
         if (file_put_contents($filePath, serialize($dump))) {
             $output->writeln(sprintf('<info>Dump file `%s` was successfully written</info>', $filePath));
-        } else {
-            $output->writeln(sprintf(
-                '<error>An error occurred while writing dump file `%s`</error>',
-                $filePath
-            ));
+            return true;
         }
+
+        $output->writeln(sprintf(
+            '<error>An error occurred while writing dump file `%s`</error>',
+            $filePath
+        ));
+        return false;
     }
 }

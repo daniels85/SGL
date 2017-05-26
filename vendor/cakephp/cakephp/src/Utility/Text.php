@@ -18,7 +18,6 @@ use InvalidArgumentException;
 
 /**
  * Text handling methods.
- *
  */
 class Text
 {
@@ -98,7 +97,7 @@ class Text
                 }
             }
             if ($tmpOffset !== -1) {
-                $buffer .= mb_substr($data, $offset, ($tmpOffset - $offset));
+                $buffer .= mb_substr($data, $offset, $tmpOffset - $offset);
                 $char = mb_substr($data, $tmpOffset, 1);
                 if (!$depth && $char === $separator) {
                     $results[] = $buffer;
@@ -120,6 +119,7 @@ class Text
                             $open = true;
                         } else {
                             $depth--;
+                            $open = false;
                         }
                     }
                 }
@@ -173,7 +173,7 @@ class Text
         $format = $options['format'];
         $data = (array)$data;
         if (empty($data)) {
-            return ($options['clean']) ? static::cleanInsert($str, $options) : $str;
+            return $options['clean'] ? static::cleanInsert($str, $options) : $str;
         }
 
         if (!isset($format)) {
@@ -192,7 +192,8 @@ class Text
                 $offset = $pos + strlen($val);
                 $str = substr_replace($str, $val, $pos, 1);
             }
-            return ($options['clean']) ? static::cleanInsert($str, $options) : $str;
+
+            return $options['clean'] ? static::cleanInsert($str, $options) : $str;
         }
 
         asort($data);
@@ -208,14 +209,15 @@ class Text
         }
         $dataReplacements = array_combine($hashKeys, array_values($data));
         foreach ($dataReplacements as $tmpHash => $tmpValue) {
-            $tmpValue = (is_array($tmpValue)) ? '' : $tmpValue;
+            $tmpValue = is_array($tmpValue) ? '' : $tmpValue;
             $str = str_replace($tmpHash, $tmpValue, $str);
         }
 
         if (!isset($options['format']) && isset($options['before'])) {
             $str = str_replace($options['escape'] . $options['before'], $options['before'], $str);
         }
-        return ($options['clean']) ? static::cleanInsert($str, $options) : $str;
+
+        return $options['clean'] ? static::cleanInsert($str, $options) : $str;
     }
 
     /**
@@ -281,6 +283,7 @@ class Text
                 $str = preg_replace($kleenex, $clean['replacement'], $str);
                 break;
         }
+
         return $str;
     }
 
@@ -316,6 +319,7 @@ class Text
             }
             $wrapped = implode("\n", $chunks);
         }
+
         return $wrapped;
     }
 
@@ -343,7 +347,8 @@ class Text
 
         if (!empty($options['indentAt']) && $options['indentAt'] === 0) {
             $indentLength = !empty($options['indent']) ? strlen($options['indent']) : 0;
-            $options['width'] = $options['width'] - $indentLength;
+            $options['width'] -= $indentLength;
+
             return self::wrap($text, $options);
         }
 
@@ -369,6 +374,7 @@ class Text
             $chunks = array_merge($chunks, $newChunks);
             $wrapped = implode("\n", $chunks);
         }
+
         return $wrapped;
     }
 
@@ -387,6 +393,7 @@ class Text
         foreach ($paragraphs as &$paragraph) {
             $paragraph = static::_wordWrap($paragraph, $width, $break, $cut);
         }
+
         return implode($break, $paragraphs);
     }
 
@@ -408,6 +415,7 @@ class Text
                 $parts[] = trim($part);
                 $text = trim(mb_substr($text, mb_strlen($part)));
             }
+
             return implode($break, $parts);
         }
 
@@ -448,7 +456,8 @@ class Text
      *
      * - `format` The piece of HTML with that the phrase will be highlighted
      * - `html` If true, will ignore any HTML tags, ensuring that only the correct text is highlighted
-     * - `regex` a custom regex rule that is used to match words, default is '|$tag|iu'
+     * - `regex` A custom regex rule that is used to match words, default is '|$tag|iu'
+     * - `limit` A limit, optional, defaults to -1 (none)
      *
      * @param string $text Text to search the phrase in.
      * @param string|array $phrase The phrase or phrases that will be searched.
@@ -465,9 +474,11 @@ class Text
         $defaults = [
             'format' => '<span class="highlight">\1</span>',
             'html' => false,
-            'regex' => "|%s|iu"
+            'regex' => '|%s|iu',
+            'limit' => -1,
         ];
         $options += $defaults;
+        $html = $format = $ellipsis = $exact = $limit = null;
         extract($options);
 
         if (is_array($phrase)) {
@@ -480,11 +491,11 @@ class Text
                     $segment = "(?![^<]+>)$segment(?![^<]+>)";
                 }
 
-                $with[] = (is_array($format)) ? $format[$key] : $format;
+                $with[] = is_array($format) ? $format[$key] : $format;
                 $replace[] = sprintf($options['regex'], $segment);
             }
 
-            return preg_replace($replace, $with, $text);
+            return preg_replace($replace, $with, $text, $limit);
         }
 
         $phrase = '(' . preg_quote($phrase, '|') . ')';
@@ -492,18 +503,26 @@ class Text
             $phrase = "(?![^<]+>)$phrase(?![^<]+>)";
         }
 
-        return preg_replace(sprintf($options['regex'], $phrase), $format, $text);
+        return preg_replace(sprintf($options['regex'], $phrase), $format, $text, $limit);
     }
 
     /**
      * Strips given text of all links (<a href=....).
      *
+     * *Warning* This method is not an robust solution in preventing XSS
+     * or malicious HTML.
+     *
      * @param string $text Text
      * @return string The text without links
+     * @deprecated 3.2.12 This method will be removed in 4.0.0
      */
     public static function stripLinks($text)
     {
-        return preg_replace('|<a\s+[^>]+>|im', '', preg_replace('|<\/a>|im', '', $text));
+        do {
+            $text = preg_replace('#</?a([/\s][^>]*)?(>|$)#i', '', $text, -1, $count);
+        } while ($count);
+
+        return $text;
     }
 
     /**
@@ -528,6 +547,7 @@ class Text
             'ellipsis' => '...', 'exact' => true
         ];
         $options += $default;
+        $exact = $ellipsis = null;
         extract($options);
 
         if (mb_strlen($text) <= $length) {
@@ -554,6 +574,7 @@ class Text
      * - `ellipsis` Will be used as ending and appended to the trimmed string
      * - `exact` If false, $text will not be cut mid-word
      * - `html` If true, HTML tags would be handled correctly
+     * - `trimWidth` If true, $text will be truncated with the width
      *
      * @param string $text String to truncate.
      * @param int $length Length of returned string, including ellipsis.
@@ -564,124 +585,258 @@ class Text
     public static function truncate($text, $length = 100, array $options = [])
     {
         $default = [
-            'ellipsis' => '...', 'exact' => true, 'html' => false
+            'ellipsis' => '...', 'exact' => true, 'html' => false, 'trimWidth' => false,
         ];
         if (!empty($options['html']) && strtolower(mb_internal_encoding()) === 'utf-8') {
             $default['ellipsis'] = "\xe2\x80\xa6";
         }
         $options += $default;
 
+        $prefix = '';
+        $suffix = $options['ellipsis'];
+
         if ($options['html']) {
-            if (mb_strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
-                return $text;
-            }
-            $totalLength = mb_strlen(strip_tags($options['ellipsis']));
+            $ellipsisLength = self::_strlen(strip_tags($options['ellipsis']), $options);
+
+            $truncateLength = 0;
+            $totalLength = 0;
             $openTags = [];
             $truncate = '';
 
             preg_match_all('/(<\/?([\w+]+)[^>]*>)?([^<>]*)/', $text, $tags, PREG_SET_ORDER);
             foreach ($tags as $tag) {
-                if (!preg_match('/img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param/s', $tag[2])) {
-                    if (preg_match('/<[\w]+[^>]*>/s', $tag[0])) {
-                        array_unshift($openTags, $tag[2]);
-                    } elseif (preg_match('/<\/([\w]+)[^>]*>/s', $tag[0], $closeTag)) {
-                        $pos = array_search($closeTag[1], $openTags);
-                        if ($pos !== false) {
-                            array_splice($openTags, $pos, 1);
-                        }
-                    }
-                }
-                $truncate .= $tag[1];
+                $contentLength = self::_strlen($tag[3], $options);
 
-                $contentLength = mb_strlen(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', ' ', $tag[3]));
-                if ($contentLength + $totalLength > $length) {
-                    $left = $length - $totalLength;
-                    $entitiesLength = 0;
-                    if (preg_match_all('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', $tag[3], $entities, PREG_OFFSET_CAPTURE)) {
-                        foreach ($entities[0] as $entity) {
-                            if ($entity[1] + 1 - $entitiesLength <= $left) {
-                                $left--;
-                                $entitiesLength += mb_strlen($entity[0]);
-                            } else {
-                                break;
+                if ($truncate === '') {
+                    if (!preg_match('/img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param/i', $tag[2])) {
+                        if (preg_match('/<[\w]+[^>]*>/', $tag[0])) {
+                            array_unshift($openTags, $tag[2]);
+                        } elseif (preg_match('/<\/([\w]+)[^>]*>/', $tag[0], $closeTag)) {
+                            $pos = array_search($closeTag[1], $openTags);
+                            if ($pos !== false) {
+                                array_splice($openTags, $pos, 1);
                             }
                         }
                     }
 
-                    if (!$options['exact']) {
-                        $words = explode(' ', $tag[3]);
-                        // Keep at least one word.
-                        if (count($words) === 1) {
-                            $truncate .= mb_substr($tag[3], 0, $left + $entitiesLength);
-                        } else {
-                            $wordLength = 0;
-                            $addWords = [];
-                            // Append words until the length is crossed.
-                            foreach ($words as $word) {
-                                // Add words until we have enough letters.
-                                if ($wordLength < $left + $entitiesLength) {
-                                    $addWords[] = $word;
-                                }
-                                // Include inter-word space.
-                                $wordLength += mb_strlen($word) + 1;
-                            }
-                            $truncate .= implode(' ', $addWords);
+                    $prefix .= $tag[1];
 
-                            // If the string is longer than requested, find the last space and cut there.
-                            $lastSpace = mb_strrpos($truncate, ' ');
-                            if (mb_strlen($truncate) > $totalLength && $lastSpace !== false) {
-                                $remainder = mb_substr($truncate, $lastSpace);
-                                $truncate = mb_substr($truncate, 0, $lastSpace);
-
-                                // Re-add close tags that were cut off.
-                                preg_match_all('/<\/([a-z]+)>/', $remainder, $droppedTags, PREG_SET_ORDER);
-                                if ($droppedTags) {
-                                    foreach ($droppedTags as $closingTag) {
-                                        if (!in_array($closingTag[1], $openTags)) {
-                                            array_unshift($openTags, $closingTag[1]);
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    if ($totalLength + $contentLength + $ellipsisLength > $length) {
+                        $truncate = $tag[3];
+                        $truncateLength = $length - $totalLength;
                     } else {
-                        $truncate .= mb_substr($tag[3], 0, $left + $entitiesLength);
+                        $prefix .= $tag[3];
                     }
-                    break;
                 }
-                $truncate .= $tag[3];
 
                 $totalLength += $contentLength;
-                if ($totalLength >= $length) {
+                if ($totalLength > $length) {
                     break;
                 }
             }
 
-            $truncate .= $options['ellipsis'];
+            if ($totalLength <= $length) {
+                return $text;
+            }
+
+            $text = $truncate;
+            $length = $truncateLength;
 
             foreach ($openTags as $tag) {
-                $truncate .= '</' . $tag . '>';
+                $suffix .= '</' . $tag . '>';
             }
-            return $truncate;
+        } else {
+            if (self::_strlen($text, $options) <= $length) {
+                return $text;
+            }
+            $ellipsisLength = self::_strlen($options['ellipsis'], $options);
         }
 
-        if (mb_strlen($text) <= $length) {
-            return $text;
-        }
-        $truncate = mb_substr($text, 0, $length - mb_strlen($options['ellipsis']));
+        $result = self::_substr($text, 0, $length - $ellipsisLength, $options);
 
         if (!$options['exact']) {
-            $spacepos = mb_strrpos($truncate, ' ');
-            $truncate = mb_substr($truncate, 0, $spacepos);
+            if (self::_substr($text, $length - $ellipsisLength, 1, $options) !== ' ') {
+                $result = self::_removeLastWord($result);
+            }
 
-            // If truncate still empty, then we don't need to count ellipsis in the cut.
-            if (mb_strlen($truncate) === 0) {
-                $truncate = mb_substr($text, 0, $length);
+            // If result is empty, then we don't need to count ellipsis in the cut.
+            if (!strlen($result)) {
+                $result = self::_substr($text, 0, $length, $options);
             }
         }
 
-        $truncate .= $options['ellipsis'];
-        return $truncate;
+        return $prefix . $result . $suffix;
+    }
+
+    /**
+     * Truncate text with specified width.
+     *
+     * @param string $text String to truncate.
+     * @param int $length Length of returned string, including ellipsis.
+     * @param array $options An array of HTML attributes and options.
+     * @return string Trimmed string.
+     * @see \Cake\Utility\Text::truncate()
+     */
+    public static function truncateByWidth($text, $length = 100, array $options = [])
+    {
+        return static::truncate($text, $length, ['trimWidth' => true] + $options);
+    }
+
+    /**
+     * Get string length.
+     *
+     * ### Options:
+     *
+     * - `html` If true, HTML entities will be handled as decoded characters.
+     * - `trimWidth` If true, the width will return.
+     *
+     * @param string $text The string being checked for length
+     * @param array $options An array of options.
+     * @return int
+     */
+    protected static function _strlen($text, array $options)
+    {
+        if (empty($options['trimWidth'])) {
+            $strlen = 'mb_strlen';
+        } else {
+            $strlen = 'mb_strwidth';
+        }
+
+        if (empty($options['html'])) {
+            return $strlen($text);
+        }
+
+        $pattern = '/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i';
+        $replace = preg_replace_callback(
+            $pattern,
+            function ($match) use ($strlen) {
+                $utf8 = html_entity_decode($match[0], ENT_HTML5 | ENT_QUOTES, 'UTF-8');
+
+                return str_repeat(' ', $strlen($utf8, 'UTF-8'));
+            },
+            $text
+        );
+
+        return $strlen($replace);
+    }
+
+    /**
+     * Return part of a string.
+     *
+     * ### Options:
+     *
+     * - `html` If true, HTML entities will be handled as decoded characters.
+     * - `trimWidth` If true, will be truncated with specified width.
+     *
+     * @param string $text The input string.
+     * @param int $start The position to begin extracting.
+     * @param int $length The desired length.
+     * @param array $options An array of options.
+     * @return string
+     */
+    protected static function _substr($text, $start, $length, array $options)
+    {
+        if (empty($options['trimWidth'])) {
+            $substr = 'mb_substr';
+        } else {
+            $substr = 'mb_strimwidth';
+        }
+
+        $maxPosition = self::_strlen($text, ['trimWidth' => false] + $options);
+        if ($start < 0) {
+            $start += $maxPosition;
+            if ($start < 0) {
+                $start = 0;
+            }
+        }
+        if ($start >= $maxPosition) {
+            return '';
+        }
+
+        if ($length === null) {
+            $length = self::_strlen($text, $options);
+        }
+
+        if ($length < 0) {
+            $text = self::_substr($text, $start, null, $options);
+            $start = 0;
+            $length += self::_strlen($text, $options);
+        }
+
+        if ($length <= 0) {
+            return '';
+        }
+
+        if (empty($options['html'])) {
+            return (string)$substr($text, $start, $length);
+        }
+
+        $totalOffset = 0;
+        $totalLength = 0;
+        $result = '';
+
+        $pattern = '/(&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};)/i';
+        $parts = preg_split($pattern, $text, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+        foreach ($parts as $part) {
+            $offset = 0;
+
+            if ($totalOffset < $start) {
+                $len = self::_strlen($part, ['trimWidth' => false] + $options);
+                if ($totalOffset + $len <= $start) {
+                    $totalOffset += $len;
+                    continue;
+                }
+
+                $offset = $start - $totalOffset;
+                $totalOffset = $start;
+            }
+
+            $len = self::_strlen($part, $options);
+            if ($offset !== 0 || $totalLength + $len > $length) {
+                if (strpos($part, '&') === 0 && preg_match($pattern, $part)
+                    && $part !== html_entity_decode($part, ENT_HTML5 | ENT_QUOTES, 'UTF-8')
+                ) {
+                    // Entities cannot be passed substr.
+                    continue;
+                }
+
+                $part = $substr($part, $offset, $length - $totalLength);
+                $len = self::_strlen($part, $options);
+            }
+
+            $result .= $part;
+            $totalLength += $len;
+            if ($totalLength >= $length) {
+                break;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Removes the last word from the input text.
+     *
+     * @param string $text The input text
+     * @return string
+     */
+    protected static function _removeLastWord($text)
+    {
+        $spacepos = mb_strrpos($text, ' ');
+
+        if ($spacepos !== false) {
+            $lastWord = mb_strrpos($text, $spacepos);
+
+            // Some languages are written without word separation.
+            // We recognize a string as a word if it doesn't contain any full-width characters.
+            if (mb_strwidth($lastWord) === mb_strlen($lastWord)) {
+                $text = mb_substr($text, 0, $spacepos);
+            }
+
+            return $text;
+        }
+
+        return '';
     }
 
     /**
@@ -761,11 +916,12 @@ class Text
         $length = strlen($string);
 
         for ($i = 0; $i < $length; $i++) {
-            $value = ord(($string[$i]));
+            $value = ord($string[$i]);
             if ($value > 128) {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -806,6 +962,7 @@ class Text
                 }
             }
         }
+
         return $map;
     }
 
@@ -832,6 +989,7 @@ class Text
                 $ascii .= chr(128 + ($utf8 % 64));
             }
         }
+
         return $ascii;
     }
 
@@ -859,11 +1017,13 @@ class Text
         }
         if ($i !== false) {
             $size = substr($size, 0, $l);
+
             return $size * pow(1024, $i + 1);
         }
 
         if (substr($size, -1) === 'B' && ctype_digit(substr($size, 0, -1))) {
             $size = substr($size, 0, -1);
+
             return (int)$size;
         }
 
@@ -906,6 +1066,7 @@ class Text
     public static function transliterate($string, $transliteratorId = null)
     {
         $transliteratorId = $transliteratorId ?: static::$_defaultTransliteratorId;
+
         return transliterator_transliterate($transliteratorId, $string);
     }
 

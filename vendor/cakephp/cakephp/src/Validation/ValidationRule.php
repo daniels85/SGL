@@ -39,7 +39,7 @@ class ValidationRule
      *
      * @var string
      */
-    protected $_on = null;
+    protected $_on;
 
     /**
      * The 'last' key
@@ -53,7 +53,7 @@ class ValidationRule
      *
      * @var string
      */
-    protected $_message = null;
+    protected $_message;
 
     /**
      * Key under which the object or class where the method to be used for
@@ -135,7 +135,7 @@ class ValidationRule
 
         if ($this->_pass) {
             $args = array_merge([$value], $this->_pass, [$context]);
-            $result = call_user_func_array($callable, $args);
+            $result = $callable(...$args);
         } else {
             $result = $callable($value, $context);
         }
@@ -143,6 +143,7 @@ class ValidationRule
         if ($result === false) {
             return $this->_message ?: false;
         }
+
         return $result;
     }
 
@@ -162,15 +163,17 @@ class ValidationRule
     {
         if (!is_string($this->_on) && is_callable($this->_on)) {
             $function = $this->_on;
+
             return !$function($context);
         }
 
         $newRecord = $context['newRecord'];
         if (!empty($this->_on)) {
-            if ($this->_on === 'create' && !$newRecord || $this->_on === 'update' && $newRecord) {
+            if (($this->_on === 'create' && !$newRecord) || ($this->_on === 'update' && $newRecord)) {
                 return true;
             }
         }
+
         return false;
     }
 

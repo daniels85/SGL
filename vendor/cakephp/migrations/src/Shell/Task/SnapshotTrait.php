@@ -11,11 +11,13 @@
  */
 namespace Migrations\Shell\Task;
 
+use Cake\Core\App;
 use Cake\Core\Plugin;
 use Cake\Database\Schema\Collection;
 use Cake\Datasource\ConnectionManager;
 use Cake\Filesystem\Folder;
 use Cake\ORM\TableRegistry;
+use ReflectionClass;
 
 /**
  * Trait needed for all "snapshot" type of bake operations.
@@ -52,7 +54,10 @@ trait SnapshotTrait
 
         if ($createFile) {
             $this->markSnapshotApplied($path);
-            $this->refreshDump();
+
+            if (!isset($this->params['no-lock']) || !$this->params['no-lock']) {
+                $this->refreshDump();
+            }
         }
 
         return $createFile;
@@ -118,6 +123,10 @@ trait SnapshotTrait
         $options = array_merge(['require-table' => false, 'plugin' => null], $options);
         $tables = $collection->listTables();
 
+        if (empty($tables)) {
+            return $tables;
+        }
+
         if ($options['require-table'] === true || $options['plugin']) {
             $tableNamesInModel = $this->getTableNames($options['plugin']);
 
@@ -126,6 +135,16 @@ trait SnapshotTrait
             }
 
             foreach ($tableNamesInModel as $num => $table) {
+                if (strpos($table, '.') !== false) {
+                    $splitted = array_reverse(explode('.', $table, 2));
+
+                    $config = ConnectionManager::config($this->connection);
+                    $key = isset($config['schema']) ? 'schema' : 'database';
+                    if ($config[$key] === $splitted[1]) {
+                        $table = $splitted[0];
+                    }
+                }
+
                 if (!in_array($table, $tables)) {
                     unset($tableNamesInModel[$num]);
                 }
@@ -205,6 +224,17 @@ trait SnapshotTrait
         $className = str_replace('Table.php', '', $className);
         if ($pluginName !== null) {
             $className = $pluginName . '.' . $className;
+        }
+
+        $namespacedClassName = App::className($className, 'Model/Table', 'Table');
+
+        if (!class_exists($namespacedClassName)) {
+            return $tables;
+        }
+
+        $reflection = new ReflectionClass($namespacedClassName);
+        if (!$reflection->isInstantiable()) {
+            return $tables;
         }
 
         $table = TableRegistry::get($className);

@@ -37,7 +37,7 @@ trait DateFormatTrait
     /**
      * In-memory cache of date formatters
      *
-     * @var array
+     * @var IntlDateFormatter[]
      */
     protected static $_formatters = [];
 
@@ -55,12 +55,12 @@ trait DateFormatTrait
      * @var string|array|int
      * @see \Cake\I18n\Time::i18nFormat()
      */
-    protected static $_jsonEncodeFormat = "yyyy-MM-dd'T'HH:mm:ssZ";
+    protected static $_jsonEncodeFormat = "yyyy-MM-dd'T'HH:mm:ssxxx";
 
     /**
      * Caches whether or not this class is a subclass of a Date or MutableDate
      *
-     * @var boolean
+     * @var bool
      */
     protected static $_isDateInstance;
 
@@ -110,6 +110,9 @@ trait DateFormatTrait
      * function, or pass a full ICU date formatting string as specified in the following
      * resource: http://www.icu-project.org/apiref/icu4c/classSimpleDateFormat.html#details.
      *
+     * Additional to `IntlDateFormatter` constants and date formatting string you can use
+     * Time::UNIX_TIMESTAMP_FORMAT to get a unix timestamp
+     *
      * ### Examples
      *
      * ```
@@ -118,6 +121,7 @@ trait DateFormatTrait
      * $time->i18nFormat(\IntlDateFormatter::FULL); // Use the full date and time format
      * $time->i18nFormat([\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT]); // Use full date but short time format
      * $time->i18nFormat('yyyy-MM-dd HH:mm:ss'); // outputs '2014-04-20 22:10'
+     * $time->i18nFormat(Time::UNIX_TIMESTAMP_FORMAT); // outputs '1398031800'
      * ```
      *
      * If you wish to control the default format to be used for this method, you can alter
@@ -143,7 +147,7 @@ trait DateFormatTrait
      * ```
      *
      * You can control the default locale to be used by setting the static variable
-     * `Time::$defaultLocale` to a  valid locale string. If empty, the default will be
+     * `Time::$defaultLocale` to a valid locale string. If empty, the default will be
      * taken from the `intl.default_locale` ini config.
      *
      * @param string|int|null $format Format string.
@@ -155,6 +159,10 @@ trait DateFormatTrait
      */
     public function i18nFormat($format = null, $timezone = null, $locale = null)
     {
+        if ($format === Time::UNIX_TIMESTAMP_FORMAT) {
+            return $this->getTimestamp();
+        }
+
         $time = $this;
 
         if ($timezone) {
@@ -165,6 +173,7 @@ trait DateFormatTrait
 
         $format = $format !== null ? $format : static::$_toStringFormat;
         $locale = $locale ?: static::$defaultLocale;
+
         return $this->_formatObject($time, $format, $locale);
     }
 
@@ -312,8 +321,10 @@ trait DateFormatTrait
         $time = $formatter->parse($time);
         if ($time !== false) {
             $result = new static('@' . $time);
+
             return static::$_isDateInstance ? $result : $result->setTimezone($defaultTimezone);
         }
+
         return null;
     }
 
@@ -345,6 +356,7 @@ trait DateFormatTrait
             $format = [$format, -1];
         }
         $format = $format ?: static::$wordFormat;
+
         return static::parseDateTime($date, $format);
     }
 
@@ -374,6 +386,7 @@ trait DateFormatTrait
             $format = [-1, $format];
         }
         $format = $format ?: [-1, IntlDateFormatter::SHORT];
+
         return static::parseDateTime($time, $format);
     }
 
@@ -400,9 +413,11 @@ trait DateFormatTrait
             if (static::$diffFormatter === null) {
                 static::$diffFormatter = new RelativeTimeFormatter();
             }
+
             return static::$diffFormatter;
         }
-        return static::$diffFormatter = $translator;
+
+        return static::$diffFormatter = $formatter;
     }
 
     /**
@@ -415,7 +430,7 @@ trait DateFormatTrait
         return [
             'time' => $this->toIso8601String(),
             'timezone' => $this->getTimezone()->getName(),
-            'fixedNowTime' => $this->hasTestNow() ? $this->getTestNow()->toIso8601String() : false
+            'fixedNowTime' => static::hasTestNow() ? static::getTestNow()->toIso8601String() : false
         ];
     }
 }

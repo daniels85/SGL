@@ -34,7 +34,12 @@ class Seed extends SeedRun
         $this->setName('seed')
             ->setDescription('Seed the database with data')
             ->setHelp('runs all available migrations, optionally up to a specific version')
-            ->addOption('--seed', null, InputOption::VALUE_REQUIRED, 'What is the name of the seeder?')
+            ->addOption(
+                '--seed',
+                null,
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                'What is the name of the seeder?'
+            )
             ->addOption('--plugin', '-p', InputOption::VALUE_REQUIRED, 'The plugin containing the migrations')
             ->addOption('--connection', '-c', InputOption::VALUE_REQUIRED, 'The datasource connection to use')
             ->addOption('--source', '-s', InputOption::VALUE_REQUIRED, 'The folder where migrations are in');
@@ -54,6 +59,15 @@ class Seed extends SeedRun
         if ($event->isStopped()) {
             return $event->result;
         }
+
+        $seed = $input->getOption('seed');
+        if (!empty($seed) && !is_array($seed)) {
+            $input->setOption('seed', [$seed]);
+        }
+
+        $this->setInput($input);
+        $this->bootstrap($input, $output);
+        $this->getManager()->setInput($input);
         $this->parentExecute($input, $output);
         $this->dispatchEvent('Migration.afterSeed');
     }

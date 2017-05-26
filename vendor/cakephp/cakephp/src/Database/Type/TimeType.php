@@ -34,7 +34,9 @@ class TimeType extends DateTimeType
      */
     protected function _parseValue($value)
     {
+        /* @var \Cake\I18n\Time $class */
         $class = $this->_className;
+
         return $class::parseTime($value, $this->_localeFormat);
     }
 }

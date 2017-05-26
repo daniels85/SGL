@@ -115,7 +115,7 @@ class WidgetRegistry
     public function add(array $widgets)
     {
         foreach ($widgets as $object) {
-            if (gettype($object) === 'object' &&
+            if (is_object($object) &&
                 !($object instanceof WidgetInterface)
             ) {
                 throw new RuntimeException(
@@ -147,6 +147,7 @@ class WidgetRegistry
             $name = '_default';
         }
         $this->_widgets[$name] = $this->_resolveWidget($this->_widgets[$name]);
+
         return $this->_widgets[$name];
     }
 
@@ -197,6 +198,7 @@ class WidgetRegistry
         if (!($instance instanceof WidgetInterface)) {
             throw new RuntimeException(sprintf('"%s" does not implement the WidgetInterface', $className));
         }
+
         return $instance;
     }
 }

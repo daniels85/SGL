@@ -15,15 +15,16 @@
 namespace Cake\Database\Expression;
 
 use Cake\Database\ExpressionInterface;
+use Cake\Database\Type\ExpressionTypeCasterTrait;
 use Cake\Database\ValueBinder;
 
 /**
  * This class represents a SQL Case statement
- *
- * @internal
  */
 class CaseExpression implements ExpressionInterface
 {
+
+    use ExpressionTypeCasterTrait;
 
     /**
      * A list of strings or other expression objects that represent the conditions of
@@ -46,7 +47,7 @@ class CaseExpression implements ExpressionInterface
      *
      * @var string|\Cake\Database\ExpressionInterface|array|null
      */
-    protected $_elseValue = null;
+    protected $_elseValue;
 
     /**
      * Constructs the case expression
@@ -113,36 +114,45 @@ class CaseExpression implements ExpressionInterface
     {
         $rawValues = array_values($values);
         $keyValues = array_keys($values);
+
         foreach ($conditions as $k => $c) {
             $numericKey = is_numeric($k);
 
             if ($numericKey && empty($c)) {
                 continue;
             }
+
             if (!$c instanceof ExpressionInterface) {
                 continue;
             }
-            array_push($this->_conditions, $c);
 
+            $this->_conditions[] = $c;
             $value = isset($rawValues[$k]) ? $rawValues[$k] : 1;
 
             if ($value === 'literal') {
                 $value = $keyValues[$k];
-                array_push($this->_values, $value);
+                $this->_values[] = $value;
                 continue;
             }
+
             if ($value === 'identifier') {
                 $value = new IdentifierExpression($keyValues[$k]);
-                array_push($this->_values, $value);
-                continue;
-            }
-            if ($value instanceof ExpressionInterface) {
-                array_push($this->_values, $value);
+                $this->_values[] = $value;
                 continue;
             }
 
             $type = isset($types[$k]) ? $types[$k] : null;
-            array_push($this->_values, ['value' => $value, 'type' => $type]);
+
+            if ($type !== null && !$value instanceof ExpressionInterface) {
+                $value = $this->_castToExpression($value, $type);
+            }
+
+            if ($value instanceof ExpressionInterface) {
+                $this->_values[] = $value;
+                continue;
+            }
+
+            $this->_values[] = ['value' => $value, 'type' => $type];
         }
     }
 
@@ -159,7 +169,13 @@ class CaseExpression implements ExpressionInterface
         if (is_array($value)) {
             end($value);
             $value = key($value);
-        } elseif ($value !== null && !$value instanceof ExpressionInterface) {
+        }
+
+        if ($value !== null && !$value instanceof ExpressionInterface) {
+            $value = $this->_castToExpression($value, $type);
+        }
+
+        if (!$value instanceof ExpressionInterface) {
             $value = ['value' => $value, 'type' => $type];
         }
 

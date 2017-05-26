@@ -67,6 +67,7 @@ class Sqlite extends Driver
                 $this->connection()->exec($command);
             }
         }
+
         return true;
     }
 
@@ -92,9 +93,10 @@ class Sqlite extends Driver
         $isObject = $query instanceof Query;
         $statement = $this->_connection->prepare($isObject ? $query->sql() : $query);
         $result = new SqliteStatement(new PDOStatement($statement, $this), $this);
-        if ($isObject && $query->bufferResults() === false) {
+        if ($isObject && $query->isBufferedResultsEnabled() === false) {
             $result->bufferResults(false);
         }
+
         return $result;
     }
 
