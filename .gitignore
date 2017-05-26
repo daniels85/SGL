@@ -2,6 +2,7 @@
 /tmp/*
 /logs/*
 /vendor/*
+!/vendor/tcpdf/*
 sglv01.sublime-workspace
 SGLv1.sublime-workspace
 SGLv1.sublime-project
