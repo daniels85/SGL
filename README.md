@@ -22,14 +22,12 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
 - Copiar e renomear o arquivo **config/app.default.php** para **config/app.php**
 - Configurar o arquivo **config/app.php**  
   - Configurar uma salt em **Security -> Salt**
-    
-    ```bash
+    ```php
     'Security' => [
         'salt' => env('SECURITY_SALT', '__SALT__'),
     ],
     ```
     Substitua " **__ SALT __**" pela sua. 
-
     > A **SALT** deve ser uma string alfanumérica de aproximadamente 40 caracteres. 
       Pode-se utilizar serviços que geram strings randômicas como [**este**](http://www.sethcardoza.com/tools/random-password-generator/).
     
@@ -39,7 +37,7 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
 
   - Configurar um novo perfil de transporte de e-mail em EmailTransport
 
-      ``` bash
+      ``` php
         'mailSgl' => [
             'host' => 'ssl://smtp.gmail.com',
             'port' => 465,
@@ -58,8 +56,20 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
       ```
       > Para mais explicações sobre como configurar o Mail Transport visitar o [Cookbook [Email]](http://book.cakephp.org/3.0/en/core-libraries/email.html).
 
+- Banco de Dados:
+    - Crie um banco de dados chamado **sgl**.
+    - Na pasta do projeto execute o comando ```bin/cake migrations migrate ```.
+
+- Usuário administrador:
+  Coloque o seguinte código em uma view de sua escolha e altere a **Senha** por uma de sua preferência.
+
+  ``` php
+  (new \Cake\Auth\DefaultPasswordHasher)->hash("Senha")
+  ```
+  Copie a senha e cadastre um usuário manualmente no banco de dados, setando **role** como **Administrador**.
+
 ----------------------------------------------------------------------------
-### Versão 1.12
+### Versão 1.11.2
 
 ##### <i class="icon-file"></i> Changelog
  Versão   | Descrição

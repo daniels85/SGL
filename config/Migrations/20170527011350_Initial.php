@@ -5,89 +5,74 @@ class Initial extends AbstractMigration
 {
     public function up()
     {
-        $table = $this->table('users');
-        $table
-            ->addColumn('nome', 'string', [
+
+        $this->table('alertas')
+            ->addColumn('descricao', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('observacoes', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('geradoPor', 'string', [
                 'default' => null,
                 'limit' => 100,
                 'null' => false,
             ])
-            ->addColumn('username', 'string', [
+            ->addColumn('statusAlerta', 'string', [
+                'default' => 'Pendente',
+                'limit' => 50,
+                'null' => true,
+            ])
+            ->addColumn('tomboEquipamento', 'string', [
                 'default' => null,
                 'limit' => 50,
                 'null' => false,
             ])
-            ->addColumn('password', 'string', [
-                'default' => null,
-                'limit' => 255,
+            ->addColumn('dataAlerta', 'timestamp', [
+                'default' => 'CURRENT_TIMESTAMP',
+                'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('matricula', 'string', [
+            ->addIndex(
+                [
+                    'tomboEquipamento',
+                ]
+            )
+            ->addIndex(
+                [
+                    'id',
+                ]
+            )
+            ->create();
+
+        $this->table('bolsistas_alertas')
+            ->addColumn('matricula_bolsista', 'string', [
                 'default' => null,
                 'limit' => 80,
                 'null' => false,
             ])
-            ->addColumn('role', 'string', [
+            ->addColumn('alerta_id', 'integer', [
                 'default' => null,
-                'limit' => 50,
-                'null' => false,
-            ])
-            ->addColumn('cadastradoPor', 'string', [
-                'default' => null,
-                'limit' => 100,
-                'null' => true,
-            ])
-            ->addColumn('dataDeCadastro', 'datetime', [
-                'default' => null,
-                'limit' => null,
-                'null' => false,
-            ])
-            ->addColumn('ultimaVezAtivo', 'datetime', [
-                'default' => null,
-                'limit' => null,
+                'limit' => 11,
                 'null' => false,
             ])
             ->addIndex(
                 [
-                    'matricula',
-                ],
-                ['unique' => true]
+                    'alerta_id',
+                ]
             )
             ->addIndex(
                 [
-                    'username',
-                ],
-                ['unique' => true]
+                    'matricula_bolsista',
+                ]
             )
             ->create();
 
-        $table = $this->table('locals');
-        $table
-            ->addColumn('nome', 'string', [
-                'default' => null,
-                'limit' => 100,
-                'null' => false,
-            ])
-            ->addColumn('codigo', 'string', [
-                'default' => null,
-                'limit' => 50,
-                'null' => false,
-            ])
-            ->addColumn('tipo', 'string', [
-                'default' => null,
-                'limit' => 50,
-                'null' => false,
-            ])
-            ->addIndex(
-                [
-                    'codigo',
-                ],
-                ['unique' => true]
-            )
-            ->create();
-
-        $table = $this->table('equipamentos');
-        $table
+        $this->table('equipamentos')
             ->addColumn('nome', 'string', [
                 'default' => null,
                 'limit' => 50,
@@ -128,7 +113,7 @@ class Initial extends AbstractMigration
                 'limit' => 11,
                 'null' => false,
             ])
-            ->addColumn('dataDeCompra', 'datetime', [
+            ->addColumn('dataDeCompra', 'date', [
                 'default' => null,
                 'limit' => null,
                 'null' => false,
@@ -146,13 +131,94 @@ class Initial extends AbstractMigration
             )
             ->addIndex(
                 [
+                    'responsavel',
+                ]
+            )
+            ->addIndex(
+                [
                     'tipo',
                 ]
             )
             ->create();
 
-        $table = $this->table('tipo_equipamentos');
-        $table
+        $this->table('locals')
+            ->addColumn('nome', 'string', [
+                'default' => null,
+                'limit' => 100,
+                'null' => false,
+            ])
+            ->addColumn('codigo', 'string', [
+                'default' => null,
+                'limit' => 50,
+                'null' => false,
+            ])
+            ->addColumn('tipo', 'string', [
+                'default' => null,
+                'limit' => 50,
+                'null' => false,
+            ])
+            ->addIndex(
+                [
+                    'codigo',
+                ],
+                ['unique' => true]
+            )
+            ->create();
+
+        $this->table('ocorrencias')
+            ->addColumn('tomboEquipamento', 'string', [
+                'default' => null,
+                'limit' => 50,
+                'null' => false,
+            ])
+            ->addColumn('descricao', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('geradoPor', 'string', [
+                'default' => null,
+                'limit' => 100,
+                'null' => false,
+            ])
+            ->addColumn('encaminhamento', 'string', [
+                'default' => null,
+                'limit' => 80,
+                'null' => true,
+            ])
+            ->addColumn('dataEncaminhamento', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('previsaoDeRetorno', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('observacoes', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('dataOcorrencia', 'timestamp', [
+                'default' => 'CURRENT_TIMESTAMP',
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addIndex(
+                [
+                    'tomboEquipamento',
+                ]
+            )
+            ->addIndex(
+                [
+                    'geradoPor',
+                ]
+            )
+            ->create();
+
+        $this->table('tipo_equipamentos')
             ->addColumn('nome', 'string', [
                 'default' => null,
                 'limit' => 50,
@@ -171,47 +237,7 @@ class Initial extends AbstractMigration
             )
             ->create();
 
-        $table = $this->table('alertas');
-        $table
-            ->addColumn('descricao', 'string', [
-                'default' => null,
-                'limit' => 255,
-                'null' => false,
-            ])
-            ->addColumn('geradoPor', 'string', [
-                'default' => null,
-                'limit' => 100,
-                'null' => false,
-            ])
-            ->addColumn('statusAlerta', 'string', [
-                'default' => 'Pedente',
-                'limit' => 50,
-                'null' => true,
-            ])
-            ->addColumn('tomboEquipamento', 'string', [
-                'default' => null,
-                'limit' => 50,
-                'null' => false,
-            ])
-            ->addColumn('dataAlerta', 'datetime', [
-                'default' => null,
-                'limit' => null,
-                'null' => false,
-            ])
-            ->addIndex(
-                [
-                    'tomboEquipamento',
-                ]
-            )
-            ->addIndex(
-                [
-                    'id',
-                ]
-            )
-            ->create();
-
-        $table = $this->table('user_locals');
-        $table
+        $this->table('user_locals')
             ->addColumn('user_matricula', 'string', [
                 'default' => null,
                 'limit' => 80,
@@ -234,65 +260,119 @@ class Initial extends AbstractMigration
             )
             ->create();
 
-        $table = $this->table('ocorrencias');
-        $table
-            ->addColumn('tomboEquipamento', 'string', [
-                'default' => null,
-                'limit' => 50,
-                'null' => false,
-            ])
-            ->addColumn('descricao', 'string', [
-                'default' => null,
-                'limit' => 255,
-                'null' => false,
-            ])
-            ->addColumn('geradoPor', 'string', [
+        $this->table('users')
+            ->addColumn('nome', 'string', [
                 'default' => null,
                 'limit' => 100,
                 'null' => false,
             ])
-            ->addColumn('encaminhamento', 'string', [
+            ->addColumn('username', 'string', [
                 'default' => null,
-                'limit' => 80,
-                'null' => true,
+                'limit' => 50,
+                'null' => false,
             ])
-            ->addColumn('dataEncaminhamento', 'string', [
-                'default' => null,
-                'limit' => 10,
-                'null' => true,
-            ])
-            ->addColumn('previsaoDeRetorno', 'string', [
-                'default' => null,
-                'limit' => 10,
-                'null' => true,
-            ])
-            ->addColumn('observacoes', 'string', [
+            ->addColumn('password', 'string', [
                 'default' => null,
                 'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('matricula', 'string', [
+                'default' => null,
+                'limit' => 80,
+                'null' => false,
+            ])
+            ->addColumn('email', 'string', [
+                'default' => null,
+                'limit' => 100,
+                'null' => false,
+            ])
+            ->addColumn('role', 'string', [
+                'default' => null,
+                'limit' => 50,
+                'null' => false,
+            ])
+            ->addColumn('cadastradoPor', 'string', [
+                'default' => null,
+                'limit' => 100,
                 'null' => true,
             ])
-            ->addColumn('dataOcorrencia', 'string', [
+            ->addColumn('dataDeCadastro', 'timestamp', [
+                'default' => 'CURRENT_TIMESTAMP',
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('ultimaVezAtivo', 'datetime', [
                 'default' => null,
-                'limit' => 10,
-                'null' => true,
+                'limit' => null,
+                'null' => false,
             ])
             ->addIndex(
                 [
-                    'tomboEquipamento',
-                ]
+                    'email',
+                ],
+                ['unique' => true]
             )
             ->addIndex(
                 [
-                    'geradoPor',
-                ]
+                    'matricula',
+                ],
+                ['unique' => true]
+            )
+            ->addIndex(
+                [
+                    'username',
+                ],
+                ['unique' => true]
             )
             ->create();
+
+        $this->table('alertas')
+            ->addForeignKey(
+                'tomboEquipamento',
+                'equipamentos',
+                'tombo',
+                [
+                    'update' => 'CASCADE',
+                    'delete' => 'CASCADE'
+                ]
+            )
+            ->update();
+
+        $this->table('bolsistas_alertas')
+            ->addForeignKey(
+                'alerta_id',
+                'alertas',
+                'id',
+                [
+                    'update' => 'CASCADE',
+                    'delete' => 'CASCADE'
+                ]
+            )
+            ->addForeignKey(
+                'matricula_bolsista',
+                'users',
+                'matricula',
+                [
+                    'update' => 'CASCADE',
+                    'delete' => 'CASCADE'
+                ]
+            )
+            ->update();
 
         $this->table('equipamentos')
             ->addForeignKey(
                 'codLocal',
                 'locals',
                 'codigo',
+                [
+                    'update' => 'CASCADE',
+                    'delete' => 'RESTRICT'
+                ]
+            )
+            ->addForeignKey(
+                'responsavel',
+                'users',
+                'matricula',
                 [
                     'update' => 'CASCADE',
                     'delete' => 'RESTRICT'
@@ -309,7 +389,7 @@ class Initial extends AbstractMigration
             )
             ->update();
 
-        $this->table('alertas')
+        $this->table('ocorrencias')
             ->addForeignKey(
                 'tomboEquipamento',
                 'equipamentos',
@@ -341,32 +421,35 @@ class Initial extends AbstractMigration
                 ]
             )
             ->update();
-
-        $this->table('ocorrencias')
-            ->addForeignKey(
-                'tomboEquipamento',
-                'equipamentos',
-                'tombo',
-                [
-                    'update' => 'CASCADE',
-                    'delete' => 'CASCADE'
-                ]
-            )
-            ->update();
-
     }
 
     public function down()
     {
+        $this->table('alertas')
+            ->dropForeignKey(
+                'tomboEquipamento'
+            );
+
+        $this->table('bolsistas_alertas')
+            ->dropForeignKey(
+                'alerta_id'
+            )
+            ->dropForeignKey(
+                'matricula_bolsista'
+            );
+
         $this->table('equipamentos')
             ->dropForeignKey(
                 'codLocal'
             )
             ->dropForeignKey(
+                'responsavel'
+            )
+            ->dropForeignKey(
                 'tipo'
             );
 
-        $this->table('alertas')
+        $this->table('ocorrencias')
             ->dropForeignKey(
                 'tomboEquipamento'
             );
@@ -379,17 +462,13 @@ class Initial extends AbstractMigration
                 'user_matricula'
             );
 
-        $this->table('ocorrencias')
-            ->dropForeignKey(
-                'tomboEquipamento'
-            );
-
-        $this->dropTable('users');
-        $this->dropTable('locals');
-        $this->dropTable('equipamentos');
-        $this->dropTable('tipo_equipamentos');
         $this->dropTable('alertas');
-        $this->dropTable('user_locals');
+        $this->dropTable('bolsistas_alertas');
+        $this->dropTable('equipamentos');
+        $this->dropTable('locals');
         $this->dropTable('ocorrencias');
+        $this->dropTable('tipo_equipamentos');
+        $this->dropTable('user_locals');
+        $this->dropTable('users');
     }
 }
