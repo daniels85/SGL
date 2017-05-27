@@ -7,13 +7,32 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
 
 - Servidor HTTP
 - PHP 5.5.9 ou superior
+- [Composer](https://getcomposer.org/)
 - Extensão intl PHP
 - Extensão mbstring PHP
 
 ### Instalação:
+- Clone o repositório 
+- Instalando as dependências:
+    - Entre na pasta do projeto e execute o comando:
+        ```php composer.phar self-update && composer update``` 
+        ou se o composer foi instalado globalmente:
+        ```composer self-update && composer update```
 - Configurar permissões de escrita para as pastas **logs** e **tmp**
 - Copiar e renomear o arquivo **config/app.default.php** para **config/app.php**
 - Configurar o arquivo **config/app.php**  
+  - Configurar uma salt em **Security -> Salt**
+    
+    ```bash
+    'Security' => [
+        'salt' => env('SECURITY_SALT', '__SALT__'),
+    ],
+    ```
+    Substitua " **__ SALT __**" pela sua. 
+
+    > A **SALT** deve ser uma string alfanumérica de aproximadamente 40 caracteres. 
+      Pode-se utilizar serviços que geram strings randômicas como [**este**](http://www.sethcardoza.com/tools/random-password-generator/).
+    
   - Configurar a conexão de banco de dados em Datasources -> default
 
     > Você pode encontrar mais sobre configuração da Database [aqui](http://book.cakephp.org/3.0/en/orm/database-basics.html#database-configuration).
@@ -40,7 +59,7 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
       > Para mais explicações sobre como configurar o Mail Transport visitar o [Cookbook [Email]](http://book.cakephp.org/3.0/en/core-libraries/email.html).
 
 ----------------------------------------------------------------------------
-### Versão 1.12
+### Versão 1.11.2
 
 ##### <i class="icon-file"></i> Changelog
  Versão   | Descrição

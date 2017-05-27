@@ -1,5 +1,4 @@
 /config/app.php
-/bin/*
 /tmp/*
 /logs/*
 /vendor/*

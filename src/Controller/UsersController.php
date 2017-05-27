@@ -27,18 +27,6 @@ class UsersController extends AppController {
         $this->loadComponent('Csrf');
     }
 
-    public function testeEmail(){
-        $data = [
-                    'nome' => $user->nome,
-                    'matricula' => $user->matricula,
-                    'email' => 'ivanovdealmeida@gmail.com',
-                    'username' => 'Teste',
-                    'newPassword' => '123',
-                ];
-
-        $this->mailer($data, 'recuperarSenha', 'Recuperação de Senha - SGL');
-    }
-
     /**
      * Index method
      *
