@@ -59,7 +59,7 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
       > Para mais explicações sobre como configurar o Mail Transport visitar o [Cookbook [Email]](http://book.cakephp.org/3.0/en/core-libraries/email.html).
 
 ----------------------------------------------------------------------------
-### Versão 1.11.2
+### Versão 1.12
 
 ##### <i class="icon-file"></i> Changelog
  Versão   | Descrição

@@ -3,6 +3,7 @@
 /logs/*
 /vendor/*
 !/vendor/tcpdf/*
+.editorconfig
 sglv01.sublime-workspace
 SGLv1.sublime-workspace
 SGLv1.sublime-project
