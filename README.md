@@ -61,12 +61,13 @@ Aplicação desenvolvida com [CakePHP](http://cakephp.org) 3.x.
     - Na pasta do projeto execute o comando ```bin/cake migrations migrate ```.
 
 - Usuário administrador:
-  Coloque o seguinte código em uma view de sua escolha e altere a **Senha** por uma de sua preferência.
+  
+     Coloque o seguinte código em uma view de sua escolha e altere a **Senha** por uma de sua preferência.
 
   ``` php
   (new \Cake\Auth\DefaultPasswordHasher)->hash("Senha")
   ```
-  Copie a senha e cadastre um usuário manualmente no banco de dados, setando **role** como **Administrador**.
+     Copie a senha e cadastre um usuário manualmente no banco de dados, setando **role** como **Administrador**.
 
 ----------------------------------------------------------------------------
 ### Versão 1.11.2
